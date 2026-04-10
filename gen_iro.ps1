@@ -137,12 +137,12 @@ $dataPanelMap = @(
 foreach ($pair in $idMap)        { $body = $body -replace [regex]::Escape($pair[0]), $pair[1] }
 foreach ($pair in $dataPanelMap) { $body = $body -replace [regex]::Escape($pair[0]), $pair[1] }
 
-# onclick 関数名リネーム
-$body = $body -replace "onclick=""goTab\(",        'onclick="iro5_goTab('
-$body = $body -replace "onclick=""loadExample\(",  'onclick="iro5_loadExample('
-$body = $body -replace "onclick=""addRow\(",       'onclick="iro5_addRow('
-$body = $body -replace "onclick=""clearData\(",    'onclick="iro5_clearData('
-$body = $body -replace "onclick=""generate\(",     'onclick="iro5_generate('
+# onclick 関数名リネーム（引数のパネルIDも iro5- に）
+$body = $body -replace "onclick=""goTab\('p-",        'onclick="iro5_goTab(''iro5-p-'
+$body = $body -replace "onclick=""loadExample\(",      'onclick="iro5_loadExample('
+$body = $body -replace "onclick=""addRow\(",           'onclick="iro5_addRow('
+$body = $body -replace "onclick=""clearData\(",        'onclick="iro5_clearData('
+$body = $body -replace "onclick=""generate\(",         'onclick="iro5_generate('
 $body = $body -replace 'onclick="this\.closest\(''tr''\)\.remove\(\)"', 'onclick="this.closest(''tr'').remove()"'
 
 # ---- JS スコープ化 ----
@@ -164,11 +164,10 @@ $js = $js -replace "getElementById\('resultArea'\)",   "getElementById('iro5-res
 $js = $js -replace "getElementById\('conclusionArea'\)","getElementById('iro5-conclusionArea')"
 
 # querySelector で data-panel / .panel / .nav-tab を iro5- に
-$js = $js -replace 'querySelectorAll\(''\.(panel)\b', "querySelectorAll('.iro5-panel"
-$js = $js -replace 'querySelectorAll\(''\.(nav-tab)\b', "querySelectorAll('.iro5-nav-tab"
-$js = $js -replace '`\.nav-tab\[data-panel="\${panelId}"\]`', '`.iro5-nav-tab[data-panel="${panelId}"]`'
-$js = $js -replace "querySelector\(`\.nav-tab\[data-panel=""", "querySelector(`.iro5-nav-tab[data-panel="""
-$js = $js -replace 'querySelector\(`\.iro5-nav-tab\[data-panel="\$\{panelId\}"\]`\)', 'querySelector(`.iro5-nav-tab[data-panel="${panelId}"]`)'
+$js = $js -replace "querySelectorAll\('\.panel'\)",   "querySelectorAll('.iro5-panel')"
+$js = $js -replace "querySelectorAll\('\.nav-tab'\)", "querySelectorAll('.iro5-nav-tab')"
+$js = $js -replace "closest\('\.nav-tab'\)",          "closest('.iro5-nav-tab')"
+# テンプレートリテラル内のセレクタは後でアウトプット全体に対して直接置換
 
 # 関数名リネーム
 $js = $js -replace '\bgoTab\b',           'iro5_goTab'
@@ -180,6 +179,17 @@ $js = $js -replace '\bbuildConclusions\b','iro5_buildConclusions'
 $js = $js -replace '\bclassify\b',        'iro5_classify'
 $js = $js -replace '\bcolorClass\b',      'iro5_colorClass'
 $js = $js -replace '\brenderSection\b',   'iro5_renderSection'
+
+# JS内の goTab('p-...') 呼び出し引数をリネーム
+$js = $js -replace "iro5_goTab\('p-guide'\)",      "iro5_goTab('iro5-p-guide')"
+$js = $js -replace "iro5_goTab\('p-setup'\)",      "iro5_goTab('iro5-p-setup')"
+$js = $js -replace "iro5_goTab\('p-data'\)",       "iro5_goTab('iro5-p-data')"
+$js = $js -replace "iro5_goTab\('p-result'\)",     "iro5_goTab('iro5-p-result')"
+$js = $js -replace "iro5_goTab\('p-conclusion'\)", "iro5_goTab('iro5-p-conclusion')"
+$js = $js -replace "iro5_goTab\('p-ref'\)",        "iro5_goTab('iro5-p-ref')"
+
+# JSテンプレートリテラル内のボタンクラスも修正
+$js = $js -replace '"btn btn-danger btn-sm"', '"iro5-btn iro5-btn-danger iro5-btn-sm"'
 
 # conc-item クラス名 (JS内で動的生成)
 $js = $js -replace '"conc-item "',     '"iro5-conc-item "'
@@ -209,10 +219,15 @@ $extraCss = @"
 
 # ---- 組み立て ----
 $nl = [System.Environment]::NewLine
+
+# iro5_goTab 上書きスクリプト（別ファイルから読み込み）
+$goTabOverride = [System.IO.File]::ReadAllText("$base\iro_gotab_fix.js", [System.Text.Encoding]::UTF8)
+
 $out  = "<!-- ===== タブ5: 効果と確実性の表記 ===== -->" + $nl
 $out += "<style>" + $nl + $css + $extraCss + $nl + "</style>" + $nl
 $out += $body + $nl
 $out += "<script>" + $nl + $js + $nl + "</script>" + $nl
+$out += $goTabOverride
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 [System.IO.File]::WriteAllText("$base\iro_tab5.txt", $out, $utf8NoBom)
