@@ -31,26 +31,40 @@ $ext2 = $ext2 -replace "onclick='toggleCollapsible\(", "onclick='nma2ToggleColla
 # --- スコープ済みCSS ---
 $scopedCss = @"
 /* ===== NMAの基本タブ 専用スタイル ===== */
-#mp-2 { overflow-x:hidden; width:100%; box-sizing:border-box; }
-.nma2-wrap { display:flex; gap:0; min-height:600px; width:100%; box-sizing:border-box; overflow-x:hidden; }
+#mp-2 { box-sizing:border-box; }
+.nma2-outer { padding:16px 0; }
+.nma2-wrap {
+  display:flex; gap:0;
+  background:#fff; border-radius:8px;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
+  overflow:hidden;
+  min-height:600px;
+}
 .nma2-sidebar {
-  flex-shrink:0; width:250px; background:#fff; border-right:1px solid #d5dbdb;
-  padding:15px 0; font-size:0.82em; position:sticky; top:80px;
-  max-height:calc(100vh - 100px); overflow-y:auto; box-sizing:border-box;
+  flex-shrink:0; width:240px;
+  background:#f8f9fa; border-right:1px solid #dee2e6;
+  padding:12px 0; font-size:0.82em;
+  position:sticky; top:55px;
+  max-height:calc(100vh - 60px); overflow-y:auto;
 }
 .nma2-sidebar .nav-section {
-  padding:8px 15px; font-weight:bold; color:#1a5276; font-size:0.93em;
-  border-bottom:1px solid #d5dbdb; background:#eaf2f8;
+  padding:7px 14px; font-weight:bold; color:#1a5276; font-size:0.9em;
+  border-bottom:1px solid #dee2e6; background:#dce9f5; margin-top:4px;
 }
 .nma2-sidebar a {
-  display:block; padding:6px 15px 6px 22px; color:#2c3e50;
-  text-decoration:none; border-left:3px solid transparent; transition:all 0.2s;
+  display:block; padding:5px 14px 5px 20px; color:#2c3e50;
+  text-decoration:none; border-left:3px solid transparent; transition:all 0.15s;
+  font-size:0.92em; line-height:1.5;
 }
 .nma2-sidebar a:hover,.nma2-sidebar a.active {
-  background:#eaf2f8; border-left-color:#2e86c1; color:#2e86c1;
+  background:#eaf2f8; border-left-color:#2980b9; color:#2980b9;
 }
-.nma2-sidebar a.sub { padding-left:35px; font-size:0.9em; color:#5d6d7e; }
-.nma2-main { flex:1; min-width:0; max-width:860px; padding:25px 40px; overflow-x:hidden; box-sizing:border-box; }
+.nma2-sidebar a.sub { padding-left:32px; font-size:0.88em; color:#5d6d7e; }
+.nma2-main {
+  flex:1; min-width:0;
+  padding:28px 40px 40px 40px;
+  box-sizing:border-box; overflow-x:hidden;
+}
 .nma2-wrap .timeline { border-left:3px solid #2e86c1; padding-left:25px; margin:20px 0; }
 .nma2-wrap .timeline-item { margin-bottom:20px; position:relative; }
 .nma2-wrap .timeline-item::before {
@@ -123,12 +137,12 @@ $scopedCss = @"
 .nma2-wrap .bucher-form button:hover { background:#1a5276; }
 .nma2-wrap #bucherResult { display:none; margin-top:12px; padding:12px 16px; background:#d5f5e3; border-left:4px solid #27ae60; border-radius:0 4px 4px 0; }
 @media (max-width:900px) {
-  .nma2-wrap { flex-direction:column; }
-  .nma2-sidebar { flex-shrink:0; width:100%; position:static; max-height:none; }
-  .nma2-main { padding:15px 12px; min-width:0; }
+  .nma2-wrap { flex-direction:column; border-radius:0; }
+  .nma2-sidebar { width:100%; position:static; max-height:none; border-right:none; border-bottom:1px solid #dee2e6; }
+  .nma2-main { padding:20px 20px; }
 }
 @media (max-width:600px) {
-  .nma2-main { padding:10px 8px; }
+  .nma2-main { padding:14px 14px; }
   .nma2-wrap .section h2 { font-size:1.2em; }
   .nma2-wrap .section h3 { font-size:1.05em; }
 }
@@ -206,12 +220,14 @@ $js = @"
 $nl = [System.Environment]::NewLine
 $tab2  = "<!-- ===== タブ2: NMAの基本 ===== -->" + $nl
 $tab2 += "<style>" + $nl + $scopedCss + $nl + "</style>" + $nl
+$tab2 += "<div class='container nma2-outer'>" + $nl
 $tab2 += "<div class='nma2-wrap' id='nma2-content-wrap'>" + $nl
 $tab2 += $sidebar + $nl
 $tab2 += "<main class='nma2-main'>" + $nl
 $tab2 += $mainContent + $nl
 $tab2 += $ext2 + $nl
 $tab2 += "</main>" + $nl + "</div>" + $nl
+$tab2 += "</div>" + $nl
 $tab2 += $js
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
