@@ -216,11 +216,12 @@ tr:nth-child(even){background:#f8f9fa;}
 <!-- ===== タブ2: NMAの基本 ===== -->
 <style>
 /* ===== NMAの基本タブ 専用スタイル ===== */
-.nma2-wrap { display:flex; gap:0; min-height:600px; }
+#mp-2 { overflow-x:hidden; width:100%; box-sizing:border-box; }
+.nma2-wrap { display:flex; gap:0; min-height:600px; width:100%; box-sizing:border-box; overflow-x:hidden; }
 .nma2-sidebar {
-  width:280px; min-width:220px; background:#fff; border-right:1px solid #d5dbdb;
+  flex-shrink:0; width:250px; background:#fff; border-right:1px solid #d5dbdb;
   padding:15px 0; font-size:0.82em; position:sticky; top:80px;
-  max-height:calc(100vh - 100px); overflow-y:auto;
+  max-height:calc(100vh - 100px); overflow-y:auto; box-sizing:border-box;
 }
 .nma2-sidebar .nav-section {
   padding:8px 15px; font-weight:bold; color:#1a5276; font-size:0.93em;
@@ -234,7 +235,7 @@ tr:nth-child(even){background:#f8f9fa;}
   background:#eaf2f8; border-left-color:#2e86c1; color:#2e86c1;
 }
 .nma2-sidebar a.sub { padding-left:35px; font-size:0.9em; color:#5d6d7e; }
-.nma2-main { flex:1; padding:25px 35px; max-width:900px; overflow-x:hidden; }
+.nma2-main { flex:1; min-width:0; padding:25px 30px; overflow-x:hidden; box-sizing:border-box; }
 .nma2-wrap .timeline { border-left:3px solid #2e86c1; padding-left:25px; margin:20px 0; }
 .nma2-wrap .timeline-item { margin-bottom:20px; position:relative; }
 .nma2-wrap .timeline-item::before {
@@ -282,14 +283,14 @@ tr:nth-child(even){background:#f8f9fa;}
 .nma2-wrap .collapsible.open { display:block; }
 .nma2-wrap code { background:#f4f6f7; padding:2px 6px; border-radius:3px; font-family:Consolas,Monaco,monospace; font-size:0.9em; }
 .nma2-wrap .code-block { background:#2d2d2d; color:#f8f8f2; padding:15px; border-radius:6px; overflow-x:auto; font-family:Consolas,Monaco,monospace; font-size:0.85em; line-height:1.5; margin:15px 0; }
-.nma2-wrap .formula { background:#f4f6f7; border:1px solid #d5dbdb; padding:15px; margin:15px 0; text-align:center; font-family:'Cambria Math',serif; font-size:1.1em; border-radius:4px; }
-.nma2-wrap .ref { background:#fef9e7; border-left:4px solid #f39c12; padding:10px 15px; margin:12px 0; font-size:0.88em; border-radius:0 4px 4px 0; }
+.nma2-wrap .formula { background:#f4f6f7; border:1px solid #d5dbdb; padding:15px; margin:15px 0; text-align:center; font-family:'Cambria Math',serif; font-size:1.1em; border-radius:4px; overflow-x:auto; word-break:break-word; }
+.nma2-wrap .ref { background:#fef9e7; border-left:4px solid #f39c12; padding:10px 15px; margin:12px 0; font-size:0.88em; border-radius:0 4px 4px 0; word-break:break-word; }
 .nma2-wrap .ref strong { color:#e67e22; }
-.nma2-wrap .note { background:#eaf2f8; border-left:4px solid #3498db; padding:12px 15px; margin:12px 0; border-radius:0 4px 4px 0; }
-.nma2-wrap .warning-box { background:#fdedec; border-left:4px solid #e74c3c; padding:12px 15px; margin:12px 0; border-radius:0 4px 4px 0; }
-.nma2-wrap .card { background:#fff; border:1px solid #d5dbdb; border-radius:8px; padding:20px; margin:15px 0; box-shadow:0 2px 5px rgba(0,0,0,.05); }
+.nma2-wrap .note { background:#eaf2f8; border-left:4px solid #3498db; padding:12px 15px; margin:12px 0; border-radius:0 4px 4px 0; word-break:break-word; }
+.nma2-wrap .warning-box { background:#fdedec; border-left:4px solid #e74c3c; padding:12px 15px; margin:12px 0; border-radius:0 4px 4px 0; word-break:break-word; }
+.nma2-wrap .card { background:#fff; border:1px solid #d5dbdb; border-radius:8px; padding:20px; margin:15px 0; box-shadow:0 2px 5px rgba(0,0,0,.05); overflow-x:auto; }
 .nma2-wrap .card h4 { color:#1a5276; margin-bottom:10px; }
-.nma2-wrap table { width:100%; border-collapse:collapse; margin:15px 0; font-size:0.9em; }
+.nma2-wrap table { width:100%; border-collapse:collapse; margin:15px 0; font-size:0.9em; display:block; overflow-x:auto; }
 .nma2-wrap th,
 .nma2-wrap td { border:1px solid #d5dbdb; padding:10px 12px; text-align:left; }
 .nma2-wrap th { background:#1a5276; color:white; font-weight:600; }
@@ -308,8 +309,13 @@ tr:nth-child(even){background:#f8f9fa;}
 .nma2-wrap #bucherResult { display:none; margin-top:12px; padding:12px 16px; background:#d5f5e3; border-left:4px solid #27ae60; border-radius:0 4px 4px 0; }
 @media (max-width:900px) {
   .nma2-wrap { flex-direction:column; }
-  .nma2-sidebar { width:100%; position:static; max-height:none; }
-  .nma2-main { padding:15px; }
+  .nma2-sidebar { flex-shrink:0; width:100%; position:static; max-height:none; }
+  .nma2-main { padding:15px 12px; min-width:0; }
+}
+@media (max-width:600px) {
+  .nma2-main { padding:10px 8px; }
+  .nma2-wrap .section h2 { font-size:1.2em; }
+  .nma2-wrap .section h3 { font-size:1.05em; }
 }
 </style>
 <div class='nma2-wrap' id='nma2-content-wrap'>
