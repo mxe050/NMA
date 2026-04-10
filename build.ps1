@@ -8,6 +8,9 @@ $p4 = [System.IO.File]::ReadAllText("$base\パート4.txt", [System.Text.Encodin
 $p5 = [System.IO.File]::ReadAllText("$base\パート5.txt", [System.Text.Encoding]::UTF8)
 $p6 = [System.IO.File]::ReadAllText("$base\パート6.txt", [System.Text.Encoding]::UTF8)
 
+# タブ1: マルチ介入NMA
+$multiTab1 = [System.IO.File]::ReadAllText("$base\Multi_tab1.txt", [System.Text.Encoding]::UTF8)
+
 # タブ2: NMAの基本
 $nmaTab2 = [System.IO.File]::ReadAllText("$base\NMA_tab2.txt", [System.Text.Encoding]::UTF8)
 
@@ -86,7 +89,9 @@ $outerHeader = @"
     </div>
   </div>
 </div>
-<div class="main-panel" id="mp-1"><div class="placeholder-panel"><h2>準備中</h2><p>「マルチ介入・ネットワークメタ分析」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-1">
+$multiTab1
+</div><!-- /mp-1 -->
 <div class="main-panel" id="mp-2">
 $nmaTab2
 </div><!-- /mp-2 -->

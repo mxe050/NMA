@@ -211,7 +211,1164 @@ tr:nth-child(even){background:#f8f9fa;}
     </div>
   </div>
 </div>
-<div class="main-panel" id="mp-1"><div class="placeholder-panel"><h2>準備中</h2><p>「マルチ介入・ネットワークメタ分析」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-1">
+<!-- ===== タブ1: マルチ介入NMA ===== -->
+<style>
+/* ===== マルチ介入NMAタブ 専用スタイル ===== */
+#mp-1 { box-sizing:border-box; }
+.m1-outer { padding:16px 0; }
+
+.m1-wrap {
+  display:flex; gap:0;
+  background:#fff; border-radius:8px;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
+  overflow:hidden; min-height:600px;
+}
+
+/* サイドバー */
+.m1-sidebar {
+  flex-shrink:0; width:240px;
+  background:#f8f9fa; border-right:1px solid #dee2e6;
+  padding:12px 0; font-size:0.82em;
+  position:sticky; top:55px;
+  max-height:calc(100vh - 60px); overflow-y:auto;
+  transition:width .25s;
+}
+.m1-sidebar.hidden { width:0; padding:0; overflow:hidden; }
+.m1-sidebar-header {
+  padding:8px 14px; font-weight:bold; color:#1a365d; font-size:0.9em;
+  border-bottom:1px solid #dee2e6; background:#dce9f5; margin-bottom:4px;
+}
+.m1-toc-list { list-style:none; padding:0; margin:0; }
+.m1-toc-item { margin:0; }
+.m1-toc-link {
+  display:block; padding:5px 14px 5px 20px; color:#2d3748;
+  text-decoration:none; border-left:3px solid transparent; transition:all .15s;
+  font-size:0.88em; line-height:1.5;
+}
+.m1-toc-link:hover, .m1-toc-link.active {
+  background:#ebf4ff; border-left-color:#3182ce; color:#3182ce;
+}
+.m1-toc-link.m1-sub { padding-left:32px; font-size:0.84em; color:#718096; }
+
+/* メインコンテンツ */
+.m1-main {
+  flex:1; min-width:0;
+  padding:28px 40px 40px 40px;
+  box-sizing:border-box; overflow-x:hidden;
+}
+
+/* セクション */
+.m1-section {
+  margin-bottom:24px;
+  border:1px solid #e2e8f0; border-radius:8px; overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.m1-section-header {
+  background:linear-gradient(135deg,#1a365d,#2c5282);
+  color:#fff; padding:14px 20px; cursor:pointer;
+  display:flex; align-items:center; gap:12px;
+  user-select:none;
+}
+.m1-section-header:hover { background:linear-gradient(135deg,#2c5282,#3182ce); }
+.m1-section-num {
+  background:rgba(255,255,255,.2); border-radius:4px;
+  padding:2px 8px; font-size:0.78em; font-weight:bold; white-space:nowrap;
+}
+.m1-section-header h2 { font-size:1.05em; margin:0; font-weight:600; }
+.m1-section-body { padding:20px 24px; }
+.m1-section-body.hidden { display:none; }
+
+/* サブセクション */
+.m1-subsection { margin:18px 0; padding-left:14px; border-left:3px solid #3182ce; }
+.m1-subsection h3 { color:#1a365d; font-size:1.0em; margin-bottom:8px; }
+.m1-subsection h4 { color:#2c5282; font-size:0.9em; margin:10px 0 4px; }
+
+/* 引用ブロック */
+.m1-quote-block {
+  background:#f7fafc; border-left:4px solid #3182ce;
+  padding:12px 16px; margin:12px 0; border-radius:0 6px 6px 0;
+  font-size:0.9em; color:#2d3748;
+}
+.m1-quote-source { font-size:0.8em; color:#718096; margin-top:6px; }
+
+/* キーポイント */
+.m1-key-point {
+  background:#f0fff4; border:1px solid #9ae6b4; border-radius:6px;
+  padding:14px 16px; margin:12px 0;
+}
+.m1-kp-title { font-weight:bold; color:#276749; margin-bottom:6px; font-size:0.9em; }
+
+/* 警告・成功・説明ボックス */
+.m1-warning-box {
+  background:#fff5f5; border:1px solid #feb2b2; border-radius:6px;
+  padding:14px 16px; margin:12px 0;
+}
+.m1-wb-title { font-weight:bold; color:#c53030; margin-bottom:6px; font-size:0.9em; }
+.m1-success-box {
+  background:#f0fff4; border:1px solid #9ae6b4; border-radius:6px;
+  padding:14px 16px; margin:12px 0;
+}
+.m1-sb-title { font-weight:bold; color:#276749; margin-bottom:6px; font-size:0.9em; }
+.m1-explanation-box {
+  background:#ebf8ff; border:1px solid #90cdf4; border-radius:6px;
+  padding:14px 16px; margin:12px 0;
+}
+.m1-eb-title { font-weight:bold; color:#2b6cb0; margin-bottom:6px; font-size:0.9em; }
+
+/* テーブル */
+.m1-data-table { overflow-x:auto; margin:14px 0; }
+.m1-data-table table { width:100%; border-collapse:collapse; font-size:0.88em; }
+.m1-data-table th { background:#1a365d; color:#fff; padding:9px 12px; text-align:left; font-weight:600; }
+.m1-data-table td { border:1px solid #e2e8f0; padding:8px 12px; text-align:left; vertical-align:top; }
+.m1-data-table tr:nth-child(even) { background:#f7fafc; }
+.m1-data-table tr:hover { background:#ebf4ff; }
+.m1-wrap table { width:100%; border-collapse:collapse; font-size:0.88em; display:block; overflow-x:auto; }
+.m1-wrap th { background:#1a365d; color:#fff; padding:9px 12px; font-weight:600; }
+.m1-wrap td { border:1px solid #e2e8f0; padding:8px 12px; vertical-align:top; }
+.m1-wrap tr:nth-child(even) { background:#f7fafc; }
+
+/* フロー図 */
+.m1-flow-diagram { margin:16px 0; }
+.m1-flow-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:8px 0; }
+.m1-flow-step {
+  background:#ebf4ff; border:1px solid #90cdf4; border-radius:6px;
+  padding:8px 14px; font-size:0.88em; color:#1a365d; min-width:80px; text-align:center;
+}
+.m1-flow-arrow { color:#3182ce; font-size:1.2em; font-weight:bold; }
+.m1-flow-vertical-arrow { text-align:center; color:#3182ce; font-size:1.2em; margin:4px 0; }
+
+/* 比較グリッド */
+.m1-comparison-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:12px; margin:14px 0; }
+.m1-comparison-card { border:1px solid #e2e8f0; border-radius:8px; padding:16px; background:#fff; }
+.m1-cc-title { font-weight:bold; color:#1a365d; margin-bottom:8px; font-size:0.9em; }
+.m1-con { font-size:0.87em; color:#4a5568; margin:3px 0; padding-left:12px; }
+
+/* タブ */
+.m1-tabs { margin:14px 0; }
+.m1-tab-btn {
+  padding:8px 16px; border:none; background:#e2e8f0; cursor:pointer;
+  font-size:0.88em; border-radius:6px 6px 0 0; transition:background .2s; margin-right:2px;
+}
+.m1-tab-btn.active { background:#1a365d; color:#fff; }
+.m1-tab-content { display:none; padding:16px; border:1px solid #e2e8f0; border-radius:0 6px 6px 6px; background:#fff; }
+.m1-tab-content.active { display:block; }
+
+/* 星評価 */
+.m1-stars { color:#d69e2e; letter-spacing:2px; }
+.m1-empty { color:#e2e8f0; }
+
+/* 汎用テキスト要素 */
+.m1-wrap p { margin-bottom:12px; line-height:1.75; text-align:justify; }
+.m1-wrap code { background:#edf2f7; padding:2px 6px; border-radius:3px; font-family:Consolas,Monaco,monospace; font-size:0.88em; }
+.m1-wrap pre { background:#1a202c; color:#e2e8f0; padding:16px; border-radius:6px; overflow-x:auto; font-size:0.85em; line-height:1.5; margin:12px 0; }
+.m1-wrap strong { color:#1a365d; }
+.m1-wrap ul, .m1-wrap ol { padding-left:24px; margin:10px 0; }
+.m1-wrap li { margin:4px 0; line-height:1.7; font-size:0.94em; }
+
+/* レスポンシブ */
+@media (max-width:900px) {
+  .m1-wrap { flex-direction:column; border-radius:0; }
+  .m1-sidebar { width:100%; position:static; max-height:none; border-right:none; border-bottom:1px solid #dee2e6; }
+  .m1-main { padding:20px; }
+  .m1-comparison-grid { grid-template-columns:1fr; }
+}
+@media (max-width:600px) {
+  .m1-main { padding:14px; }
+  .m1-section-header h2 { font-size:0.95em; }
+}
+</style>
+<div class='container m1-outer'>
+<div class='m1-wrap'>
+<aside class="m1-sidebar" id="m1-sidebar">
+    <div class="m1-sidebar-header">📑 目次 - Table of Contents</div>
+    <ul class="m1-toc-list" id="m1-tocList">
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec1" data-m1sec="sec1">1. はじめに</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec2" data-m1sec="sec2">2. ペアワイズ比較の歴史と限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec2-1" data-m1sec="sec2-1">2.1 コクランレビューの伝統</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec2-2" data-m1sec="sec2-2">2.2 ペアワイズ比較の根本的限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec3" data-m1sec="sec3">3. コクランオーバービューの発展と課題</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-1" data-m1sec="sec3-1">3.1 二つの概念</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-2" data-m1sec="sec3-2">3.2 統計分析の限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-3" data-m1sec="sec3-3">3.3 最初の10件の実態</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec4" data-m1sec="sec4">4. NMAの発展</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-1" data-m1sec="sec4-1">4.1 NMAの基本概念</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-2" data-m1sec="sec4-2">4.2 NMAの利点</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-3" data-m1sec="sec4-3">4.3 CMIMGの形成</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec5" data-m1sec="sec5">5. NMAの推移性仮定と限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-1" data-m1sec="sec5-1">5.1 推移性仮定の定義</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-2" data-m1sec="sec5-2">5.2 推移性が成立しない状況</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-3" data-m1sec="sec5-3">5.3 レビュー検索の限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec6" data-m1sec="sec6">6. NMAランキングの危うさ</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-1" data-m1sec="sec6-1">6.1 ランキング指標の本質的限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-2" data-m1sec="sec6-2">6.2 健康効果のみの問題</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-3" data-m1sec="sec6-3">6.3 SUCRAの限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-4" data-m1sec="sec6-4">6.4 NMAは十分ではない</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec7" data-m1sec="sec7">7. MC-EtDフレームワーク</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-1" data-m1sec="sec7-1">7.1 定義と目的</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-2" data-m1sec="sec7-2">7.2 NMAに対する優位性</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-3" data-m1sec="sec7-3">7.3 二段階アプローチ</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec8" data-m1sec="sec8">8. MC-EtDの方法論的詳細</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-1" data-m1sec="sec8-1">8.1 計画と優先順位設定</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-2" data-m1sec="sec8-2">8.2 閾値の設定</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-3" data-m1sec="sec8-3">8.3 正味のバランス</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-4" data-m1sec="sec8-4">8.4 グルーピング</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec9" data-m1sec="sec9">9. アルゴリズム詳細解説</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec10" data-m1sec="sec10">10. GRADEproマルチ介入モジュール</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec11" data-m1sec="sec11">11. 適用事例</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec12" data-m1sec="sec12">12. NMAとMC-EtDの統合</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec13" data-m1sec="sec13">13. 結論</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec14" data-m1sec="sec14">14. 参考文献</a></li>
+    </ul>
+</aside>
+<main class='m1-main' id='m1-mainContent'>
+<!-- セクション1：はじめに -->
+<div class="m1-section" id="sec1">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 1</div>
+        <h2>はじめに</h2>
+    </div>
+    <div class="m1-section-body">
+        <p>臨床ガイドライン作成において、意思決定者は通常、単一のペアワイズ比較（介入A vs 介入B）だけでなく、<strong>複数の競合する介入の中から最適なものを選択する</strong>必要がある。この課題に対応するため、エビデンス統合の方法論は、従来のペアワイズメタアナリシスから、ネットワークメタアナリシス（NMA）、そして複数介入比較のためのEvidence-to-Decision（EtD）フレームワークへと進化してきた。</p>
+
+        <div class="m1-explanation-box">
+            <div class="m1-eb-title">💡 なぜこのレポートが重要なのか</div>
+            <p>臨床現場では、ある疾患に対して複数の治療薬が存在するのが通常である。例えば、高血圧治療にはACE阻害剤、ARB、カルシウム拮抗薬、利尿薬など多数の選択肢がある。従来のメタアナリシスは「薬Aと薬B、どちらが良いか」という二者択一の質問にしか答えられなかった。NMAは複数の薬を同時に比較できるが、健康効果以外の要因（コスト、患者の好み、実現可能性など）を考慮しない。MC-EtDフレームワークは、この包括的な意思決定を支援するために開発された。</p>
+        </div>
+
+        <p>本レポートでは、この進化の過程を詳細に追跡し、各手法の利点と限界、特に<strong>NMAのランキングの問題点</strong>と<strong>MC-EtDフレームワークの優位性</strong>について、提供された文献に基づいて包括的に論じる。</p>
+
+        <div class="m1-key-point">
+            <div class="m1-kp-title">📌 本レポートの3つの核心メッセージ</div>
+            <p><strong>1.</strong> NMAは複数介入の効果比較に強力だが、健康効果以外の意思決定基準を考慮しない<br>
+            <strong>2.</strong> NMAのランキング（SUCRA等）は確実性を反映しないため、ランキングのみに基づく意思決定は危険<br>
+            <strong>3.</strong> MC-EtDフレームワークは、NMAの結果を含む12の基準すべてを透明に統合し、より包括的な意思決定を支援する</p>
+        </div>
+
+        <!-- 進化のフロー図 -->
+        <div class="m1-flow-diagram">
+            <h4 style="margin-bottom:16px;color:var(--primary)">エビデンス統合方法論の進化</h4>
+            <div class="m1-flow-row">
+                <div class="m1-flow-step" style="background:#718096">ペアワイズ<br>メタアナリシス<br><small>（A vs B のみ）</small></div>
+                <span class="m1-flow-arrow">→</span>
+                <div class="m1-flow-step" style="background:var(--primary-light)">コクラン<br>オーバービュー<br><small>（レビューのレビュー）</small></div>
+                <span class="m1-flow-arrow">→</span>
+                <div class="m1-flow-step" style="background:var(--primary)">ネットワーク<br>メタアナリシス<br><small>（複数介入の効果比較）</small></div>
+                <span class="m1-flow-arrow">→</span>
+                <div class="m1-flow-step" style="background:var(--accent)">MC-EtD<br>フレームワーク<br><small>（包括的意思決定）</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- セクション2：ペアワイズ比較 -->
+<div class="m1-section" id="sec2">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 2</div>
+        <h2>ペアワイズ比較の歴史と限界</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec2-1">
+            <h3>2.1 コクランレビューにおけるペアワイズ比較の伝統</h3>
+            <p>コクランレビューの伝統的なアプローチは、特定の条件や集団に対する介入間のペアワイズ比較を提示することであった。Becker, Caldwell, Higgins らの2003年文書では、この限界が明確に指摘されている：</p>
+
+            <div class="m1-quote-block">
+                "Most Cochrane Reviews present pair-wise comparisons between interventions for a specific condition or in a specific population or setting. However, it is often the case that more than two competing interventions are available in a given situation. In these cases, it would be good to have a single review that includes all of the relevant interventions and allows readers to learn about their relative effectiveness or potential for harm."
+                <span class="m1-quote-source">— Becker LA, Caldwell D, Higgins J, et al. "Comparing Multiple Interventions in Cochrane Reviews" (2003), p.2</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 わかりやすく説明すると</div>
+                <p>例えば、変形性膝関節症の治療を考えてみよう。利用可能な治療法には、アセトアミノフェン、経口NSAID、外用NSAID、オピオイド、ヒアルロン酸注射、理学療法、運動療法などがある。従来のコクランレビューでは「アセトアミノフェン vs プラセボ」「NSAID vs プラセボ」などの個別ペアワイズ比較が別々のレビューとして存在していた。臨床医が「結局、どの治療法が最も良いのか？」と知りたい場合、複数のレビューを横断的に読まなければならず、異なるレビュー間で直接比較することが困難であった。</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec2-2">
+            <h3>2.2 ペアワイズ比較の根本的限界</h3>
+            <p>ペアワイズ比較には主に2つの根本的な限界がある：</p>
+
+            <div class="m1-warning-box">
+                <div class="m1-wb-title">⚠️ 限界1：情報の断片化</div>
+                <p>CRG（Cochrane Review Groups）は通常、比較的焦点を絞った質問をカバーする一連の介入レビューに分割して対処する傾向があった。これは個々のレビュー作成の労力を軽減する利点がある一方で、利用者が全体像を把握することを困難にしていた。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter);margin-top:8px">出典：Multiple Cochrane - 2003, pp.5-6. 「A series of Intervention Reviews each covering a relatively focused question is attractive to CRGs and review authors because such reviews require in general less effort in initiation, production, coordination, and updating.」</p>
+            </div>
+
+            <div class="m1-warning-box">
+                <div class="m1-wb-title">⚠️ 限界2：非公式な間接比較の危険性</div>
+                <p>異なるレビューの結果を一つの表に並置して提示する方法は、読者に<strong>非公式な間接比較</strong>を促すことになるが、これは推移性の仮定が満たされない場合に<strong>誤った結論</strong>に導く可能性がある。</p>
+            </div>
+
+            <div class="m1-quote-block">
+                "Presentation of a table that includes results of pairwise comparisons taken from different systematic reviews...encourages readers to make their own informal indirect comparisons. This has been shown to lead to erroneous conclusions if the trials summarized in the various rows of the table are not comparable or the interventions not jointly randomizable."
+                <span class="m1-quote-source">— Multiple Cochrane - 2003, p.8（Caldwell et al, 2010を引用）</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 「非公式な間接比較」とは何か？</div>
+                <p>あるオーバービューの表が以下のような結果を示しているとする：</p>
+                <p>・薬A vs プラセボ：リスク比 0.5（薬Aはプラセボより50%リスク減少）<br>
+                ・薬B vs プラセボ：リスク比 0.7（薬Bはプラセボより30%リスク減少）</p>
+                <p>読者は自然に「薬Aの方が薬Bより効果的だ」と結論付けるかもしれない。しかし、薬Aの試験は軽症患者で行われ、薬Bの試験は重症患者で行われていた場合、この比較は<strong>無効</strong>である。試験参加者が異なる集団であるため、薬Aと薬Bを直接比較するための前提条件（推移性）が満たされていない。これが「非公式な間接比較の危険性」である。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- セクション3：コクランオーバービュー -->
+<div class="m1-section" id="sec3">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 3</div>
+        <h2>コクランオーバービューの発展と課題</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec3-1">
+            <h3>3.1 オーバービューの二つの概念</h3>
+            <p>コクランオーバービューは「系統的レビューの系統的レビュー」として構想され、その基本単位は個別の試験ではなくシステマティックレビューであった。しかし、Umbrella Review Working Group（URWG）の議論を通じて、二つの異なる概念が浮かび上がった：</p>
+
+            <div class="m1-comparison-grid">
+                <div class="comparison-card pro">
+                    <div class="m1-cc-title">概念1：「フレンドリーなフロントエンド」</div>
+                    <ul>
+                        <li>コクランライブラリへの入り口として機能</li>
+                        <li>関連レビューの存在と概要を提供</li>
+                        <li>詳細は個別レビューを参照</li>
+                        <li>利用者がライブラリを「発見」するためのツール</li>
+                    </ul>
+                </div>
+                <div class="comparison-card pro">
+                    <div class="m1-cc-title">概念2：相対的有効性の比較ツール</div>
+                    <ul>
+                        <li>異なる介入の相対的有効性を学ぶことを可能に</li>
+                        <li>直接比較されていない介入間の比較も含む</li>
+                        <li>一連の関連介入全体の賢明な比較を可能に</li>
+                        <li>データが複数レビューに分散していても統合</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.2, Table 22.1.a</p>
+        </div>
+
+        <div class="m1-subsection" id="sec3-2">
+            <h3>3.2 統計分析の限界</h3>
+            <p>URWGの議論と結果として生まれたハンドブックの章は、複数介入の統計分析の問題を詳細には扱わなかった。NMA技術が発展途上であったため、方法論をさらに精錬・要約する必要があると判断されたためである。</p>
+
+            <div class="m1-quote-block">
+                "The discussions of the URWG and the resulting chapter did not deal with the issue of statistical analyses of multiple interventions to any great degree. Techniques for network meta-analyses were being developed, and the group felt that the methodology needed to be further distilled and summarized to be included in the Handbook."
+                <span class="m1-quote-source">— Multiple Cochrane - 2003, p.6</span>
+            </div>
+
+            <p>代わりに、ハンドブックでは関連レビューのデータを並置して提示する方法が推奨された。この方法の問題点（非公式な間接比較の危険性）はハンドブックでは十分に扱われなかった。</p>
+        </div>
+
+        <div class="m1-subsection" id="sec3-3">
+            <h3>3.3 最初の10件のコクランオーバービューの実態</h3>
+            <p>CDSRに公表された最初の10件のオーバービューを分析したところ、著者らは3つの異なるアプローチを特定した：</p>
+
+            <div class="m1-tabs">
+                <button class="tab-btn active" onclick="showTab(event,'tab-formal')">正式な間接比較（3件）</button>
+                <button class="m1-tab-btn" onclick="showTab(event,'tab-direct')">直接比較のみ（3件）</button>
+                <button class="m1-tab-btn" onclick="showTab(event,'tab-mapping')">エビデンスマッピング（4件）</button>
+            </div>
+            <div class="tab-content active" id="tab-formal">
+                <p><strong>正式な統計的間接比較を含む3件：</strong></p>
+                <p>・Singh et al (2009)：関節リウマチに対する生物学的製剤<br>
+                ・Singh et al (2011)：生物学的製剤の有害効果<br>
+                ・Cates et al (2012)：小児喘息におけるフォルモテロールまたはサルメテロールの安全性</p>
+                <p>3件すべてで、オーバービュー著者が<strong>個別研究からデータを抽出</strong>して分析に使用した。最初のオーバービューはコクランレビューのみを検索し、レビュー内の試験を分析に使用した。残りの2件は、レビューから開始し、その後追加の試験検索を行った。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, pp.9-10</p>
+            </div>
+            <div class="m1-tab-content" id="tab-direct">
+                <p><strong>直接比較のみを含む3件：</strong></p>
+                <p>・Keus et al (2010)：胆石症に対する3つの手術法<br>
+                ・Moore et al (2011)：術後急性疼痛に対する単回投与鎮痛剤<br>
+                ・Amato et al (2011)：アルコール離脱症候群の治療薬</p>
+                <p>3件すべてがコクランレビューのみに限定して検索した。鎮痛剤のオーバービューは、推移性の問題について議論セクションで詳細に取り上げた点が注目に値する。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, pp.10-13</p>
+            </div>
+            <div class="m1-tab-content" id="tab-mapping">
+                <p><strong>直接・間接比較を提供しなかった4件：</strong></p>
+                <p>・Ryan et al (2011)：処方と薬物使用のための消費者向け介入<br>
+                ・Jones et al (2012)：分娩中の疼痛管理<br>
+                ・Flodgren et al (2011)：金銭的インセンティブ<br>
+                ・Payne et al (2012)：進行性疾患の疲労と体重減少</p>
+                <p>これらは含まれるレビューの結果を用いて既存のエビデンスの<strong>マッピング</strong>を提供したのみで、介入間の比較は行わなかった。2件のレビューは介入とアウトカムの独自の分類法を提供した。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.13</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- セクション4：NMAの発展 -->
+<div class="m1-section" id="sec4">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 4</div>
+        <h2>ネットワークメタアナリシス（NMA）の発展</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec4-1">
+            <h3>4.1 NMAの基本概念</h3>
+            <p>NMAは、直接比較と間接比較を組み合わせることで、直接比較されたことのない介入間の相対的効果を推定する統計的手法である。</p>
+
+            <div class="m1-quote-block">
+                "When more than one intervention (option), for example, multiple drugs, may be used for a specific problem, when it is appropriate and feasible to do so, decision makers may apply network meta-analysis (NMA) to combine results of studies across multiple interventions."
+                <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.2</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 NMAの仕組みをわかりやすく説明</div>
+                <p>NMAをイメージするために、3つの薬A、B、Cを考えよう。</p>
+                <p><strong>直接比較のエビデンス：</strong><br>
+                ・試験1：薬A vs 薬B → Aの方がBより20%良い<br>
+                ・試験2：薬B vs 薬C → Bの方がCより15%良い</p>
+                <p><strong>間接比較（NMAで推定）：</strong><br>
+                ・薬A vs 薬C → 直接の試験がなくても、上記の情報から「Aの方がCより約35%良い」と推定できる</p>
+                <p>これがNMAの基本的な考え方である。「ネットワーク」という名前は、各介入をノード（節点）、各試験をエッジ（辺）とするネットワークグラフで視覚化できることに由来する。NMAは、このネットワーク内のすべてのペアの介入間の相対効果を同時に推定する。</p>
+            </div>
+
+            <!-- NMAネットワーク概念図 -->
+            <div class="m1-flow-diagram">
+                <h4 style="margin-bottom:16px;color:var(--primary)">NMAのネットワーク概念図</h4>
+                <svg viewBox="0 0 500 300" style="max-width:500px;margin:0 auto;display:block">
+                    <circle cx="250" cy="50" r="35" fill="#2c5282" stroke="#1a365d" stroke-width="2"/>
+                    <text x="250" y="55" text-anchor="middle" fill="white" font-size="14" font-weight="bold">薬A</text>
+                    <circle cx="100" cy="220" r="35" fill="#2c5282" stroke="#1a365d" stroke-width="2"/>
+                    <text x="100" y="225" text-anchor="middle" fill="white" font-size="14" font-weight="bold">薬B</text>
+                    <circle cx="400" cy="220" r="35" fill="#2c5282" stroke="#1a365d" stroke-width="2"/>
+                    <text x="400" y="225" text-anchor="middle" fill="white" font-size="14" font-weight="bold">薬C</text>
+                    <line x1="230" y1="80" x2="120" y2="190" stroke="#3182ce" stroke-width="4" stroke-dasharray="0"/>
+                    <line x1="130" y1="210" x2="370" y2="210" stroke="#3182ce" stroke-width="4" stroke-dasharray="0"/>
+                    <line x1="270" y1="80" x2="380" y2="190" stroke="#e53e3e" stroke-width="3" stroke-dasharray="8,4"/>
+                    <text x="155" y="135" fill="#3182ce" font-size="11" font-weight="bold">直接比較</text>
+                    <text x="215" y="245" fill="#3182ce" font-size="11" font-weight="bold">直接比較</text>
+                    <text x="350" y="135" fill="#e53e3e" font-size="11" font-weight="bold">間接比較</text>
+                    <text x="350" y="150" fill="#e53e3e" font-size="10">(NMAで推定)</text>
+                </svg>
+                <p style="font-size:0.85rem;color:var(--text-lighter);margin-top:12px">実線 = 直接比較（試験あり）、破線 = 間接比較（NMAで推定）</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec4-2">
+            <h3>4.2 NMAの利点</h3>
+
+            <div class="m1-success-box">
+                <div class="m1-sb-title">✅ NMAの主要な利点</div>
+                <p><strong>1. 単一分析で複数介入の相対効果を推定：</strong>任意のペアの介入間の相対効果を直接提供する（Split 2023プレゼンテーション, p.19）</p>
+                <p><strong>2. 精度の向上：</strong>より多くの介入をネットワークに含めることで、「the greater the potential gain in precision and the greater the ability to establish whether various sources of evidence 'agree' with each other」（Multiple Cochrane - 2003, p.8）</p>
+                <p><strong>3. 視覚化の進歩：</strong>SUCRAランキング曲線、ネットワークプロット、リーグテーブルなどの可視化ツールが発展（Piggott et al., 2021; Yepes-Nuñez et al., 2019）</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec4-3">
+            <h3>4.3 CMIMGの形成と方法論的発展</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="ti-date">2008年</div>
+                    <div class="ti-title">ハンドブックChapter 22の公開</div>
+                    <div class="ti-desc">Becker & Oxmanによるオーバービュー章が公開。NMAの詳細な方法論は含まれず。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="ti-date">2010年</div>
+                    <div class="ti-title">CMIMGの設立</div>
+                    <div class="ti-desc">Cochrane Comparing Multiple Interventions Methods Group（CMIMG）が設立。NMA手法のガイダンス開発を開始。Chapter 22との矛盾を特定し解決するプログラムを開始。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="ti-date">2011年3月</div>
+                    <div class="ti-title">ミラノ会議</div>
+                    <div class="ti-desc">Italian Cochrane Centreで開催。オーバービューの定義を拡大し、有効なNMAをオーバービューに含める試みを決定。「Broadening the search in an OoR to include individual studies may be appropriate in some cases」</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="ti-date">2012年4月</div>
+                    <div class="ti-title">パリ会議</div>
+                    <div class="ti-desc">26人の参加者。ミラノ会議後のオーバービュー定義拡大の試みが「混乱を増大させた」と認識。オーバービューを「レビューのレビュー」に戻し、NMA用の検索戦略と個別試験データの使用を推奨する方向に。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="ti-date">2013年</div>
+                    <div class="ti-title">CMIMG勧告（オックスフォード）</div>
+                    <div class="ti-desc">6つの勧告が策定。NMAは介入レビューで実施すべきであり、重複レビューを許容する方針が合意。</div>
+                </div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, pp.7-16</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション5：推移性仮定と限界 -->
+<div class="m1-section" id="sec5">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 5</div>
+        <h2>NMAの推移性仮定と限界</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec5-1">
+            <h3>5.1 推移性仮定の定義と重要性</h3>
+            <p>NMAの妥当性は「推移性仮定（transitivity assumption）」に大きく依存する。この仮定は、間接比較が妥当であるための前提条件であり、NMAの信頼性の基盤をなす。</p>
+
+            <div class="m1-quote-block">
+                "The transitivity assumption states that two or more interventions can validly be compared using trials that did not compare them directly but which compared one or other of them against a common comparator. Mathematically, the assumption states that if A > C and C > B, then A > B. A strong form of the assumption is used in indirect comparisons, by assuming that (A – B) = (A – C) + (C – B), or equivalently, (A – B) = (A – C) – (B – C)."
+                <span class="m1-quote-source">— Multiple Cochrane - 2003, p.7</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 推移性仮定を数学的に理解する</div>
+                <p><strong>推移性の数学的表現：</strong></p>
+                <p>薬A vs 薬Bの効果量 = (薬A vs 薬Cの効果量) − (薬B vs 薬Cの効果量)</p>
+                <p>例えば：<br>
+                ・薬A vs プラセボ：リスク差 = −10%（Aはプラセボより10%良い）<br>
+                ・薬B vs プラセボ：リスク差 = −5%（Bはプラセボより5%良い）<br>
+                ・推移性仮定の下での薬A vs 薬B：リスク差 = −10% − (−5%) = −5%（Aの方がBより5%良い）</p>
+                <p>この推定が妥当であるためには、薬AとプラセボのRCT参加者と、薬BとプラセボのRCT参加者が<strong>本質的に同じ集団</strong>である必要がある。つまり、これらの試験が「jointly randomizable」（共同ランダム化可能）でなければならない。</p>
+            </div>
+
+            <div class="m1-key-point">
+                <div class="m1-kp-title">📌 「jointly randomizable」の概念</div>
+                <p>Salanti（2012）は、推移性が成立するための条件を「jointly randomizable」という概念で表現した。これは「すべてのこれらの治療法を比較するために単一のランダム化試験を設計することが想像できる」場合に推移性が成立する、という考え方である。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.7-8（Salanti 2012を引用）</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec5-2">
+            <h3>5.2 推移性仮定が成立しない状況</h3>
+            <p>推移性仮定が成立しない具体例として、2003年文書は以下を挙げている：</p>
+
+            <div class="m1-warning-box">
+                <div class="m1-wb-title">⚠️ 推移性が成立しない例1：異なる臨床適応</div>
+                <p>介入Aが<strong>未治療患者にのみ臨床的に適応</strong>され、介入Bが<strong>他の全治療法が失敗した場合にのみ適応</strong>される場合。AとBは同じ患者には適応されないため、共同ランダム化可能ではない。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.8</p>
+            </div>
+
+            <div class="m1-warning-box">
+                <div class="m1-wb-title">⚠️ 推移性が成立しない例2：予防段階の違い</div>
+                <p>介入Aが<strong>一次予防にのみ適応</strong>され、介入Bが<strong>二次予防にのみ適応</strong>される場合。対象集団が根本的に異なるため、間接比較は無効である。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.8</p>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 臨床現場での具体例</div>
+                <p><strong>緑内障治療の例：</strong>ピロカルピンは100年以上緑内障患者に使用されてきたが、現在では第一、第二、第三選択薬としても処方されていない。しかし、一部のコクランレビューにはピロカルピンと新薬の比較試験が含まれている。現代の緑内障薬を比較するNMAの著者は、ピロカルピンの試験を除外することを選ぶかもしれない。一方で、プラセボやもはや推奨されない介入を含めることで精度が向上する可能性もある。いずれの場合も、「基準はNMA著者が指定すべきであり、個々のSR著者チームの（時に矛盾する）決定に基づくべきではない」（Multiple Cochrane - 2003, p.8）</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec5-3">
+            <h3>5.3 レビューのみの検索による限界</h3>
+            <div class="m1-quote-block">
+                "It is very likely that some trials that are very relevant to a NMA would be missed by such a search – either because the systematic reviews have not been updated, or because some of the interventions or comparisons of interest in the NMA have not been relevant to the scope of any of the systematic reviews identified."
+                <span class="m1-quote-source">— Multiple Cochrane - 2003, p.8</span>
+            </div>
+            <p>さらに、コクランレビューと非コクランレビューの両方をオーバービューに含める場合、同一または類似のトピックについて複数のレビューが存在する可能性がある。これらすべてを含めると、<strong>一部の試験が二重にカウントされる</strong>リスクがある（Multiple Cochrane - 2003, p.8）。</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション6：NMAランキングの危うさ -->
+<div class="m1-section" id="sec6">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 6</div>
+        <h2>NMAランキングの危うさ — なぜランキングを信用すべきではないか</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-warning-box">
+            <div class="m1-wb-title">🚨 重要な警告</div>
+            <p>NMAのランキング（SUCRAスコアなど）は、しばしば「介入のベストランキング」として誤解されるが、実際にはエビデンスの確実性、患者の価値観、コスト、実現可能性などの重要な意思決定要因を一切反映していない。ランキングのみに基づく臨床判断は危険である。</p>
+        </div>
+
+        <div class="m1-subsection" id="sec6-1">
+            <h3>6.1 ランキング指標の本質的限界</h3>
+            <div class="m1-quote-block">
+                "NMA usually combines only the effects of interventions on selected health outcomes, but does not solve the challenge for comparing multiple interventions across the other EtD criteria because the ranking based on health effects may not include considerations of people's important differences in the health effects."
+                <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.2</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 SUCRAとは何か？なぜ危険なのか？</div>
+                <p><strong>SUCRA（Surface Under the Cumulative Ranking curve）</strong>は、NMAにおいて各介入が「最良」である確率の累積分布曲線下面積を表す指標である。0%（確実に最悪）から100%（確実に最良）の範囲の値をとる。</p>
+                <p><strong>SUCRAが危険な理由：</strong></p>
+                <p>1. <strong>不確実性を無視</strong>：SUCRA=80%の介入は、「80%の確率で最良」を意味しない。信頼区間が非常に広い場合（効果の不確実性が大きい場合）でも高いSUCRAスコアを示すことがある。</p>
+                <p>2. <strong>臨床的意味の欠如</strong>：SUCRA 80%の介入とSUCRA 75%の介入の差が臨床的に意味あるかどうかは、SUCRAだけでは判断できない。わずかな差異が過度に拡大される可能性がある。</p>
+                <p>3. <strong>アウトカム選択依存性</strong>：異なるアウトカムで計算すると、ランキングが大きく変わることがある。有効性では1位でも安全性では最下位、ということもある。</p>
+                <p>4. <strong>一次元的</strong>：複雑な多次元的意思決定を一つの数値に縮約してしまい、重要なトレードオフの情報が失われる。</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec6-2">
+            <h3>6.2 健康効果のみに基づくランキングの問題</h3>
+            <div class="m1-quote-block">
+                "Furthermore, focusing on health effects ignores important criteria for decision-making including equity, cost, acceptability, and feasibility of the interventions."
+                <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.2</span>
+            </div>
+
+            <p>NMAのランキングが無視する意思決定基準を具体的に示す：</p>
+
+            <table class="m1-data-table">
+                <thead>
+                    <tr>
+                        <th>NMAが考慮する基準</th>
+                        <th>NMAが無視する基準</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>望ましい健康効果の大きさ</td><td>必要な資源（コスト）</td></tr>
+                    <tr><td>望ましくない健康効果の大きさ</td><td>費用対効果</td></tr>
+                    <tr><td>（一部）エビデンスの確実性</td><td>公平性への影響</td></tr>
+                    <tr><td></td><td>利害関係者の受容性</td></tr>
+                    <tr><td></td><td>実施の実現可能性</td></tr>
+                    <tr><td></td><td>人々が各アウトカムをどの程度重視するか</td></tr>
+                    <tr><td></td><td>必要な資源のエビデンスの確実性</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Piggott T, et al. J Clin Epidemiol. 2021, Table 1に基づいて作成</p>
+        </div>
+
+        <div class="m1-subsection" id="sec6-3">
+            <h3>6.3 SUCRAの限界に関する明確な警告</h3>
+            <p>IPF治療のNMAケーススタディにおいて、著者らはSUCRAの使用について明確な注意を述べている：</p>
+
+            <div class="m1-quote-block">
+                "Note that the SUCRA is not required to make this judgment and use of recent GRADE guidance for NMA may better inform these rankings."
+                <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.5</span>
+            </div>
+
+            <div class="m1-key-point">
+                <div class="m1-kp-title">📌 GRADEが推奨するNMAからの結論の導き方</div>
+                <p>GRADEは、SUCRAに依存する代わりに、以下のアプローチを推奨している：</p>
+                <p><strong>最小限文脈化アプローチ（Minimally contextualised approach）：</strong>効果の大きさの確実性に焦点を当て、特定の閾値を設定しない（Brignardello-Petersen et al., 2020, BMJ m3900）</p>
+                <p><strong>部分的文脈化アプローチ（Partially contextualised approach）：</strong>効果の大きさの閾値（些少、小、中、大）を事前に設定し、NMAの結果を確実性とともに分類する（Brignardello-Petersen et al., 2020, BMJ m3907）</p>
+                <p>これらのアプローチは、SUCRAのランキングよりも臨床的に意味のある結論を導くことを支援する。</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec6-4">
+            <h3>6.4 「NMAは有用だが十分ではない」という結論</h3>
+            <p>GRADEワーキンググループの結論は明確である：</p>
+
+            <div class="m1-quote-block">
+                "NMA has become an important tool in systematic reviews to compare the effects of interventions; however, guideline groups must consider more than just the effects of interventions and must ultimately make recommendations for guideline users and health decision makers. The work with the EtDs suggests that there are many scenarios when factors other than health harms and benefits are important, or even more important, to the final recommendation a guideline presents for guideline users (e.g., cost-effectiveness or feasibility). Given this, although NMA is helpful, it was not deemed to be sufficient to support the MC by guideline groups."
+                <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.7</span>
+            </div>
+
+            <p>Split 2023会議プレゼンテーションでも、この点は強調されている：</p>
+
+            <div class="m1-quote-block">
+                "Network meta-analysis presents a methodology to address the quantitative assessment on the evidence of effects; however, it typically only addresses the harms and benefits of interventions. Guideline groups must consider many other important factors to support discussions, e.g. values, cost, equity, acceptability and feasibility."
+                <span class="m1-quote-source">— GRADE EtD Project Group, Split 2023 プレゼンテーション, p.3（What is new?）</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 残りのセクション（7〜14）は以下に続く -->
+<!-- パート2で提供 -->
+<!-- セクション7：MC-EtDフレームワーク -->
+<div class="m1-section" id="sec7">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 7</div>
+        <h2>GRADE Multiple Intervention Comparison（MC-EtD）フレームワーク</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec7-1">
+            <h3>7.1 MC-EtDの定義と目的</h3>
+            <div class="m1-quote-block">
+                "This guidance on the MC-EtD describes an integrative process to simultaneously compare three or more interventions for a given clinical question across criteria, to support the formulation of recommendations."
+                <span class="m1-quote-source">— Beltran J, Alonso-Coello P, et al. GRADE EtD for MC Guidance (2023), p.3</span>
+            </div>
+            <p>MC-EtDは、NMAが提供する「どの介入が健康効果として最も良いか」という問いへの回答に加え、「コストはどうか」「患者に受け入れられるか」「現場で実施可能か」「健康格差への影響は」といった包括的な問いに同時に答えることを可能にする。</p>
+        </div>
+
+        <div class="m1-subsection" id="sec7-2">
+            <h3>7.2 NMAに対するMC-EtDの優位性</h3>
+            <div class="m1-key-point">
+                <div class="m1-kp-title">📌 核心的なメッセージ</div>
+                <p>"NMA supports only one of many criteria, that is, the balance of health benefits and harms, and is therefore helpful, but not essential to the approach we propose."（Piggott et al., 2021, p.1）</p>
+            </div>
+
+            <h4>MC-EtDが考慮する12の意思決定基準</h4>
+            <table class="m1-data-table">
+                <thead><tr><th>基準</th><th>シグナリング・クエスチョン</th><th>NMAで対応</th></tr></thead>
+                <tbody>
+                    <tr><td>問題の優先度</td><td>その問題は優先事項か？</td><td>✗</td></tr>
+                    <tr><td>望ましい健康効果</td><td>望ましい効果はどの程度大きいか？</td><td>◯</td></tr>
+                    <tr><td>望ましくない健康効果</td><td>望ましくない効果はどの程度大きいか？</td><td>◯</td></tr>
+                    <tr><td>エビデンスの確実性</td><td>効果のエビデンスの全体的確実性は？</td><td>△（部分的）</td></tr>
+                    <tr><td>価値観</td><td>アウトカムの重視度に不確実性やばらつきがあるか？</td><td>✗</td></tr>
+                    <tr><td>効果のバランス</td><td>望ましい・望ましくない効果のバランスは？</td><td>◯（部分的）</td></tr>
+                    <tr><td>必要な資源</td><td>必要なコストはどの程度か？</td><td>✗</td></tr>
+                    <tr><td>資源のエビデンスの確実性</td><td>コストのエビデンスの確実性は？</td><td>✗</td></tr>
+                    <tr><td>費用対効果</td><td>費用対効果は介入を支持するか？</td><td>✗</td></tr>
+                    <tr><td>公平性</td><td>健康の公平性への影響は？</td><td>✗</td></tr>
+                    <tr><td>受容性</td><td>利害関係者に受け入れられるか？</td><td>✗</td></tr>
+                    <tr><td>実現可能性</td><td>実施は実現可能か？</td><td>✗</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">◯ = NMAが直接対応、△ = 部分的に対応、✗ = NMAでは対応不可。出典：Piggott et al. 2021, Table 1に基づく</p>
+        </div>
+
+        <div class="m1-subsection" id="sec7-3">
+            <h3>7.3 二段階アプローチ</h3>
+            <div class="m1-flow-diagram">
+                <h4 style="margin-bottom:16px;color:var(--primary)">MC-EtD 二段階アプローチ</h4>
+                <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;text-align:left">
+                    <div style="flex:1;min-width:280px;background:#ebf8ff;border:2px solid #3182ce;border-radius:8px;padding:20px">
+                        <h4 style="color:#2c5282;margin-bottom:10px">ステージ1：共通比較対照との比較</h4>
+                        <p style="font-size:0.88rem">すべての介入（A〜F）を共通の比較対照「X」（プラセボ、標準治療等）と比較し、すべてのEtD基準にわたって評価する。</p>
+                        <p style="font-size:0.82rem;color:#4a5568;margin-top:8px">各介入×各基準の判断マトリックスを作成</p>
+                    </div>
+                    <div style="display:flex;align-items:center;font-size:2rem;color:#3182ce">→</div>
+                    <div style="flex:1;min-width:280px;background:#fff5f5;border:2px solid #e53e3e;border-radius:8px;padding:20px">
+                        <h4 style="color:#c53030;margin-bottom:10px">ステージ2：介入間の相対比較</h4>
+                        <p style="font-size:0.88rem">介入を互いに相対的に比較し、各基準で星評価（1-5星）を付け、最終的にランク付けして推奨を策定する。</p>
+                        <p style="font-size:0.82rem;color:#4a5568;margin-top:8px">クラスター化→優先順位付け→推奨策定</p>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Beltran J, et al. GRADE EtD for MC Guidance (2023), p.4, Figure 1; Split 2023 プレゼンテーション, pp.16-17</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション8：MC-EtDの方法論的詳細 -->
+<div class="m1-section" id="sec8">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 8</div>
+        <h2>MC-EtDの方法論的詳細</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-subsection" id="sec8-1">
+            <h3>8.1 計画と優先順位設定</h3>
+            <p>MC-EtDの効果的な使用のために、プロセスの早い段階で以下を完了すべきである：</p>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>🔍 NMA実施の実現可能性の評価</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>MC-EtDはNMAなしでも機能する柔軟性を持つが、実行可能であれば早期にNMAの実施を検討すべきである。NMAの結果は「効果のバランス」基準の評価を強力に支援する。</p>
+                    <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Beltran J, et al. GRADE EtD for MC Guidance (2023), p.5</p>
+                </div>
+            </div>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>🔄 推移性の確認</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>NMAの有無にかかわらず、複数比較を行う際には推移性の仮定を事前に確認する必要がある。「Transitivity assumption...should be checked upfront, when conducting multiple comparisons, with or without an NMA.」推移性仮定が満たされない場合、MC-EtDのプロセスを進めることは適切ではない。</p>
+                    <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Beltran J, et al. GRADE EtD for MC Guidance (2023), p.5（Salanti 2009を引用）</p>
+                </div>
+            </div>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>🎯 介入と共通比較対照の選択</span><span class="arrow">▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>NMAが利用可能な場合、GRADEガイダンスに従い、最もつながりの多い、標準的な臨床実践を反映する介入を比較対照として選択する。例：ACP大うつ病性障害ガイドラインでは、第二世代抗うつ薬（SGA）が最も一般的な比較対照かつ現在の第一選択治療であったため、共通比較対照として選択された。</p>
+                    <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Beltran J, et al. (2023), p.5; Qaseem A 2023を引用</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec8-2">
+            <h3>8.2 アウトカムの重要性と閾値の設定</h3>
+            <div class="m1-quote-block">
+                "It is advisable to set explicit thresholds a priori [more efficient, more consistent, avoid deciding during recommendation meetings]."
+                <span class="m1-quote-source">— Split 2023 プレゼンテーション, p.25</span>
+            </div>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 閾値設定の具体例</div>
+                <p>パネルが重度脳卒中の効用値を0.2（非効用0.8）と考える場合：</p>
+                <p>・予測される効果が100人あたり2人の脳卒中減少 → 回避される非効用 = 0.8 × 2 = 1.6<br>
+                ・パネルが「小さい効果」を少なくとも1つの脳卒中減少（4以下）と合意 → 小さい望ましい効果 = 非効用0.8の削減<br>
+                ・この場合、1.6の非効用削減は「小さい」と判定<br>
+                ・もし5つの脳卒中減少であれば、「中程度」と判定</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Beltran J, et al. (2023), p.8, Box 1</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec8-3">
+            <h3>8.3 正味のバランス（Net Balance）— 新基準</h3>
+            <div class="m1-quote-block">
+                "This new criterion...quantifies the relationship between desirable and undesirable health effects across outcomes for each intervention, considering both the magnitude and the direction of the effect."
+                <span class="m1-quote-source">— Beltran J, et al. GRADE EtD for MC Guidance (2023), p.10</span>
+            </div>
+            <p>正味のバランスは「大きな正味望ましい」から「大きな正味望ましくない」までの範囲で判定される。例えば：大きな望ましい効果＋小さな望ましくない効果 → 中程度の望ましい正味バランスと判断される可能性があるが、文脈に依存する。</p>
+
+            <div class="m1-explanation-box">
+                <div class="m1-eb-title">💡 正味のバランスがMC-EtDで重要な理由</div>
+                <p><strong>通常のEtDとの違い：</strong>ペアワイズのEtDでは、1つの介入についてのみ効果のバランスを判断すればよい。しかしMC-EtDでは、10個の介入を同時に比較する場合がある。「効果のバランス」の判断が「おそらく介入を支持」と出た介入が3つある場合、その中の優先順位をつける必要がある。正味のバランスの粒度（大きい・中程度・小さい）が、この細かいランク付けを可能にする。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Split 2023プレゼンテーション, p.40</p>
+            </div>
+        </div>
+
+        <div class="m1-subsection" id="sec8-4">
+            <h3>8.4 効果のバランスとグルーピング</h3>
+            <p>効果のバランスの評価後、介入は以下のグループに分類できる：</p>
+            <div class="m1-success-box">
+                <div class="m1-sb-title">✅ 推奨される可能性が高い介入</div>
+                <p>効果のバランスが「介入を支持」または「おそらく介入を支持」と判断された介入</p>
+            </div>
+            <div class="m1-key-point">
+                <div class="m1-kp-title">❓ まだ不明な介入</div>
+                <p>効果のバランスが「どちらにも有利ではない」と判断された介入</p>
+            </div>
+            <div class="m1-warning-box">
+                <div class="m1-wb-title">✗ 推奨されない介入</div>
+                <p>効果のバランスが「比較を支持」または「おそらく比較を支持」と判断された介入</p>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Split 2023プレゼンテーション, p.45; Beltran J, et al. (2023), p.13</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション9：アルゴリズム詳細 -->
+<div class="m1-section" id="sec9">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 9</div>
+        <h2>推奨策定アルゴリズムの詳細解説</h2>
+    </div>
+    <div class="m1-section-body">
+        <p>MC-EtDフレームワークに基づく推奨策定は、7つのステップで構成される体系的なプロセスである。</p>
+
+        <div class="m1-flow-diagram" style="text-align:left;padding:24px">
+            <div style="display:flex;flex-direction:column;gap:12px;max-width:700px;margin:0 auto">
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">1</span>
+                    <span>計画と優先順位設定 — 複数介入比較の必要性を早期に特定</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">2</span>
+                    <span>エビデンス統合 — NMA実施（可能であれば）またはペアワイズSR</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">3</span>
+                    <span>EtDフレームワーク — 各比較について判断（同時または逐次）</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:#c53030">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">4</span>
+                    <span>推移性の評価 — 母集団・比較・アウトカムの比較可能性を確認</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">5</span>
+                    <span>星評価とランキング — 各EtD基準で1-5星評価、介入間比較と調整</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:#38a169">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">6</span>
+                    <span>推奨の策定 — クラスター化、優先順位付け、推奨の提示</span>
+                </div>
+                <div style="text-align:center" class="m1-flow-vertical-arrow">↓</div>
+                <div class="m1-flow-step" style="width:100%;max-width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:#718096">
+                    <span style="background:rgba(255,255,255,0.3);padding:4px 12px;border-radius:50%;font-weight:900">7</span>
+                    <span>普及 — 透明な根拠と明確なランク付けの説明</span>
+                </div>
+            </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Piggott T, et al. J Clin Epidemiol. 2021, Table 2; Figure 2</p>
+
+        <div class="m1-explanation-box">
+            <div class="m1-eb-title">💡 判断分岐点の詳細</div>
+            <p><strong>分岐点1：NMAの利用可能性</strong><br>
+            NMAが利用可能 → NMAの結果を効果のバランス評価に組み込む<br>
+            NMAが利用不可 → ペアワイズメタアナリシスまたは個別エビデンスプロファイルを使用</p>
+            <p><strong>分岐点2：共通比較対照の有無</strong><br>
+            共通比較対照あり → すべての介入を共通比較対照と比較<br>
+            共通比較対照なし → 構造化された段階的推論を通じて判断（ECIBC乳がんスクリーニングの事例参照）</p>
+            <p><strong>分岐点3：グルーピング後のランク付け</strong><br>
+            推奨クラスター → クラスター内でさらにランク付け → 最終推奨</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション10：GRADEproモジュール -->
+<div class="m1-section" id="sec10">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 10</div>
+        <h2>GRADEproにおけるマルチ介入モジュール</h2>
+    </div>
+    <div class="m1-section-body">
+        <p>GRADEproの マルチ介入比較モジュールは、MC-EtDフレームワークをソフトウェアとして実装したものである。</p>
+
+        <div class="m1-quote-block">
+            "The add-on GRADEpro module builds off the other features of GRADEpro including the generation of evidence profiles and EtD frameworks."
+            <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021, p.4</span>
+        </div>
+
+        <h4>GRADEproモジュールの使用手順</h4>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)"><span>Step 1：マルチ比較質問の作成</span><span class="arrow">▼</span></div>
+            <div class="accordion-body">
+                <p>GRADEproのMulticomparisonsタブから「multiple comparison question」ボタンをクリック。包括的な質問（overarching question）を入力し、比較する各介入を追加する。質問のタイトルは自由に設定可能で、ペアワイズ質問のような固定パターンに制限されない。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Appendix 1 (mmc2.docx), p.1; GRADEpro Webinar 2025</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)"><span>Step 2：テーブル設定と判断</span><span class="arrow">▼</span></div>
+            <div class="accordion-body">
+                <p>「Go to Table」で マルチ比較を開始。各EtD基準について、多重判断グリッドを使用して各介入の判断を行う。アウトカムごとの判断と全体判断の両方が可能。以前の判断は後の基準（例：正味バランス、効果のバランス）の判断時に自動的に参照表示される。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：GRADEpro Webinar 2025; Split 2023プレゼンテーション</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)"><span>Step 3：パネル投票</span><span class="arrow">▼</span></div>
+            <div class="accordion-body">
+                <p>Panel Voice機能を使用して、MC-EtDに基づくオンライン調査をパネルメンバーに送信可能。各メンバーが個別に判断を行い、結果はGRADEproで集約・表示される。判断の提案に対する同意/不同意の形式も選択可能。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：GRADEpro Webinar 2025</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)"><span>Step 4：星評価とランキング</span><span class="arrow">▼</span></div>
+            <div class="accordion-body">
+                <p>各EtD基準で介入を1-5星で評価。介入間の相対的差異を反映するように星の数を調整。基準の重要度（低/中/高）を設定して、最も関連性の高い基準を明示。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Appendix 1 (mmc2.docx), p.2; Beltran J, et al. (2023), p.16</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion(this)"><span>Step 5：推奨策定とエクスポート</span><span class="arrow">▼</span></div>
+            <div class="accordion-body">
+                <p>各介入に対して推奨の強さと方向を設定。推奨はHTML、Word、PDF形式でエクスポート可能。Visual Clinical Guidelinesとしての表示も対応。</p>
+                <p style="font-size:0.85rem;color:var(--text-lighter)">出典：GRADEpro Webinar 2025; Appendix 1 (mmc2.docx), p.3</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- セクション11：適用事例 -->
+<div class="m1-section" id="sec11">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 11</div>
+        <h2>実際のガイドラインにおける適用事例</h2>
+    </div>
+    <div class="m1-section-body">
+
+        <div class="m1-tabs">
+            <button class="tab-btn active" onclick="showTab(event,'tab-ecibc')">事例1: ECIBC</button>
+            <button class="m1-tab-btn" onclick="showTab(event,'tab-who')">事例2: WHO TB</button>
+            <button class="m1-tab-btn" onclick="showTab(event,'tab-ipf')">事例3: IPF</button>
+            <button class="m1-tab-btn" onclick="showTab(event,'tab-acp')">事例4: ACP糖尿病</button>
+        </div>
+
+        <div class="tab-content active" id="tab-ecibc">
+            <h4>欧州委員会乳がんイニシアチブ（ECIBC）</h4>
+            <p><strong>質問：</strong>50歳から69歳の女性における組織化マンモグラフィスクリーニングの最適間隔は？</p>
+            <p><strong>特徴：</strong>共通比較対照なし、NMAなし。3つのペアワイズ比較を手動で統合。</p>
+            <p><strong>結果：</strong></p>
+            <table class="m1-data-table">
+                <thead><tr><th>年齢層</th><th>年1回</th><th>2年に1回</th><th>3年に1回</th></tr></thead>
+                <tbody>
+                    <tr><td>45-49歳</td><td>条件付き反対</td><td>条件付き賛成</td><td>条件付き賛成</td></tr>
+                    <tr><td>50-69歳</td><td>強い反対</td><td>条件付き賛成</td><td>—</td></tr>
+                    <tr><td>70-74歳</td><td>強い反対</td><td>—</td><td>条件付き賛成</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Appendix 2 (mmc2.docx), pp.4-5; Schünemann HJ, et al. Ann Intern Med. 2020;172:46-56</p>
+        </div>
+
+        <div class="m1-tab-content" id="tab-who">
+            <h4>WHO結核感染予防・管理ガイドライン（2019年更新）</h4>
+            <p><strong>質問：</strong>医療従事者への結核菌伝播を減少させるために、どの換気システムを使用すべきか？</p>
+            <p><strong>特徴：</strong>GRADEpro MCモジュールを初めてリアルタイムで使用。NMAなし。</p>
+            <p><strong>推奨（優先順位順）：</strong></p>
+            <p>1. 自然換気（資源、費用対効果、公平性、実現可能性、受容性で最も有利）<br>
+            2. 混合モード換気<br>
+            3. 機械換気<br>
+            4. HEPAフィルター付き再循環空気</p>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Appendix 3 (mmc2.docx), pp.6-7; WHO 2019</p>
+        </div>
+
+        <div class="m1-tab-content" id="tab-ipf">
+            <h4>IPF（特発性肺線維症）治療 — NMAによる仮想的比較</h4>
+            <p><strong>特徴：</strong>10種の薬理学的介入をNMAで比較（Rochwerg et al., 2016）。SUCRAクラスター分析を含む。</p>
+            <p><strong>MC-EtDの付加価値：</strong>NMAのSUCRAランキングだけでは捉えきれない<strong>費用対効果と受容性における実質的な差異</strong>を明らかにした。MC-EtDにより、より少ない介入に焦点を絞ることが可能になった。</p>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Appendix 4 (mmc2.docx), pp.8-10; Rochwerg B, et al. BMC Med 2016;14:18</p>
+        </div>
+
+        <div class="m1-tab-content" id="tab-acp">
+            <h4>ACP 2型糖尿病ガイドライン</h4>
+            <p><strong>特徴：</strong>NMAを使用。DPP-4阻害剤、GLP-1アゴニスト、SGLT2阻害剤をプラセボ/通常治療と比較。</p>
+            <p><strong>結果：</strong>高い確実性のエビデンスに基づき、正味の利益の有無で2つの推奨クラスターを形成。頭対頭比較（GLP-1 vs SGLT2）も実施されたが、実質的な差異は見出されなかった。</p>
+            <p style="font-size:0.85rem;color:var(--text-lighter)">出典：GRADEpro Webinar 2025</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション12：統合的理解 -->
+<div class="m1-section" id="sec12">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 12</div>
+        <h2>NMAとMC-EtDの統合的理解</h2>
+    </div>
+    <div class="m1-section-body">
+        <h3>NMAとMC-EtDの関係を正確に理解する</h3>
+
+        <div class="m1-comparison-grid">
+            <div class="comparison-card pro">
+                <div class="m1-cc-title">MC-EtDの強み</div>
+                <ul>
+                    <li>12のEtD基準すべてを包括的に考慮</li>
+                    <li>NMAの有無にかかわらず適用可能</li>
+                    <li>すべての判断を明示的に文書化</li>
+                    <li>アウトカムの重要性を反映</li>
+                    <li>正味バランスの導入で粒度の高い比較</li>
+                    <li>コスト・公平性・受容性・実現可能性を考慮</li>
+                    <li>柔軟で多様なエビデンス構造に対応</li>
+                </ul>
+            </div>
+            <div class="comparison-card con">
+                <div class="m1-cc-title">NMAの限界</div>
+                <ul>
+                    <li>健康効果のみ考慮（12基準中2-3基準のみ）</li>
+                    <li>推移性仮定への依存</li>
+                    <li>SUCRAランキングの不確実性</li>
+                    <li>臨床的閾値の欠如</li>
+                    <li>患者の価値観を反映しない</li>
+                    <li>コスト・実現可能性等を無視</li>
+                    <li>ランキングが確実性を反映しない</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="m1-key-point">
+            <div class="m1-kp-title">📌 最も重要なメッセージ</div>
+            <p>NMAはMC-EtDフレームワークの中で<strong>12の基準のうち1つ</strong>（健康上の利益と害のバランス）を支援するツールである。NMAは<strong>有用だが十分ではなく</strong>、MC-EtDは<strong>NMAなしでも機能する</strong>柔軟性を持つ。ガイドライン開発者は、NMAのランキングのみに基づいて推奨を策定するのではなく、MC-EtDを通じた包括的評価に基づいて推奨を策定すべきである。</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション13：結論 -->
+<div class="m1-section" id="sec13">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 13</div>
+        <h2>結論</h2>
+    </div>
+    <div class="m1-section-body">
+        <div class="m1-quote-block">
+            "In conclusion, the development of health guidelines often requires guideline developers to make recommendations on more than a single intervention and comparator. Ideally, guideline developers may have an NMA available, but in many situations, they will not. In addition, it is critical to consider not only evidence of the effects of an intervention on health outcomes, but also all relevant EtD criteria."
+            <span class="m1-quote-source">— Piggott T, et al. J Clin Epidemiol. 2021;130:117-124, p.7</span>
+        </div>
+
+        <div class="m1-success-box">
+            <div class="m1-sb-title">本レポートの結論</div>
+            <p>1. <strong>NMAは強力だが不完全：</strong>複数介入の効果を統計的に比較するための重要なツールだが、推移性仮定への依存、ランキングの不確実性、健康効果以外の基準の未考慮という本質的限界がある。</p>
+            <p>2. <strong>MC-EtDはNMAを補完し超越する：</strong>NMAの結果を含むすべての関連情報を統合し、透明で構造化された包括的意思決定プロセスを提供する。</p>
+            <p>3. <strong>ランキングに頼らない意思決定を：</strong>SUCRAなどのランキングのみに基づく推奨策定は避け、効果のバランス、エビデンスの確実性、価値観、費用対効果、公平性、受容性、実現可能性を含む包括的評価に基づくべきである。</p>
+        </div>
+    </div>
+</div>
+
+<!-- セクション14：参考文献 -->
+<div class="m1-section" id="sec14">
+    <div class="m1-section-header">
+        <div class="m1-section-num">Section 14</div>
+        <h2>参考文献</h2>
+    </div>
+    <div class="m1-section-body">
+        <p style="font-size:0.9rem;line-height:2">
+        1. Becker LA, Caldwell D, Higgins J, Li T, Salanti G, Schmid C. Comparing Multiple Interventions in Cochrane Reviews. Cochrane Methods Innovation Fund document, 2003.<br>
+        2. Piggott T, Brozek J, Nowak A, et al. Using GRADE evidence to decision frameworks to choose from multiple interventions. <em>J Clin Epidemiol</em>. 2021;130:117-124.<br>
+        3. WHO guidelines on tuberculosis infection prevention and control, 2019 update. Geneva: World Health Organization; 2019.<br>
+        4. Beltran J, Alonso-Coello P, Piggott T, Schünemann HJ, et al. GRADE EtD for Multiple-Intervention Comparison. Guidance paper, 2023.<br>
+        5. GRADE EtD Project Group. GRADE Evidence to Decision Framework for Multiple Interventions. Split 2023.<br>
+        6. GRADEpro Webinar: Mastering the New Multiple Intervention EtD. Evidence Prime, 2025.<br>
+        7. Caldwell DM, Welton NJ, Ades AE. Mixed treatment comparison analysis. <em>J Clin Epidemiol</em> 2010;63(8):875-82.<br>
+        8. Salanti G. Indirect and mixed-treatment comparison. <em>Res Synth Methods</em> 2012;2(3):80.<br>
+        9. Brignardello-Petersen R, et al. GRADE approach to drawing conclusions from NMA using a partially contextualised framework. <em>BMJ</em> 2020;371:m3907.<br>
+        10. Brignardello-Petersen R, et al. GRADE approach using a minimally contextualised framework. <em>BMJ</em> 2020;371:m3900.<br>
+        11. Rochwerg B, et al. Treatment of idiopathic pulmonary fibrosis: a network meta-analysis. <em>BMC Med</em> 2016;14:18.<br>
+        12. Morgano GP, et al. Defining decision thresholds. <em>BMJ Open</em> 2022;12(3):e053246.<br>
+        13. Neumann I, et al. Using Explicit Thresholds. <em>J Clin Epidemiol</em> 2022.<br>
+        14. Wiercioch W, et al. Development and application of health outcome descriptors. <em>J Clin Epidemiol</em> 2021;138:115-127.<br>
+        15. Schünemann HJ, et al. Breast Cancer Screening and Diagnosis. <em>Ann Intern Med</em> 2020;172:46-56.<br>
+        16. Yepes-Nuñez JJ, et al. Summary of findings table for NMA. <em>J Clin Epidemiol</em> 2019;115:1-13.
+        </p>
+
+        <div style="margin-top:30px;padding:20px;background:var(--border-light);border-radius:var(--radius);text-align:center">
+            <p style="color:var(--text-lighter);font-size:0.85rem;margin:0">本レポートは提供された文書群に基づいて作成されました。すべての引用には出典元のファイル名、ページ番号、または著者名と年が記載されています。</p>
+        </div>
+    </div>
+</div>
+</main>
+</div>
+</div>
+<script>
+// ===== マルチ介入NMAタブ 専用JavaScript =====
+(function(){
+  // サイドバートグル
+  window.m1_toggleSidebar = function() {
+    document.getElementById('m1-sidebar').classList.toggle('hidden');
+  };
+
+  // セクションヘッダークリックで折りたたみ
+  document.addEventListener('DOMContentLoaded', function(){
+    // ヘッダークリックで本文トグル
+    document.querySelectorAll('.m1-section-header').forEach(function(hdr){
+      hdr.addEventListener('click', function(){
+        var body = hdr.nextElementSibling;
+        if(body && body.classList.contains('m1-section-body')){
+          body.classList.toggle('hidden');
+        }
+      });
+    });
+
+    // TOCリンクで該当セクションにスクロール
+    document.querySelectorAll('.m1-toc-link').forEach(function(link){
+      link.addEventListener('click', function(e){
+        var secId = this.getAttribute('href').replace('#','');
+        var target = document.getElementById(secId);
+        if(target){
+          // 折りたたまれていれば開く
+          var body = target.querySelector('.m1-section-body');
+          if(body) body.classList.remove('hidden');
+          // スクロール（m1-mainのスクロール位置調整）
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          // アクティブ状態
+          document.querySelectorAll('.m1-toc-link').forEach(function(l){ l.classList.remove('active'); });
+          this.classList.add('active');
+        }
+      });
+    });
+
+    // タブ切替
+    document.querySelectorAll('.m1-tab-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var container = btn.closest('.m1-tabs');
+        if(!container) return;
+        var target = btn.getAttribute('data-tab');
+        container.querySelectorAll('.m1-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+        container.querySelectorAll('.m1-tab-content').forEach(function(c){ c.classList.remove('active'); });
+        btn.classList.add('active');
+        var tc = container.querySelector('#'+target);
+        if(tc) tc.classList.add('active');
+      });
+    });
+
+    // IntersectionObserver でTOCハイライト
+    var sections = document.querySelectorAll('.m1-section');
+    if(sections.length && 'IntersectionObserver' in window){
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var id = entry.target.id;
+            document.querySelectorAll('.m1-toc-link').forEach(function(l){ l.classList.remove('active'); });
+            var al = document.querySelector('.m1-toc-link[href="#'+id+'"]');
+            if(al) al.classList.add('active');
+          }
+        });
+      }, {threshold:0.2});
+      sections.forEach(function(s){ obs.observe(s); });
+    }
+  });
+})();
+</script>
+</div><!-- /mp-1 -->
 <div class="main-panel" id="mp-2">
 <!-- ===== タブ2: NMAの基本 ===== -->
 <style>
