@@ -20,7 +20,7 @@
   background:#eaf2f8; border-left-color:#2e86c1; color:#2e86c1;
 }
 .nma2-sidebar a.sub { padding-left:35px; font-size:0.9em; color:#5d6d7e; }
-.nma2-main { flex:1; min-width:0; padding:25px 30px; overflow-x:hidden; box-sizing:border-box; }
+.nma2-main { flex:1; min-width:0; max-width:860px; padding:25px 40px; overflow-x:hidden; box-sizing:border-box; }
 .nma2-wrap .timeline { border-left:3px solid #2e86c1; padding-left:25px; margin:20px 0; }
 .nma2-wrap .timeline-item { margin-bottom:20px; position:relative; }
 .nma2-wrap .timeline-item::before {
