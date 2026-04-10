@@ -1,0 +1,1059 @@
+<!-- ===== 繧ｿ繝・: 蜉ｹ譫懊→遒ｺ螳滓ｧ縺ｮ陦ｨ險・===== -->
+<style>
+
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+            --text: #333333;
+            --text-light: #666666;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+            background: var(--light-bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .iro5-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .iro5-header {
+            text-align: center;
+            padding: 25px 0 15px;
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .iro5-header h1 {
+            font-size: 1.6em;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .iro5-header .iro5-subtitle {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* ナビゲーション */
+        .iro5-nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            margin-bottom: 0;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0;
+        }
+
+        .iro5-nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.88em;
+            font-weight: 600;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .iro5-nav-tab:hover { background: #d5dbdb; }
+        .iro5-nav-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        .iro5-panel {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 0 6px 6px 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 400px;
+        }
+
+        .iro5-panel.active { display: block; }
+
+        /* カード */
+        .iro5-card {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .iro5-card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .iro5-card h4 {
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        /* 情報ボックス */
+        .iro5-info-box {
+            background: #e8f4f8;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 6px 6px 0;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            font-size: 0.92em;
+        }
+
+        .iro5-info-box h4 {
+            color: #2980b9;
+            margin-bottom: 6px;
+            font-size: 1em;
+        }
+
+        .iro5-info-box.warn {
+            background: #fef9e7;
+            border-left-color: var(--warning);
+        }
+
+        .iro5-info-box.warn h4 { color: #d68910; }
+
+        .iro5-info-box.ref {
+            background: #fdf2f2;
+            border-left-color: #c0392b;
+        }
+
+        .iro5-info-box.ref h4 { color: #c0392b; }
+
+        /* フォーム */
+        .iro5-form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .iro5-form-row label {
+            min-width: 220px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .iro5-form-row input, .iro5-form-row select {
+            padding: 7px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .iro5-form-row input[type="number"] { width: 100px; }
+        .iro5-form-row input[type="text"] { width: 320px; max-width: 100%; }
+
+        .iro5-help-text {
+            font-size: 0.82em;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* テーブル */
+        .iro5-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+
+        .iro5-input-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84em;
+        }
+
+        .iro5-input-table th {
+            background: #34495e;
+            color: #fff;
+            padding: 9px 7px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        .iro5-input-table td {
+            padding: 5px 6px;
+            border: 1px solid #ddd;
+        }
+
+        .iro5-input-table tr:nth-child(even) { background: #fafafa; }
+
+        .iro5-input-table input, .iro5-input-table select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        /* ボタン */
+        .iro5-btn {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .iro5-btn-primary { background: var(--accent); color: #fff; }
+        .iro5-btn-primary:hover { background: #2980b9; }
+        .iro5-btn-success { background: var(--success); color: #fff; }
+        .iro5-btn-success:hover { background: #219a52; }
+        .iro5-btn-warning { background: var(--warning); color: #fff; }
+        .iro5-btn-warning:hover { background: #d68910; }
+        .iro5-btn-danger { background: var(--danger); color: #fff; }
+        .iro5-btn-danger:hover { background: #c0392b; }
+        .iro5-btn-secondary { background: #95a5a6; color: #fff; }
+        .iro5-btn-secondary:hover { background: #7f8c8d; }
+        .iro5-btn-sm { padding: 4px 10px; font-size: 0.8em; }
+
+        .iro5-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        /* 結果表 */
+        .iro5-result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84em;
+        }
+
+        .iro5-result-table th, .iro5-result-table td {
+            padding: 8px 10px;
+            border: 1px solid #999;
+        }
+
+        .iro5-result-table th {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .iro5-result-table .iro5-cat-header {
+            background: #34495e !important;
+            color: #fff !important;
+            font-weight: 700;
+            font-size: 0.95em;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 効果 × 確実性 の色 (グラデーション方式) */
+        .c-lb-h  { background:#0d6b0d; color:#fff; }
+        .c-lb-m  { background:#1e8c1e; color:#fff; }
+        .c-lb-l  { background:#555;    color:#fff; }
+        .c-lb-vl { background:#777;    color:#fff; }
+
+        .c-mb-h  { background:#3aad3a; color:#fff; }
+        .c-mb-m  { background:#5cc55c; color:#000; }
+        .c-mb-l  { background:#8a8a8a; color:#fff; }
+        .c-mb-vl { background:#a0a0a0; color:#000; }
+
+        .c-sb-h  { background:#8ed08e; color:#000; }
+        .c-sb-m  { background:#b5e0b5; color:#000; }
+        .c-sb-l  { background:#b0b0b0; color:#000; }
+        .c-sb-vl { background:#c4c4c4; color:#000; }
+
+        .c-tr-h  { background:#d8f0d8; color:#000; }
+        .c-tr-m  { background:#e8f5e8; color:#000; }
+        .c-tr-l  { background:#d0d0d0; color:#000; }
+        .c-tr-vl { background:#e2e2e2; color:#000; }
+
+        .c-sh-h  { background:#f0b8b8; color:#000; }
+        .c-sh-m  { background:#f5cccc; color:#000; }
+        .c-sh-l  { background:#c4b0b0; color:#000; }
+        .c-sh-vl { background:#d6c8c8; color:#000; }
+
+        .c-mh-h  { background:#d05050; color:#fff; }
+        .c-mh-m  { background:#e07878; color:#000; }
+        .c-mh-l  { background:#a08888; color:#fff; }
+        .c-mh-vl { background:#b8a4a4; color:#000; }
+
+        .c-lh-h  { background:#a81a1a; color:#fff; }
+        .c-lh-m  { background:#c42828; color:#fff; }
+        .c-lh-l  { background:#6e5555; color:#fff; }
+        .c-lh-vl { background:#907878; color:#fff; }
+
+        /* 凡例グリッド */
+        .iro5-legend-grid {
+            display: grid;
+            grid-template-columns: 160px repeat(4, 1fr);
+            gap: 1px;
+            max-width: 750px;
+            margin-top: 10px;
+        }
+
+        .iro5-lg-cell {
+            padding: 7px 10px;
+            text-align: center;
+            font-size: 0.78em;
+            border: 1px solid #bbb;
+        }
+
+        .iro5-lg-header { font-weight: 700; background: #34495e; color: #fff; }
+        .iro5-lg-row-hd { font-weight: 600; background: #ecf0f1; text-align: left; }
+
+        /* 結論 */
+        .iro5-conclusion-box {
+            background: #fff;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .iro5-conclusion-box h3 {
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+
+        .iro5-conc-item {
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+            background: #f8f9fa;
+            font-size: 0.92em;
+        }
+
+        .iro5-conc-item.iro5-cert-h   { border-left: 4px solid var(--success); }
+        .iro5-conc-item.iro5-cert-m   { border-left: 4px solid var(--accent); }
+        .iro5-conc-item.iro5-cert-l   { border-left: 4px solid var(--warning); }
+        .iro5-conc-item.iro5-cert-vl  { border-left: 4px solid var(--danger); }
+
+        /* 解説セクション */
+        .iro5-doc-section {
+            margin-bottom: 28px;
+        }
+
+        .iro5-doc-section h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+        }
+
+        .iro5-doc-section h3 {
+            color: #34495e;
+            font-size: 1.05em;
+            margin: 14px 0 8px;
+        }
+
+        .iro5-doc-section p {
+            margin-bottom: 10px;
+        }
+
+        .iro5-ref-list {
+            font-size: 0.88em;
+            list-style: none;
+            padding: 0;
+        }
+
+        .iro5-ref-list li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .iro5-ref-list li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .iro5-ref-tag {
+            display: inline-block;
+            background: #e8f4f8;
+            color: var(--accent);
+            font-size: 0.78em;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            vertical-align: super;
+            cursor: help;
+        }
+
+        @media (max-width: 768px) {
+            .iro5-form-row label { min-width: 100%; }
+            .iro5-form-row input[type="text"] { width: 100%; }
+            .iro5-nav-tab { padding: 8px 12px; font-size: 0.82em; }
+        }
+
+        @media print {
+            .iro5-nav-tabs, .iro5-btn-group, .iro5-btn, .iro5-card:has(.iro5-form-row) { display: none !important; }
+            .iro5-panel { display: block !important; box-shadow: none; }
+        }
+    
+/* iro5 蜍慕噪逕滓・繧ｯ繝ｩ繧ｹ */
+.iro5-conc-item { margin-bottom:8px; padding:8px 12px; border-radius:0 4px 4px 0; background:#f8f9fa; font-size:0.92em; }
+.iro5-conc-item.iro5-cert-h  { border-left:4px solid #27ae60; }
+.iro5-conc-item.iro5-cert-m  { border-left:4px solid #3498db; }
+.iro5-conc-item.iro5-cert-l  { border-left:4px solid #f39c12; }
+.iro5-conc-item.iro5-cert-vl { border-left:4px solid #e74c3c; }
+</style>
+<div class="iro5-wrap">
+
+    <header class="iro5-header">
+        <h1>NMA 効果・確実性 色分け表ジェネレーター</h1>
+        <p class="iro5-subtitle">GRADE Partially Contextualised Framework に基づくネットワークメタ分析結果の可視化ツール</p>
+    </header>
+
+    <!-- ナビゲーション -->
+    <nav class="iro5-nav-tabs" id="iro5-navTabs">
+        <div class="iro5-nav-tab active" data-panel="iro5-p-guide">1. 解説</div>
+        <div class="iro5-nav-tab" data-panel="iro5-p-setup">2. 閾値設定</div>
+        <div class="iro5-nav-tab" data-panel="iro5-p-data">3. データ入力</div>
+        <div class="iro5-nav-tab" data-panel="iro5-p-result">4. 色分け表</div>
+        <div class="iro5-nav-tab" data-panel="iro5-p-conclusion">5. 結論文</div>
+        <div class="iro5-nav-tab" data-panel="iro5-p-ref">参考文献</div>
+    </nav>
+
+    <!-- ================================================================ -->
+    <!-- パネル1: 解説 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-guide" class="iro5-panel active">
+
+        <div class="iro5-doc-section">
+            <h2>1. はじめに：なぜ色分け表が必要なのか</h2>
+            <p>ネットワークメタ分析（NMA）は、複数の介入を同時に比較できる強力な手法ですが、介入の数が多くなると結果の解釈は極めて困難になります。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Summary points">文献1</span></p>
+            <p>例えば、小児の急性下痢に対する介入のNMA（Florez et al. 2018）では、27の介入を評価し、138の適格研究から20,256人の子どもを募集しました。ネットワークには62の直接比較があり、残りの289の比較は間接的な証拠しかありません。すべての可能な比較の同時検討は個人の能力を超えており、要約が必要です。<span class="iro5-ref-tag" title="Florez et al. 2018, Results section">文献7</span></p>
+            <p>従来のランキング（Pスコア、SUCRA値）に頼る方法には、以下の問題があります：</p>
+            <p>（1）臨床医は最良の介入に注目したいが、その介入は他と重要な違いがない可能性がある。（2）順位間の見かけ上の差は偶然で簡単に説明できるかもしれない。（3）差が実際にあったとしても、その大きさは些細なものであるかもしれない。（4）最も重要なことに、ランキングはエビデンスの確実性を無視する。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Introduction/Background">文献1</span></p>
+            <p>Mills et al. (2013)もこの問題を指摘しています：「著者は、ネットワークメタ分析のアウトプットの確率にあまり重きを置かず、治療効果とその不確実性により重きを置くべきである」。<span class="iro5-ref-tag" title="Mills et al. 2013, Part 3: data synthesis">文献8</span></p>
+        </div>
+
+        <div class="iro5-doc-section">
+            <h2>2. 2つの枠組み：最小限の文脈化と部分的文脈化</h2>
+
+            <h3>2.1 最小限の文脈化枠組み（Minimally Contextualised Framework）</h3>
+            <p>この枠組みでは、効果の大きさに関する価値判断を最小限にとどめます。信頼区間と決定閾値（通常は「差なし」）の位置関係に基づいて介入を分類します。分類は「最も効果的なもの」「中間の効果」「最も効果が小さいもの」となり、5つのステップで実施されます。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 minimally, Guiding principles and 5 steps">文献2</span></p>
+
+            <h3>2.2 部分的文脈化枠組み（Partially Contextualised Framework）</h3>
+            <p>こちらの枠組みでは、レビュー著者が効果の大きさの重要性について明示的かつ透明な価値判断を行います。点推定値と事前に設定した効果の大きさの閾値に基づいて介入を分類し、「些細な効果」「小さいが重要な効果」「中程度の効果」「大きな効果」というカテゴリを用います。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Guiding principles">文献1</span></p>
+
+            <h3>2.3 両者の主な違い</h3>
+            <p>最小限の文脈化では信頼区間を主要な統計量として使用し、不精確さを他の限界よりも重視します。部分的文脈化では点推定値を主要な統計量として使用し、不精確さは他の限界と同等に扱います。この違いの意味は重要で、例えば絶対リスク減少20%（95%CI: 1%～39%）がバイアスのリスクで格下げされた場合と、同じ点推定値で95%CIが-1%～41%のものが不精確さで格下げされた場合、信頼性は同程度であるべきだからです。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Discussion: main difference between frameworks">文献1</span></p>
+            <p>両枠組みの類似点と相違点の詳細な比較は、Brignardello-Petersen et al. (2020, minimally) のTable 2にまとめられています。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 minimally, Table 2">文献2</span></p>
+        </div>
+
+        <div class="iro5-doc-section">
+            <h2>3. 効果の大きさの閾値設定：MIDから多段階閾値へ</h2>
+
+            <h3>3.1 従来のMIDアプローチ</h3>
+            <p>Guyatt先生が推奨する最小重要差（MID）は、ペアワイズ比較における不精確さの評価に有用です。MIDは「患者にとって重要と考えられる最小の効果の大きさ」を定義し、「重要な効果あり」と「重要な効果なし（些細な効果）」の2つに分けます。</p>
+
+            <h3>3.2 多段階閾値の必要性</h3>
+            <p>NMAでは多数の介入を比較するため、2分割だけでは介入間の臨床的に意味のある違いを十分に反映できません。部分的文脈化枠組みでは、MIDの概念を拡張し、効果の大きさを複数の段階に分けます。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1: Choose reference intervention and thresholds">文献1</span></p>
+
+            <h3>3.3 閾値設定の具体例：小児急性下痢</h3>
+            <p>Florez et al.（2018）/Brignardello-Petersen et al.（2020）のNMAでは、下痢時間の短縮について以下の閾値が設定されました：</p>
+            <p>・些細な効果：0～3時間の短縮／増加<br>
+            ・小さいが重要な効果：3～12時間の短縮／増加<br>
+            ・中程度の効果：12～24時間の短縮／増加<br>
+            ・大きな効果：24時間以上の短縮／増加</p>
+            <p>この閾値設定の根拠は、下痢の持続時間が子どもの日常生活に与える影響を考慮しています。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1, Fig 2, example thresholds">文献1</span></p>
+
+            <h3>3.4 絶対効果に基づく判断の必要性</h3>
+            <p>GRADEのガイダンスと一致して、閾値は相対効果ではなく絶対効果に基づいて設定されなければなりません。例えば、ベースラインリスクが2%で相対的に50%のリスク低減は1%の絶対的なリスク低減（些細な効果かもしれない）を意味しますが、同じ50%の相対リスク低減でもベースラインリスクが40%であれば20%の絶対的リスク低減（大きな効果と判断される可能性）となります。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1: absolute vs relative effects">文献1</span></p>
+
+            <h3>3.5 2型糖尿病NMAの例</h3>
+            <p>Shi et al.（2023）のNMAでは、バイナリアウトカム（死亡、心血管イベントなど）についてヌル効果を決定閾値とし、以前のガイドラインパネルが設定したMIDを使用しています。体重変化については5kgのMIDが設定されました。5段階のベースラインリスク群に対して絶対効果を算出し、MATCH-ITツールで提示しています。<span class="iro5-ref-tag" title="Shi et al. 2023, Methods: GRADE certainty assessment and absolute effects">文献9</span><span class="iro5-ref-tag" title="Ceriello et al. 2023, Discussion of Shi et al.">文献10</span></p>
+        </div>
+
+        <div class="iro5-doc-section">
+            <h2>4. 色分け表作成の4ステップ</h2>
+
+            <h3>ステップ1：参照介入と効果の閾値を選択する</h3>
+            <p>ネットワーク内の他の介入と最も関連性が高い（最も多くの直接比較がある）介入を参照として使用します。直接エビデンスで計算されたネットワーク推定値は間接エビデンスのみのものより確実性が高くなりやすく、最も接続の多い介入を参照とすることで最も確実性の高いエビデンスに基づく分類が可能になります。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1">文献1</span></p>
+            <p>参照介入は結論を導く過程で使用されますが、臨床的にはより意義のある他の治療を結果提示の参照とすることも可能です。小児急性下痢のNMAでは、「積極的治療なし」「プラセボ」「経口補水液のみ」を含む標準治療が参照でした。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1, example">文献1</span></p>
+
+            <h3>ステップ2：参照との比較に基づく分類</h3>
+            <p>各介入を参照と比較した点推定値を用いて、ステップ1の閾値に対して評価します。点推定値が示す効果の最良推定値に基づき、各介入を分類します。小児急性下痢の例では、5つのグループ（小さな害、些細な効果、小さな有益、中程度の有益、大きな有益）が形成されました。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 2, Table 1">文献1</span></p>
+
+            <h3>ステップ3：エビデンスの確実性による層別化</h3>
+            <p>各介入について参照との比較におけるエビデンスの確実性を明示します。確実性が高い/中等度のエビデンスを持つ介入と、低い/非常に低いエビデンスの介入を分けてグループ化できます。ただし、ほとんどの介入のエビデンス確実性が低い場合は、区別の機会を失わないよう分けるべきではありません。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 3, Table 2">文献1</span></p>
+            <p>エビデンスの確実性に応じた表現例：高い確実性では「～がある」、中等度では「おそらく～がある」、低い確実性では「～がある可能性がある」、非常に低い確実性では「効果は不確実である」。<span class="iro5-ref-tag" title="Santesso et al. 2020, GRADE guidelines 26: informative statements">文献12</span></p>
+
+            <h3>ステップ4：ペアワイズ比較および順位との整合性確認</h3>
+            <p>分類が、参照以外の介入同士のペアワイズ比較やSUCRA値と整合していることを確認します。例えば、S. boulardii + 亜鉛（大きな有益な効果の中程度の確実性）とヨーグルト（中程度の有益な効果の非常に低い確実性）を比較すると、推定値は平均差-22.96時間（95%CI: -42.15～-4.44）であり、S. boulardii + 亜鉛がヨーグルトより大きな利益をもたらす可能性を示唆しています。これは分類と整合しています。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 4, examples">文献1</span></p>
+        </div>
+
+        <div class="iro5-doc-section">
+            <h2>5. 色分けのデザイン</h2>
+
+            <h3>5.1 Phillips et al.（2022）の2つのバリエーション</h3>
+            <p>Phillips et al.は広範なデザイン検証研究（26名の参加者、うち20名が臨床医）を通じて、「グラデーション方式」と「信号機方式」の2つの色分け方式を開発しました。<span class="iro5-ref-tag" title="Phillips et al. 2022, Results: Final presentation versions">文献3</span></p>
+            <p>グラデーション方式では、有益なアウトカムの高/中等度確実性に緑系3段階、有害なアウトカムの高/中等度確実性に赤系3段階、低/非常に低い確実性に灰色系3段階を使用します。信号機方式では、「最も有益」に緑、「中間」に黄、「最も有害」に赤を使用します。<span class="iro5-ref-tag" title="Phillips et al. 2022, Gradient and Stoplight colour coding sections">文献3</span></p>
+            <p>参加者からは、表中の介入の順序として、高/中等度確実性で最大利益かつ最小害の治療を上部に、最小利益かつ最大害のものを下部に配置することが好まれました。<span class="iro5-ref-tag" title="Phillips et al. 2022, Figure organisation">文献3</span></p>
+
+            <h3>5.2 MATCH-ITツール</h3>
+            <p>Hunskaar et al.（2024）は、NMAデータを複数比較のために表示するインタラクティブなGRADEエビデンスサマリーであるMATCH-ITツールを開発・テストしました。ガイドラインパネリストを対象としたユーザーテストでは、色コーディングによる効果の分類が概要の理解を促進し、インタラクティブ性がパネル会議中のエビデンスの動的表示に有用であったことが報告されています。<span class="iro5-ref-tag" title="Hunskaar et al. 2024, Results: Strengths, colour coding">文献4</span></p>
+
+            <h3>5.3 本ツールの色分け原則</h3>
+            <p>本ツールでは2つの次元を同時に表現します。効果の大きさについては、有益な効果が大きいほど濃い緑、有害な効果が大きいほど濃い赤を使用します。エビデンスの確実性については、高/中等度の確実性では色鮮やかな緑系（有益）または赤系（有害）、低/非常に低い確実性では灰色系を使用します。<span class="iro5-ref-tag" title="Phillips et al. 2022, Figure 5 and Figure 6, colour coding schemes">文献3</span></p>
+        </div>
+
+        <div class="iro5-doc-section">
+            <h2>6. 閾値設定の実践的ガイダンス</h2>
+
+            <h3>6.1 連続変数アウトカムの場合</h3>
+            <p>連続変数（下痢持続時間、疼痛スコアなど）では、閾値を自然な単位で直接設定できます。MID相当を第1閾値とし、日常生活への影響の段階に応じて中程度と大きな効果の閾値を決めます。</p>
+
+            <h3>6.2 バイナリアウトカムの場合</h3>
+            <p>バイナリアウトカムでは、NMAから得られる相対効果を絶対効果に変換する必要があります。変換にはベースラインリスクが必要です。Shi et al.（2023）の2型糖尿病NMAでは、5段階のベースラインリスク群に対してそれぞれ絶対効果を算出しています。<span class="iro5-ref-tag" title="Shi et al. 2023, Methods: absolute effect estimation">文献9</span></p>
+
+            <h3>6.3 閾値の恣意性への対処</h3>
+            <p>閾値の境界に近い場合の恣意性は避けられませんが、閾値を明示的に設定する過程で、レビュー著者がその意味をより深く考えるようになる利点があります。通常のメタ分析における効果の大きさに関する結論づけの際にも同様の判断が行われており、部分的文脈化枠組みはこの判断をより透明にするものです。<span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Discussion: limitations and calibration">文献1</span></p>
+        </div>
+
+        <div class="iro5-btn-group">
+            <button class="iro5-btn iro5-btn-success" onclick="iro5_goTab('p-setup')">次へ：閾値設定 →</button>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- パネル2: 閾値設定 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-setup" class="iro5-panel">
+        <div class="iro5-info-box">
+            <h4>ステップ1：参照介入と効果の閾値を選択する <span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1">文献1</span></h4>
+            <p>効果の大きさを分類するための閾値を絶対効果に基づいて設定します。閾値は、必要な健康知識を有するチームが、主要ステークホルダーからの情報に基づいて設定すべきです。</p>
+        </div>
+
+        <div class="iro5-card">
+            <h3>基本設定</h3>
+            <div class="iro5-form-row">
+                <label>アウトカム名：</label>
+                <input type="text" id="iro5-s_outcome" value="下痢持続時間（時間）">
+            </div>
+            <div class="iro5-form-row">
+                <label>参照介入名：</label>
+                <input type="text" id="iro5-s_reference" value="標準治療">
+            </div>
+            <div class="iro5-form-row">
+                <label>効果の方向：</label>
+                <select id="iro5-s_direction">
+                    <option value="lower_better">値が小さいほど良い（例：下痢時間の短縮）</option>
+                    <option value="higher_better">値が大きいほど良い（例：治癒率の上昇）</option>
+                </select>
+            </div>
+            <div class="iro5-form-row">
+                <label>効果指標：</label>
+                <select id="iro5-s_measure">
+                    <option value="MD">平均差（MD）</option>
+                    <option value="OR">オッズ比（OR）</option>
+                    <option value="RR">リスク比（RR）</option>
+                    <option value="RD">リスク差（RD）</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="iro5-card">
+            <h3>有益な効果の閾値 <span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 1, Fig 2">文献1</span></h3>
+            <p class="iro5-help-text">絶対効果の値で入力してください。参照介入との差の絶対値です。</p>
+            <div class="iro5-form-row">
+                <label>些細 → 小さな効果の境界：</label>
+                <input type="number" id="iro5-t_b1" value="3" step="0.1" min="0">
+                <span class="iro5-help-text">（例：下痢3時間短縮）</span>
+            </div>
+            <div class="iro5-form-row">
+                <label>小さな → 中程度の効果の境界：</label>
+                <input type="number" id="iro5-t_b2" value="12" step="0.1" min="0">
+                <span class="iro5-help-text">（例：下痢12時間短縮）</span>
+            </div>
+            <div class="iro5-form-row">
+                <label>中程度 → 大きな効果の境界：</label>
+                <input type="number" id="iro5-t_b3" value="24" step="0.1" min="0">
+                <span class="iro5-help-text">（例：下痢24時間短縮）</span>
+            </div>
+        </div>
+
+        <div class="iro5-card">
+            <h3>有害な効果の閾値（オプション）</h3>
+            <div class="iro5-form-row">
+                <label>些細 → 小さな害の境界：</label>
+                <input type="number" id="iro5-t_h1" value="3" step="0.1" min="0">
+            </div>
+            <div class="iro5-form-row">
+                <label>小さな害 → 中程度の害の境界：</label>
+                <input type="number" id="iro5-t_h2" value="12" step="0.1" min="0">
+            </div>
+            <div class="iro5-form-row">
+                <label>中程度の害 → 大きな害の境界：</label>
+                <input type="number" id="iro5-t_h3" value="24" step="0.1" min="0">
+            </div>
+        </div>
+
+        <div class="iro5-btn-group">
+            <button class="iro5-btn iro5-btn-warning" onclick="iro5_loadExample()">小児急性下痢の例を読み込む</button>
+            <button class="iro5-btn iro5-btn-success" onclick="iro5_goTab('p-data')">次へ：データ入力 →</button>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- パネル3: データ入力 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-data" class="iro5-panel">
+        <div class="iro5-info-box">
+            <h4>ステップ2・3：各介入のデータを入力 <span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Steps 2-3, Table 1 and Table 2">文献1</span></h4>
+            <p>各介入について、参照介入との比較における点推定値、95%信頼区間、GRADEによるエビデンスの確実性、SUCRA値を入力してください。</p>
+        </div>
+
+        <div class="iro5-btn-group">
+            <button class="iro5-btn iro5-btn-primary" onclick="iro5_addRow()">＋ 行を追加</button>
+            <button class="iro5-btn iro5-btn-warning" onclick="iro5_loadExample()">例データを読み込む</button>
+            <button class="iro5-btn iro5-btn-secondary" onclick="iro5_clearData()">クリア</button>
+        </div>
+
+        <div class="iro5-table-wrap">
+            <table class="iro5-input-table" id="iro5-tblInput">
+                <thead>
+                    <tr>
+                        <th style="min-width:170px">介入名</th>
+                        <th style="min-width:90px">点推定値</th>
+                        <th style="min-width:90px">95%CI下限</th>
+                        <th style="min-width:90px">95%CI上限</th>
+                        <th style="min-width:120px">確実性</th>
+                        <th style="min-width:70px">SUCRA</th>
+                        <th style="min-width:40px"></th>
+                    </tr>
+                </thead>
+                <tbody id="iro5-tblBody"></tbody>
+            </table>
+        </div>
+
+        <div class="iro5-btn-group">
+            <button class="iro5-btn iro5-btn-success" onclick="iro5_generate()">&#9654; 色分け表を生成する</button>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- パネル4: 結果 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-result" class="iro5-panel">
+        <div id="iro5-resultArea">
+            <p style="color:#999;text-align:center;padding:50px 0;">データを入力して「色分け表を生成する」をクリックしてください。</p>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- パネル5: 結論文 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-conclusion" class="iro5-panel">
+        <div id="iro5-conclusionArea">
+            <p style="color:#999;text-align:center;padding:50px 0;">色分け表を生成すると、ここに結論文が表示されます。</p>
+        </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- パネル6: 参考文献 -->
+    <!-- ================================================================ -->
+    <section id="iro5-p-ref" class="iro5-panel">
+        <div class="iro5-doc-section">
+            <h2>参考文献</h2>
+            <ul class="iro5-ref-list">
+                <li data-num="[1]"><strong>Brignardello-Petersen R, Izcovich A, Rochwerg B, et al.</strong> GRADE approach to drawing conclusions from a network meta-analysis using a partially contextualised framework. <em>BMJ</em> 2020;371:m3907. doi:10.1136/bmj.m3907<br>
+                <span class="iro5-help-text">→ 部分的文脈化枠組みの4ステップ、閾値設定、Table 1（効果分類）、Table 2（確実性統合表）、ステップ4の整合性確認例</span></li>
+
+                <li data-num="[2]"><strong>Brignardello-Petersen R, Florez ID, Izcovich A, et al.</strong> GRADE approach to drawing conclusions from a network meta-analysis using a minimally contextualised framework. <em>BMJ</em> 2020;371:m3900. doi:10.1136/bmj.m3900<br>
+                <span class="iro5-help-text">→ 最小限の文脈化枠組みの5ステップ、2原則、Table 1（最終分類）、Table 2（両枠組みの比較）、Box 2（分類例）</span></li>
+
+                <li data-num="[3]"><strong>Phillips MR, Sadeghirad B, Busse JW, et al.</strong> Development and design validation of a novel network meta-analysis presentation tool for multiple outcomes: a qualitative descriptive study. <em>BMJ Open</em> 2022;12:e056400.<br>
+                <span class="iro5-help-text">→ グラデーション方式・信号機方式の開発と検証、Figure 2-6（色分けスキーム）、凡例の設計、介入の配置順序</span></li>
+
+                <li data-num="[4]"><strong>Hunskaar BS, Løvsletten PO, Achille F, et al.</strong> MATCH-IT: A decision support tool for multiple comparisons presenting data from network meta-analysis to facilitate guideline development. <em>Clin Pub Health Guidelines</em> 2024;1:e70003.<br>
+                <span class="iro5-help-text">→ MATCH-ITツールのユーザーテスト、色コーディングの効果、信頼区間の追加、ガイドラインパネルでの使用経験</span></li>
+
+                <li data-num="[5]"><strong>Puhan MA, Schünemann HJ, Murad MH, et al.</strong> A GRADE Working Group approach for rating the quality of treatment effect estimates from network meta-analysis. <em>BMJ</em> 2014;349:g5630.<br>
+                <span class="iro5-help-text">→ NMAにおけるGRADEエビデンスの確実性評価のガイダンス</span></li>
+
+                <li data-num="[6]"><strong>Santesso N, Glenton C, Dahm P, et al.</strong> GRADE guidelines 26: informative statements to communicate the findings of systematic reviews of interventions. <em>J Clin Epidemiol</em> 2020;119:126-35.<br>
+                <span class="iro5-help-text">→ エビデンスの確実性に応じた表現（「～がある」「おそらく」「可能性がある」「不確実」）</span></li>
+
+                <li data-num="[7]"><strong>Florez ID, Veroniki A-A, Al Khalifah R, et al.</strong> Comparative effectiveness and safety of interventions for acute diarrhea and gastroenteritis in children: A systematic review and network meta-analysis. <em>PLoS ONE</em> 2018;13(12):e0207701.<br>
+                <span class="iro5-help-text">→ 小児急性下痢NMAの原著論文、27介入・138研究・20,256人、GRADE評価、Table 2（介入の分類）</span></li>
+
+                <li data-num="[8]"><strong>Mills EJ, Thorlund K, Ioannidis JPA.</strong> Demystifying trial networks and network meta-analysis. <em>BMJ</em> 2013;346:f2914.<br>
+                <span class="iro5-help-text">→ NMAの基本概念、ネットワーク幾何学、異質性・非整合性、ランキング確率の限界</span></li>
+
+                <li data-num="[9]"><strong>Shi Q, Nong K, Vandvik PO, Guyatt GH, et al.</strong> Benefits and harms of drug treatment for type 2 diabetes: systematic review and network meta-analysis of randomised controlled trials. <em>BMJ</em> 2023;381:e074068.<br>
+                <span class="iro5-help-text">→ 大規模NMAの例（821試験・471,815患者）、MATCH-ITツール活用、絶対効果推定、リスク層別化</span></li>
+
+                <li data-num="[10]"><strong>Ceriello A, Rodbard HW, Battelino T, et al.</strong> Data from network meta-analyses can inform clinical practice guidelines and decision-making in diabetes management. <em>Cardiovasc Diabetol</em> 2023;22:277.<br>
+                <span class="iro5-help-text">→ NMAの臨床ガイドラインへの活用、MATCH-ITツールの実践的使用例</span></li>
+
+                <li data-num="[11]"><strong>Brignardello-Petersen R, Murad MH, Walter SD, et al.</strong> GRADE approach to rate the certainty from a network meta-analysis: avoiding spurious judgments of imprecision in sparse networks. <em>J Clin Epidemiol</em> 2019;105:60-7.<br>
+                <span class="iro5-help-text">→ NMAにおける不精確さの評価方法</span></li>
+
+                <li data-num="[12]"><strong>Chao YC, Chen PH, Su WS, et al.</strong> Effectiveness of different root-end filling materials in modern surgical endodontic treatment: A systematic review and network meta-analysis. (Supporting Information, Figure S5)<br>
+                <span class="iro5-help-text">→ GRADE summary of evidenceの実例（歯科領域NMA）</span></li>
+            </ul>
+        </div>
+    </section>
+
+</div><!-- /app-container -->
+<script>
+// ========================================
+// グローバル変数
+// ========================================
+let DATA = [];
+
+// ========================================
+// タブ切り替え
+// ========================================
+document.getElementById('iro5-navTabs').addEventListener('click', function(e) {
+    const tab = e.target.closest('.nav-tab');
+    if (!tab) return;
+    const panelId = tab.dataset.panel;
+    iro5_goTab(panelId);
+});
+
+function iro5_goTab(panelId) {
+    document.querySelectorAll('.iro5-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.iro5-nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+    document.querySelector(`.iro5-nav-tab[data-panel="${panelId}"]`).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ========================================
+// データ入力
+// ========================================
+function iro5_addRow() {
+    const tbody = document.getElementById('iro5-tblBody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td><input type="text" placeholder="介入名"></td>
+        <td><input type="number" step="0.01" placeholder="推定値"></td>
+        <td><input type="number" step="0.01" placeholder="下限"></td>
+        <td><input type="number" step="0.01" placeholder="上限"></td>
+        <td><select>
+            <option value="High">高い</option>
+            <option value="Moderate">中等度</option>
+            <option value="Low">低い</option>
+            <option value="Very Low">非常に低い</option>
+        </select></td>
+        <td><input type="number" step="0.01" min="0" max="1" placeholder="0-1"></td>
+        <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">×</button></td>`;
+    tbody.appendChild(tr);
+}
+
+function iro5_clearData() {
+    document.getElementById('iro5-tblBody').innerHTML = '';
+}
+
+// ========================================
+// 例データ（Florez et al. 2018 / Brignardello-Petersen 2020 Table 2）
+// ========================================
+function iro5_loadExample() {
+    // 閾値設定
+    document.getElementById('iro5-s_outcome').value = '下痢持続時間（時間）';
+    document.getElementById('iro5-s_reference').value = '標準治療';
+    document.getElementById('iro5-s_direction').value = 'lower_better';
+    document.getElementById('iro5-s_measure').value = 'MD';
+    document.getElementById('iro5-t_b1').value = 3;
+    document.getElementById('iro5-t_b2').value = 12;
+    document.getElementById('iro5-t_b3').value = 24;
+    document.getElementById('iro5-t_h1').value = 3;
+    document.getElementById('iro5-t_h2').value = 12;
+    document.getElementById('iro5-t_h3').value = 24;
+
+    const ex = [
+        ['LGG + smectite',           -51.08, -64.30, -37.85, 'Very Low', 1.00],
+        ['S. boulardii + zinc',      -39.45, -52.45, -26.73, 'Moderate', 0.92],
+        ['Smectite + zinc',          -35.63, -57.57, -13.16, 'Moderate', 0.88],
+        ['Symbiotics + LCF',         -32.11, -53.01, -11.33, 'Very Low', 0.85],
+        ['Zinc + probiotics',        -29.39, -40.26, -18.57, 'Low',      0.81],
+        ['Symbiotics',               -26.26, -36.14, -16.22, 'High',     0.77],
+        ['Smectite',                 -23.90, -30.80, -16.96, 'Very Low', 0.69],
+        ['LGG',                      -22.74, -28.81, -16.68, 'Low',      0.65],
+        ['Zinc + LCF',              -21.37, -36.54,  -6.13, 'Moderate', 0.61],
+        ['All probiotics',           -19.36, -23.66, -15.09, 'Low',      0.54],
+        ['Zinc',                     -18.38, -23.39, -13.45, 'Moderate', 0.50],
+        ['Loperamide',               -17.79, -30.35,  -5.65, 'Moderate', 0.46],
+        ['Zinc + micronutrients',    -17.76, -31.77,  -4.13, 'Moderate', 0.46],
+        ['Racecadotril',             -17.19, -24.65,  -9.76, 'Low',      0.46],
+        ['S. boulardii + zinc + LCF',-16.74, -36.05,   2.72, 'Low',      0.42],
+        ['S. boulardii',             -16.48, -23.33,  -9.69, 'Low',      0.42],
+        ['Yoghurt',                  -16.43, -30.49,  -2.05, 'Very Low', 0.42],
+        ['Yoghurt + probiotics + Zn',-15.63, -56.82,  26.63, 'Very Low', 0.38],
+        ['Prebiotics',               -15.62, -42.42,  11.28, 'Very Low', 0.38],
+        ['LCF + probiotics',         -13.27, -35.96,   9.19, 'Very Low', 0.31],
+        ['Lactose-free formula',     -12.50, -19.04,  -5.99, 'Very Low', 0.31],
+        ['S. boulardii + LCF',      -12.32, -30.01,   5.98, 'Very Low', 0.27],
+        ['Vitamin A',                 -5.95, -21.43,   9.32, 'Very Low', 0.19],
+        ['Kaolin-pectin',             -5.32, -33.76,  22.83, 'Very Low', 0.15],
+        ['Micronutrients',            -0.68, -33.29,  32.79, 'Low',      0.08],
+        ['Diluted milk',               3.02, -14.32,   8.41, 'Very Low', 0.04]
+    ];
+
+    const tbody = document.getElementById('iro5-tblBody');
+    tbody.innerHTML = '';
+    ex.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="text" value="${d[0]}"></td>
+            <td><input type="number" step="0.01" value="${d[1]}"></td>
+            <td><input type="number" step="0.01" value="${d[2]}"></td>
+            <td><input type="number" step="0.01" value="${d[3]}"></td>
+            <td><select>
+                <option value="High" ${d[4]==='High'?'selected':''}>高い</option>
+                <option value="Moderate" ${d[4]==='Moderate'?'selected':''}>中等度</option>
+                <option value="Low" ${d[4]==='Low'?'selected':''}>低い</option>
+                <option value="Very Low" ${d[4]==='Very Low'?'selected':''}>非常に低い</option>
+            </select></td>
+            <td><input type="number" step="0.01" value="${d[5]}"></td>
+            <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">×</button></td>`;
+        tbody.appendChild(tr);
+    });
+    iro5_goTab('p-data');
+}
+
+// ========================================
+// 分類ロジック
+// ========================================
+const CAT_ORDER = ['lb','mb','sb','tr','sh','mh','lh'];
+const CAT_LABELS = {
+    lb: '大きな有益な効果',    mb: '中程度の有益な効果',
+    sb: '小さな有益な効果',    tr: '些細な効果（差なし）',
+    sh: '小さな有害な効果',    mh: '中程度の有害な効果',
+    lh: '大きな有害な効果'
+};
+const CERT_MAP  = { 'High':'h', 'Moderate':'m', 'Low':'l', 'Very Low':'vl' };
+const CERT_JA   = { 'High':'高い', 'Moderate':'中等度', 'Low':'低い', 'Very Low':'非常に低い' };
+
+function iro5_classify(est, dir) {
+    const b1 = +document.getElementById('iro5-t_b1').value;
+    const b2 = +document.getElementById('iro5-t_b2').value;
+    const b3 = +document.getElementById('iro5-t_b3').value;
+    const h1 = +document.getElementById('iro5-t_h1').value;
+    const h2 = +document.getElementById('iro5-t_h2').value;
+    const h3 = +document.getElementById('iro5-t_h3').value;
+
+    const abs = Math.abs(est);
+    const benefit = dir === 'lower_better' ? est < 0 : est > 0;
+
+    if (benefit || est === 0) {
+        if (abs >= b3) return 'lb';
+        if (abs >= b2) return 'mb';
+        if (abs >= b1) return 'sb';
+        return 'tr';
+    } else {
+        if (abs >= h3) return 'lh';
+        if (abs >= h2) return 'mh';
+        if (abs >= h1) return 'sh';
+        return 'tr';
+    }
+}
+
+function iro5_colorClass(cat, cert) {
+    return 'c-' + cat + '-' + CERT_MAP[cert];
+}
+
+// ========================================
+// 表生成
+// ========================================
+function iro5_generate() {
+    const dir     = document.getElementById('iro5-s_direction').value;
+    const outcome = document.getElementById('iro5-s_outcome').value;
+    const ref     = document.getElementById('iro5-s_reference').value;
+    const measure = document.getElementById('iro5-s_measure').value;
+
+    // データ収集
+    DATA = [];
+    document.querySelectorAll('#tblBody tr').forEach(tr => {
+        const inp = tr.querySelectorAll('input');
+        const sel = tr.querySelector('select');
+        const nm  = inp[0].value.trim();
+        if (!nm) return;
+        DATA.push({
+            name: nm,
+            est:  parseFloat(inp[1].value),
+            ciL:  parseFloat(inp[2].value),
+            ciH:  parseFloat(inp[3].value),
+            cert: sel.value,
+            sucra: parseFloat(inp[4].value) || 0
+        });
+    });
+    if (!DATA.length) { alert('データを入力してください。'); return; }
+
+    // 分類
+    DATA.forEach(d => {
+        d.cat = iro5_classify(d.est, dir);
+        d.cc  = iro5_colorClass(d.cat, d.cert);
+    });
+
+    // ソート
+    DATA.sort((a, b) => {
+        const ia = CAT_ORDER.indexOf(a.cat), ib = CAT_ORDER.indexOf(b.cat);
+        if (ia !== ib) return ia - ib;
+        return b.sucra - a.sucra;
+    });
+
+    // 高/中 と 低/非常に低 に分ける
+    const highMod = DATA.filter(d => d.cert === 'High' || d.cert === 'Moderate');
+    const lowVL   = DATA.filter(d => d.cert === 'Low'  || d.cert === 'Very Low');
+
+    // HTML
+    let H = '';
+    H += `<h2 style="margin-bottom:4px">アウトカム：${outcome}</h2>`;
+    H += `<p style="color:#666;margin-bottom:18px">参照介入：${ref}　|　効果指標：${measure}</p>`;
+
+    // メイン表
+    H += '<div class="iro5-table-wrap"><table class="iro5-result-table">';
+    H += `<thead><tr>
+        <th style="width:170px">効果の分類</th>
+        <th>介入</th>
+        <th>${measure} (95% CI)</th>
+        <th>SUCRA</th>
+        <th>確実性</th>
+    </tr></thead><tbody>`;
+
+    function iro5_renderSection(items, sectionLabel) {
+        if (!items.length) return;
+        H += `<tr><td colspan="5" class="iro5-cat-header">${sectionLabel}</td></tr>`;
+        let prevCat = '';
+        let catCount = 0;
+        let catStartIdx = 0;
+
+        // 先にカテゴリ別にカウント
+        const grouped = [];
+        items.forEach((d, i) => {
+            if (i === 0 || d.cat !== items[i-1].cat) {
+                grouped.push({ cat: d.cat, items: [d] });
+            } else {
+                grouped[grouped.length - 1].items.push(d);
+            }
+        });
+
+        grouped.forEach(g => {
+            const n = g.items.length;
+            g.items.forEach((d, j) => {
+                H += '<tr>';
+                if (j === 0) {
+                    H += `<td class="iro5-cat-header" rowspan="${n}" style="font-size:0.85em;text-align:center;background:#4a5568;writing-mode:horizontal-tb;">${CAT_LABELS[g.cat]}</td>`;
+                }
+                const ci = `${d.est.toFixed(2)} (${d.ciL.toFixed(2)} to ${d.ciH.toFixed(2)})`;
+                H += `<td class="${d.cc}" style="font-weight:600">${d.name}</td>`;
+                H += `<td class="${d.cc}">${ci}</td>`;
+                H += `<td class="${d.cc}">${d.sucra.toFixed(2)}</td>`;
+                H += `<td class="${d.cc}">${CERT_JA[d.cert]}</td>`;
+                H += '</tr>';
+            });
+        });
+    }
+
+    iro5_renderSection(highMod, '確実性が高い・中等度のエビデンス');
+    iro5_renderSection(lowVL,   '確実性が低い・非常に低いエビデンス');
+
+    H += '</tbody></table></div>';
+
+    // 凡例
+    H += '<div class="card" style="margin-top:20px"><h3>凡例：色の意味 <span class="iro5-ref-tag">文献3</span></h3>';
+    H += '<p class="help-text">行＝効果の大きさ、列＝エビデンスの確実性。緑系は有益、赤系は有害、灰色系は低い確実性を示します。</p>';
+    H += '<div class="legend-grid">';
+    H += '<div class="lg-cell lg-header">効果＼確実性</div>';
+    ['高い','中等度','低い','非常に低い'].forEach(c => { H += `<div class="lg-cell lg-header">${c}</div>`; });
+
+    const lgCats = [
+        {k:'lb',l:'大きな有益'},{k:'mb',l:'中程度の有益'},{k:'sb',l:'小さな有益'},
+        {k:'tr',l:'些細な効果'},{k:'sh',l:'小さな有害'},{k:'mh',l:'中程度の有害'},{k:'lh',l:'大きな有害'}
+    ];
+    const lgCerts = ['h','m','l','vl'];
+    lgCats.forEach(c => {
+        H += `<div class="lg-cell lg-row-hd">${c.l}</div>`;
+        lgCerts.forEach(ck => { H += `<div class="lg-cell c-${c.k}-${ck}">&nbsp;</div>`; });
+    });
+    H += '</div></div>';
+
+    document.getElementById('iro5-resultArea').innerHTML = H;
+
+    // 結論文生成
+    iro5_buildConclusions();
+
+    iro5_goTab('p-result');
+}
+
+// ========================================
+// 結論文生成（GRADE informative statements, 文献6）
+// ========================================
+function iro5_buildConclusions() {
+    const outcome = document.getElementById('iro5-s_outcome').value;
+    let H = '<div class="iro5-conclusion-box">';
+    H += '<h3>結論文（GRADEの表現に基づく）<span class="iro5-ref-tag" title="Santesso et al. 2020, GRADE guidelines 26">文献6</span> <span class="iro5-ref-tag" title="Brignardello-Petersen 2020 partially, Step 3 example conclusions">文献1</span></h3>';
+
+    // グループ化: cat + cert
+    const groups = {};
+    DATA.forEach(d => {
+        const key = d.cat + '|' + d.cert;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(d);
+    });
+
+    const certOrder = ['High','Moderate','Low','Very Low'];
+    const usedCats  = [...new Set(DATA.map(d => d.cat))];
+    const catsSorted = CAT_ORDER.filter(c => usedCats.includes(c));
+
+    catsSorted.forEach(cat => {
+        certOrder.forEach(cert => {
+            const key = cat + '|' + cert;
+            const items = groups[key];
+            if (!items || !items.length) return;
+
+            const names = items.map(d => d.name).join('、');
+            const catLabel = CAT_LABELS[cat];
+            const certClass = 'iro5-cert-' + CERT_MAP[cert];
+            let stmt = '';
+
+            if (cert === 'High') {
+                stmt = `すべての介入を考慮した場合、${names}は${outcome}に対して${catLabel}を持つ。`;
+            } else if (cert === 'Moderate') {
+                stmt = `すべての介入を考慮した場合、${names}はおそらく${outcome}に対して${catLabel}を有する。`;
+            } else if (cert === 'Low') {
+                stmt = `すべての介入を考慮した場合、${names}は${outcome}に対して${catLabel}がある可能性がある。`;
+            } else {
+                stmt = `${names}については、エビデンスの確実性が非常に低いため、${outcome}に対する効果は不確実である。`;
+            }
+
+            H += `<div class="conc-item ${certClass}">${stmt}（確実性：${CERT_JA[cert]}）</div>`;
+        });
+    });
+
+    H += '</div>';
+    document.getElementById('iro5-conclusionArea').innerHTML = H;
+}
+
+// ========================================
+// 初期化
+// ========================================
+for (let i = 0; i < 5; i++) iro5_addRow();
+</script>

@@ -14,6 +14,9 @@ $multiTab1 = [System.IO.File]::ReadAllText("$base\Multi_tab1.txt", [System.Text.
 # タブ2: NMAの基本
 $nmaTab2 = [System.IO.File]::ReadAllText("$base\NMA_tab2.txt", [System.Text.Encoding]::UTF8)
 
+# タブ5: 効果と確実性の表記
+$iroTab5 = [System.IO.File]::ReadAllText("$base\iro_tab5.txt", [System.Text.Encoding]::UTF8)
+
 # Split p1 at </div><!-- /container -->
 $marker = '</div><!-- /container -->'
 $idx1 = $p1.IndexOf($marker)
@@ -82,7 +85,7 @@ $outerHeader = @"
       <button class="main-tab-btn" data-tab="2" onclick="switchMainTab(2)">2. NMAの基本</button>
       <button class="main-tab-btn" data-tab="3" onclick="switchMainTab(3)">3. 統計的解説</button>
       <button class="main-tab-btn" data-tab="4" onclick="switchMainTab(4)">4. エビデンスの確実性</button>
-      <button class="main-tab-btn" data-tab="5" onclick="switchMainTab(5)">5. 未定</button>
+      <button class="main-tab-btn" data-tab="5" onclick="switchMainTab(5)">5. 効果と確実性の表記</button>
       <button class="main-tab-btn" data-tab="6" onclick="switchMainTab(6)">6. 未定</button>
       <button class="main-tab-btn" data-tab="7" onclick="switchMainTab(7)">7. 未定</button>
       <button class="main-tab-btn" data-tab="8" onclick="switchMainTab(8)">8. 未定</button>
@@ -139,7 +142,9 @@ $p1_script = $p1_script.Replace('<script>', '<script>' + $outerJS)
 # --- Closing panels for tabs 5-8 ---
 $closingPanels = @"
 </div><!-- /mp-4 -->
-<div class="main-panel" id="mp-5"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-5">
+$iroTab5
+</div><!-- /mp-5 -->
 <div class="main-panel" id="mp-6"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
 <div class="main-panel" id="mp-7"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
 <div class="main-panel" id="mp-8"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
