@@ -8,6 +8,9 @@ $p4 = [System.IO.File]::ReadAllText("$base\パート4.txt", [System.Text.Encodin
 $p5 = [System.IO.File]::ReadAllText("$base\パート5.txt", [System.Text.Encoding]::UTF8)
 $p6 = [System.IO.File]::ReadAllText("$base\パート6.txt", [System.Text.Encoding]::UTF8)
 
+# タブ2: NMAの基本
+$nmaTab2 = [System.IO.File]::ReadAllText("$base\NMA_tab2.txt", [System.Text.Encoding]::UTF8)
+
 # Split p1 at </div><!-- /container -->
 $marker = '</div><!-- /container -->'
 $idx1 = $p1.IndexOf($marker)
@@ -64,7 +67,7 @@ $p1_before = $p1_before.Replace(
     '<title>NMA-GRADE エビデンス確実性評価 完全ガイド</title>',
     '<title>ネットワークメタ分析 総合ガイド</title>')
 
-# --- Build outer header HTML ---
+# --- Build outer header HTML (mp-2にNMA基本コンテンツを組み込む) ---
 $navMark = '<nav class="top-nav">'
 $outerHeader = @"
 <!-- ===== 外部アプリヘッダー & 8タブ ===== -->
@@ -84,7 +87,9 @@ $outerHeader = @"
   </div>
 </div>
 <div class="main-panel" id="mp-1"><div class="placeholder-panel"><h2>準備中</h2><p>「マルチ介入・ネットワークメタ分析」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
-<div class="main-panel" id="mp-2"><div class="placeholder-panel"><h2>準備中</h2><p>「ネットワークメタ分析の基本」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-2">
+$nmaTab2
+</div><!-- /mp-2 -->
 <div class="main-panel" id="mp-3"><div class="placeholder-panel"><h2>準備中</h2><p>「ネットワークメタ分析の統計的解説」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
 <div class="main-panel active" id="mp-4">
 "@
@@ -102,6 +107,8 @@ function switchMainTab(n){
   var panel=document.getElementById('mp-'+n);
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
+  // タブ2を開いた時に初期セクションを表示
+  if(n===2){ showNMA2Section('sec1'); }
 }
 
 "@

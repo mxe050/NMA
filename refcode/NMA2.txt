@@ -1,0 +1,581 @@
+<!-- ===== 追加・拡充コンテンツ パート2 ===== -->
+
+<!-- セクション2の拡充: インタラクティブな間接比較計算機 -->
+<div class="section" id="sec2ext" style="display:none;">
+<h2>第2章 補足：間接比較の計算演習</h2>
+
+<h3>2.5 間接比較のインタラクティブ計算</h3>
+
+<p>Bucher法による間接比較の計算を実際に体験してみましょう。以下のフォームに、2つの直接比較メタアナリシスの結果（対数スケールの効果推定値とその標準誤差）を入力すると、間接比較の推定値が自動計算されます。</p>
+
+<div class="card">
+<h4>Bucher法間接比較計算機</h4>
+<p>A vs C（共通比較対照C）からの結果と、B vs C からの結果を入力してください。A vs B の間接推定値を計算します。</p>
+
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin:15px 0;">
+<div>
+  <label><strong>A vs C の log(効果量)：</strong></label><br>
+  <input type="number" id="logAC" step="0.01" value="-0.69" style="width:100%; padding:8px; margin:4px 0; border:1px solid #ccc; border-radius:4px;">
+  <label>A vs C の標準誤差 (SE)：</label><br>
+  <input type="number" id="seAC" step="0.01" value="0.20" style="width:100%; padding:8px; margin:4px 0; border:1px solid #ccc; border-radius:4px;">
+</div>
+<div>
+  <label><strong>B vs C の log(効果量)：</strong></label><br>
+  <input type="number" id="logBC" step="0.01" value="0.00" style="width:100%; padding:8px; margin:4px 0; border:1px solid #ccc; border-radius:4px;">
+  <label>B vs C の標準誤差 (SE)：</label><br>
+  <input type="number" id="seBC" step="0.01" value="0.15" style="width:100%; padding:8px; margin:4px 0; border:1px solid #ccc; border-radius:4px;">
+</div>
+</div>
+
+<button class="toggle-btn" onclick="calcBucher()" style="width:100%;">間接比較を計算する</button>
+
+<div id="bucherResult" style="margin-top:15px; padding:15px; background:#eaf2f8; border-radius:8px; display:none;">
+</div>
+
+<div class="ref">
+<strong>【計算原理の引用】</strong> Bucher et al. (1997) J Clin Epidemiol, 式(4)(5)：「ln(OR<sub>ind</sub>) = ln(OR<sub>AB</sub>) − ln(OR<sub>CB</sub>)」および「Var(ln OR<sub>ind</sub>) = Var(ln OR<sub>AB</sub>) + Var(ln OR<sub>CB</sub>)」。Tobías et al. (2014) Rev Esp Salud Pública 表1に実装されたものと同等の計算。
+</div>
+</div>
+
+<h3>2.6 ネットワーク構造の理解：インタラクティブ図解</h3>
+
+<p>ネットワークメタアナリシスでは、個々の臨床試験はほとんどが2つの治療の対比較であり、多くても3〜5群の比較のみです。これらの直接比較のエビデンスのパスをつなげて、治療のネットワークを構築します。</p>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）NMA理論資料 p.14より：「個々の臨床試験では、ほとんどが2つの治療の対比較であり、多くても3-5群の比較のみ。直接比較のエビデンスのパスをつなげて、治療のネットワークを作り、対象となる治療間の治療効果の比較を行う。」
+</div>
+
+<div class="network-diagram">
+<h4>ネットワーク構造の基本パターン</h4>
+<svg width="700" height="280" viewBox="0 0 700 280">
+  <!-- パターン1: 星形 -->
+  <text x="100" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a5276">星形ネットワーク</text>
+  <circle cx="100" cy="100" r="18" fill="#2e86c1"/>
+  <text x="100" y="105" text-anchor="middle" fill="white" font-size="11" font-weight="bold">P</text>
+  <circle cx="40" cy="55" r="14" fill="#e74c3c"/>
+  <text x="40" y="59" text-anchor="middle" fill="white" font-size="10">A</text>
+  <circle cx="160" cy="55" r="14" fill="#e74c3c"/>
+  <text x="160" y="59" text-anchor="middle" fill="white" font-size="10">B</text>
+  <circle cx="40" cy="155" r="14" fill="#e74c3c"/>
+  <text x="40" y="159" text-anchor="middle" fill="white" font-size="10">C</text>
+  <circle cx="160" cy="155" r="14" fill="#e74c3c"/>
+  <text x="160" y="159" text-anchor="middle" fill="white" font-size="10">D</text>
+  <line x1="54" y1="62" x2="85" y2="88" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="146" y1="62" x2="115" y2="88" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="54" y1="148" x2="85" y2="115" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="146" y1="148" x2="115" y2="115" stroke="#2c3e50" stroke-width="2"/>
+  <text x="100" y="200" text-anchor="middle" font-size="10" fill="#5d6d7e">共通比較対照Pを中心に</text>
+  <text x="100" y="215" text-anchor="middle" font-size="10" fill="#5d6d7e">すべてが接続</text>
+
+  <!-- パターン2: ループあり -->
+  <text x="350" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a5276">閉じたループを含む</text>
+  <circle cx="350" cy="60" r="16" fill="#2e86c1"/>
+  <text x="350" y="64" text-anchor="middle" fill="white" font-size="10">A</text>
+  <circle cx="290" cy="130" r="16" fill="#27ae60"/>
+  <text x="290" y="134" text-anchor="middle" fill="white" font-size="10">B</text>
+  <circle cx="410" cy="130" r="16" fill="#27ae60"/>
+  <text x="410" y="134" text-anchor="middle" fill="white" font-size="10">C</text>
+  <circle cx="350" cy="190" r="14" fill="#e74c3c"/>
+  <text x="350" y="194" text-anchor="middle" fill="white" font-size="10">P</text>
+  <line x1="337" y1="72" x2="300" y2="118" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="363" y1="72" x2="400" y2="118" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="306" y1="130" x2="394" y2="130" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="297" y1="145" x2="340" y2="180" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="403" y1="145" x2="360" y2="180" stroke="#2c3e50" stroke-width="2"/>
+  <text x="350" y="230" text-anchor="middle" font-size="10" fill="#5d6d7e">一貫性の検定が可能</text>
+  <text x="350" y="245" text-anchor="middle" font-size="10" fill="#5d6d7e">（三角形ループ）</text>
+
+  <!-- パターン3: 切断 -->
+  <text x="580" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a5276">切断されたネットワーク</text>
+  <circle cx="540" cy="80" r="14" fill="#2e86c1"/>
+  <text x="540" y="84" text-anchor="middle" fill="white" font-size="10">A</text>
+  <circle cx="540" cy="140" r="14" fill="#2e86c1"/>
+  <text x="540" y="144" text-anchor="middle" fill="white" font-size="10">B</text>
+  <line x1="540" y1="94" x2="540" y2="126" stroke="#2c3e50" stroke-width="2"/>
+  
+  <circle cx="630" cy="80" r="14" fill="#e74c3c"/>
+  <text x="630" y="84" text-anchor="middle" fill="white" font-size="10">C</text>
+  <circle cx="630" cy="140" r="14" fill="#e74c3c"/>
+  <text x="630" y="144" text-anchor="middle" fill="white" font-size="10">D</text>
+  <line x1="630" y1="94" x2="630" y2="126" stroke="#e74c3c" stroke-width="2"/>
+  
+  <line x1="558" y1="110" x2="612" y2="110" stroke="#aaa" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="585" y="105" text-anchor="middle" font-size="9" fill="#aaa">接続なし</text>
+  <text x="580" y="200" text-anchor="middle" font-size="10" fill="#5d6d7e">標準NMAでは解析不可</text>
+  <text x="580" y="215" text-anchor="middle" font-size="10" fill="#5d6d7e">CNMAなら共通成分で</text>
+  <text x="580" y="230" text-anchor="middle" font-size="10" fill="#5d6d7e">接続可能な場合あり</text>
+</svg>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> Tsokani et al. (2022) より：「NMA can be applied to connected networks only. That means we can estimate the relative effectiveness between all interventions... except for interventions 'C+E' and 'A+B+D', for which we will only use evidence from the studies comparing them directly. CNMA can be used in disconnected networks if the subnetworks share at least one common component.」（Component NMA in a nutshell, p.3）
+</div>
+
+<h3>2.7 「三竦み」問題とNMA</h3>
+
+<p>NMAでは、直接比較のエビデンスが互いに整合しない「三竦み（さんすくみ）」のような状態が生じることがあります。これは不一貫性（Inconsistency）の一種です。</p>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）NMA理論資料 p.43より：「螂蛆食蛇、蛇食蛙、蛙食螂蛆、互相食也。三者が互いに牽制し合って、それぞれが自由に動けない状態。」
+</div>
+
+<p>例えば、Cipriani et al. (2009) の抗うつ薬NMAでは、CIT-ESC-PARのTriangle Loopにおいて：CIT vs ESCではESCが有意に優れ（OR 0.68）、CIT vs PARではCITが有意に優れ（OR 0.65）、しかしESC vs PARでは有意差なし（OR 0.89）という、いわゆる「三竦み」に近い状態が観察されました。</p>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）NMA理論資料 p.47より：「CIT vs. ESCの直接比較では、ESCのほうが有意に反応率が高い。CIT vs. PARでは、CITのほうが有意に反応率が高い。ESCは、PARよりも有意に反応率が高い…わけではなく、ESCとPARの直接比較では、有意差が出ず、ORも0.89ほどしかない。いわゆる「三竦」に近い状態！！ ESC-PAR-CIT間のパス上のEffect Sizeは一致しない？？」
+</div>
+
+</div><!-- end sec2ext -->
+
+<!-- セクション4の拡充: Rコード例 -->
+<div class="section" id="sec4ext" style="display:none;">
+<h2>第4章 補足：Rによる実践コード例</h2>
+
+<h3>4.4 NMAパッケージ（野間）によるNMAの実行</h3>
+
+<p>野間久史（統計数理研究所）が開発したRパッケージ「NMA」を用いた実践的なNMA解析の手順を示します。</p>
+
+<div class="ref">
+<strong>【引用】</strong> 以下のコード例は、野間（2026）配布資料（Slide_Noma）p.39-106の実行例に基づいています。Noma et al. (2025) medRxivのチュートリアルも参照。
+</div>
+
+<h4>Step 1: パッケージのインストールと読み込み</h4>
+<div class="code-block">
+<pre># NMAパッケージのインストールと読み込み
+pkgCheck &lt;- function(pkg){
+  if (!requireNamespace(pkg, quietly = TRUE))
+    install.packages(pkg)
+  library(pkg, character.only = TRUE)
+}
+pkgCheck("NMA")</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）配布資料 p.39：setup関数の基本構文とパッケージ読み込みのコード例。
+</div>
+
+<h4>Step 2: データの前処理（setup関数）</h4>
+<div class="code-block">
+<pre># CSVデータの読み込み
+heartfailure &lt;- read.csv(file="heartfailure.csv")
+
+# setup関数でデータの前処理
+# study: 研究のID, trt: 治療の種類, d: イベント数, n: サンプルサイズ
+# measure: 効果の指標（RR=リスク比, OR=オッズ比, RD=リスク差）
+# ref: 参照治療
+hf3 &lt;- setup(study=study, trt=trt, d=d, n=n,
+              z=c(SBP, DBP, pubyear),
+              measure="RR", ref="Placebo",
+              data=heartfailure)</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）配布資料 p.46：「study: 研究のIDを表す変数，trt: 治療を表す変数，d: 群ごとのイベント数を表す変数，n: 群ごとのサンプルサイズを表す変数，z: メタ回帰などを行う場合の共変量（optional），measure: 効果の指標，ref: referenceとなる治療，data: データセット」
+</div>
+
+<h4>Step 3: ネットワークプロットの作成</h4>
+<div class="code-block">
+<pre># 基本的なネットワークプロット
+netplot(hf3)
+
+# カスタマイズ版
+netplot(hf3, col="red", bg="red",
+        base.lwd=1.5, base.cex=1.5)</pre>
+</div>
+
+<h4>Step 4: NMAの統合解析</h4>
+<div class="code-block">
+<pre># NMAの実行（eform=TRUEで指数変換した推定値を出力）
+result &lt;- nma(hf3, eform=TRUE)
+
+# 結果にはプラセボ対照の各治療のリスク比、
+# 95%信頼区間、P値、異質性指標が含まれる
+# デフォルトでNoma-Hamura法による改善されたREML推測を使用</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）配布資料 p.58：「Cochrane Handbookでも、DerSimonian-Laird法やREML法が統計的な誤差を過小評価する問題から、HKSJ法を推奨していますが、同様の問題は、NMAにもあります。NMAにおける改善策として開発された、Noma-Hamura法をデフォルトの方法として採用しています（Noma et al., 2023ab）。」
+</div>
+
+<h4>Step 5: フォレストプロットとリーグテーブル</h4>
+<div class="code-block">
+<pre># ランク付きフォレストプロット
+nmaforest(hf3, col.plot="blue")
+
+# 降順で表示
+nmaforest(hf3, ascending=FALSE)
+
+# リーグテーブル
+nmaleague(hf3, eform=TRUE, digits=2)</pre>
+</div>
+
+<h4>Step 6: ランキング解析</h4>
+<div class="code-block">
+<pre># SUCRA, Mean Rank, 順位の確率を算出
+nmarank(hf3)
+
+# 出力例：
+# SUCRA:     DD=0.993, ACE=0.798, ARB=0.661, ...
+# MEANRANK:  DD=1.048, ACE=2.412, ARB=3.373, ...</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）配布資料 p.67-70：降圧薬NMAにおけるSUCRAの結果例。「DDのSUCRAは、かなり1に近く、1位である見込みは高いという結果。一方、ACEやARBは、2位，3位ですが、DDとSUCRAの値の差は大きく、相対的な差は大きいと解釈することができます。ABが最下位である見込みもかなり高い」
+</div>
+
+<h4>Step 7: 不一貫性の評価</h4>
+<div class="code-block">
+<pre># 局所的不一貫性検定（Triangle Loop Inconsistency）
+local.ict(hf3)
+
+# 全体的不一貫性検定（Global Inconsistency）
+global.ict(hf3)
+
+# Side-splitting法（直接・間接エビデンスの分解）
+sidesplit(hf3)
+
+# JacksonのRandom Inconsistencyモデル
+random.icm(hf3)</pre>
+</div>
+
+<h4>Step 8: 推移性の評価とメタ回帰</h4>
+<div class="code-block">
+<pre># 推移性の評価（共変量分布の比較）
+transitivity(hf3, SBP)
+
+# メタ回帰（特定の対比の効果修飾を評価）
+nmareg(hf3, z=SBP, treats=3)  # ACE vs Placebo
+
+# 複数の共変量・複数の対比
+nmareg(hf3, z=c(SBP, DBP), treats=c(3, 4, 6))</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> 野間（2026）配布資料 p.93-97：「transitivity関数では、対象となったネットワークにおける、デザインごとの共変量のサマリーを算出し、比較することができます。Cipriani, Furukawa, Salanti et al. (2018) で考案された、Side-by-side boxplotを提示し、共変量分布の異質性を評価することができます。」
+</div>
+
+<h3>4.5 netmetaパッケージによるNMA・CNMAの実行</h3>
+
+<p>Rückerらが開発したnetmetaパッケージは、最も広く使われているNMAパッケージの一つで、特にコンポーネントNMA（CNMA）の機能が充実しています。</p>
+
+<div class="code-block">
+<pre># netmetaパッケージの使用例
+library(netmeta)
+
+# NMAの実行
+net1 &lt;- netmeta(TE, seTE, treat1, treat2, studlab,
+                data = mydata,
+                sm = "OR",  # 効果指標
+                reference.group = "Placebo",
+                comb.random = TRUE)
+
+# ネットワークプロット
+netgraph(net1)
+
+# フォレストプロット
+forest(net1)
+
+# リーグテーブル
+netleague(net1)
+
+# ランキング
+netrank(net1)
+
+# コンポーネントNMA（加法モデル）
+cnma1 &lt;- netcomb(net1)
+print(cnma1)
+
+# 切断されたネットワークのCNMA
+cnma2 &lt;- discomb(TE, seTE, treat1, treat2, studlab,
+                  component.names, data = mydata)
+</pre>
+</div>
+
+<div class="ref">
+<strong>【引用】</strong> Rücker et al. (2020) Biom J, component network metaanalysis 公開.pptx p.44より：「我々は、Rパッケージnetmeta の関数netcomb（接続ネットワーク用）およびdiscomb（切断ネットワーク用）に、加法および相互作用CNMAモデルを実装した。netmetaの応用は非常に便利で、netcomb(net1)のようなコマンドで...加法的CNMAを実施すればよい。したがって、このFrequentistの実装は、統計ソフトウェアに関する特別なトレーニングを受けていない研究者でも簡単に適用することができる。」
+</div>
+
+</div><!-- end sec4ext -->
+
+<!-- セクション7の拡充: CNMAの詳細 -->
+<div class="section" id="sec7ext" style="display:none;">
+<h2>第7章 補足：CNMAの詳細と分析モデルの比較</h2>
+
+<h3>7.5 4つの分析モデルの比較</h3>
+
+<p>多成分介入のメタアナリシスには、段階的に複雑さを増す4つのモデルがあります。</p>
+
+<div class="ref">
+<strong>【引用】</strong> component network metaanalysis (CNMA).pptx p.4, Veroniki et al. (2022) Methods Mol Biol, およびCaldwell & Welton (2016) Evid Based Ment Health より：4つのモデルの分類。
+</div>
+
+<table>
+<tr><th>モデル</th><th>別名</th><th>特徴</th><th>推定パラメータ数</th><th>適用場面</th></tr>
+<tr>
+<td><strong>モデルA：単一効果モデル</strong></td>
+<td>Single-effect model</td>
+<td>すべての介入を1つのグループに「一括」。標準的なペアワイズメタアナリシスと同等</td>
+<td>最少</td>
+<td>介入全体としての有効性を評価したい場合</td>
+</tr>
+<tr>
+<td><strong>モデルB：標準NMA</strong></td>
+<td>Full interaction model</td>
+<td>構成要素の各組み合わせを異なる介入として扱う。すべての相互作用を暗黙的に含む</td>
+<td>最多（ノード数-1）</td>
+<td>各介入の効果を独立に推定したい場合</td>
+</tr>
+<tr>
+<td><strong>モデルC：加法的CNMA</strong></td>
+<td>Additive main effects model</td>
+<td>各構成要素に個別の効果があると仮定。介入効果=構成要素効果の合計</td>
+<td>少（成分数）</td>
+<td>どの構成要素が効果的かを知りたい場合</td>
+</tr>
+<tr>
+<td><strong>モデルD：相互作用CNMA</strong></td>
+<td>Two-way interaction model</td>
+<td>モデルCの拡張で、構成要素ペアの相互作用を追加</td>
+<td>中（成分数+相互作用項）</td>
+<td>構成要素間の相乗・拮抗効果を評価したい場合</td>
+</tr>
+</table>
+
+<div class="ref">
+<strong>【引用】</strong> JGS supplementary Appendix S11, p.44より：「モデルA、ペアワイズメタ解析：すべての介入をひとまとめにし参照治療と比較する。モデルB、標準的なNMA：構成要素の可能な組み合わせは、それぞれ独立した介入とみなされ、独自の効果を有する。これが一次解析。モデルC、コンポーネントNMA、加法モデル：各コンポーネントに個別の効果があると仮定する。モデルD、コンポーネントNMA、相互作用モデル：モデルCの拡張。」
+</div>
+
+<h3>7.6 CNMAの標準NMAとの比較表</h3>
+
+<table>
+<tr><th>特徴</th><th>標準NMA</th><th>コンポーネントNMA</th></tr>
+<tr><td>適用条件</td><td>治療がコンポーネントで構成されている場合は使用可能だが「最適」とは言えない可能性がある</td><td>介入がコンポーネントで構成されている場合にのみ適している</td></tr>
+<tr><td>構成要素</td><td>研究によって異なる構成要素</td><td>研究間で共通する構成要素</td></tr>
+<tr><td>回答可能な問い</td><td>どの治療が最も効果的か？</td><td>どの構成要素または要素の組み合わせが最も効果的か？</td></tr>
+<tr><td>疎なネットワーク</td><td>大きな不確実性が生じる</td><td>不確実性を低減できる</td></tr>
+<tr><td>切断されたネットワーク</td><td>解析不可</td><td>共通成分があれば解析可能</td></tr>
+<tr><td>未観察の組み合わせ</td><td>推定不可</td><td>推定可能</td></tr>
+</table>
+
+<div class="ref">
+<strong>【引用】</strong> component network metaanalysis 公開.pptx p.46（およびCNMA.pptx p.65）の比較表より。
+</div>
+
+<h3>7.7 加法性の仮定の検証</h3>
+
+<p>加法モデルの妥当性はQ統計量の比較によって検定できます。標準NMAモデル（完全相互作用モデル）のQ統計量とCNMAモデルのQ統計量の差を検定に用います。</p>
+
+<div class="ref">
+<strong>【引用】</strong> Rücker et al. (2020) p.40より：うつ病データの例において「加算モデルのQ統計量はQa=109.12（df=90、p=.0832）であり、差Qa-Q=6.67（df=3、p=.0831）は、加算モデルがデータをよく説明し、加算性の仮定が正当であると思われた。」ただし「これは、異質性・非一貫性の検定が陰性であっても、それがないことの証明にはならないのと同様に、必ずしもそれが有効であることの証明にはならない。」（Tsokani et al. 2022, component NMA in a nutshell p.3-4）
+</div>
+
+<h3>7.8 CNMAの実例：抗血小板・抗凝固療法の併用</h3>
+
+<p>抗血小板薬と抗凝固薬の併用療法に関するCNMA（15試験、73,536人）では、加法モデルを用いた成分レベルの解析により、以下の知見が得られました。</p>
+
+<p>成分レベルでは、ダビガトランとアピキサバンがMACEリスクを有意に減少させた一方（それぞれ54%と25%のRR減少）、ビタミンK拮抗薬、リバーロキサバン、エドキサバンでは有意な減少は認められませんでした。アスピリンの追加はMACEリスクを減少させず、出血リスクの66%上昇の非有意な傾向が認められました。</p>
+
+<div class="ref">
+<strong>【引用】</strong> component network metaanalysis 公開.pptx p.52（およびCNMA.pptx p.71）より：「ダビガトランとアピキサバンはMACEリスクを有意に減少させました（緑丸）それぞれ54％と25％のRR減少）。他の抗凝固薬の場合、この効果は有意ではなく、エドキサバンとVKAで上昇傾向がありました。ASAの追加はMACEリスクを減少させませんでしたが、出血リスクの66％上昇の非有意な傾向がありました。」
+</div>
+
+<p>この例は、組み合わせレベル（標準NMA）では見えない個別成分の効果を、CNMAの加法モデルによって初めて明らかにできた好例です。VKA単独の試験群を持った研究がなくても、CNMAによりVKAのみの成分効果を推定できました。</p>
+
+</div><!-- end sec7ext -->
+
+<!-- セクション8の拡充: ソフトウェア詳細 -->
+<div class="section" id="sec8ext" style="display:none;">
+<h2>第8章 補足：ソフトウェア詳細比較とワークフロー</h2>
+
+<h3>8.5 オンラインツール詳細比較</h3>
+
+<table>
+<tr><th>機能</th><th>MetaInsight</th><th>NMAstudio</th><th>CINeMA</th></tr>
+<tr><td>NMA統合解析</td><td>✅ 頻度論+ベイズ</td><td>✅ 頻度論</td><td>❌（評価専用）</td></tr>
+<tr><td>ネットワークプロット</td><td>✅</td><td>✅ インタラクティブ</td><td>✅</td></tr>
+<tr><td>フォレストプロット</td><td>✅</td><td>✅</td><td>❌</td></tr>
+<tr><td>リーグテーブル</td><td>✅</td><td>✅（改善予定）</td><td>✅</td></tr>
+<tr><td>ランキング(SUCRA/P-score)</td><td>✅</td><td>✅</td><td>❌</td></tr>
+<tr><td>不一貫性の評価</td><td>✅</td><td>✅</td><td>✅ Incoherence</td></tr>
+<tr><td>エビデンス確実性評価</td><td>❌</td><td>❌</td><td>✅（6ドメイン）</td></tr>
+<tr><td>CNMA対応</td><td>❌</td><td>❌</td><td>❌</td></tr>
+<tr><td>データ入力形式</td><td>CSV</td><td>CSV/手動</td><td>NMA結果の入力</td></tr>
+<tr><td>プログラミング不要</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>費用</td><td>無料</td><td>無料</td><td>無料</td></tr>
+</table>
+
+<h3>8.6 Rパッケージ詳細比較</h3>
+
+<table>
+<tr><th>機能</th><th>NMA (野間)</th><th>netmeta</th><th>gemtc</th><th>multinma</th></tr>
+<tr><td>統計的枠組み</td><td>頻度論</td><td>頻度論</td><td>ベイズ(JAGS)</td><td>ベイズ(Stan)</td></tr>
+<tr><td>データ前処理</td><td>✅ setup関数</td><td>△ pairwise関数</td><td>✅ mtc.network</td><td>✅</td></tr>
+<tr><td>ネットワークプロット</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>フォレストプロット</td><td>✅ ランク付き</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>リーグテーブル</td><td>✅ CSV出力可</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>SUCRA/P-score</td><td>✅ 両方</td><td>✅ P-score</td><td>✅ SUCRA</td><td>✅ SUCRA</td></tr>
+<tr><td>局所不一貫性検定</td><td>✅</td><td>✅</td><td>✅</td><td>△</td></tr>
+<tr><td>全体不一貫性検定</td><td>✅</td><td>✅</td><td>✅</td><td>△</td></tr>
+<tr><td>Side-splitting</td><td>✅(Noma法)</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>メタ回帰</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>推移性評価</td><td>✅ boxplot</td><td>△</td><td>❌</td><td>❌</td></tr>
+<tr><td>CNMA（加法モデル）</td><td>❌</td><td>✅ netcomb</td><td>❌</td><td>❌</td></tr>
+<tr><td>CNMA（相互作用）</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>切断NMAのCNMA</td><td>❌</td><td>✅ discomb</td><td>❌</td><td>❌</td></tr>
+<tr><td>寄与率分析</td><td>✅ heatmap</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>ファンネルプロット</td><td>✅ 比較調整</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>予測区間</td><td>✅(Noma法)</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Arm-levelデータ対応</td><td>✅</td><td>△</td><td>✅</td><td>✅ IPDも</td></tr>
+<tr><td>日本語文書</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+<tr><td>推奨習熟度</td><td>初級～</td><td>初級～</td><td>中級～</td><td>上級</td></tr>
+</table>
+
+<h3>8.7 HTA機関によるNMA手法の受容状況</h3>
+
+<p>各国のHTA（医療技術評価）機関がBucher法とベイズNMAをどのように位置づけているかは、地域によって微妙に異なります。</p>
+
+<div class="ref">
+<strong>【引用】</strong> 以下はBalijepalli & Iheanacho (2018) The Evidence Forum の記述に基づきます。
+</div>
+
+<table>
+<tr><th>HTA機関</th><th>国</th><th>推奨手法</th><th>備考</th></tr>
+<tr><td>IQWiG</td><td>ドイツ</td><td>Bucher法・ベイズNMA両方</td><td>ITCは個別アウトカムではなく研究全体の問いに対して使用すべき</td></tr>
+<tr><td>EUnetHTA</td><td>欧州</td><td>Bucher法・ベイズNMA両方</td><td>Bucher法は透明性と適用の容易さで優位。ベイズNMAの複雑さを限界と指摘</td></tr>
+<tr><td>CADTH</td><td>カナダ</td><td>Bucher法・ベイズNMA両方</td><td>Bucher法は単純な星形デザインに最適。ベイズの複雑さを限界視</td></tr>
+<tr><td>PBAC</td><td>オーストラリア</td><td>Bucher法を広く認知</td><td>より複雑なNMAは付録での提示を推奨</td></tr>
+<tr><td>HAS</td><td>フランス</td><td>両方を受容</td><td>ベイズNMAが最も有用（柔軟性の観点から）</td></tr>
+</table>
+
+<div class="ref">
+<strong>【引用】</strong> Balijepalli & Iheanacho (2018) より各機関の記述を要約。EUnetHTAについて："it notes that when the evidence supports the use of either method, Bucher's method offers the most in terms of transparency and ease of application." HASについて："HAS accepts the use of both Bucher's and Bayesian NMA, although it observes that the Bayesian NMA is the most useful method as it is flexible."
+</div>
+
+<h3>8.8 NMA実施のための推奨ワークフロー</h3>
+
+<ol class="step-list">
+<li><strong>系統的文献検索とスクリーニング：</strong>PRISMA-NMAガイドライン（Hutton et al., 2015）に従い、適格研究を特定</li>
+<li><strong>データ抽出：</strong>研究ID、治療群、アウトカム（イベント数/サンプルサイズ、平均値/SD、ハザード比等）、共変量を抽出</li>
+<li><strong>ネットワーク構造の確認：</strong>ネットワークプロットの作成。接続性、比較数、各ノードのサンプルサイズを評価</li>
+<li><strong>推移性の評価：</strong>デザインごとの共変量分布の比較（Side-by-side boxplot等）</li>
+<li><strong>ペアワイズメタアナリシス：</strong>直接比較が存在する全ペアについてペアワイズMAを実施。異質性（I²、τ²）の評価</li>
+<li><strong>NMA統合解析：</strong>変量効果モデルでのNMA実行。効果推定値、信頼区間、予測区間の算出</li>
+<li><strong>不一貫性の評価：</strong>局所的検定（Loop検定）、全体的検定（Higgins法）、Side-splitting</li>
+<li><strong>ランキング：</strong>SUCRA/P-score、Mean Rank、順位確率の算出</li>
+<li><strong>感度分析：</strong>モデルの仮定の変更、研究の除外、共変量調整等</li>
+<li><strong>結果の提示：</strong>フォレストプロット、リーグテーブル、ランキングプロット</li>
+<li><strong>エビデンスの確実性評価：</strong>GRADE NMAフレームワーク、CINeMA等</li>
+</ol>
+
+</div><!-- end sec8ext -->
+
+<!-- ===== ナビゲーション更新：追加セクションへのリンク追加 ===== -->
+<script>
+// 追加セクションのナビゲーション項目を動的に追加
+document.addEventListener('DOMContentLoaded', function() {
+  const sidebar = document.getElementById('sidebar');
+  
+  // 各セクションの追加ナビを挿入
+  const sec2Links = sidebar.querySelectorAll('a[href="#sec2-4"]');
+  if(sec2Links.length > 0) {
+    const newLink1 = document.createElement('a');
+    newLink1.href = '#sec2ext';
+    newLink1.className = 'sub';
+    newLink1.textContent = '2.5-2.7 計算演習・図解';
+    newLink1.onclick = function(){ showSection('sec2ext'); };
+    sec2Links[0].parentNode.insertBefore(newLink1, sec2Links[0].nextSibling);
+  }
+  
+  const sec4Links = sidebar.querySelectorAll('a[href="#sec4-3"]');
+  if(sec4Links.length > 0) {
+    const newLink2 = document.createElement('a');
+    newLink2.href = '#sec4ext';
+    newLink2.className = 'sub';
+    newLink2.textContent = '4.4-4.5 Rコード実例';
+    newLink2.onclick = function(){ showSection('sec4ext'); };
+    sec4Links[0].parentNode.insertBefore(newLink2, sec4Links[0].nextSibling);
+  }
+  
+  const sec7Links = sidebar.querySelectorAll('a[href="#sec7-4"]');
+  if(sec7Links.length > 0) {
+    const newLink3 = document.createElement('a');
+    newLink3.href = '#sec7ext';
+    newLink3.className = 'sub';
+    newLink3.textContent = '7.5-7.8 CNMA詳細';
+    newLink3.onclick = function(){ showSection('sec7ext'); };
+    sec7Links[0].parentNode.insertBefore(newLink3, sec7Links[0].nextSibling);
+  }
+  
+  const sec8Links = sidebar.querySelectorAll('a[href="#sec8-4"]');
+  if(sec8Links.length > 0) {
+    const newLink4 = document.createElement('a');
+    newLink4.href = '#sec8ext';
+    newLink4.className = 'sub';
+    newLink4.textContent = '8.5-8.8 ソフト詳細・HTA';
+    newLink4.onclick = function(){ showSection('sec8ext'); };
+    sec8Links[0].parentNode.insertBefore(newLink4, sec8Links[0].nextSibling);
+  }
+});
+
+// Bucher法計算機
+function calcBucher() {
+  const logAC = parseFloat(document.getElementById('logAC').value);
+  const seAC = parseFloat(document.getElementById('seAC').value);
+  const logBC = parseFloat(document.getElementById('logBC').value);
+  const seBC = parseFloat(document.getElementById('seBC').value);
+  
+  if(isNaN(logAC) || isNaN(seAC) || isNaN(logBC) || isNaN(seBC)) {
+    alert('すべての値を入力してください。');
+    return;
+  }
+  
+  // 間接比較の計算
+  const logAB = logAC - logBC;
+  const varAB = seAC * seAC + seBC * seBC;
+  const seAB = Math.sqrt(varAB);
+  const lower = logAB - 1.96 * seAB;
+  const upper = logAB + 1.96 * seAB;
+  const z = logAB / seAB;
+  const p = 2 * (1 - normalCDF(Math.abs(z)));
+  
+  // 指数変換（効果量がオッズ比等の場合）
+  const expAB = Math.exp(logAB);
+  const expLower = Math.exp(lower);
+  const expUpper = Math.exp(upper);
+  
+  const resultDiv = document.getElementById('bucherResult');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = `
+    <h4 style="color:#1a5276; margin-bottom:10px;">間接比較の結果（A vs B）</h4>
+    <table>
+      <tr><th>指標</th><th>値</th></tr>
+      <tr><td>log(効果量) A vs B</td><td>${logAB.toFixed(4)}</td></tr>
+      <tr><td>標準誤差 (SE)</td><td>${seAB.toFixed(4)}</td></tr>
+      <tr><td>95% CI (logスケール)</td><td>[${lower.toFixed(4)}, ${upper.toFixed(4)}]</td></tr>
+      <tr><td>Z統計量</td><td>${z.toFixed(4)}</td></tr>
+      <tr><td>P値</td><td>${p.toFixed(4)}</td></tr>
+      <tr style="background:#eaf2f8;"><td><strong>効果量 (exp変換)</strong></td><td><strong>${expAB.toFixed(3)}</strong></td></tr>
+      <tr style="background:#eaf2f8;"><td><strong>95% CI (exp変換)</strong></td><td><strong>[${expLower.toFixed(3)}, ${expUpper.toFixed(3)}]</strong></td></tr>
+    </table>
+    <p style="margin-top:10px; font-size:0.85em; color:#5d6d7e;">
+      ※ 効果量がOR, RR, HRの場合、exp変換後の値が臨床的に解釈可能な推定値です。<br>
+      ※ 効果量がMD（平均差）の場合は、logスケールの値がそのまま使用されます。
+    </p>
+  `;
+}
+
+// 正規分布の累積分布関数（近似）
+function normalCDF(x) {
+  const a1 = 0.254829592;
+  const a2 = -0.284496736;
+  const a3 = 1.421413741;
+  const a4 = -1.453152027;
+  const a5 = 1.061405429;
+  const p = 0.3275911;
+  const sign = x < 0 ? -1 : 1;
+  x = Math.abs(x) / Math.sqrt(2);
+  const t = 1.0 / (1.0 + p * x);
+  const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+  return 0.5 * (1.0 + sign * y);
+}
+</script>
