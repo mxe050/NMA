@@ -1,0 +1,190 @@
+<!-- ============================================================
+     パート4/6: セクション7（ステップD）+ セクション8（アルゴリズム）
+     ============================================================ -->
+
+<!-- ============================================================
+     セクション7: ステップD - 最良推定値の選択
+     引用元: Izcovich et al. BMJ 2023, p.6-7, Fig 5
+             Brignardello-Petersen et al. JCE 2018, Section 3.4
+             Brignardello-Petersen et al. JCE 2019;108:77-85, Section 8
+             GRADE詳細レポート p.9
+             NMAのGRADEエビデンス確実性まとめPPT, slide 32-34
+     ============================================================ -->
+<div class="section" id="sec-stepd">
+<div class="section-header sh-stepd" onclick="toggleSec(this)">
+  <h2>7. ステップD：最良推定値の選択</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="progress">
+  <div class="p-step done">A1</div><div class="p-step done">A2</div>
+  <div class="p-step done">B1</div><div class="p-step done">B2</div><div class="p-step done">B3</div>
+  <div class="p-step done">C1</div><div class="p-step done">C2</div><div class="p-step done">C3</div>
+  <div class="p-step active">D: 最良推定値</div>
+</div>
+
+<div class="subsection">
+<h3>7.1 最良推定値選択の基本原則</h3>
+
+<div class="step-card yellow">
+<div class="step-label label-d">D: 最良推定値の決定</div>
+
+<p>ここまでのステップで、NMA推定値の最終確実性が得られています。直接・間接推定値の最終確実性は、A2/B3を実施した場合にのみ利用可能です。</p>
+
+<div class="key-point">
+<strong>核心原則:</strong> NMA推定値が常に最良とは限りません。直接または間接推定値の最終確実性がNMA推定値より高い場合はそちらを採用します。目標は「NMA推定値を使うこと」ではなく、<strong>「最も確実な効果推定値を特定すること」</strong>です。
+</div>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.6-7: "Although the purpose of combining direct and indirect estimates is to increase certainty in the estimates of effect, NMA estimates do not always represent the best alternative."
+<br>Brignardello-Petersen et al. JCE 2019;108:77-85, Section 8: "one could ask, in our view very legitimately, why one would choose as the best estimate lower certainty evidence when higher certainty evidence is available."
+</div>
+
+<h4>決定フロー</h4>
+<table>
+<tr><th>条件</th><th>選択する推定値</th><th>A2/B3の必要性</th></tr>
+<tr>
+  <td><strong>非整合性なし</strong> かつ NMA推定値がより精確</td>
+  <td><strong>NMA推定値</strong>を使用</td>
+  <td>不要（直接・間接の仮確実性のみで十分）</td>
+</tr>
+<tr>
+  <td><strong>非整合性あり</strong></td>
+  <td>直接・間接・NMAの3つの<strong>最終確実性を比較</strong>し、最も高いものを選択</td>
+  <td><strong>必要</strong>（A2, B3を実施して最終確実性を算出）</td>
+</tr>
+<tr>
+  <td>NMA推定値が直接/間接より<strong>不精確</strong></td>
+  <td>3つの最終確実性を比較し、最も高いものを選択</td>
+  <td><strong>必要</strong></td>
+</tr>
+<tr>
+  <td>直接/間接の<strong>片方のみ</strong>存在</td>
+  <td><strong>NMA推定値</strong>（=存在する推定値と同一）</td>
+  <td>不要</td>
+</tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.7: "When neither of those conditions are met (no incoherence and NMA estimate more precise than direct and indirect estimate), reviewers should consider the NMA estimate with its corresponding certainty of evidence rating as the best. In these cases, assessing imprecision for direct and indirect estimates is not necessary."
+<br>p.7: "Except for when direct or indirect final ratings result in higher certainty (when the estimate with higher certainty rating should be selected), the NMA estimate represents the best choice."
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>7.2 実用的選択ルール</h3>
+<div class="step-card blue">
+<h4>PPTスライド34に基づく簡略ルール</h4>
+<table>
+<tr><th>状況</th><th>選択</th></tr>
+<tr><td>直接と間接に<strong>整合性あり</strong></td><td>NMA推定値とその確実性を選択</td></tr>
+<tr><td>非整合性あり・確実性の差が<strong>1段階以下</strong></td><td>NMA推定値を選択（非整合性でダウングレード済み）</td></tr>
+<tr><td>非整合性あり・確実性の差が<strong>2段階以上</strong></td><td>直接・間接・NMAの中で<strong>最も確実性の高い推定値</strong>を選択</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> NMAのGRADEエビデンス確実性まとめPPT, slide 34
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>7.3 ステップDの具体例</h3>
+<div class="example-box ex-green">
+<h4>例1-3（COVID-19 NMA）: NMA推定値が選択されたケース</h4>
+<table>
+<tr><th>比較</th><th>直接最終</th><th>間接最終</th><th>NMA最終</th><th>選択</th><th>理由</th></tr>
+<tr><td>ステロイド vs SOC (死亡)</td><td><span class="cert c-low">低</span></td><td><span class="cert c-vlow">非常に低</span></td><td><span class="cert c-mod">中</span></td><td><strong>NMA<span class="cert c-mod">中</span></strong></td><td>直接・間接がNMAより低い確実性</td></tr>
+<tr><td>アジスロマイシン vs SOC (症状)</td><td><span class="cert c-low">低</span></td><td><span class="cert c-vlow">非常に低</span></td><td><span class="cert c-low">低</span></td><td><strong>NMA<span class="cert c-low">低</span></strong></td><td>同上</td></tr>
+<tr><td>イベルメクチン vs HCQ (人工呼吸器)</td><td><span class="cert c-low">低</span></td><td><span class="cert c-vlow">非常に低</span></td><td><span class="cert c-low">低</span></td><td><strong>NMA<span class="cert c-low">低</span></strong></td><td>同上</td></tr>
+</table>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 5: すべての例で"NMA estimate selected as direct and indirect did not provide higher certainty"</div>
+</div>
+
+<div class="example-box ex-purple">
+<h4>例4（Bognanni et al.）: 直接推定値が選択されたケース</h4>
+<table>
+<tr><th>比較</th><th>直接最終</th><th>間接最終</th><th>NMA最終</th><th>選択</th><th>理由</th></tr>
+<tr><td>SNS vs プラセボ (嗅覚)</td><td><span class="cert c-mod">中</span></td><td><span class="cert c-vlow">非常に低</span></td><td><span class="cert c-low">低</span></td><td><strong>直接<span class="cert c-mod">中</span></strong></td><td>非整合性のためNMA確実性が低下。直接の方が高い。</td></tr>
+</table>
+<div class="cite-box"><strong>引用元:</strong> Supplementary file 2, Example 4: "Moderate certainty ⊕⊕⊕◯ — Direct estimate selected as it provides higher certainty"</div>
+</div>
+
+<div class="key-point">
+<strong>学習ポイント:</strong> 例4は、NMA推定値が必ずしも最良ではないことを示す重要な例です。非整合性（直接と間接で効果の方向が逆転）によりNMA推定値の確実性が低下し、直接推定値の方が高い確実性となりました。
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション8: NMA確実性の出発点決定アルゴリズム
+     引用元: Supplementary file 3 (Algorithm)
+             NMAのGRADEエビデンス確実性まとめPPT, slide 20-23
+     ============================================================ -->
+<div class="section" id="sec-algo">
+<div class="section-header sh-algo" onclick="toggleSec(this)">
+  <h2>8. NMA確実性の出発点決定アルゴリズム（ステップC1詳細）</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>8.1 全15シナリオ</h3>
+<p>Supplementary file 3のアルゴリズムに基づく全シナリオです。COE = Certainty of the Evidence（確実性）。</p>
+
+<table>
+<tr><th>番号</th><th>状況</th><th>条件</th><th>出発点</th></tr>
+<tr><td>S1</td><td>直接エビデンスのみ</td><td>—</td><td><strong>直接</strong></td></tr>
+<tr><td>S2</td><td>直接COE「高」</td><td>直接エビデンス量が適切</td><td><strong>直接</strong></td></tr>
+<tr><td>S3</td><td>直接COE「高」</td><td>不適切; 直接が支配的</td><td><strong>直接</strong></td></tr>
+<tr><td>S4</td><td>直接COE「高」</td><td>不適切; 間接が支配的</td><td><strong>間接</strong></td></tr>
+<tr><td>S5</td><td>直接COE「高」</td><td>不適切; どちらも支配的でない</td><td><strong>直接</strong></td></tr>
+<tr><td>S6</td><td>直接が高いが最高でない</td><td>直接エビデンス量が適切</td><td><strong>直接</strong></td></tr>
+<tr><td>S7</td><td>直接が高いが最高でない</td><td>不適切; 直接支配的</td><td><strong>直接</strong></td></tr>
+<tr><td>S8</td><td>直接が高いが最高でない</td><td>不適切; 間接支配的</td><td><strong>間接</strong></td></tr>
+<tr><td>S9</td><td>直接が高いが最高でない</td><td>不適切; どちらも支配的でない</td><td><strong>直接</strong></td></tr>
+<tr><td>S10</td><td>直接COEが低い</td><td>間接エビデンス量が適切</td><td><strong>間接</strong></td></tr>
+<tr><td>S11</td><td>直接COEが低い</td><td>間接不適切; 直接支配的</td><td><strong>直接</strong></td></tr>
+<tr><td>S12</td><td>直接COEが低い</td><td>間接不適切; 間接支配的</td><td><strong>間接</strong></td></tr>
+<tr><td>S13</td><td>直接COEが低い</td><td>間接不適切; どちらも支配的でない</td><td><strong>直接</strong></td></tr>
+<tr><td>S14</td><td>直接と間接のCOEが同じ</td><td>—</td><td><strong>直接 or 間接</strong></td></tr>
+<tr><td>S15</td><td>間接エビデンスのみ</td><td>—</td><td><strong>間接</strong></td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Supplementary file 3 (Algorithm to determine the starting point of NMA certainty), S1-S15の全定義。
+<br>NMAのGRADEエビデンス確実性まとめPPT, slide 21-22 (日本語訳)
+</div>
+</div>
+
+<div class="subsection">
+<h3>8.2 「適切」と「支配的」の判断基準</h3>
+
+<div class="step-card blue">
+<h4>エビデンス量が「適切」（Adequate）かの判断</h4>
+<table>
+<tr><th>対象</th><th>基準</th><th>出典</th></tr>
+<tr><td>直接（二値アウトカム）</td><td>サンプルサイズがOIS基準を満たす</td><td>Supplementary file 3 注釈</td></tr>
+<tr><td>直接（連続アウトカム）</td><td>各群400（合計800）以上</td><td>Supplementary file 3 注釈</td></tr>
+<tr><td>間接（二値・連続）</td><td>「有効サンプルサイズ」がOISを満たす</td><td>Supplementary file 3 注釈; GRADE guidelines 33</td></tr>
+</table>
+
+<h4>「支配的」（Dominant）かの判断</h4>
+<p>以下の方法で判断します：</p>
+<p>
+• 直接推定値と間接推定値のCIの幅を比較（狭い方がより寄与）<br>
+• 寄与行列（Contribution matrix）の使用（頻度論的NMAのみ）<br>
+• NMA推定値の点推定値とCIが直接/間接のどちらに類似しているか
+</p>
+<div class="cite-box">
+<strong>引用元:</strong> PPT slide 23: "Dominant（優勢・支配的）の判定は、論文に明確な記載がないが、基本は寄与率だろう。寄与率は、計算方法もあるが、直接推定値と間接推定値の95％信頼区間の幅がより狭い推定値が、ネットワーク推定値に最も寄与する推定値であることより、おおよその見当がつく"
+<br>Brignardello-Petersen et al. JCE 2018, p.39: "One method to assess whether the direct and indirect estimate both contribute importantly to the network estimate is to compare the widths of their CIs."
+</div>
+</div>
+</div>
+
+</div>
+</div>

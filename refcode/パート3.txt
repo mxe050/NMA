@@ -1,0 +1,546 @@
+<!-- ============================================================
+     パート3/6: セクション5（ステップB）+ セクション6（ステップC）
+     ============================================================ -->
+
+<!-- ============================================================
+     セクション5: ステップB - 間接推定値の確実性評価
+     引用元: Izcovich et al. BMJ 2023, p.4-5, Fig 3
+             Brignardello-Petersen et al. JCE 2018, Section 3.2
+             Brignardello-Petersen et al. JCE 2019;108:77-85, Section 5
+             Kamso et al. 2026 Paper 2, Section 2.2
+             GRADE詳細レポート p.6-7
+             NMAのGRADEエビデンス確実性まとめPPT, slide 17-19
+     ============================================================ -->
+<div class="section" id="sec-stepb">
+<div class="section-header sh-stepb" onclick="toggleSec(this)">
+  <h2>5. ステップB：間接推定値の確実性評価</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="progress">
+  <div class="p-step done">A1: RoB・Inc・Ind・Pub</div>
+  <div class="p-step done">A2: 不精確さ(任意)</div>
+  <div class="p-step active">B1: ループ選択</div>
+  <div class="p-step active">B2: 非推移性</div>
+  <div class="p-step">B3: 不精確さ(任意)</div>
+  <div class="p-step">C1: 出発点</div>
+  <div class="p-step">C2: 非整合性</div>
+  <div class="p-step">C3: 不精確さ</div>
+  <div class="p-step">D: 最良推定値</div>
+</div>
+
+<div class="subsection">
+<h3>5.1 概要：間接推定値の確実性はどう決まるか</h3>
+<p>
+間接推定値の確実性は、それを構成する<strong>直接比較の確実性から継承</strong>されます。すなわち、ステップAで評価した直接推定値の仮確実性が、間接推定値の評価の土台となります。これに加え、NMA特有のドメインである<span class="term" tabindex="0">非推移性（intransitivity）<span class="term-popup">間接比較を構成する直接比較間で効果修飾因子の分布に系統的な差がある場合に発生するバイアス。</span></span>を評価します。
+</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "The certainty of the evidence of indirect comparisons is based on the certainty ratings of the direct comparisons on which those indirect estimates are calculated (mainly first and second order loops). Therefore, once the certainty ratings are available for all the comparisons that have a direct estimate, indirect estimates certainty ratings can be completed."
+</div>
+</div>
+
+<div class="subsection">
+<h3>5.2 ステップB1：優勢ループの特定と初期確実性の決定</h3>
+
+<div class="step-card green">
+<div class="step-label label-b">B1: 優勢一次ループの選択</div>
+
+<h4>一次ループ（First-order loop）とは</h4>
+<p>
+A対Bの間接推定値を評価するとき、<strong>共通の比較対象C</strong>（コモンコンパレータ）を1つだけ介してAとBを結ぶ経路を一次ループと呼びます。すなわち、A-C比較とB-C比較の2つの直接比較で構成されます。
+</p>
+<p>
+一次ループが存在しない場合（AとBが1つの共通ノードでは結ばれない場合）は、<strong>二次ループ</strong>（2つの中間ノードを持つ経路、例：A-D-E-B）を探します。
+</p>
+
+<h4>手順</h4>
+<p>
+<strong>①</strong> 評価したい間接比較（例：A対B）について、一次ループが存在するか確認<br>
+<strong>②</strong> 一次ループが複数ある場合、最も<strong>優勢（dominant）</strong>なものを選択<br>
+<strong>③</strong> 一次ループがない場合は二次ループを探す
+</p>
+
+<h4>優勢なループの判断方法</h4>
+<table class="small-table">
+<tr><th>方法</th><th>説明</th><th>出典</th></tr>
+<tr>
+  <td><strong>ネットワークプロットの視覚的検査</strong></td>
+  <td>ノードの大きさ（患者数）とラインの太さ（研究数/標準誤差の逆数）から判断</td>
+  <td>Izcovich 2023, p.4; PPT slide 17</td>
+</tr>
+<tr>
+  <td><strong>寄与行列（Contribution matrix）</strong></td>
+  <td>各直接比較がNMA推定値にどの程度（%）寄与しているかを定量的に示す。直接の寄与を除いた残りから間接エビデンスの寄与を算出可能。</td>
+  <td>Kamso et al. 2026 Paper 2, Section 2.2.1; Brignardello-Petersen 2018, Section 3.2</td>
+</tr>
+<tr>
+  <td><strong>信頼区間の幅の比較</strong></td>
+  <td>より狭いCIを持つ推定値がより多く寄与</td>
+  <td>Brignardello-Petersen 2018, p.39</td>
+</tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "When more than one alternative is available (multiple first order loops or, eventually, second order loops), reviewers should choose the most dominant in terms of number of studies and participants included."
+<br>PPT slide 17: "最近は、ネットワーク図のノードの大きさとノードを結ぶ線の幅をみて、良さそうな方を優勢一次ループとする。"
+</div>
+
+<h4>Kamso et al. (2026) の寄与行列を用いた自動化アプローチ</h4>
+<p>
+Kamso et al.は、優勢ループの手動選択の代わりに、<strong>寄与行列から間接推定値に最も寄与する上位2つの直接比較</strong>を自動的に特定するアプローチを使用しました。
+</p>
+<table class="small-table">
+<tr><th>結果</th><th>数値</th></tr>
+<tr><td>一次ループが存在した間接推定値</td><td>1054/1306 (80.7%)</td></tr>
+<tr><td>一次ループ内の上位2直接比較と自動選択の一致率</td><td>951/1050 (90.6%)</td></tr>
+<tr><td>上位2直接比較が全体の50%以上を占めた割合</td><td>811/1306 (62%)</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Section 3.1.2: "The automated approach of choosing the highest two contributing direct estimates generally aligned a manual review of the network plot, but offered advantages in always selecting the dominant evidence, regardless of network geometry."
+</div>
+
+<div class="warning-point">
+<strong>注意:</strong> 上位2直接比較が全体の50%未満しか占めない場合（38%の推定値で該当）、それらの確実性評価だけでは間接推定値全体を十分に代表できない可能性があります。この点はさらなる研究が必要とされています。
+<br><span style="font-size:.85em;">（Kamso et al. 2026 Paper 2, Section 4 Discussion）</span>
+</div>
+
+<h4>初期確実性の決定</h4>
+<p>
+間接推定値の初期確実性は、<strong>優勢一次ループを構成する2つの直接比較の仮確実性のうち、低い方</strong>です。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "The initial certainty of the indirect estimate is the lowest of the preliminary certainty ratings of the direct comparisons that constitute the most dominant first (or second) order loops."
+<br>Kamso et al. 2026 Paper 2, Section 2.2.1: "indirect estimates were assigned the lowest rating from the two direct estimates contributing most to the indirect evidence."
+</div>
+
+<p><strong>自動化:</strong> スプレッドシートでは、共通比較対象を指定するだけで間接推定値の初期確実性が自動算出されます。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "reviewers only need to specify the common comparator in the most dominant first order loop...to automatically identify the certainty of the evidence of that loop."
+</div>
+</div>
+
+<h4>COVID-19予防NMAの例：ループ選択の実例</h4>
+<div class="example-box ex-green">
+<h4>ビタミンC vs 標準治療/プラセボ（死亡率）のループ選択</h4>
+<p>Supplementary figure 1のネットワークプロットにおいて、この間接推定値には2つの一次ループが候補としてありました：</p>
+<table class="small-table">
+<tr><th>候補ループ</th><th>共通比較対象</th><th>判断</th></tr>
+<tr><td>ループ1</td><td>ヒドロキシクロロキン</td><td><strong>→ 選択</strong>（ノードが大きく、ラインが太い）</td></tr>
+<tr><td>ループ2</td><td>イベルメクチン</td><td>非選択</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4 および Supplementary figure 1: "reviewers had to decide between two first order loops, using hydroxychloroquine or ivermectin as the common comparator. By looking at the size of the nodes and the width of the lines...reviewers decided that the first order loop through hydroxychloroquine was dominant."
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>5.3 ステップB2：非推移性（Intransitivity）の評価</h3>
+
+<div class="step-card green">
+<div class="step-label label-b">B2: 非推移性の評価</div>
+
+<h4>非推移性とは何か</h4>
+<p>
+<span class="term" tabindex="0">非推移性<span class="term-popup">間接比較を構成する直接比較間で効果修飾因子の分布に系統的な差がある場合に発生するバイアス。推移性の仮定（A対CのCとB対CのCが同等）の違反。</span></span>
+とは、間接比較を構成する直接比較の間で、<strong>効果修飾因子</strong>（治療効果を変化させうる要因：患者年齢、重症度、共介入、アウトカム測定法など）の分布に系統的な差がある状態です。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "For indirect estimates to be valid, the transitivity assumption must not be violated; that is, credible effect modifiers must not be seriously imbalanced between the direct comparisons that contribute to an indirect comparison."
+<br>Brignardello-Petersen et al. JCE 2019;108:77-85, Section 5: "the transitivity assumption states that the A vs. C and B vs. C comparisons involve sufficiently similar patients, cointerventions, outcomes, and risk of bias."
+</div>
+
+<h4>評価方法</h4>
+<p>
+① 優勢ループを構成する直接比較の<strong>研究特性</strong>を比較（患者背景、介入詳細、共介入、アウトカム測定法、RoBなど）<br>
+② チェックリストやICEMANツールを使用可能<br>
+③ 効果修飾因子に重大な不均衡がある場合にダウングレード
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "The credibility of effect modifiers can be assessed using checklists, or the ICEMAN instrument. When this assumption is not met...reviewers must rate down the certainty of the evidence." (Schandelmaier et al. CMAJ 2020;192:E901-6)
+</div>
+
+<h4>Kamso et al. (2026) の革新的アプローチ：非直接性から非推移性を推定</h4>
+<p>
+Kamso et al.は、ステップA1で評価した<strong>直接推定値の非直接性（indirectness）評価</strong>を利用して非推移性を推定する新しいアプローチを提案しました。概念的に、非直接性と非推移性はどちらも効果修飾に関する懸念です。
+</p>
+
+<table>
+<tr><th>2つの主要直接比較の非直接性</th><th>非推移性の判定</th><th>アクション</th></tr>
+<tr><td>どちらか一方または両方が「Serious」</td><td><strong>Serious</strong></td><td>1段階ダウングレード</td></tr>
+<tr><td>両方とも「Not serious」</td><td><strong>Not serious</strong></td><td>ダウンなし</td></tr>
+<tr><td>一方または両方が「Some concerns」<br>（Seriousなし）</td><td><strong>Some concerns</strong></td><td>専門家判断を要する（自動ではダウンしない）</td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Section 2.2.2, Fig 2: "If either or both direct estimates were rated serious for indirectness, we rated intransitivity as 'serious' and downgraded the CoE by one level."
+</div>
+
+<h4>Kamso et al.の結果と課題</h4>
+<table class="small-table">
+<tr><th>非推移性の判定</th><th>件数（1306中）</th><th>割合</th></tr>
+<tr><td>Not serious</td><td>620</td><td>47.5%</td></tr>
+<tr><td>Some concerns</td><td>359</td><td>27.5%</td></tr>
+<tr><td>Serious（ダウングレード）</td><td>327</td><td>25.0%</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Section 3.1.3
+</div>
+
+<div class="warning-point">
+<strong>二重カウントの注意:</strong> GRADE指針では、両方の直接比較が同じ理由で非直接性の懸念を持つ場合、非推移性でもダウングレードすると二重カウントになる可能性があるとされています。ただし実際にはこの判断は困難です。
+<br><span style="font-size:.85em;">（Brignardello-Petersen et al. JCE 2019;108:77-85, Section 5: "reviewers should, in most cases, take care not to rate down a network estimate for both incoherence and intransitivity." Kamso et al. 2026 Paper 2: "we chose to be conservative, erring on the side of rating down for intransitivity if concerns were present."）</span>
+</div>
+
+<p><strong>自動化の現状:</strong> Izcovichのスプレッドシートでは非推移性の自動評価は未実装（手動評価が必要）。将来的な組み込みが予定されています。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "the assessment of intransitivity remains a challenge and the GRADE working group has not yet provided official detailed guidance on how to deal with this domain."
+</div>
+</div>
+
+<div class="step-card yellow">
+<div class="step-label label-b">B2の結果：間接推定値の仮確実性</div>
+<p>B1の初期確実性に非推移性の評価を加えて、<strong>間接推定値の仮確実性</strong>（不精確さを含まない）を得ます。</p>
+<p><strong>この仮確実性は、ステップC1（NMA確実性の出発点選択）で使用されます。</strong></p>
+</div>
+</div>
+
+<div class="subsection">
+<h3>5.4 ステップB3：間接推定値の不精確さ評価（オプション）</h3>
+<div class="step-card green">
+<div class="step-label label-opt">B3: オプション — 省略可能</div>
+<p>A2と同様、間接推定値の不精確さ評価は<strong>省略可能</strong>です。NMA推定値の確実性評価には間接の仮確実性のみ使用されます。不精確さ評価が必要になるのは、<strong>非整合性が認められた場合</strong>（ステップD）のみです。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.4: "obtaining a final certainty rating for indirect estimate is not always necessary (step D); hence, reviewers can choose to skip—or ultimately delay—this step."
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>5.5 間接推定値の評価が不要な場合（効率化ルール）</h3>
+<div class="key-point">
+<strong>効率化ルール:</strong> 直接エビデンスの仮確実性が「高」で、かつ直接エビデンスのNMA推定値への寄与が間接エビデンス以上の場合、間接推定値の確実性評価は不要です。
+</div>
+<p>
+<strong>理由:</strong> GRADE指針では、NMA推定値の確実性は直接と間接の仮確実性のうち高い方を出発点とします。直接が「高」であれば、間接がそれを上回ることはないためです。
+</p>
+<p>ただし、間接エビデンスがNMA推定値を支配的に構成している場合は、この省略は適用できません。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.8: "When the certainty of the direct evidence is high and the contribution of the direct evidence to the network estimate is at least as great as that of the indirect evidence, rating the indirect estimates is not needed."
+<br>Brignardello-Petersen et al. JCE 2018, Section 3.2, p.39: "There is no need to rate the indirect evidence when the certainty of the direct evidence is high and the contribution of the direct evidence to the network estimate is at least as great as that of the indirect evidence."
+</div>
+</div>
+
+<div class="subsection">
+<h3>5.6 ステップBの具体例</h3>
+<div class="tab-container">
+<div class="tab-buttons">
+  <button class="tab-btn active" onclick="showTab(event,'exb1')">例1: ステロイドvs標準治療</button>
+  <button class="tab-btn" onclick="showTab(event,'exb2')">例2: アジスロマイシンvs標準治療</button>
+  <button class="tab-btn" onclick="showTab(event,'exb3')">例3: イベルメクチンvsHCQ</button>
+  <button class="tab-btn" onclick="showTab(event,'exb4')">例4: ステロイド鼻スプレーvsプラセボ</button>
+</div>
+
+<div class="tab-content active" id="exb1">
+<div class="example-box ex-green">
+<h4>例1：全身性コルチコステロイド vs 標準治療（間接推定値、死亡率）</h4>
+<p><strong>一次ループ:</strong> コルチコステロイド → <u>IL6拮抗薬</u>(共通比較対象) → 標準治療</p>
+<table class="small-table">
+<tr><th>構成直接比較</th><th>仮確実性（A1で評価済み）</th></tr>
+<tr><td>コルチコステロイド vs IL6拮抗薬</td><td><span class="cert c-mod">中</span></td></tr>
+<tr><td>IL6拮抗薬 vs 標準治療</td><td><span class="cert c-high">高</span></td></tr>
+</table>
+<p><strong>B1 初期確実性:</strong> <span class="cert c-mod">中</span>（低い方を採用）</p>
+<p><strong>B2 非推移性:</strong> Not serious → ダウンなし</p>
+<p><strong>→ 仮確実性: <span class="cert c-mod">中 ⊕⊕⊕◯</span></strong></p>
+<p><strong>B3 不精確さ(オプション):</strong> Very serious（↓2） → <strong>最終確実性: <span class="cert c-vlow">非常に低</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 3 (Example 1)</div>
+</div>
+
+<div class="tab-content" id="exb2">
+<div class="example-box ex-orange">
+<h4>例2：アジスロマイシン vs 標準治療（間接推定値、症状消失時間）</h4>
+<p><strong>一次ループ:</strong> アジスロマイシン → <u>ヒドロキシクロロキン</u> → 標準治療</p>
+<table class="small-table">
+<tr><th>構成直接比較</th><th>仮確実性</th></tr>
+<tr><td>アジスロマイシン vs ヒドロキシクロロキン</td><td><span class="cert c-mod">中</span></td></tr>
+<tr><td>ヒドロキシクロロキン vs 標準治療</td><td><span class="cert c-low">低</span></td></tr>
+</table>
+<p><strong>B1 初期確実性:</strong> <span class="cert c-low">低</span>（低い方）</p>
+<p><strong>B2 非推移性:</strong> Not serious</p>
+<p><strong>→ 仮確実性: <span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+<p><strong>B3 不精確さ(オプション):</strong> Very serious（↓2） → <strong>最終確実性: <span class="cert c-vlow">非常に低</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 3 (Example 2)</div>
+</div>
+
+<div class="tab-content" id="exb3">
+<div class="example-box ex-blue">
+<h4>例3：イベルメクチン vs HCQ（間接推定値、人工呼吸器）</h4>
+<p><strong>一次ループ:</strong> イベルメクチン → <u>標準治療</u> → ヒドロキシクロロキン</p>
+<table class="small-table">
+<tr><th>構成直接比較</th><th>仮確実性</th></tr>
+<tr><td>イベルメクチン vs 標準治療</td><td><span class="cert c-mod">中</span></td></tr>
+<tr><td>標準治療 vs ヒドロキシクロロキン</td><td><span class="cert c-mod">中</span></td></tr>
+</table>
+<p><strong>B1 初期確実性:</strong> <span class="cert c-mod">中</span></p>
+<p><strong>B2 非推移性:</strong> Not serious</p>
+<p><strong>→ 仮確実性: <span class="cert c-mod">中 ⊕⊕⊕◯</span></strong></p>
+<p><strong>B3 不精確さ(オプション):</strong> Very serious（↓2） → <strong>最終確実性: <span class="cert c-vlow">非常に低</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 3 (Example 3)</div>
+</div>
+
+<div class="tab-content" id="exb4">
+<div class="example-box ex-purple">
+<h4>例4：ステロイド鼻スプレー vs プラセボ（間接推定値、嗅覚改善）</h4>
+<p><strong>一次ループ:</strong> ステロイド鼻スプレー(SNS) → <u>リンス(Rinse)</u> → 標準治療(SC)</p>
+<table class="small-table">
+<tr><th>構成直接比較</th><th>仮確実性</th></tr>
+<tr><td>SNS vs Rinse</td><td><span class="cert c-high">高</span></td></tr>
+<tr><td>Rinse vs SC</td><td><span class="cert c-low">低</span></td></tr>
+</table>
+<p><strong>B1 初期確実性:</strong> <span class="cert c-low">低</span>（低い方）</p>
+<p><strong>B2 非推移性:</strong> Not serious</p>
+<p><strong>→ 仮確実性: <span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+<p><strong>B3 不精確さ(オプション):</strong> Serious（↓1） → <strong>最終確実性: <span class="cert c-vlow">非常に低</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Supplementary file 2, Example 4 (Bognanni et al.): "Lowest certainty of the first loop components: Low certainty ⊕⊕◯◯"</div>
+</div>
+</div><!-- /tab-container -->
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション6: ステップC - NMA推定値の確実性評価
+     引用元: Izcovich et al. BMJ 2023, p.5-6, Fig 4
+             Brignardello-Petersen et al. JCE 2018, Section 3.1, 3.3
+             Brignardello-Petersen et al. JCE 2019;108:77-85
+             Kamso et al. 2026 Paper 2, Section 2.3
+             GRADE詳細レポート p.7-9
+             NMAのGRADEエビデンス確実性まとめPPT, slide 20-29
+     ============================================================ -->
+<div class="section" id="sec-stepc">
+<div class="section-header sh-stepc" onclick="toggleSec(this)">
+  <h2>6. ステップC：NMA推定値の確実性評価</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="progress">
+  <div class="p-step done">A1</div>
+  <div class="p-step done">A2</div>
+  <div class="p-step done">B1</div>
+  <div class="p-step done">B2</div>
+  <div class="p-step done">B3</div>
+  <div class="p-step active">C1: 出発点</div>
+  <div class="p-step active">C2: 非整合性</div>
+  <div class="p-step active">C3: 不精確さ</div>
+  <div class="p-step">D: 最良推定値</div>
+</div>
+
+<div class="subsection">
+<h3>6.1 ステップC1：NMA確実性の出発点の決定</h3>
+
+<div class="step-card purple">
+<div class="step-label label-c">C1: 出発点の選択</div>
+
+<h4>基本原則</h4>
+<p>
+NMA推定値は直接推定値と間接推定値の統合です。その確実性の出発点は、4ドメインの評価（RoB, 非一貫性, 非直接性, 出版バイアス — 直接の場合）や構成ループの確実性＋非推移性（間接の場合）を反映した仮確実性から選択します。<strong>不精確さは後で（C3で）評価</strong>するため、出発点には含めません。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.5: "One can therefore consider the preliminary ratings of certainty from the direct and indirect estimates (certainty of evidence ratings omitting imprecision assessment) as a starting point for the network certainty rating."
+</div>
+
+<h4>選択ルール</h4>
+<table>
+<tr><th>状況</th><th>出発点</th><th>出典</th></tr>
+<tr><td>直接または間接の一方が<strong>支配的</strong></td><td>支配的な方の仮確実性</td><td>Izcovich 2023, p.5</td></tr>
+<tr><td>両方が<strong>同程度に寄与</strong></td><td>情報量と確実性を考慮して選択（通常は高い方）</td><td>Izcovich 2023, p.5-6</td></tr>
+<tr><td><strong>片方しかない</strong></td><td>存在する方の仮確実性</td><td>PPT slide 34 (S1, S15)</td></tr>
+</table>
+
+<p>
+詳細なアルゴリズム（15シナリオ）は<a href="#" onclick="goSec('sec-algo');return false;" style="color:var(--secondary)">セクション8</a>を参照してください。
+</p>
+
+<h4>Kamso et al. (2026) の運用基準</h4>
+<table class="small-table">
+<tr><th>基準</th><th>判定</th></tr>
+<tr><td>直接/間接の一方の寄与 &gt; 60%</td><td>その推定値が支配的 → その仮確実性を出発点</td></tr>
+<tr><td>直接/間接の寄与が 40-60%</td><td>同程度 → 高い方の仮確実性を出発点</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Section 2.3.1, Fig 3: "We used the contribution matrix to operationalize this, choosing a threshold of >60% to indicate an estimate contributed the most to the network estimate and 40%—60% to indicate a similar contribution."
+</div>
+
+<p><strong>自動化:</strong> スプレッドシートではSupplementary file 3のアルゴリズムに基づく自動選択が可能。</p>
+</div>
+</div>
+
+<div class="subsection">
+<h3>6.2 ステップC2：非整合性（Incoherence）の評価</h3>
+
+<div class="step-card purple">
+<div class="step-label label-c">C2: 非整合性の評価</div>
+
+<h4>非整合性とは</h4>
+<p>
+<span class="term" tabindex="0">非整合性（Incoherence）<span class="term-popup">同じ比較について直接推定値と間接推定値が偶然では説明できないほど異なること。NMAの最も重要な仮定の1つの違反。</span></span>
+は、同じ比較について直接推定値と間接推定値が偶然を超えて異なることです。NMAの整合性（coherence）仮定の違反です。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.6: "As both direct and indirect estimates reflect the same effect using different sources of information, they should not differ beyond chance."
+</div>
+
+<h4>評価の3つの要素</h4>
+<p>
+<strong>①</strong> 点推定値の方向と大きさの比較<br>
+<strong>②</strong> 信頼区間の重複の程度<br>
+<strong>③</strong> 統計的検定（ノード分割検定のp値）
+</p>
+
+<h4>判断の3段階プロセス（Brignardello-Petersen et al. 2019bに基づく）</h4>
+
+<div class="step-card blue">
+<p><strong>第1段階:</strong> 非整合性が存在するか？ → 上記3要素で判断 → 存在しなければ「Not serious」で終了</p>
+<p><strong>第2段階:</strong> 存在する場合、両方の推定値がNMA推定値に<strong>重要な寄与</strong>をしているか？ → 一方が支配的であれば非整合性のNMA推定値への影響は小さく、ダウングレード不要の可能性</p>
+<p><strong>第3段階:</strong> 両方が重要に寄与している場合、非整合性の<strong>原因</strong>を特定 → 二重カウントを避けつつダウングレードを検討</p>
+</div>
+
+<div class="cite-box">
+<strong>引用元:</strong> Brignardello-Petersen et al. JCE 2019;108:77-85, Fig 2: "the decision to rate down for incoherence represents a three-step process."
+</div>
+
+<h4>重要な注意：グローバル検定に頼るべきでない</h4>
+<div class="warning-point">
+<strong>ネットワーク全体の非整合性検定（グローバルテスト）が非有意であっても、個別比較レベルで真の非整合性が存在する可能性があります。</strong>グローバルテストの検出力は限られており、40のNMAのうち3つで、グローバルテストが非有意でも局所的な非整合性が検出されたという報告があります。
+</div>
+
+<div class="cite-box">
+<strong>引用元:</strong> Brignardello-Petersen et al. JCE 2018, Section 3.3, p.40-41: "failure of the global test to detect statistical incoherence when, for one or more of the paired comparisons, statistical incoherence exists may be a consequence of limited power of the global test."
+<br>"In an NMA assessing the efficacy of antidepressants, the P value of the global test for incoherence was 0.30...On a closer look, however, there appears to be compelling evidence of incoherence in at least one pairwise comparison, citalopram vs. escitalopram."
+</div>
+
+<h4>非整合性と他のドメインの関係（二重カウントの回避）</h4>
+<button class="detail-toggle" onclick="togDetail(this)">▼ 詳細を表示</button>
+<div class="detail-content">
+<p>非整合性の原因は以下の3つに分類されます：</p>
+<table class="small-table">
+<tr><th>原因</th><th>説明</th><th>ダウングレードの扱い</th></tr>
+<tr><td><strong>バイアスまたは出版バイアス</strong></td><td>直接/間接の一方または両方のRoBが原因</td><td>RoBで既にダウン済みでも、非整合性がNMA推定値に影響していれば追加ダウンが適切</td></tr>
+<tr><td><strong>非直接性</strong></td><td>直接/間接の一方のPICOが異なる</td><td>同上</td></tr>
+<tr><td><strong>非推移性</strong></td><td>間接比較の構成要素間で効果修飾因子が不均衡</td><td>非推移性と非整合性の<strong>同時ダウンは通常避けるべき</strong>（二重カウント）</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Brignardello-Petersen et al. JCE 2019;108:77-85, Section 4-6: "whether the apparent cause of incoherence is bias or indirectness...if there is serious incoherence, researchers should also rate down for incoherence." Section 5: "reviewers should, in most cases, take care not to rate down a network estimate for both incoherence and intransitivity."
+</div>
+
+<p><strong>非整合性と不精確さの関係:</strong></p>
+<p>非整合性が原因で不精確さが生じている場合（精確な直接推定値と非整合的な間接推定値を統合して不精確なNMA推定値が生じた場合）、非整合性と不精確さの両方でダウンすることは不適切な場合があります。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Brignardello-Petersen et al. JCE 2019;108:77-85, Section 6: "Because the imprecision has occurred because of incoherence (i.e., combining a precise direct estimate with an incoherent indirect estimate resulted in an imprecise network estimate), this would be unwise."
+</div>
+</div>
+
+<h4>Kamso et al. (2026) の半自動化ルール</h4>
+<table>
+<tr><th>直接/間接の寄与</th><th>ノード分割 p値</th><th>判定</th></tr>
+<tr><td>同程度（40-60%）</td><td>&lt; 0.05</td><td><strong>Serious</strong>（ダウングレード）</td></tr>
+<tr><td>同程度（40-60%）</td><td>0.05-0.20</td><td><strong>Some concerns</strong>（要検討）</td></tr>
+<tr><td>同程度（40-60%）</td><td>&gt; 0.20</td><td>Not serious</td></tr>
+<tr><td>一方が支配的（&gt;60%）</td><td>&lt; 0.05</td><td><strong>Some concerns</strong>（要検討）</td></tr>
+<tr><td>一方が支配的（&gt;60%）</td><td>≥ 0.05</td><td>Not serious</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Section 2.3.2, Fig 3. 結果: "Of the 34 incoherence assessments, 26 (76%) were rated as 'not serious' and 8 (24%) were flagged as 'some concerns' with P values ranging from 0.10 to 0.86."
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>6.3 ステップC3：NMA推定値の不精確さ評価</h3>
+
+<div class="step-card purple">
+<div class="step-label label-c">C3: NMA推定値の不精確さ（必須）</div>
+<p>NMA推定値の95%CI/CrIを基に不精確さを評価します。これが最終確実性を決定する最後のステップです。</p>
+<p>詳細な評価方法は<a href="#" onclick="goSec('sec-imprecision');return false;" style="color:var(--secondary)">セクション9：不精確さの詳細評価</a>を参照してください。</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.6: "Reviewers should finalise the assessment of the certainty of evidence of NMA estimate by assessing imprecision."
+<br>Brignardello-Petersen et al. JCE 2021;139:49-56 (GRADE guidelines 33)
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>6.4 ステップCの具体例</h3>
+<div class="tab-container">
+<div class="tab-buttons">
+  <button class="tab-btn active" onclick="showTab(event,'exc1')">例1: ステロイドvs標準治療</button>
+  <button class="tab-btn" onclick="showTab(event,'exc2')">例2: アジスロマイシンvs標準治療</button>
+  <button class="tab-btn" onclick="showTab(event,'exc3')">例3: イベルメクチンvsHCQ</button>
+  <button class="tab-btn" onclick="showTab(event,'exc4')">例4: ステロイド鼻スプレーvsプラセボ</button>
+</div>
+
+<div class="tab-content active" id="exc1">
+<div class="example-box ex-green">
+<h4>例1：全身性コルチコステロイド vs 標準治療（NMA推定値、死亡率）</h4>
+<p><strong>出発点(C1):</strong> 直接の仮確実性<span class="cert c-mod">中</span> | 間接の仮確実性<span class="cert c-mod">中</span> → 直接が支配的 → 出発点 <span class="cert c-mod">中</span></p>
+<p><strong>非整合性(C2):</strong> Not serious → ダウンなし</p>
+<p><strong>NMA仮確実性:</strong> <span class="cert c-mod">中</span></p>
+<p><strong>不精確さ(C3):</strong> Not serious（NMA推定値 OR 0.80, 95%CI 0.65-0.94 → CIが1.0を含まず十分に精確）</p>
+<p><strong>→ NMA最終確実性: <span class="cert c-mod">中 ⊕⊕⊕◯</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 4 (Example 1)</div>
+</div>
+
+<div class="tab-content" id="exc2">
+<div class="example-box ex-orange">
+<h4>例2：アジスロマイシン vs 標準治療（NMA推定値、症状消失時間）</h4>
+<p><strong>出発点(C1):</strong> 直接<span class="cert c-low">低</span> | 間接<span class="cert c-low">低</span> → どちらも支配的でない、直接を選択 → <span class="cert c-low">低</span></p>
+<p><strong>非整合性(C2):</strong> Not serious</p>
+<p><strong>不精確さ(C3):</strong> Not serious</p>
+<p><strong>→ NMA最終確実性: <span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 4 (Example 2)</div>
+</div>
+
+<div class="tab-content" id="exc3">
+<div class="example-box ex-blue">
+<h4>例3：イベルメクチン vs HCQ（NMA推定値、人工呼吸器）</h4>
+<p><strong>出発点(C1):</strong> 直接<span class="cert c-high">高</span> | 間接<span class="cert c-mod">中</span> → どちらも支配的でない、直接を選択 → <span class="cert c-high">高</span></p>
+<p><strong>非整合性(C2):</strong> Not serious</p>
+<p><strong>不精確さ(C3):</strong> Very serious（↓2）（NMA推定値 OR 0.78, CI 0.42-1.46 — CIが非常に広い）</p>
+<p><strong>→ NMA最終確実性: <span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 4 (Example 3)</div>
+</div>
+
+<div class="tab-content" id="exc4">
+<div class="example-box ex-purple">
+<h4>例4：ステロイド鼻スプレー vs プラセボ（NMA推定値、嗅覚改善）</h4>
+<p><strong>データ:</strong> NMA推定値 MD 3.24 (95%CI 2.05-4.42) | 直接推定値 MD 3.47 (CI 2.33-4.61) | 間接推定値 MD -6.14 (CI -13.65 to 1.36)</p>
+<p><strong>出発点(C1):</strong> 直接<span class="cert c-high">高</span> | 間接<span class="cert c-low">低</span> → 直接が支配的 → <span class="cert c-high">高</span></p>
+<p><strong>非整合性(C2):</strong> <strong>Serious</strong>（↓1）— 直接(MD 3.47)と間接(MD -6.14)で方向が逆転</p>
+<p><strong>NMA仮確実性:</strong> <span class="cert c-mod">中</span></p>
+<p><strong>不精確さ(C3):</strong> <strong>Serious</strong>（↓1）— CIがMID=4の閾値をまたぐ</p>
+<p><strong>→ NMA最終確実性: <span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Supplementary file 2, Example 4 (Bognanni et al.): "Incoherence: Serious incoherence, Rate down one level" "Imprecision: Serious imprecision, Rate down one level" "Definitive certainty rating for NMA estimate: Low certainty ⊕⊕◯◯"</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,156 @@
+<!-- ============================================================
+     パート6/6: セクション11-13 + 閉じタグ
+     ============================================================ -->
+
+<!-- ============================================================
+     セクション11: 半自動化アプローチ
+     引用元: Izcovich et al. BMJ 2023, p.3,7-8
+             Kamso et al. 2026 Paper 1 & 2
+             NMAのGRADEエビデンス確実性まとめPPT, slide 13-14
+     ============================================================ -->
+<div class="section" id="sec-semi">
+<div class="section-header sh-semi" onclick="toggleSec(this)">
+  <h2>11. 半自動化アプローチとツール</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>11.1 Izcovichスプレッドシート</h3>
+<p>URL: <a href="https://www.covid19lnma.com/" target="_blank" style="color:var(--secondary)">https://www.covid19lnma.com/</a></p>
+<p>Google Sheetsで利用（ローカルExcelでは動作不良の報告あり）</p>
+
+<table>
+<tr><th>ステップ</th><th>自動化可否</th><th>操作</th><th>出典</th></tr>
+<tr><td>A1: 仮確実性算出</td><td>自動</td><td>4ドメイン評価入力→自動算出</td><td>Izcovich 2023, p.3</td></tr>
+<tr><td>A2: 直接の不精確さ</td><td>手動/自動</td><td>閾値設定で自動、または手動選択</td><td>Izcovich 2023, p.3; PPT slide 29</td></tr>
+<tr><td>B1: ループ初期確実性</td><td>自動</td><td>共通比較対象を指定→自動算出</td><td>Izcovich 2023, p.4</td></tr>
+<tr><td>B2: 非推移性</td><td><strong>手動</strong></td><td>チェックリスト等を参照</td><td>Izcovich 2023, p.4</td></tr>
+<tr><td>B3: 間接の不精確さ</td><td>手動/自動</td><td>閾値設定で自動</td><td>同上</td></tr>
+<tr><td>C1: 出発点選択</td><td>自動</td><td>アルゴリズム（Supp. file 3）による</td><td>Izcovich 2023, p.6</td></tr>
+<tr><td>C2: 非整合性</td><td><strong>手動</strong></td><td>統計値を参考に判断</td><td>Izcovich 2023, p.6</td></tr>
+<tr><td>C3: NMAの不精確さ</td><td>手動/自動</td><td>閾値設定で自動</td><td>同上</td></tr>
+<tr><td>D: 最良推定値選択</td><td>自動</td><td>確実性の比較に基づく</td><td>Izcovich 2023, p.7</td></tr>
+</table>
+</div>
+
+<div class="subsection">
+<h3>11.2 Kamso et al. のR Shinyツール（SEADEN）</h3>
+<p>直接エビデンスの確実性評価に特化したWebアプリケーション。</p>
+<table>
+<tr><th>特徴</th><th>詳細</th><th>出典</th></tr>
+<tr><td>研究レベル非直接性評価</td><td>個々の試験のPICO特性を表示し、非直接性を評価</td><td>Paper 1, Section 2.3.2, Fig 2</td></tr>
+<tr><td>フォレストプロット表示</td><td>RoB・非直接性・重み(%)を表示した統合フォレストプロット</td><td>Paper 1, Section 2.5, Fig 3</td></tr>
+<tr><td>自動判定+手動修正</td><td>Human-in-the-loop方式</td><td>Paper 1, Section 2.5</td></tr>
+<tr><td>不精確さツール</td><td>閾値を調整するとNMA確実性が自動更新</td><td>Paper 2, Section 2.4, Fig 4</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Section 2.5: "semi-automated assessment of direct evidence from a network meta-analysis (SEADEN) application." Paper 2, Section 2.4: "We created an online tool to allow users to adjust values for minimally important and large effects."
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション12: リビングSRの追加課題
+     引用元: Izcovich et al. BMJ 2023, p.8
+             Supplementary file 4
+     ============================================================ -->
+<div class="section" id="sec-living">
+<div class="section-header sh-living" onclick="toggleSec(this)">
+  <h2>12. リビングシステマティックレビューにおける追加課題</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>12.1 リビングSRの課題</h3>
+<p>新エビデンスの継続的組み込みにより、確実性評価も定期的更新が必要です。COVID-19 NMAでは57ノード、1597比較（死亡率アウトカム）という巨大ネットワークが継続的に更新されました。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.8: "Keeping systematic review results and conclusions up to date is crucial, especially in contexts where large amounts of information rapidly emerge."
+</div>
+</div>
+
+<div class="subsection">
+<h3>12.2 スプレッドシートによる更新支援機能</h3>
+<div class="step-card green">
+<p><strong>機能1:</strong> 前回の評価結果の自動引き継ぎ — 各ドメインの前回評価がレビュアーの出発点として自動表示</p>
+<p><strong>機能2:</strong> 「Status」カラム — 比較が「新規」か「更新」かを表示。新規比較は最初から評価、更新比較は追加エビデンス量に応じて再評価の深度を決定</p>
+</div>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.8 および Supplementary file 4: "The 'Status' column informs reviewers about whether the comparison has been updated or was new."
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション13: 使用資料一覧
+     ============================================================ -->
+<div class="section" id="sec-refs">
+<div class="section-header sh-refs" onclick="toggleSec(this)">
+  <h2>13. 使用資料一覧</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>13.1 主要論文</h3>
+<table>
+<tr><th>#</th><th>ファイル名</th><th>文献情報</th><th>本ガイドでの使用</th></tr>
+<tr><td>1</td><td>bmj-2022-074495.full.pdf</td><td><strong>Izcovich A, et al.</strong> A guide and pragmatic considerations for applying GRADE to network meta-analysis. <em>BMJ</em> 2023;381:e074495.</td><td>全セクション（本ガイドの中核文献）</td></tr>
+<tr><td>2</td><td>1-s2.0-S0895435617310752-mainext.pdf</td><td><strong>Brignardello-Petersen R, et al.</strong> Advances in the GRADE approach to rate the certainty in estimates from a network meta-analysis. <em>J Clin Epidemiol</em> 2018;93:36-44. + Corrigendum (JCE 2018;98:162)</td><td>セクション1,4,5,6,8,10（概念的進歩4点）</td></tr>
+<tr><td>3</td><td>1-s2.0-S0895435618304967-main.pdf</td><td><strong>Brignardello-Petersen R, et al.</strong> GRADE approach to rate the certainty from a NMA: addressing incoherence. <em>J Clin Epidemiol</em> 2019;108:77-85.</td><td>セクション6（非整合性の詳細ガイダンス）</td></tr>
+<tr><td>4</td><td>NMAGRADEアプローチ確実性半自動化１.pdf</td><td><strong>Kamso MM, et al.</strong> Paper 1: a semi-automated approach...part 1—Direct comparisons. <em>J Clin Epidemiol</em> 2026;191:112109.</td><td>セクション4,11（直接推定値の半自動化）</td></tr>
+<tr><td>5</td><td>NMAGRADEアプローチ確実性半自動化２.pdf</td><td><strong>Kamso MM, et al.</strong> Paper 2: ...part 2—indirect and mixed comparisons. <em>J Clin Epidemiol</em> 2026;191:112110.</td><td>セクション5,6,9,11（間接・NMAの半自動化）</td></tr>
+</table>
+</div>
+
+<div class="subsection">
+<h3>13.2 補足資料</h3>
+<table>
+<tr><th>#</th><th>ファイル名</th><th>内容</th><th>使用セクション</th></tr>
+<tr><td>6</td><td>Supplementary figure 1.pdf</td><td>COVID-19予防NMAのネットワークプロット（死亡率）</td><td>セクション5（ループ選択の実例）</td></tr>
+<tr><td>7</td><td>Supplementary table 1.pdf</td><td>全ステップのプロセス表（英語版）</td><td>セクション3（全体プロセス）</td></tr>
+<tr><td>8</td><td>ステップ表.pdf</td><td>全ステップのプロセス表（日英併記版）</td><td>セクション3</td></tr>
+<tr><td>9</td><td>Supplementary file 2.pdf</td><td>具体例1-4のデータ（推定値、ネットワークプロット、フォレストプロット、RoB評価）</td><td>セクション4,5,6,7,10（全具体例）</td></tr>
+<tr><td>10</td><td>Supplementary file 3.pdf</td><td>NMA確実性の出発点決定アルゴリズム（15シナリオ）</td><td>セクション8</td></tr>
+<tr><td>11</td><td>Supplementary file 4.pdf</td><td>リビングSRにおけるスプレッドシート活用</td><td>セクション12</td></tr>
+</table>
+</div>
+
+<div class="subsection">
+<h3>13.3 日本語解説資料</h3>
+<table>
+<tr><th>#</th><th>ファイル名</th><th>内容</th><th>使用セクション</th></tr>
+<tr><td>12</td><td>ネットワークメタ分析GRADE評価詳細レポート_.docx</td><td>NMA-GRADE評価の12ステップガイド（日本語詳細解説）</td><td>セクション1-6（概念説明、用語集）</td></tr>
+<tr><td>13</td><td>NMAのGRADEエビデンス確実性まとめ20260131_2.pptx</td><td>NMA-GRADEの手順まとめスライド（日本語、41枚）</td><td>セクション1,3,5,8,9（手順まとめ、不精確さロジック）</td></tr>
+</table>
+</div>
+
+<div class="subsection">
+<h3>13.4 Kamso et al. 付録資料</h3>
+<table>
+<tr><th>#</th><th>ファイル名</th><th>内容</th><th>使用セクション</th></tr>
+<tr><td>14</td><td>NMAGRADEアプローチ確実性半自動化１付録.docx</td><td>Paper 1の付録（統計モデル、RoBガイダンス、非直接性ルール、メタ回帰結果、評価者間不一致例）</td><td>セクション4（判断基準、不一致例）</td></tr>
+<tr><td>15</td><td>NMAGRADEアプローチ確実性半自動化2付録.docx</td><td>Paper 2の付録（統計モデル、不精確さフレームワーク）</td><td>セクション9（不精確さ）</td></tr>
+<tr><td>16</td><td>NMAGRADEアプローチ確実性半自動化2付録２.pdf</td><td>Paper 1 & 2の著者変更フォーム</td><td>（参考のみ）</td></tr>
+</table>
+</div>
+
+</div>
+</div>
+
+</div><!-- /container -->
+
+<footer style="background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:30px;">
+<p style="font-size:1em;font-weight:bold;">NMA-GRADE エビデンス確実性評価 完全ガイド</p>
+<p style="font-size:.82em;opacity:.85;margin-top:8px;">
+本ガイドは添付資料のみに基づいて作成されています。主要参考文献: Izcovich et al. BMJ 2023;381:e074495 | Brignardello-Petersen et al. JCE 2018;93:36-44 | Brignardello-Petersen et al. JCE 2019;108:77-85 | Kamso et al. JCE 2026;191:112109 & 112110
+</p>
+</footer>
+
+</body>
+</html>

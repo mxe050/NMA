@@ -1,0 +1,9 @@
+# Reference materials (large files, local only)
+ref/
+
+# Claude internal
+.claude/
+
+# Temporary files
+*.tmp
+~$*

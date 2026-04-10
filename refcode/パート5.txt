@@ -1,0 +1,192 @@
+<!-- ============================================================
+     パート5/6: セクション9（不精確さ）+ セクション10（完全具体例）
+     ============================================================ -->
+
+<!-- ============================================================
+     セクション9: 不精確さの詳細評価
+     引用元: Brignardello-Petersen et al. JCE 2021;139:49-56 (GRADE 33)
+             NMAのGRADEエビデンス確実性まとめPPT, slide 28-30
+             Kamso et al. 2026 Paper 2, Section 2.4, Table 1
+     ============================================================ -->
+<div class="section" id="sec-imprecision">
+<div class="section-header sh-imprecision" onclick="toggleSec(this)">
+  <h2>9. 不精確さ（Imprecision）の詳細評価</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>9.1 評価フレームワーク（GRADE guidelines 33）</h3>
+
+<div class="step-card blue">
+<h4>3つの評価ステップ</h4>
+<p><strong>ステップ①:</strong> 信頼区間が臨床的閾値をまたぐか？</p>
+<p>閾値の選択：<br>
+• 効果なしのライン（OR/RR = 1.0、MD = 0）<br>
+• 最小重要差（MID）の閾値<br>
+• ガイドラインパネルが設定した決定閾値</p>
+
+<p><strong>ステップ②:</strong> 効果推定値の大きさは？（中程度以上の効果なら情報量が少なくてもOISを満たしうる）</p>
+
+<p><strong>ステップ③:</strong> 最適情報量（OIS）は十分か？</p>
+<p>NMAでは直接計算が困難なため、代替指標を使用：<br>
+• OR/RRの場合：CI上限/下限の比 ≥ 3 → OIS不足の可能性高い<br>
+• OR/RRの場合：CI上限/下限の比 ≥ 2.5 → 要注意</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> PPT slide 28: "ステップ3は、ネットワーク推定値の基礎となるサンプルサイズを計算し、これを最適な情報量と対比することで対処することができ、ORやRRの効果測定の場合は、信頼区間の上限と下限の比（ORなら2.5、RRなら3）を見ることで対処することができる。"
+<br>Brignardello-Petersen et al. JCE 2021;139:49-56 (GRADE guidelines 33)
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>9.2 ダウングレードの程度</h3>
+<table>
+<tr><th>状況</th><th>ダウングレード</th></tr>
+<tr><td>CIが1つの閾値（小）をまたぐ + OIS充足</td><td>1段階（Serious）</td></tr>
+<tr><td>CIが1つの閾値をまたぐ + OIS不足</td><td>2段階（Very serious）</td></tr>
+<tr><td>CIが2つの閾値（小+大）をまたぐ</td><td>2段階以上</td></tr>
+<tr><td>CIが閾値をまたがない + OIS充足</td><td>なし（Not serious）</td></tr>
+<tr><td>CI上限/下限の比 ≥ 30</td><td>Extremely serious</td></tr>
+</table>
+</div>
+
+<div class="subsection">
+<h3>9.3 Kamso et al. (2026) の不精確さ閾値の例</h3>
+<table>
+<tr><th>アウトカム</th><th>小さい効果（MID）</th><th>大きい効果</th></tr>
+<tr><td>ACR50（二値）</td><td>5%</td><td>20%</td></tr>
+<tr><td>有害事象による中止（率）</td><td>5%</td><td>20%</td></tr>
+<tr><td>X線進行（連続, SvDH）</td><td>5ポイント</td><td>10ポイント</td></tr>
+</table>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 2, Table 1. 結果: "Of the 1447 network estimates, 1176 (81%) were rated down for imprecision."
+</div>
+</div>
+
+<div class="subsection">
+<h3>9.4 スプレッドシートの自動不精確さ評価ロジック</h3>
+<button class="detail-toggle" onclick="togDetail(this)">▼ 詳細を表示（スプレッドシートの内部ロジック）</button>
+<div class="detail-content">
+<p>スプレッドシートのImprecisionセルの条件式は以下のロジックに基づいています：</p>
+<table class="small-table">
+<tr><th>条件</th><th>判定</th></tr>
+<tr><td>CI上限(相対)/CI下限(相対) ≥ 30</td><td>Extremely serious</td></tr>
+<tr><td>点推定値が閾値(小)を超える + CI上限が0を超えない + 比 &lt; 3</td><td>Not serious</td></tr>
+<tr><td>点推定値が閾値(小)を超える + CI上限が0を超えない + 比 ≥ 3</td><td>Very serious</td></tr>
+<tr><td>点推定値が閾値(小)を超える + CIが0をまたぐ + CI下限が閾値(大)より大 + 比 &lt; 3</td><td>Serious</td></tr>
+<tr><td>点推定値が閾値(小)を超える + CIが0をまたぐ + CI下限が閾値(大)以下 + 比 &lt; 3</td><td>Very serious</td></tr>
+</table>
+<div class="cite-box"><strong>引用元:</strong> NMAのGRADEエビデンス確実性まとめPPT, slide 29（スプレッドシートの式の分析）</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション10: 完全な具体例（全ステップ通し）
+     引用元: Izcovich et al. BMJ 2023, Fig 2-5
+             Supplementary file 2 (全例)
+             Brignardello-Petersen et al. JCE 2018, Table 3-4
+     ============================================================ -->
+<div class="section" id="sec-examples">
+<div class="section-header sh-examples" onclick="toggleSec(this)">
+  <h2>10. 完全な具体例（全ステップの通し実演）</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>10.1 例1: 全身性コルチコステロイド vs 標準治療（COVID-19、死亡率）— 全ステップ通し</h3>
+
+<div class="step-card yellow">
+<div class="step-label label-info">基礎データ（Supplementary file 2, Example 1より）</div>
+<table>
+<tr><th></th><th>相対効果(OR)</th><th>CI下限</th><th>CI上限</th><th>絶対効果(/1000)</th><th>CI下限</th><th>CI上限</th></tr>
+<tr><td>直接</td><td>0.84</td><td>0.64</td><td>1.07</td><td>-19.06</td><td>-42.5</td><td>7.6</td></tr>
+<tr><td>間接</td><td>0.36</td><td>0.16</td><td>0.80</td><td>-78.8</td><td>-107.1</td><td>-22.8</td></tr>
+<tr><td>NMA</td><td>0.80</td><td>0.65</td><td>0.94</td><td>-23.48</td><td>-40.24</td><td>-6.94</td></tr>
+</table>
+</div>
+
+<div class="example-box ex-green">
+<h4>A1: 直接推定値の仮確実性</h4>
+<p>RoB: <strong>Serious</strong>(↓1) | 非一貫性: Not serious | 非直接性: Not serious | 出版バイアス: Undetected</p>
+<p><strong>→ 仮確実性: <span class="cert c-mod">中</span></strong></p>
+</div>
+<div class="example-box ex-orange">
+<h4>B1-B2: 間接推定値の仮確実性</h4>
+<p>ループ: ステロイド→IL6拮抗薬→SOC | 低い方: <span class="cert c-mod">中</span> | 非推移性: Not serious</p>
+<p><strong>→ 仮確実性: <span class="cert c-mod">中</span></strong></p>
+</div>
+<div class="example-box ex-blue">
+<h4>C1: 出発点</h4>
+<p>直接<span class="cert c-mod">中</span> vs 間接<span class="cert c-mod">中</span> | 直接が支配的（CIが狭い：0.64-1.07 vs 0.16-0.80）</p>
+<p><strong>→ 出発点: <span class="cert c-mod">中</span>（直接に基づく）</strong></p>
+</div>
+<div class="example-box ex-purple">
+<h4>C2: 非整合性</h4>
+<p>直接(OR 0.84)と間接(OR 0.36)は差があるが、直接が支配的 → NMA(OR 0.80)は直接に近い</p>
+<p><strong>→ Not serious</strong></p>
+</div>
+<div class="example-box ex-green">
+<h4>C3: 不精確さ</h4>
+<p>NMA: OR 0.80 (0.65-0.94) → CIが1.0を含まない、CI比 = 0.94/0.65 = 1.45 &lt; 3</p>
+<p><strong>→ Not serious</strong></p>
+</div>
+<div class="example-box ex-orange">
+<h4>D: 最良推定値</h4>
+<p>NMA最終: <span class="cert c-mod">中</span> | 直接最終(参考): <span class="cert c-low">低</span>(不精確さ↓1) | 間接最終(参考): <span class="cert c-vlow">非常に低</span>(不精確さ↓2)</p>
+<p><strong>→ 最良推定値: NMA（OR 0.80, CI 0.65-0.94）, 確実性<span class="cert c-mod">中</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 2-5 (Example 1); Supplementary file 2, Example 1</div>
+</div>
+
+<div class="subsection">
+<h3>10.2 例4: ステロイド鼻スプレー vs プラセボ（嗅覚改善）— 直接推定値が選択されるケース</h3>
+
+<div class="step-card yellow">
+<div class="step-label label-info">基礎データ（Supplementary file 2, Example 4; Bognanni et al. JACI 2022）</div>
+<table>
+<tr><th></th><th>平均差</th><th>CI下限</th><th>CI上限</th></tr>
+<tr><td>直接</td><td>3.47</td><td>2.33</td><td>4.61</td></tr>
+<tr><td>間接</td><td>-6.14</td><td>-13.65</td><td>1.36</td></tr>
+<tr><td>NMA</td><td>3.24</td><td>2.05</td><td>4.42</td></tr>
+</table>
+<p>MID = 4ポイント（UPSIT スケール）</p>
+</div>
+
+<div class="example-box ex-green">
+<h4>A1→B2→C1→C2→C3→D の全プロセス</h4>
+<p><strong>A1:</strong> 4ドメインすべてNot serious → 仮確実性 <span class="cert c-high">高</span></p>
+<p><strong>B1-B2:</strong> SNS→Rinse→SC | 低い方 <span class="cert c-low">低</span> | 非推移性 Not serious → 仮確実性 <span class="cert c-low">低</span></p>
+<p><strong>C1:</strong> 直接<span class="cert c-high">高</span> vs 間接<span class="cert c-low">低</span> → 直接が支配的 → 出発点 <span class="cert c-high">高</span></p>
+<p><strong>C2:</strong> 直接(MD +3.47)と間接(MD -6.14) — <strong>方向が完全に逆転！</strong> → <strong>Serious</strong>(↓1)</p>
+<p><strong>C3:</strong> NMA CI 2.05-4.42 → MID=4の閾値をまたぐ → <strong>Serious</strong>(↓1)</p>
+<p><strong>NMA最終確実性:</strong> 高→中(非整合性↓1)→<span class="cert c-low">低</span>(不精確さ↓1)</p>
+<p><strong>A2(直接の不精確さ):</strong> CI 2.33-4.61 → MID閾値をまたぐがNMAより精確 → Serious(↓1) → 直接最終 <span class="cert c-mod">中</span></p>
+<p><strong>D:</strong> 直接<span class="cert c-mod">中</span> &gt; NMA<span class="cert c-low">低</span> → <strong>直接推定値を選択（MD 3.47, CI 2.33-4.61）, 確実性<span class="cert c-mod">中</span></strong></p>
+</div>
+<div class="cite-box"><strong>引用元:</strong> Supplementary file 2, Example 4 全プロセス (Bognanni et al. JACI 2022;150:1447-59)</div>
+</div>
+
+<div class="subsection">
+<h3>10.3 輸液蘇生NMA（Brignardello-Petersen et al. 2018の例）</h3>
+<button class="detail-toggle" onclick="togDetail(this)">▼ 詳細を表示</button>
+<div class="detail-content">
+<p>6種の比較に対する全評価（Rochwerg et al. 2014の敗血症における輸液蘇生NMA）</p>
+<table class="small-table">
+<tr><th>比較</th><th>直接</th><th>直接確実性</th><th>間接</th><th>間接確実性</th><th>NMA</th><th>NMA確実性</th></tr>
+<tr><td>スターチvs晶質液</td><td>1.14(0.99-1.30)</td><td><span class="cert c-high">高</span></td><td>0.81(0.13-5.14)</td><td>不要</td><td>1.13(0.99-1.30)</td><td><span class="cert c-high">高</span></td></tr>
+<tr><td>アルブミンvs晶質液</td><td>0.81(0.64-1.03)</td><td><span class="cert c-mod">中</span></td><td>1.13(0.18-7.32)</td><td>不要</td><td>0.83(0.65-1.04)</td><td><span class="cert c-mod">中</span></td></tr>
+<tr><td>アルブミンvsスターチ</td><td>1.40(0.35-5.56)</td><td><span class="cert c-low">低</span></td><td>0.71(0.54-0.94)</td><td><span class="cert c-high">高</span></td><td>0.73(0.56-0.95)</td><td><span class="cert c-high">高</span></td></tr>
+</table>
+<p><strong>注目点:</strong> アルブミンvsスターチ比較では、直接推定値は非常に不精確（CI 0.35-5.56）ですが、間接推定値が支配的であるためNMA推定値は精確（CI 0.56-0.95）。直接推定値の不精確さ評価は不要でした。</p>
+<div class="cite-box"><strong>引用元:</strong> Brignardello-Petersen et al. JCE 2018, Table 3-4 (Rochwerg et al. Ann Intern Med 2014;161:347-55)</div>
+</div>
+</div>
+
+</div>
+</div>

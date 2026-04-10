@@ -1,0 +1,560 @@
+<!-- ============================================================
+     パート2/6: セクション3（前準備）+ セクション4（ステップA）
+     パート1の </div><!-- /container --> の直前に挿入
+     ============================================================ -->
+
+<!-- ============================================================
+     セクション3: GRADE評価のための前準備
+     引用元: Izcovich et al. BMJ 2023, p.2-3
+             NMAのGRADEエビデンス確実性まとめPPT, slide 10-12
+             GRADE詳細レポート, p.3-4
+             Kamso et al. 2026 Paper 2, Appendix A
+     ============================================================ -->
+<div class="section" id="sec-prep">
+<div class="section-header sh-prep" onclick="toggleSec(this)">
+  <h2>3. GRADE評価のための前準備</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="subsection">
+<h3>3.1 必要なデータ・資料の準備</h3>
+<p>GRADE評価を開始する前に、以下のすべてのデータを準備します。これらが揃っていなければGRADE評価は実施できません。</p>
+
+<div class="step-card yellow">
+<div class="step-label label-warn">必須データ一覧</div>
+<table>
+<tr><th>必要データ</th><th>用途・使用ステップ</th><th>取得方法</th><th>出典</th></tr>
+<tr>
+  <td><strong>NMA推定値</strong>と95%CI/CrI<br>（相対効果量＋絶対効果量）</td>
+  <td>ステップC3（不精確さ）、ステップD（最良推定値選択）</td>
+  <td>NMA統計解析の出力</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+<tr>
+  <td><strong>直接推定値</strong>と95%CI<br>（各比較）</td>
+  <td>ステップA1-A2（直接の確実性）、ステップC2（非整合性）</td>
+  <td>ノード分割（node splitting）</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+<tr>
+  <td><strong>間接推定値</strong>と95%CI<br>（各比較）</td>
+  <td>ステップB1-B3（間接の確実性）、ステップC2（非整合性）</td>
+  <td>ノード分割（node splitting）</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+<tr>
+  <td>各研究の<strong>バイアスリスク（RoB）評価</strong><br>（アウトカムごと）</td>
+  <td>ステップA1（RoBドメイン）</td>
+  <td>Cochrane RoB tool等で事前評価</td>
+  <td>Izcovich 2023, p.2-3</td>
+</tr>
+<tr>
+  <td>すべての直接比較の<strong>フォレストプロット</strong></td>
+  <td>ステップA1（非一貫性ドメイン）</td>
+  <td>ペアワイズメタアナリシス</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+<tr>
+  <td>各アウトカムの<strong>ネットワークプロット</strong></td>
+  <td>ステップB1（優勢ループ特定）</td>
+  <td>NMAソフトウェア出力</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+<tr>
+  <td><strong>研究特性の一覧表</strong><br>（比較レベルで整理）</td>
+  <td>ステップA1（非直接性）、ステップB2（非推移性）</td>
+  <td>データ抽出フォーム</td>
+  <td>Izcovich 2023, p.2; Supplementary table 1</td>
+</tr>
+<tr>
+  <td><strong>ファンネルプロット</strong>（作成可能な場合）</td>
+  <td>ステップA1（出版バイアス）</td>
+  <td>十分な研究数（通常10以上）がある場合に作成</td>
+  <td>Izcovich 2023, p.2</td>
+</tr>
+</table>
+</div>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.2: "Adequate assessment of the certainty of evidence for every assessed outcome requires NMA estimates and 95% confidence or credible intervals for every comparison using both relative and absolute estimates of effect; direct and indirect estimates and 95% confidence or credible intervals for each comparison; risk-of-bias assessments for each outcome; forest plots of all direct comparisons; network plot for each outcome."
+</div>
+</div>
+
+<div class="subsection">
+<h3>3.2 ノード分割（Node Splitting）の重要性と実施方法</h3>
+
+<div class="step-card blue">
+<div class="step-label label-info">ノード分割とは</div>
+<p>
+<span class="term" tabindex="0">ノード分割<span class="term-popup">NMA推定値を直接推定値と間接推定値に分解する統計的手法。直接比較の試験をネットワークから除外してNMAを再解析し間接推定値を得る。</span></span>
+とは、特定の治療比較（ネットワークの「ノード」）について、NMA推定値をその比較に関する<strong>直接推定値</strong>と<strong>間接推定値</strong>に分離する統計的手法です。
+</p>
+
+<h4>なぜノード分割が不可欠か</h4>
+<p>
+NMAの統計ソフトウェアは通常、NMA推定値のみを出力します。しかしGRADE評価では、直接推定値と間接推定値を個別に評価し、両者の<span class="term" tabindex="0">整合性（coherence）<span class="term-popup">同じ比較について直接推定値と間接推定値が一致するというNMAの基本的仮定。</span></span>を検討する必要があります。ノード分割はこの分離を可能にする方法論的な鍵です。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> NMAのGRADEエビデンス確実性まとめPPT, slide 11: "ネットワーク推定値を、直接比較の推定値と間接比較の推定値に分ける（戻す）ことを、ノード分割を行なうという。統計ソフトに、そのような関数があるので、それを使うと簡単に計算できる（Rのnetmetaなら、netsplit関数）。"
+</div>
+
+<h4>実装方法</h4>
+<table>
+<tr><th>フレームワーク</th><th>ツール・関数</th><th>出典</th></tr>
+<tr><td>頻度論的（Frequentist）</td><td>R: netmetaパッケージの <code>netsplit()</code> 関数</td><td>PPT slide 11</td></tr>
+<tr><td>ベイジアン（Bayesian）</td><td>R: RJAGS + node-splitting model<br>直接比較試験を除外してNMAを再解析</td><td>Kamso et al. 2026 Paper 2, Appendix A</td></tr>
+</table>
+</div>
+
+<div class="warning-point">
+<strong>重要な注意:</strong> ノード分割で得られた直接推定値があっても、GRADE評価の非一貫性ドメイン（ステップA1）を評価するためには、<strong>すべての直接比較についてペアワイズメタアナリシスも別途実施</strong>し、フォレストプロットを作成する必要があります。
+<br><span style="font-size:.85em;">（NMAのGRADEエビデンス確実性まとめPPT, slide 12: "結局、直接比較の推定値のエビデンスの確実性を評価するためには、フォレストプロットなどより、非一貫性などを判断しなければならない。すなわち、普通の2群の比較（1対比較・ペアワイズ）のメタ分析を、全ての存在する直接比較の組み合わせで行なう必要がある。"）</span>
+</div>
+</div>
+
+<div class="subsection">
+<h3>3.3 スプレッドシートツールの準備</h3>
+<p>
+Izcovich et al. (2023) が提供するGoogleスプレッドシート（<a href="https://www.covid19lnma.com/" target="_blank" style="color:var(--secondary)">https://www.covid19lnma.com/</a>）を使用すると、多くのステップの自動化が可能です。
+</p>
+
+<div class="step-card green">
+<div class="step-label label-info">スプレッドシートの初期設定手順</div>
+<p><strong>ステップ1（設定の調整）:</strong> データの種類（二値/連続）、効果指標（OR/RRなど）の設定を確認・調整する。不精確さの自動評価のための閾値も設定可能。</p>
+<p><strong>ステップ2（クリア）:</strong> 「Primary - GRADING sheet」のRESET機能で前回のデータを消去し、新規評価を開始する。</p>
+<p><strong>ステップ3（データ入力）:</strong> 評価対象の比較をカラムB, Cに入力。参照介入（例: プラセボ）は常にTreatment 2（カラムC）に配置すると便利。直接・間接・NMA推定値を対応するカラムに入力。推定値がない場合は「NA」と入力。</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> GRADE詳細レポート p.4-5, ステップ1-3; Supplementary table 1; NMAのGRADEエビデンス確実性まとめPPT, slide 13-14
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>3.4 全体プロセスの流れ（全ステップ一覧）</h3>
+<p><strong>重要原則:</strong> 各ステージは<span style="background:#fff9c4;padding:1px 4px;border-radius:2px;">すべての比較について完了してから</span>次のステージに進みます。</p>
+
+<table class="small-table">
+<tr><th>段階</th><th>ステップ</th><th>必要データ</th><th>Fig 1対応</th></tr>
+<tr><td rowspan="5"><strong>直接推定値<br>の評価</strong></td>
+  <td>バイアスリスク評価</td><td>各研究のRoB、比較レベルで整理</td><td>A1</td></tr>
+<tr><td>非一貫性評価</td><td>各比較のフォレストプロット</td><td>A1</td></tr>
+<tr><td>非直接性評価</td><td>研究特性の一覧表</td><td>A1</td></tr>
+<tr><td>出版バイアス評価</td><td>ファンネルプロット等</td><td>A1</td></tr>
+<tr><td>不精確さ評価（オプション）</td><td>直接推定値の95%CI</td><td>A2</td></tr>
+<tr><td rowspan="3"><strong>間接推定値<br>の評価</strong></td>
+  <td>優勢一次ループの選択</td><td>ネットワークプロット</td><td>B1</td></tr>
+<tr><td>非推移性評価</td><td>研究特性の一覧表</td><td>B2</td></tr>
+<tr><td>不精確さ評価（オプション）</td><td>間接推定値の95%CI</td><td>B3</td></tr>
+<tr><td rowspan="3"><strong>NMA推定値<br>の評価</strong></td>
+  <td>出発点の決定</td><td>直接・間接の仮確実性、推定値のCI</td><td>C1</td></tr>
+<tr><td>非整合性評価</td><td>直接・間接・NMA推定値のCI</td><td>C2</td></tr>
+<tr><td>不精確さ評価</td><td>NMA推定値の95%CI</td><td>C3</td></tr>
+<tr><td><strong>最良推定値<br>の選択</strong></td>
+  <td>最良推定値の決定</td><td>直接・間接・NMAの最終確実性</td><td>D</td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, Supplementary table 1 (プロセス全体); Fig 1 (個別比較のプロセス); ステップ表.pdf (日本語版)
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================
+     セクション4: ステップA - 直接推定値の確実性評価
+     引用元: Izcovich et al. BMJ 2023, p.3, Fig 2
+             Brignardello-Petersen et al. JCE 2018, p.37-39
+             Kamso et al. 2026 Paper 1, Table 1, Section 2.3-2.4
+             Supplementary file 2 (Examples 1-4)
+             GRADE詳細レポート p.5-6
+     ============================================================ -->
+<div class="section" id="sec-stepa">
+<div class="section-header sh-stepa" onclick="toggleSec(this)">
+  <h2>4. ステップA：直接推定値の確実性評価</h2>
+  <span class="toggle">▼</span>
+</div>
+<div class="section-body">
+
+<div class="progress">
+  <div class="p-step active">A1: RoB・Inc・Ind・Pub</div>
+  <div class="p-step">A2: 不精確さ(任意)</div>
+  <div class="p-step">B1: ループ</div>
+  <div class="p-step">B2: 非推移性</div>
+  <div class="p-step">B3: 不精確さ(任意)</div>
+  <div class="p-step">C1: 出発点</div>
+  <div class="p-step">C2: 非整合性</div>
+  <div class="p-step">C3: 不精確さ</div>
+  <div class="p-step">D: 最良推定値</div>
+</div>
+
+<div class="subsection">
+<h3>4.1 概要：なぜ直接推定値から始めるか</h3>
+<p>
+直接推定値の確実性評価は、間接推定値とNMA推定値の評価の<strong>基礎（building blocks）</strong>となります。各直接比較の評価結果は、多くの間接比較やNMA比較の評価に使用されます。そのため、<span style="background:#fff9c4;padding:1px 4px;border-radius:2px;">すべての直接推定値の評価を先に完了させる</span>ことが効率的です。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.3: "The ratings of certainty of the evidence of direct comparisons are the building blocks for both the assessment of indirect estimates and the network estimates. In addition, each direct comparison rating can inform the certainty rating of many indirect and network comparisons. Therefore, reviewers will benefit by starting the process with rating the certainty of all direct estimates."
+</div>
+
+<p>
+評価は従来のペアワイズメタアナリシスのGRADEアプローチと同様ですが、<strong>1つの例外</strong>として、不精確さの扱いが異なります（後述）。
+</p>
+</div>
+
+<div class="subsection">
+<h3>4.2 ステップA1：主要4ドメインの評価</h3>
+<p>直接推定値が利用可能な<strong>すべての比較</strong>について以下の4ドメインを評価します。</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.3: "Reviewers must assess risk of bias, inconsistency, indirectness, and publication bias for all comparisons for which direct estimates are available. For example, for one of our outcomes of interest (mortality), from 1597 possible comparisons, 82 had a direct estimate that required assessment."
+</div>
+
+<!-- ===== ドメイン1: RoB ===== -->
+<div class="step-card blue">
+<div class="step-label label-a">ドメイン1：バイアスリスク（Risk of Bias）</div>
+
+<h4>評価内容</h4>
+<p>直接推定値に寄与する個々の研究のデザイン・実施における系統的な歪みの可能性を評価します。</p>
+
+<h4>評価に必要なデータ</h4>
+<p>各研究のRoB評価結果（比較レベルで整理）。Cochrane RoB tool（またはRoB 2.0）で事前に評価済みのもの。</p>
+
+<h4>評価の手順</h4>
+<p>
+① 各研究のRoB評価（低/一部懸念/高）を確認<br>
+② 各研究のプール推定値への寄与度（重み、%）を確認<br>
+③ 高RoBの研究の重みが大きいほどダウングレードの必要性が高い
+</p>
+
+<h4>半自動化の判断基準（Kamso et al. 2026）</h4>
+<table class="small-table">
+<tr><th>条件</th><th>判定</th><th>備考</th></tr>
+<tr><td>RoB「高」の研究の重み累積 &gt; 50%</td><td><strong>Very serious</strong>（2段階↓）</td><td>大部分が深刻な限界</td></tr>
+<tr><td>RoB「高」or「一部懸念」の重み累積 30-50%</td><td><strong>Serious</strong>（1段階↓）</td><td>一定の限界あり</td></tr>
+<tr><td>RoB「一部懸念」の重み累積 &gt; 50%</td><td><strong>Some concerns</strong></td><td>要検討フラグ</td></tr>
+<tr><td>上記いずれにも該当しない</td><td><strong>Not serious</strong></td><td>ダウンなし</td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. JCE 2026;191:112109 (Paper 1), Table 1 および Section 2.4.1: "For the ROB domain, we rated down one level ('serious'), if the percentage contribution from studies at high or some concerns ROB was 30%-50%, and two levels ('very serious'), if the percentage contribution was greater than 50%."
+</div>
+
+<h4>GRADE原則（修正判断のための5つの原則）</h4>
+<button class="detail-toggle" onclick="togDetail(this)">▼ 詳細を表示</button>
+<div class="detail-content">
+<p>自動判定を修正する際は、以下のGRADE原則を考慮します：</p>
+<p>
+<strong>①</strong> 研究の平均をとるのではなく、各研究の寄与度を考慮した「思慮深い判断」が必要<br>
+<strong>②</strong> 大規模試験の結果がより大きな重みを持つ<br>
+<strong>③</strong> ダウングレードの判断は保守的であるべき（確信がある場合のみ）<br>
+<strong>④</strong> 他のドメインとの関連を考慮（RoBと非直接性の両方が境界的なら、少なくとも一方でダウングレード）<br>
+<strong>⑤</strong> 境界的な判断は透明性をもって記録する
+</p>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Appendix 2a (GRADE principles 1-5); Guyatt et al. JCE 2011;64:407-15
+</div>
+</div>
+</div>
+
+<!-- ===== ドメイン2: 非一貫性 ===== -->
+<div class="step-card blue">
+<div class="step-label label-a">ドメイン2：非一貫性（Inconsistency）</div>
+
+<h4>評価内容</h4>
+<p>
+同一の直接比較内で、研究間に<strong>説明できない異質性</strong>（ばらつき）があるかを評価します。
+<span class="term" tabindex="0">非一貫性<span class="term-popup">直接比較内の研究間の結果のばらつき。NMAの「非整合性」（incoherence：直接と間接の不一致）とは異なる。</span></span>
+はNMA特有の「非整合性（incoherence）」とは異なる概念です。
+</p>
+
+<h4>評価に必要なデータ</h4>
+<p>各比較のフォレストプロット、I²統計量、τ²値、Q検定のp値</p>
+
+<h4>半自動化の判断基準</h4>
+<table class="small-table">
+<tr><th>条件</th><th>判定</th></tr>
+<tr><td>I² &gt; 50%</td><td><strong>Serious</strong>（1段階↓）</td></tr>
+<tr><td>I² 30-50%</td><td><strong>Some concerns</strong>（要検討）</td></tr>
+<tr><td>I² &lt; 30%</td><td><strong>Not serious</strong></td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Table 1: "the automated certainty rating was 'serious' (downgraded one level), if the Higgins I² value was greater than 50%, and 'some concerns,' if the I² value fell within the range of 30%-50%." Cochrane Handbookの閾値に基づく。
+</div>
+
+<h4>注意点</h4>
+<p>
+• I²値のみに頼らず、点推定値のばらつき・CIの重複・臨床的文脈も考慮<br>
+• 大規模研究では小さな差でも大きなI²が算出される<br>
+• 研究が1つしかない場合は非一貫性の評価不要<br>
+• 実質的な非一貫性がある場合は、説明可能か（サブグループ解析等）を検討
+</p>
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Appendix 2a (Inconsistency section); Guyatt et al. JCE 2011;64:1294-302
+</div>
+</div>
+
+<!-- ===== ドメイン3: 非直接性 ===== -->
+<div class="step-card blue">
+<div class="step-label label-a">ドメイン3：非直接性（Indirectness）</div>
+
+<h4>評価内容</h4>
+<p>
+直接エビデンスの集団（P）、介入（I）、比較対象（C）、アウトカム（O）が、評価したい臨床的問い（PICO）とどの程度異なるかを評価します。
+</p>
+
+<h4>Kamso et al. (2026) の革新的アプローチ：研究レベルの非直接性評価</h4>
+<p>
+通常の系統的レビューでは非直接性は比較レベルで一括評価されますが、Kamso et al.は<strong>個々の研究レベルで非直接性を評価</strong>するアプローチを導入しました。これはCINeMAフレームワークからの借用です。
+</p>
+
+<table class="small-table">
+<tr><th>研究レベルの非直接性</th><th>判断基準の例（関節リウマチNMA）</th></tr>
+<tr><td><strong>高い懸念</strong></td><td>罹病期間 &gt; 5年（DMARD-naïve集団の場合）</td></tr>
+<tr><td><strong>一部懸念</strong></td><td>MTX用量 ≤ 10mg/週、または罹病期間 &gt; 2年</td></tr>
+<tr><td><strong>懸念なし</strong></td><td>現在の臨床実践に合致</td></tr>
+</table>
+
+<h4>比較レベルの半自動化判断基準</h4>
+<table class="small-table">
+<tr><th>条件</th><th>判定</th></tr>
+<tr><td>非直接性「高」の研究の重み累積 &gt; 50%</td><td><strong>Serious</strong>（1段階↓）</td></tr>
+<tr><td>非直接性「高」の研究の重み累積 30-50%</td><td><strong>Some concerns</strong></td></tr>
+<tr><td>上記に該当しない</td><td><strong>Not serious</strong></td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Section 2.3.2 および Table 1: "We applied an approach adapted from the Confidence in Network Meta-Analysis (CINeMA) framework to assign an indirectness rating to individual trials." "For the indirectness domain, we used similar thresholds but were more conservative in rating down." Appendix 2a (indirectness rules for RA LNMA)
+</div>
+
+<h4>NMA文脈での注意点</h4>
+<div class="key-point">
+<strong>非直接性 vs 非推移性の区別:</strong> 非直接性は直接エビデンスのPICOとの不一致（ステップA1で評価）。非推移性は間接比較を構成する直接比較間の効果修飾因子の不均衡（ステップB2で評価）。両者は関連するが別の概念です。
+<br><span style="font-size:.85em;">（GRADE詳細レポート p.6; Guyatt et al. JCE 2011;64:1303-10）</span>
+</div>
+</div>
+
+<!-- ===== ドメイン4: 出版バイアス ===== -->
+<div class="step-card blue">
+<div class="step-label label-a">ドメイン4：出版バイアス（Publication Bias）</div>
+
+<h4>評価内容</h4>
+<p>研究結果の性質や方向性に基づいて、公表されやすさに偏りがあるかを評価。</p>
+
+<h4>評価方法</h4>
+<p>
+• 十分な研究数があればファンネルプロットを使用（通常10以上、5以上で可能な場合も）<br>
+• 臨床試験登録との照合（未発表研究の有無）<br>
+• NMAでは正式な評価が困難な場合が多い
+</p>
+
+<h4>判断</h4>
+<p>「<strong>Undetected</strong>（検出されない）」または「<strong>Strongly suspected</strong>（強く疑われる）」のいずれかを選択。</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Appendix 2a (Publication Bias section): "The assessment of potential publication bias will be made externally to this process, by evaluating the presence of trial registers or abstracts that are unpublished, and/or the use of funnel plots." Guyatt et al. JCE 2011;64:1277-82
+</div>
+</div>
+
+<!-- ===== A1の結果 ===== -->
+<div class="step-card yellow">
+<div class="step-label label-a">ステップA1の結果：直接推定値の仮確実性（Preliminary Certainty Rating）</div>
+<p>4つのドメインの評価を統合し、<strong>不精確さを含まない予備的確実性評価</strong>を算出します。</p>
+
+<table>
+<tr><th>確実性レベル</th><th>記号</th><th>意味</th></tr>
+<tr><td><span class="cert c-high">高</span></td><td>⊕⊕⊕⊕</td><td>4ドメインすべてで問題なし（ダウンなし）</td></tr>
+<tr><td><span class="cert c-mod">中</span></td><td>⊕⊕⊕◯</td><td>1段階ダウン</td></tr>
+<tr><td><span class="cert c-low">低</span></td><td>⊕⊕◯◯</td><td>2段階ダウン</td></tr>
+<tr><td><span class="cert c-vlow">非常に低</span></td><td>⊕◯◯◯</td><td>3段階以上ダウン</td></tr>
+</table>
+
+<div class="key-point">
+<strong>なぜ「仮」確実性なのか:</strong> 不精確さを含めない理由は、直接推定値が不精確でも、間接推定値と統合されたNMA推定値は精確になりうるためです。不精確さの評価はNMA推定値レベルで行うのが効率的です（ステップC3）。
+<br><span style="font-size:.85em;">（Brignardello-Petersen et al. JCE 2018;93:36-44, Section 3.1: "the assessment of imprecision of the direct and indirect estimates is typically not necessary to inform the network estimate certainty. Rather, reviewers can base the imprecision rating on the confidence interval around the network estimate itself."）</span>
+</div>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.3: "When completed, a rating to inform the NMA estimate (direct preliminary certainty rating omitting imprecision assessment) becomes available (step A1 in fig 1)."
+</div>
+
+<p><strong>自動化:</strong> スプレッドシートでは、4ドメインの評価入力から仮確実性が自動計算されます。</p>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.3: "preliminary certainty ratings to inform NMA are automatically calculated based on reviewers' ratings of the four assessed domains."
+</div>
+</div>
+
+</div><!-- /subsection 4.2 -->
+
+<div class="subsection">
+<h3>4.3 ステップA2：直接推定値の不精確さ評価（オプション）</h3>
+
+<div class="step-card green">
+<div class="step-label label-opt">A2: オプション — 省略可能</div>
+<p>直接推定値の不精確さを評価して<strong>最終確実性</strong>を得ることは可能ですが、<strong>この段階では省略可能</strong>です。</p>
+
+<h4>省略できる理由</h4>
+<p>
+① NMA推定値の確実性評価では、仮確実性（不精確さ除く）のみを使用する<br>
+② 不精確さはNMA推定値の信頼区間から直接評価する方が効率的（ステップC3）<br>
+③ 直接推定値が不精確でもNMA推定値は精確になりうる
+</p>
+
+<h4>評価が必要になる場合</h4>
+<p>
+ステップDで<strong>非整合性が認められた場合</strong>、直接・間接・NMA推定値の最終確実性を比較する必要があり、そのとき直接推定値の不精確さ評価が必要になります。スプレッドシートはこの必要性を自動的に通知します。
+</p>
+
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, p.3: "Obtaining a final rating for direct estimate is not always necessary (as will become evident at step D). Reviewers can choose to skip—or ultimately delay—step A2 and complete it later, if deemed necessary." p.7: "the spreadsheet automatically informs when these steps are needed."
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3>4.4 ステップAの具体例（3つの比較）</h3>
+<p>以下はSiemieniuk et al.のCOVID-19 NMAからの例です。</p>
+
+<div class="tab-container">
+<div class="tab-buttons">
+  <button class="tab-btn active" onclick="showTab(event,'exa1')">例1: ステロイドvs標準治療(死亡)</button>
+  <button class="tab-btn" onclick="showTab(event,'exa2')">例2: アジスロマイシンvs標準治療(症状消失)</button>
+  <button class="tab-btn" onclick="showTab(event,'exa3')">例3: イベルメクチンvsHCQ(人工呼吸器)</button>
+  <button class="tab-btn" onclick="showTab(event,'exa4')">例4: ステロイド鼻スプレーvsプラセボ(嗅覚)</button>
+</div>
+
+<div class="tab-content active" id="exa1">
+<div class="example-box ex-green">
+<h4>例1：全身性コルチコステロイド vs 標準治療（COVID-19、死亡率）</h4>
+<p><strong>推定値データ:</strong></p>
+<table class="small-table">
+<tr><th></th><th>相対効果(OR)</th><th>95%CI下限</th><th>95%CI上限</th></tr>
+<tr><td>直接推定値</td><td>0.84</td><td>0.64</td><td>1.07</td></tr>
+</table>
+
+<p><strong>A1: 4ドメイン評価</strong></p>
+<table class="small-table">
+<tr><th>ドメイン</th><th>判定</th><th>理由</th></tr>
+<tr><td>バイアスリスク</td><td><strong>Serious</strong>（↓1）</td><td>重大な方法論的限界あり</td></tr>
+<tr><td>非一貫性</td><td>Not serious</td><td>研究間で結果が一致</td></tr>
+<tr><td>非直接性</td><td>Not serious</td><td>PICOに合致</td></tr>
+<tr><td>出版バイアス</td><td>Undetected</td><td>疑われない</td></tr>
+</table>
+<p><strong>→ 仮確実性（A1）：<span class="cert c-mod">中 ⊕⊕⊕◯</span></strong>（RoBにより1段階ダウン）</p>
+<p><strong>不精確さ（A2, オプション）：</strong> Serious（↓1）— CI上限1.07は効果なし(1.0)をまたぐ</p>
+<p><strong>最終確実性（A2実施時）：<span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+</div>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 2 (Example 1); Supplementary file 2, Example 1 (Corticosteroids vs SOC, Mortality)
+</div>
+</div>
+
+<div class="tab-content" id="exa2">
+<div class="example-box ex-orange">
+<h4>例2：アジスロマイシン vs 標準治療（COVID-19、症状消失までの時間）</h4>
+<p><strong>推定値データ:</strong></p>
+<table class="small-table">
+<tr><th></th><th>相対効果(ratio of means)</th><th>95%CI下限</th><th>95%CI上限</th></tr>
+<tr><td>直接推定値</td><td>0.55</td><td>0.23</td><td>1.31</td></tr>
+</table>
+
+<p><strong>A1: 4ドメイン評価</strong></p>
+<table class="small-table">
+<tr><th>ドメイン</th><th>判定</th><th>理由</th></tr>
+<tr><td>バイアスリスク</td><td><strong>Serious</strong>（↓1）</td><td>重大な方法論的限界あり</td></tr>
+<tr><td>非一貫性</td><td><strong>Serious</strong>（↓1）</td><td>研究間で結果にばらつきあり</td></tr>
+<tr><td>非直接性</td><td>Not serious</td><td>PICOに合致</td></tr>
+<tr><td>出版バイアス</td><td>Undetected</td><td>疑われない</td></tr>
+</table>
+<p><strong>→ 仮確実性（A1）：<span class="cert c-low">低 ⊕⊕◯◯</span></strong>（RoB+非一貫性で2段階ダウン）</p>
+<p><strong>不精確さ（A2, オプション）：</strong> Not serious</p>
+<p><strong>最終確実性（A2実施時）：<span class="cert c-low">低 ⊕⊕◯◯</span></strong>（変化なし）</p>
+</div>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 2 (Example 2); Supplementary file 2, Example 2 (Azithromycin vs SOC, Time to symptom resolution)
+</div>
+</div>
+
+<div class="tab-content" id="exa3">
+<div class="example-box ex-blue">
+<h4>例3：イベルメクチン vs ヒドロキシクロロキン（COVID-19、人工呼吸器装着）</h4>
+<p><strong>推定値データ:</strong></p>
+<table class="small-table">
+<tr><th></th><th>相対効果(OR)</th><th>95%CI下限</th><th>95%CI上限</th></tr>
+<tr><td>直接推定値</td><td>1.11</td><td>0.28</td><td>4.34</td></tr>
+</table>
+
+<p><strong>A1: 4ドメイン評価</strong></p>
+<table class="small-table">
+<tr><th>ドメイン</th><th>判定</th><th>理由</th></tr>
+<tr><td>バイアスリスク</td><td>Not serious</td><td>重大な限界なし</td></tr>
+<tr><td>非一貫性</td><td>Not serious</td><td>一致した結果</td></tr>
+<tr><td>非直接性</td><td>Not serious</td><td>PICOに合致</td></tr>
+<tr><td>出版バイアス</td><td>Undetected</td><td>疑われない</td></tr>
+</table>
+<p><strong>→ 仮確実性（A1）：<span class="cert c-high">高 ⊕⊕⊕⊕</span></strong>（ダウンなし）</p>
+<p><strong>不精確さ（A2, オプション）：</strong> Very serious（↓2）— CIが非常に広い（0.28-4.34）</p>
+<p><strong>最終確実性（A2実施時）：<span class="cert c-low">低 ⊕⊕◯◯</span></strong></p>
+
+<div class="key-point">
+<strong>重要な学習ポイント:</strong> この例では仮確実性は「高」ですが、不精確さを加えると「低」になります。しかしNMA推定値の評価では<strong>仮確実性（高）が出発点</strong>として使用されます。NMA推定値は直接と間接の統合で精度が改善される可能性があるためです。
+</div>
+</div>
+<div class="cite-box">
+<strong>引用元:</strong> Izcovich et al. BMJ 2023, Fig 2 (Example 3); Supplementary file 2, Example 3 (Ivermectin vs HCQ, Mechanical ventilation)
+</div>
+</div>
+
+<div class="tab-content" id="exa4">
+<div class="example-box ex-purple">
+<h4>例4：ステロイド鼻スプレー vs プラセボ（慢性副鼻腔炎+鼻ポリープ、嗅覚改善）</h4>
+<p>連続アウトカム：UPSIT スケール（0-40, 高い方が良い, MID=4）</p>
+<p><strong>推定値データ:</strong></p>
+<table class="small-table">
+<tr><th></th><th>平均差</th><th>95%CI下限</th><th>95%CI上限</th></tr>
+<tr><td>直接推定値</td><td>3.47</td><td>2.33</td><td>4.61</td></tr>
+</table>
+
+<p><strong>A1: 4ドメイン評価</strong></p>
+<table class="small-table">
+<tr><th>ドメイン</th><th>判定</th><th>理由</th></tr>
+<tr><td>バイアスリスク</td><td>Not serious</td><td>方法論的限界なし</td></tr>
+<tr><td>非一貫性</td><td>Not serious</td><td>一貫した結果</td></tr>
+<tr><td>非直接性</td><td>Not serious</td><td>PICOに合致</td></tr>
+<tr><td>出版バイアス</td><td>Undetected</td><td>疑われない</td></tr>
+</table>
+<p><strong>→ 仮確実性（A1）：<span class="cert c-high">高 ⊕⊕⊕⊕</span></strong>（ダウンなし）</p>
+<p><strong>不精確さ（A2, オプション）：</strong> Serious（↓1）— 95%CI上限4.61はMID=4を超えるがCIの下限2.33はMID未満</p>
+<p><strong>最終確実性（A2実施時）：<span class="cert c-mod">中 ⊕⊕⊕◯</span></strong></p>
+</div>
+<div class="cite-box">
+<strong>引用元:</strong> Supplementary file 2, Example 4 (Bognanni et al. JACI 2022): Steroid nasal spray vs Placebo, Smell improvement. "Direct certainty rating to inform the network estimate: High certainty ⊕⊕⊕⊕" "Imprecision assessment: Serious imprecision (95% CI crosses the MID threshold)" "Final certainty rating of direct estimate: Moderate ⊕⊕⊕◯"
+</div>
+</div>
+</div><!-- /tab-container -->
+
+</div><!-- /subsection 4.4 -->
+
+<div class="subsection">
+<h3>4.5 半自動化の評価者間信頼性</h3>
+<p>Kamso et al. (2026)の研究では、374の直接比較にわたる半自動化判定と専門家コンセンサスの一致度が評価されました：</p>
+
+<table class="small-table">
+<tr><th>比較</th><th>RoB</th><th>非直接性</th><th>非一貫性</th><th>総合確実性</th></tr>
+<tr><td>コンセンサスvs自動判定（全体）</td><td>99.7%</td><td>100%</td><td>99.7%</td><td>99.2%</td></tr>
+<tr><td>コンセンサスvs自動判定（複数研究, n=83）</td><td>98.8%</td><td>100%</td><td>98.8%</td><td>96.4%</td></tr>
+<tr><td>評価者間（Gwet's AC1）</td><td>99.3%</td><td>98.7%</td><td>99.4%</td><td>98.5%</td></tr>
+</table>
+
+<div class="cite-box">
+<strong>引用元:</strong> Kamso et al. 2026 Paper 1, Table 3 および Appendix 3-Table 3: "Across all 1496 judgments, the consensus judgment agreed with the automated rating of 1486 times (99.2%)." "When only a single study was present, the automated judgment had perfect agreement with both reviewers across all domains."
+</div>
+</div>
+
+</div>
+</div>
