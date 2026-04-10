@@ -160,6 +160,7 @@ $js = $js -replace "getElementById\('t_h1'\)",         "getElementById('iro5-t_h
 $js = $js -replace "getElementById\('t_h2'\)",         "getElementById('iro5-t_h2')"
 $js = $js -replace "getElementById\('t_h3'\)",         "getElementById('iro5-t_h3')"
 $js = $js -replace "getElementById\('tblBody'\)",      "getElementById('iro5-tblBody')"
+$js = $js -replace "querySelectorAll\('#tblBody tr'\)", "querySelectorAll('#iro5-tblBody tr')"
 $js = $js -replace "getElementById\('resultArea'\)",   "getElementById('iro5-resultArea')"
 $js = $js -replace "getElementById\('conclusionArea'\)","getElementById('iro5-conclusionArea')"
 

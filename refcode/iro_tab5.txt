@@ -892,7 +892,7 @@ function iro5_generate() {
 
     // データ収集
     DATA = [];
-    document.querySelectorAll('#tblBody tr').forEach(tr => {
+    document.querySelectorAll('#iro5-tblBody tr').forEach(tr => {
         const inp = tr.querySelectorAll('input');
         const sel = tr.querySelector('select');
         const nm  = inp[0].value.trim();

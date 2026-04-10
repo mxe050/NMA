@@ -14,6 +14,9 @@ $multiTab1 = [System.IO.File]::ReadAllText("$base\Multi_tab1.txt", [System.Text.
 # タブ2: NMAの基本
 $nmaTab2 = [System.IO.File]::ReadAllText("$base\NMA_tab2.txt", [System.Text.Encoding]::UTF8)
 
+# タブ3: 統計的解説
+$statTab3 = [System.IO.File]::ReadAllText("$base\stat_tab3.txt", [System.Text.Encoding]::UTF8)
+
 # タブ5: 効果と確実性の表記
 $iroTab5 = [System.IO.File]::ReadAllText("$base\iro_tab5.txt", [System.Text.Encoding]::UTF8)
 
@@ -98,7 +101,9 @@ $multiTab1
 <div class="main-panel" id="mp-2">
 $nmaTab2
 </div><!-- /mp-2 -->
-<div class="main-panel" id="mp-3"><div class="placeholder-panel"><h2>準備中</h2><p>「ネットワークメタ分析の統計的解説」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-3">
+$statTab3
+</div><!-- /mp-3 -->
 <div class="main-panel" id="mp-4">
 "@
 
