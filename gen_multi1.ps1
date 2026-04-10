@@ -19,8 +19,16 @@ $btStart   = $fm.IndexOf([char]96, $assignPos)   # 開始バッククォート
 $btEnd     = $fm.IndexOf([char]96, $btStart + 1)  # 終端バッククォート
 $tmplContent = $fm.Substring($btStart + 1, $btEnd - $btStart - 1).Trim()
 
-# --- スコープ化 (クラス名・関数名の衝突防止) ---
-# aside
+# --- スコープ化 (クラス名・関数名・IDの衝突防止) ---
+# セクションID を m1-secX に変換（タブ2とのid重複を防ぐ）
+$aside        = $aside        -replace 'href="#sec',   'href="#m1-sec'
+$aside        = $aside        -replace 'data-sec="sec', 'data-sec="m1-sec'
+$mainContent  = $mainContent  -replace ' id="sec',     ' id="m1-sec'
+$mainContent  = $mainContent  -replace 'href="#sec',   'href="#m1-sec'
+$tmplContent  = $tmplContent  -replace ' id="sec',     ' id="m1-sec'
+$tmplContent  = $tmplContent  -replace 'href="#sec',   'href="#m1-sec'
+
+# aside クラス
 $aside = $aside -replace 'class="sidebar"',        'class="m1-sidebar"'
 $aside = $aside -replace 'id="sidebar"',           'id="m1-sidebar"'
 $aside = $aside -replace 'class="sidebar-header"', 'class="m1-sidebar-header"'
@@ -86,29 +94,47 @@ $scopedCss = @"
 
 /* サイドバー */
 .m1-sidebar {
-  flex-shrink:0; width:240px;
-  background:#f8f9fa; border-right:1px solid #dee2e6;
-  padding:12px 0; font-size:0.82em;
+  flex-shrink:0; width:260px;
+  background:#f0f4f8; border-right:1px solid #cbd5e0;
+  padding:0; font-size:0.83em;
   position:sticky; top:55px;
   max-height:calc(100vh - 60px); overflow-y:auto;
   transition:width .25s;
 }
-.m1-sidebar.hidden { width:0; padding:0; overflow:hidden; }
+.m1-sidebar.hidden { width:0; overflow:hidden; }
 .m1-sidebar-header {
-  padding:8px 14px; font-weight:bold; color:#1a365d; font-size:0.9em;
-  border-bottom:1px solid #dee2e6; background:#dce9f5; margin-bottom:4px;
+  padding:12px 16px; font-weight:bold; color:#fff; font-size:0.88em;
+  background:linear-gradient(135deg,#1a365d,#2c5282);
+  letter-spacing:.03em; display:flex; align-items:center; gap:6px;
 }
-.m1-toc-list { list-style:none; padding:0; margin:0; }
+.m1-toc-list { list-style:none; padding:4px 0 8px; margin:0; }
 .m1-toc-item { margin:0; }
+/* 大見出しリンク（sec直下）*/
 .m1-toc-link {
-  display:block; padding:5px 14px 5px 20px; color:#2d3748;
-  text-decoration:none; border-left:3px solid transparent; transition:all .15s;
-  font-size:0.88em; line-height:1.5;
+  display:block; padding:7px 14px 7px 16px; color:#2d3748;
+  text-decoration:none; border-left:4px solid transparent; transition:all .15s;
+  font-size:0.87em; line-height:1.45; font-weight:500;
 }
-.m1-toc-link:hover, .m1-toc-link.active {
-  background:#ebf4ff; border-left-color:#3182ce; color:#3182ce;
+.m1-toc-link:hover {
+  background:#dbeafe; border-left-color:#3182ce; color:#1e40af;
 }
-.m1-toc-link.m1-sub { padding-left:32px; font-size:0.84em; color:#718096; }
+.m1-toc-link.active {
+  background:#dbeafe; border-left-color:#2563eb; color:#1e40af; font-weight:700;
+}
+/* サブリンク */
+.m1-toc-link.m1-sub {
+  padding-left:30px; font-size:0.82em; color:#4a5568; font-weight:400;
+}
+.m1-toc-link.m1-sub:hover, .m1-toc-link.m1-sub.active {
+  background:#e0f2fe; border-left-color:#0ea5e9; color:#0369a1;
+}
+/* セクショングループ区切り */
+.m1-toc-group {
+  margin-top:6px; padding:4px 12px 2px;
+  font-size:0.72em; font-weight:700; color:#718096;
+  text-transform:uppercase; letter-spacing:.06em;
+  border-top:1px solid #cbd5e0;
+}
 
 /* メインコンテンツ */
 .m1-main {
@@ -263,15 +289,15 @@ $js = @"
     // TOCリンクで該当セクションにスクロール
     document.querySelectorAll('.m1-toc-link').forEach(function(link){
       link.addEventListener('click', function(e){
+        e.preventDefault();
         var secId = this.getAttribute('href').replace('#','');
-        var target = document.getElementById(secId);
+        // m1-mainの中で検索（ID重複対策）
+        var main = document.getElementById('m1-mainContent');
+        var target = main ? main.querySelector('#'+secId) : document.getElementById(secId);
         if(target){
-          // 折りたたまれていれば開く
           var body = target.querySelector('.m1-section-body');
           if(body) body.classList.remove('hidden');
-          // スクロール（m1-mainのスクロール位置調整）
           target.scrollIntoView({behavior:'smooth', block:'start'});
-          // アクティブ状態
           document.querySelectorAll('.m1-toc-link').forEach(function(l){ l.classList.remove('active'); });
           this.classList.add('active');
         }

@@ -13,29 +13,47 @@
 
 /* サイドバー */
 .m1-sidebar {
-  flex-shrink:0; width:240px;
-  background:#f8f9fa; border-right:1px solid #dee2e6;
-  padding:12px 0; font-size:0.82em;
+  flex-shrink:0; width:260px;
+  background:#f0f4f8; border-right:1px solid #cbd5e0;
+  padding:0; font-size:0.83em;
   position:sticky; top:55px;
   max-height:calc(100vh - 60px); overflow-y:auto;
   transition:width .25s;
 }
-.m1-sidebar.hidden { width:0; padding:0; overflow:hidden; }
+.m1-sidebar.hidden { width:0; overflow:hidden; }
 .m1-sidebar-header {
-  padding:8px 14px; font-weight:bold; color:#1a365d; font-size:0.9em;
-  border-bottom:1px solid #dee2e6; background:#dce9f5; margin-bottom:4px;
+  padding:12px 16px; font-weight:bold; color:#fff; font-size:0.88em;
+  background:linear-gradient(135deg,#1a365d,#2c5282);
+  letter-spacing:.03em; display:flex; align-items:center; gap:6px;
 }
-.m1-toc-list { list-style:none; padding:0; margin:0; }
+.m1-toc-list { list-style:none; padding:4px 0 8px; margin:0; }
 .m1-toc-item { margin:0; }
+/* 大見出しリンク（sec直下）*/
 .m1-toc-link {
-  display:block; padding:5px 14px 5px 20px; color:#2d3748;
-  text-decoration:none; border-left:3px solid transparent; transition:all .15s;
-  font-size:0.88em; line-height:1.5;
+  display:block; padding:7px 14px 7px 16px; color:#2d3748;
+  text-decoration:none; border-left:4px solid transparent; transition:all .15s;
+  font-size:0.87em; line-height:1.45; font-weight:500;
 }
-.m1-toc-link:hover, .m1-toc-link.active {
-  background:#ebf4ff; border-left-color:#3182ce; color:#3182ce;
+.m1-toc-link:hover {
+  background:#dbeafe; border-left-color:#3182ce; color:#1e40af;
 }
-.m1-toc-link.m1-sub { padding-left:32px; font-size:0.84em; color:#718096; }
+.m1-toc-link.active {
+  background:#dbeafe; border-left-color:#2563eb; color:#1e40af; font-weight:700;
+}
+/* サブリンク */
+.m1-toc-link.m1-sub {
+  padding-left:30px; font-size:0.82em; color:#4a5568; font-weight:400;
+}
+.m1-toc-link.m1-sub:hover, .m1-toc-link.m1-sub.active {
+  background:#e0f2fe; border-left-color:#0ea5e9; color:#0369a1;
+}
+/* セクショングループ区切り */
+.m1-toc-group {
+  margin-top:6px; padding:4px 12px 2px;
+  font-size:0.72em; font-weight:700; color:#718096;
+  text-transform:uppercase; letter-spacing:.06em;
+  border-top:1px solid #cbd5e0;
+}
 
 /* メインコンテンツ */
 .m1-main {
@@ -169,47 +187,47 @@
 <aside class="m1-sidebar" id="m1-sidebar">
     <div class="m1-sidebar-header">📑 目次 - Table of Contents</div>
     <ul class="m1-toc-list" id="m1-tocList">
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec1" data-m1sec="sec1">1. はじめに</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec2" data-m1sec="sec2">2. ペアワイズ比較の歴史と限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec2-1" data-m1sec="sec2-1">2.1 コクランレビューの伝統</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec2-2" data-m1sec="sec2-2">2.2 ペアワイズ比較の根本的限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec3" data-m1sec="sec3">3. コクランオーバービューの発展と課題</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-1" data-m1sec="sec3-1">3.1 二つの概念</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-2" data-m1sec="sec3-2">3.2 統計分析の限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec3-3" data-m1sec="sec3-3">3.3 最初の10件の実態</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec4" data-m1sec="sec4">4. NMAの発展</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-1" data-m1sec="sec4-1">4.1 NMAの基本概念</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-2" data-m1sec="sec4-2">4.2 NMAの利点</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec4-3" data-m1sec="sec4-3">4.3 CMIMGの形成</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec5" data-m1sec="sec5">5. NMAの推移性仮定と限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-1" data-m1sec="sec5-1">5.1 推移性仮定の定義</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-2" data-m1sec="sec5-2">5.2 推移性が成立しない状況</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec5-3" data-m1sec="sec5-3">5.3 レビュー検索の限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec6" data-m1sec="sec6">6. NMAランキングの危うさ</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-1" data-m1sec="sec6-1">6.1 ランキング指標の本質的限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-2" data-m1sec="sec6-2">6.2 健康効果のみの問題</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-3" data-m1sec="sec6-3">6.3 SUCRAの限界</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec6-4" data-m1sec="sec6-4">6.4 NMAは十分ではない</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec7" data-m1sec="sec7">7. MC-EtDフレームワーク</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-1" data-m1sec="sec7-1">7.1 定義と目的</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-2" data-m1sec="sec7-2">7.2 NMAに対する優位性</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec7-3" data-m1sec="sec7-3">7.3 二段階アプローチ</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec8" data-m1sec="sec8">8. MC-EtDの方法論的詳細</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-1" data-m1sec="sec8-1">8.1 計画と優先順位設定</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-2" data-m1sec="sec8-2">8.2 閾値の設定</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-3" data-m1sec="sec8-3">8.3 正味のバランス</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#sec8-4" data-m1sec="sec8-4">8.4 グルーピング</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec9" data-m1sec="sec9">9. アルゴリズム詳細解説</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec10" data-m1sec="sec10">10. GRADEproマルチ介入モジュール</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec11" data-m1sec="sec11">11. 適用事例</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec12" data-m1sec="sec12">12. NMAとMC-EtDの統合</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec13" data-m1sec="sec13">13. 結論</a></li>
-        <li class="m1-toc-item"><a class="m1-toc-link" href="#sec14" data-m1sec="sec14">14. 参考文献</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec1" data-m1sec="m1-sec1">1. はじめに</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec2" data-m1sec="m1-sec2">2. ペアワイズ比較の歴史と限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec2-1" data-m1sec="m1-sec2-1">2.1 コクランレビューの伝統</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec2-2" data-m1sec="m1-sec2-2">2.2 ペアワイズ比較の根本的限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec3" data-m1sec="m1-sec3">3. コクランオーバービューの発展と課題</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec3-1" data-m1sec="m1-sec3-1">3.1 二つの概念</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec3-2" data-m1sec="m1-sec3-2">3.2 統計分析の限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec3-3" data-m1sec="m1-sec3-3">3.3 最初の10件の実態</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec4" data-m1sec="m1-sec4">4. NMAの発展</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec4-1" data-m1sec="m1-sec4-1">4.1 NMAの基本概念</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec4-2" data-m1sec="m1-sec4-2">4.2 NMAの利点</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec4-3" data-m1sec="m1-sec4-3">4.3 CMIMGの形成</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec5" data-m1sec="m1-sec5">5. NMAの推移性仮定と限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec5-1" data-m1sec="m1-sec5-1">5.1 推移性仮定の定義</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec5-2" data-m1sec="m1-sec5-2">5.2 推移性が成立しない状況</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec5-3" data-m1sec="m1-sec5-3">5.3 レビュー検索の限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec6" data-m1sec="m1-sec6">6. NMAランキングの危うさ</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec6-1" data-m1sec="m1-sec6-1">6.1 ランキング指標の本質的限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec6-2" data-m1sec="m1-sec6-2">6.2 健康効果のみの問題</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec6-3" data-m1sec="m1-sec6-3">6.3 SUCRAの限界</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec6-4" data-m1sec="m1-sec6-4">6.4 NMAは十分ではない</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec7" data-m1sec="m1-sec7">7. MC-EtDフレームワーク</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec7-1" data-m1sec="m1-sec7-1">7.1 定義と目的</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec7-2" data-m1sec="m1-sec7-2">7.2 NMAに対する優位性</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec7-3" data-m1sec="m1-sec7-3">7.3 二段階アプローチ</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec8" data-m1sec="m1-sec8">8. MC-EtDの方法論的詳細</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec8-1" data-m1sec="m1-sec8-1">8.1 計画と優先順位設定</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec8-2" data-m1sec="m1-sec8-2">8.2 閾値の設定</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec8-3" data-m1sec="m1-sec8-3">8.3 正味のバランス</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link m1-sub" href="#m1-sec8-4" data-m1sec="m1-sec8-4">8.4 グルーピング</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec9" data-m1sec="m1-sec9">9. アルゴリズム詳細解説</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec10" data-m1sec="m1-sec10">10. GRADEproマルチ介入モジュール</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec11" data-m1sec="m1-sec11">11. 適用事例</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec12" data-m1sec="m1-sec12">12. NMAとMC-EtDの統合</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec13" data-m1sec="m1-sec13">13. 結論</a></li>
+        <li class="m1-toc-item"><a class="m1-toc-link" href="#m1-sec14" data-m1sec="m1-sec14">14. 参考文献</a></li>
     </ul>
 </aside>
 <main class='m1-main' id='m1-mainContent'>
 <!-- セクション1：はじめに -->
-<div class="m1-section" id="sec1">
+<div class="m1-section" id="m1-sec1">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 1</div>
         <h2>はじめに</h2>
@@ -248,14 +266,14 @@
 </div>
 
 <!-- セクション2：ペアワイズ比較 -->
-<div class="m1-section" id="sec2">
+<div class="m1-section" id="m1-sec2">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 2</div>
         <h2>ペアワイズ比較の歴史と限界</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec2-1">
+        <div class="m1-subsection" id="m1-sec2-1">
             <h3>2.1 コクランレビューにおけるペアワイズ比較の伝統</h3>
             <p>コクランレビューの伝統的なアプローチは、特定の条件や集団に対する介入間のペアワイズ比較を提示することであった。Becker, Caldwell, Higgins らの2003年文書では、この限界が明確に指摘されている：</p>
 
@@ -270,7 +288,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec2-2">
+        <div class="m1-subsection" id="m1-sec2-2">
             <h3>2.2 ペアワイズ比較の根本的限界</h3>
             <p>ペアワイズ比較には主に2つの根本的な限界がある：</p>
 
@@ -302,14 +320,14 @@
 </div>
 
 <!-- セクション3：コクランオーバービュー -->
-<div class="m1-section" id="sec3">
+<div class="m1-section" id="m1-sec3">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 3</div>
         <h2>コクランオーバービューの発展と課題</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec3-1">
+        <div class="m1-subsection" id="m1-sec3-1">
             <h3>3.1 オーバービューの二つの概念</h3>
             <p>コクランオーバービューは「系統的レビューの系統的レビュー」として構想され、その基本単位は個別の試験ではなくシステマティックレビューであった。しかし、Umbrella Review Working Group（URWG）の議論を通じて、二つの異なる概念が浮かび上がった：</p>
 
@@ -336,7 +354,7 @@
             <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Multiple Cochrane - 2003, p.2, Table 22.1.a</p>
         </div>
 
-        <div class="m1-subsection" id="sec3-2">
+        <div class="m1-subsection" id="m1-sec3-2">
             <h3>3.2 統計分析の限界</h3>
             <p>URWGの議論と結果として生まれたハンドブックの章は、複数介入の統計分析の問題を詳細には扱わなかった。NMA技術が発展途上であったため、方法論をさらに精錬・要約する必要があると判断されたためである。</p>
 
@@ -348,7 +366,7 @@
             <p>代わりに、ハンドブックでは関連レビューのデータを並置して提示する方法が推奨された。この方法の問題点（非公式な間接比較の危険性）はハンドブックでは十分に扱われなかった。</p>
         </div>
 
-        <div class="m1-subsection" id="sec3-3">
+        <div class="m1-subsection" id="m1-sec3-3">
             <h3>3.3 最初の10件のコクランオーバービューの実態</h3>
             <p>CDSRに公表された最初の10件のオーバービューを分析したところ、著者らは3つの異なるアプローチを特定した：</p>
 
@@ -387,14 +405,14 @@
 </div>
 
 <!-- セクション4：NMAの発展 -->
-<div class="m1-section" id="sec4">
+<div class="m1-section" id="m1-sec4">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 4</div>
         <h2>ネットワークメタアナリシス（NMA）の発展</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec4-1">
+        <div class="m1-subsection" id="m1-sec4-1">
             <h3>4.1 NMAの基本概念</h3>
             <p>NMAは、直接比較と間接比較を組み合わせることで、直接比較されたことのない介入間の相対的効果を推定する統計的手法である。</p>
 
@@ -436,7 +454,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec4-2">
+        <div class="m1-subsection" id="m1-sec4-2">
             <h3>4.2 NMAの利点</h3>
 
             <div class="m1-success-box">
@@ -447,7 +465,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec4-3">
+        <div class="m1-subsection" id="m1-sec4-3">
             <h3>4.3 CMIMGの形成と方法論的発展</h3>
 
             <div class="timeline">
@@ -483,14 +501,14 @@
 </div>
 
 <!-- セクション5：推移性仮定と限界 -->
-<div class="m1-section" id="sec5">
+<div class="m1-section" id="m1-sec5">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 5</div>
         <h2>NMAの推移性仮定と限界</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec5-1">
+        <div class="m1-subsection" id="m1-sec5-1">
             <h3>5.1 推移性仮定の定義と重要性</h3>
             <p>NMAの妥当性は「推移性仮定（transitivity assumption）」に大きく依存する。この仮定は、間接比較が妥当であるための前提条件であり、NMAの信頼性の基盤をなす。</p>
 
@@ -517,7 +535,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec5-2">
+        <div class="m1-subsection" id="m1-sec5-2">
             <h3>5.2 推移性仮定が成立しない状況</h3>
             <p>推移性仮定が成立しない具体例として、2003年文書は以下を挙げている：</p>
 
@@ -539,7 +557,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec5-3">
+        <div class="m1-subsection" id="m1-sec5-3">
             <h3>5.3 レビューのみの検索による限界</h3>
             <div class="m1-quote-block">
                 "It is very likely that some trials that are very relevant to a NMA would be missed by such a search – either because the systematic reviews have not been updated, or because some of the interventions or comparisons of interest in the NMA have not been relevant to the scope of any of the systematic reviews identified."
@@ -551,7 +569,7 @@
 </div>
 
 <!-- セクション6：NMAランキングの危うさ -->
-<div class="m1-section" id="sec6">
+<div class="m1-section" id="m1-sec6">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 6</div>
         <h2>NMAランキングの危うさ — なぜランキングを信用すべきではないか</h2>
@@ -563,7 +581,7 @@
             <p>NMAのランキング（SUCRAスコアなど）は、しばしば「介入のベストランキング」として誤解されるが、実際にはエビデンスの確実性、患者の価値観、コスト、実現可能性などの重要な意思決定要因を一切反映していない。ランキングのみに基づく臨床判断は危険である。</p>
         </div>
 
-        <div class="m1-subsection" id="sec6-1">
+        <div class="m1-subsection" id="m1-sec6-1">
             <h3>6.1 ランキング指標の本質的限界</h3>
             <div class="m1-quote-block">
                 "NMA usually combines only the effects of interventions on selected health outcomes, but does not solve the challenge for comparing multiple interventions across the other EtD criteria because the ranking based on health effects may not include considerations of people's important differences in the health effects."
@@ -581,7 +599,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec6-2">
+        <div class="m1-subsection" id="m1-sec6-2">
             <h3>6.2 健康効果のみに基づくランキングの問題</h3>
             <div class="m1-quote-block">
                 "Furthermore, focusing on health effects ignores important criteria for decision-making including equity, cost, acceptability, and feasibility of the interventions."
@@ -610,7 +628,7 @@
             <p style="font-size:0.85rem;color:var(--text-lighter)">出典：Piggott T, et al. J Clin Epidemiol. 2021, Table 1に基づいて作成</p>
         </div>
 
-        <div class="m1-subsection" id="sec6-3">
+        <div class="m1-subsection" id="m1-sec6-3">
             <h3>6.3 SUCRAの限界に関する明確な警告</h3>
             <p>IPF治療のNMAケーススタディにおいて、著者らはSUCRAの使用について明確な注意を述べている：</p>
 
@@ -628,7 +646,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec6-4">
+        <div class="m1-subsection" id="m1-sec6-4">
             <h3>6.4 「NMAは有用だが十分ではない」という結論</h3>
             <p>GRADEワーキンググループの結論は明確である：</p>
 
@@ -650,14 +668,14 @@
 <!-- 残りのセクション（7〜14）は以下に続く -->
 <!-- パート2で提供 -->
 <!-- セクション7：MC-EtDフレームワーク -->
-<div class="m1-section" id="sec7">
+<div class="m1-section" id="m1-sec7">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 7</div>
         <h2>GRADE Multiple Intervention Comparison（MC-EtD）フレームワーク</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec7-1">
+        <div class="m1-subsection" id="m1-sec7-1">
             <h3>7.1 MC-EtDの定義と目的</h3>
             <div class="m1-quote-block">
                 "This guidance on the MC-EtD describes an integrative process to simultaneously compare three or more interventions for a given clinical question across criteria, to support the formulation of recommendations."
@@ -666,7 +684,7 @@
             <p>MC-EtDは、NMAが提供する「どの介入が健康効果として最も良いか」という問いへの回答に加え、「コストはどうか」「患者に受け入れられるか」「現場で実施可能か」「健康格差への影響は」といった包括的な問いに同時に答えることを可能にする。</p>
         </div>
 
-        <div class="m1-subsection" id="sec7-2">
+        <div class="m1-subsection" id="m1-sec7-2">
             <h3>7.2 NMAに対するMC-EtDの優位性</h3>
             <div class="m1-key-point">
                 <div class="m1-kp-title">📌 核心的なメッセージ</div>
@@ -694,7 +712,7 @@
             <p style="font-size:0.85rem;color:var(--text-lighter)">◯ = NMAが直接対応、△ = 部分的に対応、✗ = NMAでは対応不可。出典：Piggott et al. 2021, Table 1に基づく</p>
         </div>
 
-        <div class="m1-subsection" id="sec7-3">
+        <div class="m1-subsection" id="m1-sec7-3">
             <h3>7.3 二段階アプローチ</h3>
             <div class="m1-flow-diagram">
                 <h4 style="margin-bottom:16px;color:var(--primary)">MC-EtD 二段階アプローチ</h4>
@@ -718,14 +736,14 @@
 </div>
 
 <!-- セクション8：MC-EtDの方法論的詳細 -->
-<div class="m1-section" id="sec8">
+<div class="m1-section" id="m1-sec8">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 8</div>
         <h2>MC-EtDの方法論的詳細</h2>
     </div>
     <div class="m1-section-body">
 
-        <div class="m1-subsection" id="sec8-1">
+        <div class="m1-subsection" id="m1-sec8-1">
             <h3>8.1 計画と優先順位設定</h3>
             <p>MC-EtDの効果的な使用のために、プロセスの早い段階で以下を完了すべきである：</p>
 
@@ -758,7 +776,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec8-2">
+        <div class="m1-subsection" id="m1-sec8-2">
             <h3>8.2 アウトカムの重要性と閾値の設定</h3>
             <div class="m1-quote-block">
                 "It is advisable to set explicit thresholds a priori [more efficient, more consistent, avoid deciding during recommendation meetings]."
@@ -776,7 +794,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec8-3">
+        <div class="m1-subsection" id="m1-sec8-3">
             <h3>8.3 正味のバランス（Net Balance）— 新基準</h3>
             <div class="m1-quote-block">
                 "This new criterion...quantifies the relationship between desirable and undesirable health effects across outcomes for each intervention, considering both the magnitude and the direction of the effect."
@@ -791,7 +809,7 @@
             </div>
         </div>
 
-        <div class="m1-subsection" id="sec8-4">
+        <div class="m1-subsection" id="m1-sec8-4">
             <h3>8.4 効果のバランスとグルーピング</h3>
             <p>効果のバランスの評価後、介入は以下のグループに分類できる：</p>
             <div class="m1-success-box">
@@ -812,7 +830,7 @@
 </div>
 
 <!-- セクション9：アルゴリズム詳細 -->
-<div class="m1-section" id="sec9">
+<div class="m1-section" id="m1-sec9">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 9</div>
         <h2>推奨策定アルゴリズムの詳細解説</h2>
@@ -875,7 +893,7 @@
 </div>
 
 <!-- セクション10：GRADEproモジュール -->
-<div class="m1-section" id="sec10">
+<div class="m1-section" id="m1-sec10">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 10</div>
         <h2>GRADEproにおけるマルチ介入モジュール</h2>
@@ -928,7 +946,7 @@
 </div>
 
 <!-- セクション11：適用事例 -->
-<div class="m1-section" id="sec11">
+<div class="m1-section" id="m1-sec11">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 11</div>
         <h2>実際のガイドラインにおける適用事例</h2>
@@ -987,7 +1005,7 @@
 </div>
 
 <!-- セクション12：統合的理解 -->
-<div class="m1-section" id="sec12">
+<div class="m1-section" id="m1-sec12">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 12</div>
         <h2>NMAとMC-EtDの統合的理解</h2>
@@ -1030,7 +1048,7 @@
 </div>
 
 <!-- セクション13：結論 -->
-<div class="m1-section" id="sec13">
+<div class="m1-section" id="m1-sec13">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 13</div>
         <h2>結論</h2>
@@ -1051,7 +1069,7 @@
 </div>
 
 <!-- セクション14：参考文献 -->
-<div class="m1-section" id="sec14">
+<div class="m1-section" id="m1-sec14">
     <div class="m1-section-header">
         <div class="m1-section-num">Section 14</div>
         <h2>参考文献</h2>
@@ -1107,15 +1125,15 @@
     // TOCリンクで該当セクションにスクロール
     document.querySelectorAll('.m1-toc-link').forEach(function(link){
       link.addEventListener('click', function(e){
+        e.preventDefault();
         var secId = this.getAttribute('href').replace('#','');
-        var target = document.getElementById(secId);
+        // m1-mainの中で検索（ID重複対策）
+        var main = document.getElementById('m1-mainContent');
+        var target = main ? main.querySelector('#'+secId) : document.getElementById(secId);
         if(target){
-          // 折りたたまれていれば開く
           var body = target.querySelector('.m1-section-body');
           if(body) body.classList.remove('hidden');
-          // スクロール（m1-mainのスクロール位置調整）
           target.scrollIntoView({behavior:'smooth', block:'start'});
-          // アクティブ状態
           document.querySelectorAll('.m1-toc-link').forEach(function(l){ l.classList.remove('active'); });
           this.classList.add('active');
         }

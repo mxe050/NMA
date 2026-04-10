@@ -12,7 +12,16 @@ $mainStart   = $f1.IndexOf($mainOpen)
 $mainEnd     = $f1.IndexOf('</main>')
 $mainContent = $f1.Substring($mainStart + $mainOpen.Length, $mainEnd - $mainStart - $mainOpen.Length)
 
-# --- 関数名をスコープ化（メインアプリとの衝突防止）---
+# --- 関数名・ID をスコープ化（重複ID衝突防止が最重要）---
+# セクションID を nma2-secX に変換（タブ1とのid重複を防ぐ）
+$sidebar     = $sidebar     -replace 'href="#sec',       'href="#nma2-sec'
+$sidebar     = $sidebar     -replace 'onclick="showSection\(''sec', 'onclick="showNMA2Section(''nma2-sec'
+$mainContent = $mainContent -replace ' id="sec',         ' id="nma2-sec'
+$mainContent = $mainContent -replace 'href="#sec',       'href="#nma2-sec'
+$ext2        = $f2          -replace ' id="sec',         ' id="nma2-sec'
+$ext2        = $ext2        -replace 'href="#sec',       'href="#nma2-sec'
+
+# クラス名スコープ化
 $sidebar = $sidebar -replace 'class="sidebar"',  'class="nma2-sidebar"'
 $sidebar = $sidebar -replace 'id="sidebar"',      'id="nma2-sidebar"'
 $sidebar = $sidebar -replace 'onclick="showSection\(', 'onclick="showNMA2Section('
@@ -23,7 +32,7 @@ $mainContent = $mainContent -replace 'onclick="toggleCollapsible\(', 'onclick="n
 $mainContent = $mainContent -replace "onclick='showSection\(",       "onclick='showNMA2Section("
 $mainContent = $mainContent -replace "onclick='openTab\(",           "onclick='nma2OpenTab("
 
-$ext2 = $f2 -replace 'onclick="openTab\(',           'onclick="nma2OpenTab('
+$ext2 = $ext2 -replace 'onclick="openTab\(',           'onclick="nma2OpenTab('
 $ext2 = $ext2 -replace 'onclick="toggleCollapsible\(', 'onclick="nma2ToggleCollapsible('
 $ext2 = $ext2 -replace "onclick='openTab\(",           "onclick='nma2OpenTab("
 $ext2 = $ext2 -replace "onclick='toggleCollapsible\(", "onclick='nma2ToggleCollapsible("
@@ -156,14 +165,14 @@ $js = @"
   window.showNMA2Section = function(sectionId) {
     var wrap = document.getElementById('nma2-content-wrap');
     if (!wrap) return;
+    // wrapの中のsectionだけを操作（document全体でなくwrap内に限定）
     wrap.querySelectorAll('.section').forEach(function(s){ s.style.display='none'; });
-    var t = document.getElementById(sectionId);
+    var t = wrap.querySelector('#'+sectionId);
     if (t) t.style.display = 'block';
     document.querySelectorAll('#nma2-sidebar a').forEach(function(l){ l.classList.remove('active'); });
     var al = document.querySelector('#nma2-sidebar a[href="#'+sectionId+'"]');
     if (al) al.classList.add('active');
-    var mc = document.getElementById('nma2-content-wrap');
-    if (mc) mc.parentElement.scrollTop = 0;
+    window.scrollTo({top:0, behavior:'smooth'});
   };
 
   window.nma2OpenTab = function(evt, tabName) {
@@ -210,7 +219,7 @@ $js = @"
 
   // 初期表示
   document.addEventListener('DOMContentLoaded', function(){
-    showNMA2Section('sec1');
+    showNMA2Section('nma2-sec1');
   });
 })();
 </script>

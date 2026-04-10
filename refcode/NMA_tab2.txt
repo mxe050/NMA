@@ -121,69 +121,69 @@
 <div class='nma2-wrap' id='nma2-content-wrap'>
 <nav class="nma2-sidebar" id="nma2-sidebar">
   <div class="nav-section">第1部：基礎編</div>
-  <a href="#sec1" onclick="showNMA2Section('sec1')">1. NMAとは何か</a>
-  <a href="#sec1-1" class="sub" onclick="showNMA2Section('sec1')">1.1 定義と背景</a>
-  <a href="#sec1-2" class="sub" onclick="showNMA2Section('sec1')">1.2 なぜNMAが必要か</a>
-  <a href="#sec1-3" class="sub" onclick="showNMA2Section('sec1')">1.3 NMAの発展の歴史</a>
-  <a href="#sec1-4" class="sub" onclick="showNMA2Section('sec1')">1.4 用語の混乱と整理</a>
+  <a href="#nma2-sec1" onclick="showNMA2Section('nma2-sec1')">1. NMAとは何か</a>
+  <a href="#nma2-sec1-1" class="sub" onclick="showNMA2Section('nma2-sec1')">1.1 定義と背景</a>
+  <a href="#nma2-sec1-2" class="sub" onclick="showNMA2Section('nma2-sec1')">1.2 なぜNMAが必要か</a>
+  <a href="#nma2-sec1-3" class="sub" onclick="showNMA2Section('nma2-sec1')">1.3 NMAの発展の歴史</a>
+  <a href="#nma2-sec1-4" class="sub" onclick="showNMA2Section('nma2-sec1')">1.4 用語の混乱と整理</a>
 
   <div class="nav-section">第2部：概念と原理</div>
-  <a href="#sec2" onclick="showNMA2Section('sec2')">2. 直接比較と間接比較</a>
-  <a href="#sec2-1" class="sub" onclick="showNMA2Section('sec2')">2.1 直接比較のエビデンス</a>
-  <a href="#sec2-2" class="sub" onclick="showNMA2Section('sec2')">2.2 間接比較（Bucher法）</a>
-  <a href="#sec2-3" class="sub" onclick="showNMA2Section('sec2')">2.3 混合比較</a>
-  <a href="#sec2-4" class="sub" onclick="showNMA2Section('sec2')">2.4 比較数の公式</a>
+  <a href="#nma2-sec2" onclick="showNMA2Section('nma2-sec2')">2. 直接比較と間接比較</a>
+  <a href="#nma2-sec2-1" class="sub" onclick="showNMA2Section('nma2-sec2')">2.1 直接比較のエビデンス</a>
+  <a href="#nma2-sec2-2" class="sub" onclick="showNMA2Section('nma2-sec2')">2.2 間接比較（Bucher法）</a>
+  <a href="#nma2-sec2-3" class="sub" onclick="showNMA2Section('nma2-sec2')">2.3 混合比較</a>
+  <a href="#nma2-sec2-4" class="sub" onclick="showNMA2Section('nma2-sec2')">2.4 比較数の公式</a>
 
   <div class="nav-section">第3部：前提条件</div>
-  <a href="#sec3" onclick="showNMA2Section('sec3')">3. NMAの前提条件</a>
-  <a href="#sec3-1" class="sub" onclick="showNMA2Section('sec3')">3.1 推移性（Transitivity）</a>
-  <a href="#sec3-2" class="sub" onclick="showNMA2Section('sec3')">3.2 一貫性（Consistency）</a>
-  <a href="#sec3-3" class="sub" onclick="showNMA2Section('sec3')">3.3 均質性（Homogeneity）</a>
+  <a href="#nma2-sec3" onclick="showNMA2Section('nma2-sec3')">3. NMAの前提条件</a>
+  <a href="#nma2-sec3-1" class="sub" onclick="showNMA2Section('nma2-sec3')">3.1 推移性（Transitivity）</a>
+  <a href="#nma2-sec3-2" class="sub" onclick="showNMA2Section('nma2-sec3')">3.2 一貫性（Consistency）</a>
+  <a href="#nma2-sec3-3" class="sub" onclick="showNMA2Section('nma2-sec3')">3.3 均質性（Homogeneity）</a>
 
   <div class="nav-section">第4部：統計モデル</div>
-  <a href="#sec4" onclick="showNMA2Section('sec4')">4. 統計手法の概要</a>
-  <a href="#sec4-1" class="sub" onclick="showNMA2Section('sec4')">4.1 頻度論 vs ベイズ</a>
-  <a href="#sec4-2" class="sub" onclick="showNMA2Section('sec4')">4.2 固定効果 vs 変量効果</a>
-  <a href="#sec4-3" class="sub" onclick="showNMA2Section('sec4')">4.3 ネットワークプロット</a>
+  <a href="#nma2-sec4" onclick="showNMA2Section('nma2-sec4')">4. 統計手法の概要</a>
+  <a href="#nma2-sec4-1" class="sub" onclick="showNMA2Section('nma2-sec4')">4.1 頻度論 vs ベイズ</a>
+  <a href="#nma2-sec4-2" class="sub" onclick="showNMA2Section('nma2-sec4')">4.2 固定効果 vs 変量効果</a>
+  <a href="#nma2-sec4-3" class="sub" onclick="showNMA2Section('nma2-sec4')">4.3 ネットワークプロット</a>
 
   <div class="nav-section">第5部：結果の解釈</div>
-  <a href="#sec5" onclick="showNMA2Section('sec5')">5. 結果の提示と解釈</a>
-  <a href="#sec5-1" class="sub" onclick="showNMA2Section('sec5')">5.1 リーグテーブル</a>
-  <a href="#sec5-2" class="sub" onclick="showNMA2Section('sec5')">5.2 SUCRAとランキング</a>
-  <a href="#sec5-3" class="sub" onclick="showNMA2Section('sec5')">5.3 GRADE分類アプローチ</a>
+  <a href="#nma2-sec5" onclick="showNMA2Section('nma2-sec5')">5. 結果の提示と解釈</a>
+  <a href="#nma2-sec5-1" class="sub" onclick="showNMA2Section('nma2-sec5')">5.1 リーグテーブル</a>
+  <a href="#nma2-sec5-2" class="sub" onclick="showNMA2Section('nma2-sec5')">5.2 SUCRAとランキング</a>
+  <a href="#nma2-sec5-3" class="sub" onclick="showNMA2Section('nma2-sec5')">5.3 GRADE分類アプローチ</a>
 
   <div class="nav-section">第6部：検証と評価</div>
-  <a href="#sec6" onclick="showNMA2Section('sec6')">6. 不一貫性の評価</a>
-  <a href="#sec6-1" class="sub" onclick="showNMA2Section('sec6')">6.1 局所的不一貫性検定</a>
-  <a href="#sec6-2" class="sub" onclick="showNMA2Section('sec6')">6.2 全体的不一貫性検定</a>
-  <a href="#sec6-3" class="sub" onclick="showNMA2Section('sec6')">6.3 Side-splitting法</a>
+  <a href="#nma2-sec6" onclick="showNMA2Section('nma2-sec6')">6. 不一貫性の評価</a>
+  <a href="#nma2-sec6-1" class="sub" onclick="showNMA2Section('nma2-sec6')">6.1 局所的不一貫性検定</a>
+  <a href="#nma2-sec6-2" class="sub" onclick="showNMA2Section('nma2-sec6')">6.2 全体的不一貫性検定</a>
+  <a href="#nma2-sec6-3" class="sub" onclick="showNMA2Section('nma2-sec6')">6.3 Side-splitting法</a>
 
   <div class="nav-section">第7部：応用編</div>
-  <a href="#sec7" onclick="showNMA2Section('sec7')">7. コンポーネントNMA</a>
-  <a href="#sec7-1" class="sub" onclick="showNMA2Section('sec7')">7.1 CNMAの概念</a>
-  <a href="#sec7-2" class="sub" onclick="showNMA2Section('sec7')">7.2 加法モデル</a>
-  <a href="#sec7-3" class="sub" onclick="showNMA2Section('sec7')">7.3 相互作用モデル</a>
-  <a href="#sec7-4" class="sub" onclick="showNMA2Section('sec7')">7.4 実例</a>
+  <a href="#nma2-sec7" onclick="showNMA2Section('nma2-sec7')">7. コンポーネントNMA</a>
+  <a href="#nma2-sec7-1" class="sub" onclick="showNMA2Section('nma2-sec7')">7.1 CNMAの概念</a>
+  <a href="#nma2-sec7-2" class="sub" onclick="showNMA2Section('nma2-sec7')">7.2 加法モデル</a>
+  <a href="#nma2-sec7-3" class="sub" onclick="showNMA2Section('nma2-sec7')">7.3 相互作用モデル</a>
+  <a href="#nma2-sec7-4" class="sub" onclick="showNMA2Section('nma2-sec7')">7.4 実例</a>
 
   <div class="nav-section">第8部：ツールと実践</div>
-  <a href="#sec8" onclick="showNMA2Section('sec8')">8. ソフトウェアガイド</a>
-  <a href="#sec8-1" class="sub" onclick="showNMA2Section('sec8')">8.1 オンラインツール</a>
-  <a href="#sec8-2" class="sub" onclick="showNMA2Section('sec8')">8.2 Rパッケージ</a>
-  <a href="#sec8-3" class="sub" onclick="showNMA2Section('sec8')">8.3 その他のソフト</a>
-  <a href="#sec8-4" class="sub" onclick="showNMA2Section('sec8')">8.4 AIを用いたNMA</a>
+  <a href="#nma2-sec8" onclick="showNMA2Section('nma2-sec8')">8. ソフトウェアガイド</a>
+  <a href="#nma2-sec8-1" class="sub" onclick="showNMA2Section('nma2-sec8')">8.1 オンラインツール</a>
+  <a href="#nma2-sec8-2" class="sub" onclick="showNMA2Section('nma2-sec8')">8.2 Rパッケージ</a>
+  <a href="#nma2-sec8-3" class="sub" onclick="showNMA2Section('nma2-sec8')">8.3 その他のソフト</a>
+  <a href="#nma2-sec8-4" class="sub" onclick="showNMA2Section('nma2-sec8')">8.4 AIを用いたNMA</a>
 
   <div class="nav-section">付録</div>
-  <a href="#sec9" onclick="showNMA2Section('sec9')">9. 参考文献一覧</a>
-  <a href="#sec10" onclick="showNMA2Section('sec10')">10. 用語集</a>
+  <a href="#nma2-sec9" onclick="showNMA2Section('nma2-sec9')">9. 参考文献一覧</a>
+  <a href="#nma2-sec10" onclick="showNMA2Section('nma2-sec10')">10. 用語集</a>
 </nav>
 <main class='nma2-main'>
 
 
 <!-- ===== セクション1: NMAとは何か ===== -->
-<div class="section" id="sec1">
+<div class="section" id="nma2-sec1">
 <h2>第1章：ネットワークメタアナリシス（NMA）とは何か</h2>
 
-<h3 id="sec1-1">1.1 定義と背景</h3>
+<h3 id="nma2-sec1-1">1.1 定義と背景</h3>
 
 <p>ネットワークメタアナリシス（Network Meta-Analysis; NMA）とは、複数の治療法の比較有効性（Comparative Effectiveness）を評価するために開発されたエビデンス統合のための研究方法です。従来のペアワイズメタアナリシスが2つの治療法の直接比較に限定されるのに対し、NMAは利用可能な複数（3種類以上）の治療法を、過去の臨床試験から得られたエビデンスを統合し、系統的に比較するためのメタアナリシスです。</p>
 
@@ -205,7 +205,7 @@
 <strong>【引用】</strong> 野間（2026）配布資料より：「対象となった60件のNMAレビューのうち、26件（43％）が89のガイドラインに引用された（1件あたり1～13件）。ガイドラインで引用されていた回数は、従来のPairwise-MAのレビューよりもNMAのレビューの方が多かった（被引用率の比は 1.53倍！）。ガイドラインの推奨事項に、引用された回数も、Pairwise-MAのレビューよりもNMAのレビューの方が多かった（4.40倍！）。」（配布資料 p.6, Donegan et al. 2024, PLoS ONE）
 </div>
 
-<h3 id="sec1-2">1.2 なぜNMAが必要か</h3>
+<h3 id="nma2-sec1-2">1.2 なぜNMAが必要か</h3>
 
 <p>臨床現場では、ある疾患に対して利用可能な治療法が複数存在することが一般的です。しかし、すべての治療法を同時に比較するような大規模臨床試験を実施することは、サンプルサイズ、費用、時間の面から極めて困難です。</p>
 
@@ -229,7 +229,7 @@
 
 <p><strong>第三に、Comparative Effectivenessの包括的評価が可能であることです。</strong>ネットワーク上のすべての治療法を比較した治療効果の差の推定値、信頼区間、P値を得ることができ、治療法の順位付け（ランキング）を行うことができます。</p>
 
-<h3 id="sec1-3">1.3 NMAの発展の歴史</h3>
+<h3 id="nma2-sec1-3">1.3 NMAの発展の歴史</h3>
 
 <div class="timeline">
   <div class="timeline-item">
@@ -278,7 +278,7 @@
   </div>
 </div>
 
-<h3 id="sec1-4">1.4 用語の混乱と整理</h3>
+<h3 id="nma2-sec1-4">1.4 用語の混乱と整理</h3>
 
 <p>NMAに関連する用語は歴史的な経緯から複数の名称が混在しており、文献を読む際に混乱を招くことがあります。以下に主要な用語の整理を行います。</p>
 
@@ -308,16 +308,16 @@
 </div><!-- end sec1 -->
 
 <!-- ===== セクション2: 直接比較と間接比較 ===== -->
-<div class="section" id="sec2" style="display:none;">
+<div class="section" id="nma2-sec2" style="display:none;">
 <h2>第2章：直接比較と間接比較</h2>
 
-<h3 id="sec2-1">2.1 直接比較のエビデンス</h3>
+<h3 id="nma2-sec2-1">2.1 直接比較のエビデンス</h3>
 
 <p>直接比較（Direct Comparison）とは、同一のランダム化比較試験（RCT）の中で2つの治療法を直接比較したエビデンスを指します。従来のペアワイズメタアナリシスは、この直接比較のエビデンスのみを統合する方法です。</p>
 
 <p>直接比較のエビデンスは、ランダム化によるバイアスの制御という点で最も信頼性が高いとされますが、利用可能な比較の数には限界があります。</p>
 
-<h3 id="sec2-2">2.2 間接比較（Bucher法）</h3>
+<h3 id="nma2-sec2-2">2.2 間接比較（Bucher法）</h3>
 
 <p>間接比較（Indirect Comparison）とは、共通の比較対照（Common Comparator）を介して、直接比較されていない2つの治療法の相対的有効性を推定する方法です。</p>
 
@@ -360,7 +360,7 @@ Var(ln OR<sub>AC, indirect</sub>) = Var(ln OR<sub>AB</sub>) + Var(ln OR<sub>CB</
 <strong>【引用】</strong> Balijepalli & Iheanacho (2018) The Evidence Forum より："this approach is unsuitable for performing indirect treatment comparisons within more complex networks of treatments with multi-arm trials, for which the Bayesian NMA methods are widely used instead." また："where the treatment comparisons involve simple networks with two pairwise comparisons or a star-shaped network with a single common comparator, Bucher ITC and Bayesian NMA are likely to provide similar, if not identical, results."
 </div>
 
-<h3 id="sec2-3">2.3 混合比較（Mixed Treatment Comparison）</h3>
+<h3 id="nma2-sec2-3">2.3 混合比較（Mixed Treatment Comparison）</h3>
 
 <p>混合比較とは、直接比較と間接比較の両方のエビデンスが利用可能な場合に、それらを統合する方法です。直接比較のエビデンスだけでは得られない精度の向上が期待でき、間接比較単独よりも堅牢な推定値を得ることができます。</p>
 
@@ -372,7 +372,7 @@ Var(ln OR<sub>AC, indirect</sub>) = Var(ln OR<sub>AB</sub>) + Var(ln OR<sub>CB</
 <strong>【引用】</strong> Tobías et al. (2014) Rev Esp Salud Pública, 表1より：直接比較と間接比較を「逆分散加重の平均 (promedio ponderando por el inverso de sus respectivas varianzas)」として統合する公式。Lu G, Ades AE. (2004) Combination of direct and indirect evidence in mixed treatment comparisons. Stat Med 23: 3105-24に基づく。
 </div>
 
-<h3 id="sec2-4">2.4 比較数の公式</h3>
+<h3 id="nma2-sec2-4">2.4 比較数の公式</h3>
 
 <p>NMAやRCTにおいて、n個の介入が存在する場合の理論上可能なペアワイズ比較の数は、組み合わせ論の公式により算出できます。</p>
 
@@ -405,7 +405,7 @@ N = n × (n − 1) / 2
 </div><!-- end sec2 -->
 
 <!-- ===== セクション3: 前提条件 ===== -->
-<div class="section" id="sec3" style="display:none;">
+<div class="section" id="nma2-sec3" style="display:none;">
 <h2>第3章：NMAの前提条件</h2>
 
 <p>NMAが有効であるためには、推移性（Transitivity）、一貫性（Consistency）、均質性（Homogeneity）という3つの基本的な前提条件が満たされていなければなりません。</p>
@@ -414,7 +414,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> NMAの一般的な問題点pptx p.6より：「NMAが有効であるためには、直接証拠の推移性、非一貫性（整合性）、均質性（transitivity, consistency, and homogeneity）といった基本的な前提が満たされていなければならない。」Ahn E and Kang H (2021) Korean J Anesthesiol; Efthimiou O et al. (2016) Res Synth Methods を引用。
 </div>
 
-<h3 id="sec3-1">3.1 推移性（Transitivity）</h3>
+<h3 id="nma2-sec3-1">3.1 推移性（Transitivity）</h3>
 
 <p>推移性とは、間接比較が論理的に成り立つための前提条件です。治療AとB、BとCを比較した試験が存在する場合、これらの試験が臨床的・方法論的に類似した集団や条件で行われているならば、AとCの比較も論理的に成立するという仮定です。</p>
 
@@ -436,7 +436,7 @@ N = n × (n − 1) / 2
 
 <p>推移性の評価方法として、野間 (2026) は、対象となったネットワークにおけるデザインごとの共変量のサマリーを算出し比較するtransitivity関数を紹介しています。Cipriani, Furukawa, Salanti et al. (2018) で考案されたSide-by-side boxplotを提示し、共変量分布の異質性を評価することが推奨されています。</p>
 
-<h3 id="sec3-2">3.2 一貫性（Consistency）/ 非一貫性（Incoherence）</h3>
+<h3 id="nma2-sec3-2">3.2 一貫性（Consistency）/ 非一貫性（Incoherence）</h3>
 
 <p>一貫性（Consistency）とは、ネットワーク上のすべてのパスにおいて、治療間の効果量の差が一致（consistent）することを意味します。すなわち、ネットワーク上の任意のペアA-Bを結ぶすべてのパスにおける効果量の差が互いに一致して整合することです。</p>
 
@@ -450,7 +450,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> Brignardello-Petersen (2020) GRADE NMA guidance p.11より：「Not only statistical. Serious incoherence → makes the network estimate importantly different from the estimate that contributes the most to it.」また、NMAの一般的な問題点pptx p.8より：「NMAにおける最大の課題の一つである領域は、一般的に直接証拠と間接証拠が乖離しているときに発生する矛盾。」
 </div>
 
-<h3 id="sec3-3">3.3 均質性（Homogeneity）/ 異質性（Heterogeneity）</h3>
+<h3 id="nma2-sec3-3">3.3 均質性（Homogeneity）/ 異質性（Heterogeneity）</h3>
 
 <p>NMAのもう一つの重要な前提は、各ペアワイズ比較における異なる臨床試験の結果の間に同質性があることです。一対比較のそれぞれにおける異なる臨床試験の結果の異質性の評価は重要で、考慮されるべきです。</p>
 
@@ -463,10 +463,10 @@ N = n × (n − 1) / 2
 </div><!-- end sec3 -->
 
 <!-- ===== セクション4: 統計手法 ===== -->
-<div class="section" id="sec4" style="display:none;">
+<div class="section" id="nma2-sec4" style="display:none;">
 <h2>第4章：統計手法の概要</h2>
 
-<h3 id="sec4-1">4.1 頻度論 vs ベイズ統計</h3>
+<h3 id="nma2-sec4-1">4.1 頻度論 vs ベイズ統計</h3>
 
 <p>NMAの統計解析には、大きく分けて頻度論（Frequentist）アプローチとベイズ（Bayesian）アプローチの2つがあります。</p>
 
@@ -501,11 +501,11 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> Balijepalli & Iheanacho (2018) より："O'Regan and colleagues have compared Bayesian NMA and Bucher's method across a range of network types and concluded that in most cases, the two methods produced similar results, especially where all studies share a same comparator."
 </div>
 
-<h3 id="sec4-2">4.2 固定効果モデル vs 変量効果モデル</h3>
+<h3 id="nma2-sec4-2">4.2 固定効果モデル vs 変量効果モデル</h3>
 
 <p>従来のメタアナリシスと同様に、NMAでも固定効果（Fixed Effect）モデルと変量効果（Random Effects）モデルの選択が重要です。固定効果モデルでは、すべての研究が同一の真の効果を推定していると仮定し、研究間の差はサンプリングエラーのみによるとします。変量効果モデルでは、各研究が異なる（しかし関連した）治療効果を推定していると仮定し、研究間の異質性を明示的にモデル化します。</p>
 
-<h3 id="sec4-3">4.3 ネットワークプロット</h3>
+<h3 id="nma2-sec4-3">4.3 ネットワークプロット</h3>
 
 <p>ネットワークプロット（Network Plot）は、対象となったエビデンスのネットワークの構造を視覚的に表すグラフです。ノードが治療に対応し（サイズは累計のサンプルサイズに比例）、直接比較の試験がある治療法のペアは実線でつながれます（太さは累計のサンプルサイズに比例）。</p>
 
@@ -516,10 +516,10 @@ N = n × (n − 1) / 2
 </div><!-- end sec4 -->
 
 <!-- ===== セクション5: 結果の解釈 ===== -->
-<div class="section" id="sec5" style="display:none;">
+<div class="section" id="nma2-sec5" style="display:none;">
 <h2>第5章：結果の提示と解釈</h2>
 
-<h3 id="sec5-1">5.1 リーグテーブル（League Table）</h3>
+<h3 id="nma2-sec5-1">5.1 リーグテーブル（League Table）</h3>
 
 <p>リーグテーブルは、治療のペアごとにリスク比やオッズ比などの効果指標の推定値を俯瞰することができる表です。ネットワークメタアナリシスの研究論文では、すべての治療法の比較有用性の情報を要約した表として、このリーグテーブルが提示されることが多いです。</p>
 
@@ -527,7 +527,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> 野間（2026）配布資料 p.71-73より：「治療のペアごとに、リスク比などの効果の指標の推定値を俯瞰することができるLeague Tableを提示することができれば、比較分析の解釈に有用。ネットワークメタアナリシスの研究論文では、すべての治療法の比較有用性の情報を要約した表として、このLeague Tableが提示されることが多い。」
 </div>
 
-<h3 id="sec5-2">5.2 SUCRA（Surface Under the Cumulative Ranking Curve）とランキング</h3>
+<h3 id="nma2-sec5-2">5.2 SUCRA（Surface Under the Cumulative Ranking Curve）とランキング</h3>
 
 <p>SUCRAは、各治療法の順位の推定結果を0から1の間の数値で表した要約スコアです。1に近いほど最上位に、0に近いほど最下位であることを示します。整数値のランキング（1位、2位、3位…）では治療法間の「距離」が等間隔にならざるを得ないという問題がありますが、SUCRAは連続量のスコアとして、治療法間の相対的な差をより定量的に反映します。</p>
 
@@ -543,7 +543,7 @@ N = n × (n − 1) / 2
 
 <p>P-scoreは、SUCRAの頻度論的な類似指標（frequentist analogue）であり、すべての競合する治療を平均した上で、ある治療が別の治療よりも優れている確信度を測定します。</p>
 
-<h3 id="sec5-3">5.3 GRADE分類アプローチ</h3>
+<h3 id="nma2-sec5-3">5.3 GRADE分類アプローチ</h3>
 
 <p>GuyattらはSUCRAの問題点を克服するため、NMAの結論を導くための体系的なアプローチを提案しています。このアプローチでは、効果推定値、エビデンスの確実性、ランキングを考慮して、治療法をカテゴリーに分類します。</p>
 
@@ -568,10 +568,10 @@ N = n × (n − 1) / 2
 </div><!-- end sec5 -->
 
 <!-- ===== セクション6: 不一貫性の評価 ===== -->
-<div class="section" id="sec6" style="display:none;">
+<div class="section" id="nma2-sec6" style="display:none;">
 <h2>第6章：不一貫性（Inconsistency）の評価</h2>
 
-<h3 id="sec6-1">6.1 局所的不一貫性検定（Local Inconsistency Test）</h3>
+<h3 id="nma2-sec6-1">6.1 局所的不一貫性検定（Local Inconsistency Test）</h3>
 
 <p>局所的不一貫性検定は、ネットワーク上のすべての三角形のループを抜き出して、そのそれぞれにおいて、3辺上の比較の治療効果の差が一致するかどうかを検定する方法です。Bucherの検定、Loop Inconsistencyの検定とも呼ばれます。</p>
 
@@ -579,7 +579,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> 野間（2026）配布資料 p.76より：「ネットワーク上のすべての三角形のループを抜き出して、そのそれぞれにおいて、3辺上の比較の治療効果の差が一致するかどうかを検定する。Bucherの検定，Loop Inconsistencyの検定とも。」Bucher et al. (1997), Veroniki et al. (2013) を引用。
 </div>
 
-<h3 id="sec6-2">6.2 全体的不一貫性検定（Global Inconsistency Test）</h3>
+<h3 id="nma2-sec6-2">6.2 全体的不一貫性検定（Global Inconsistency Test）</h3>
 
 <p>全体的不一貫性検定は、ネットワーク全体でInconsistentな「パーツ」が1つでもあるかどうかを同時に検定する方法です。帰無仮説は「ネットワーク上にInconsistentなパーツは1つもない」であり、理論上はConsistencyを仮定したモデルとDesign-by-treatment interactionを仮定したモデルを比較する尤度比検定により検定統計量が構成されます。</p>
 
@@ -587,7 +587,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> 野間（2026）配布資料 p.79より：「ネットワーク全体で、Inconsistent な「パーツ」が1つでもあるかどうかを同時に検定する方法。」Higgins et al. (2012) を引用。また野間（2026）NMA理論資料 p.64より：「一般的に検出力が低く、実践上も、あまり有意な結果が出ることはない検定であるが、有意になった場合には、慎重な解釈を行う必要がある」
 </div>
 
-<h3 id="sec6-3">6.3 Side-splitting法</h3>
+<h3 id="nma2-sec6-3">6.3 Side-splitting法</h3>
 
 <p>Side-splitting法は、特定の治療法のペアごとに、直接比較・間接比較のエビデンスを分解し、それらが一致するかどうかを評価する方法です。Noma et al. (2017) では、情報量の損失なく要約した有効推定量を与える方法（Lindsayの複合尤度法）と、Inconsistencyを評価するための最強力検定が開発されました。</p>
 
@@ -609,10 +609,10 @@ N = n × (n − 1) / 2
 </div><!-- end sec6 -->
 
 <!-- ===== セクション7: コンポーネントNMA ===== -->
-<div class="section" id="sec7" style="display:none;">
+<div class="section" id="nma2-sec7" style="display:none;">
 <h2>第7章：コンポーネントネットワークメタアナリシス（CNMA）</h2>
 
-<h3 id="sec7-1">7.1 CNMAの基本概念</h3>
+<h3 id="nma2-sec7-1">7.1 CNMAの基本概念</h3>
 
 <p>医療介入は、複数の、おそらく相互作用するコンポーネント（構成要素）からなるという意味で、「複合（complex）」または「多成分（multicomponent）」になりえます。NMAが介入効果の推定に焦点を当てるのに対し、コンポーネントNMA（CNMA）は各コンポーネントの効果を切り離します（disentangle）。その後、CNMAはこれらの推定値を用いて多成分介入効果を再構築します。</p>
 
@@ -642,7 +642,7 @@ N = n × (n − 1) / 2
 <strong>【引用】</strong> component network metaanalysis 公開.pptx p.2およびRücker et al. (2020) p.49より：Melendez-Torres, Bonell, and Thomas (2015) が "building clinically meaningful units" と "components and dismantling" の間の区別を導入。
 </div>
 
-<h3 id="sec7-2">7.2 加法モデル（Additive Model）</h3>
+<h3 id="nma2-sec7-2">7.2 加法モデル（Additive Model）</h3>
 
 <p>加法効果モデルは、介入の効果がその構成要素の効果の合計に等しいと仮定するモデルです（加法性の仮定：additivity assumption）。</p>
 
@@ -667,7 +667,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub>
 <strong>【引用】</strong> Tsokani et al. (2022) および component network metaanalysis 公開.pptx p.9, 28より。Rücker et al. (2020) p.43より："CNMAモデルは、標準的なNMAモデルよりも、より強力な結果を提供しながら、推定するパラメータ（観察された成分の組み合わせの数ではなく、成分の数）が少ないので、優れている可能性がある。"
 </div>
 
-<h3 id="sec7-3">7.3 相互作用モデル（Interaction Model）</h3>
+<h3 id="nma2-sec7-3">7.3 相互作用モデル（Interaction Model）</h3>
 
 <p>加法モデルは成分間の相互作用がないことを前提としていますが、これは強い仮定です。相互作用モデルでは、成分のペアが相乗的（synergistic）または拮抗的（antagonistic）に作用することを許容します。</p>
 
@@ -680,7 +680,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 <strong>【引用】</strong> Tsokani et al. (2022) より："If two or more components may work synergistically (have a bigger effect) we have d<sub>AC</sub>>0. If they work antagonistically (have a smaller effect) we have d<sub>AC</sub><0."
 </div>
 
-<h3 id="sec7-4">7.4 実例</h3>
+<h3 id="nma2-sec7-4">7.4 実例</h3>
 
 <p><strong>転倒予防の例：</strong>Dautzenberg et al. (2021) は、65歳以上の地域居住者における転倒関連骨折を予防するための介入のNMAとCNMAを実施しました。主要アウトカム「転倒関連骨折数」のネットワークには46の研究（43,811人）と27の介入が含まれました。CNMAにより、運動（RR 0.83; 95%CI 0.64-1.07）、全身振動（RR 0.61; 95%CI 0.42-0.90）などの個別成分効果が推定されました。</p>
 
@@ -697,10 +697,10 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 </div><!-- end sec7 -->
 
 <!-- ===== セクション8: ソフトウェアガイド ===== -->
-<div class="section" id="sec8" style="display:none;">
+<div class="section" id="nma2-sec8" style="display:none;">
 <h2>第8章：ソフトウェアガイド</h2>
 
-<h3 id="sec8-1">8.1 オンラインツール（プログラミング不要）</h3>
+<h3 id="nma2-sec8-1">8.1 オンラインツール（プログラミング不要）</h3>
 
 <div class="card">
 <h4>MetaInsight <span class="tag tag-free">無料</span> <span class="tag tag-web">Web</span> <span class="tag tag-freq">頻度論</span> <span class="tag tag-bayesian">ベイズ</span></h4>
@@ -729,7 +729,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 <div class="ref"><strong>【引用】</strong> Tobías A, Catalá-López F, Roqué M. (2014) "Desarrollo de una hoja Excel para metaanálisis de comparaciones indirectas y mixtas." Rev Esp Salud Pública 88:5-15. 原文より："se ha desarrollado una hoja de cálculo con Microsoft Office Excel para el cálculo de comparaciones indirectas y mixtas, de uso sencillo para investigadores clínicos."</div>
 </div>
 
-<h3 id="sec8-2">8.2 Rパッケージ</h3>
+<h3 id="nma2-sec8-2">8.2 Rパッケージ</h3>
 
 <table>
 <tr><th>パッケージ</th><th>開発者</th><th>アプローチ</th><th>特徴</th></tr>
@@ -789,7 +789,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 <strong>動画チュートリアル：</strong><a href="https://www.youtube.com/watch?v=RjsyRB4hu9g" target="_blank">EZRでネットワークメタアナリシスを行う パート1（YouTube）</a></p>
 </div>
 
-<h3 id="sec8-3">8.3 その他のソフトウェア</h3>
+<h3 id="nma2-sec8-3">8.3 その他のソフトウェア</h3>
 
 <table>
 <tr><th>ソフトウェア</th><th>特徴</th><th>費用</th></tr>
@@ -801,7 +801,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 <tr><td><strong>SAS</strong></td><td>PROC MCMCなどでベイズNMA可能。企業環境での使用。</td><td>有料</td></tr>
 </table>
 
-<h3 id="sec8-4">8.4 AIを活用したNMA</h3>
+<h3 id="nma2-sec8-4">8.4 AIを活用したNMA</h3>
 
 <p>近年、大規模言語モデル（LLM）をはじめとする人工知能（AI）技術がメタアナリシスの実践に活用され始めています。特にNMAの文脈では、以下のような活用が進んでいます。</p>
 
@@ -828,7 +828,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 </div><!-- end sec8 -->
 
 <!-- ===== セクション9: 参考文献 ===== -->
-<div class="section" id="sec9" style="display:none;">
+<div class="section" id="nma2-sec9" style="display:none;">
 <h2>第9章：主要参考文献</h2>
 
 <p>本ガイドで引用した主要文献の一覧です。</p>
@@ -872,7 +872,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 </div><!-- end sec9 -->
 
 <!-- ===== セクション10: 用語集 ===== -->
-<div class="section" id="sec10" style="display:none;">
+<div class="section" id="nma2-sec10" style="display:none;">
 <h2>第10章：用語集</h2>
 
 <table>
@@ -908,7 +908,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 <!-- ===== 追加・拡充コンテンツ パート2 ===== -->
 
 <!-- セクション2の拡充: インタラクティブな間接比較計算機 -->
-<div class="section" id="sec2ext" style="display:none;">
+<div class="section" id="nma2-sec2ext" style="display:none;">
 <h2>第2章 補足：間接比較の計算演習</h2>
 
 <h3>2.5 間接比較のインタラクティブ計算</h3>
@@ -1035,7 +1035,7 @@ d<sub>A+C</sub> = d<sub>A</sub> + d<sub>C</sub> + d<sub>AC</sub>
 </div><!-- end sec2ext -->
 
 <!-- セクション4の拡充: Rコード例 -->
-<div class="section" id="sec4ext" style="display:none;">
+<div class="section" id="nma2-sec4ext" style="display:none;">
 <h2>第4章 補足：Rによる実践コード例</h2>
 
 <h3>4.4 NMAパッケージ（野間）によるNMAの実行</h3>
@@ -1205,7 +1205,7 @@ cnma2 &lt;- discomb(TE, seTE, treat1, treat2, studlab,
 </div><!-- end sec4ext -->
 
 <!-- セクション7の拡充: CNMAの詳細 -->
-<div class="section" id="sec7ext" style="display:none;">
+<div class="section" id="nma2-sec7ext" style="display:none;">
 <h2>第7章 補足：CNMAの詳細と分析モデルの比較</h2>
 
 <h3>7.5 4つの分析モデルの比較</h3>
@@ -1291,7 +1291,7 @@ cnma2 &lt;- discomb(TE, seTE, treat1, treat2, studlab,
 </div><!-- end sec7ext -->
 
 <!-- セクション8の拡充: ソフトウェア詳細 -->
-<div class="section" id="sec8ext" style="display:none;">
+<div class="section" id="nma2-sec8ext" style="display:none;">
 <h2>第8章 補足：ソフトウェア詳細比較とワークフロー</h2>
 
 <h3>8.5 オンラインツール詳細比較</h3>
@@ -1383,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const sidebar = document.getElementById('sidebar');
   
   // 各セクションの追加ナビを挿入
-  const sec2Links = sidebar.querySelectorAll('a[href="#sec2-4"]');
+  const sec2Links = sidebar.querySelectorAll('a[href="#nma2-sec2-4"]');
   if(sec2Links.length > 0) {
     const newLink1 = document.createElement('a');
     newLink1.href = '#sec2ext';
@@ -1393,7 +1393,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sec2Links[0].parentNode.insertBefore(newLink1, sec2Links[0].nextSibling);
   }
   
-  const sec4Links = sidebar.querySelectorAll('a[href="#sec4-3"]');
+  const sec4Links = sidebar.querySelectorAll('a[href="#nma2-sec4-3"]');
   if(sec4Links.length > 0) {
     const newLink2 = document.createElement('a');
     newLink2.href = '#sec4ext';
@@ -1403,7 +1403,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sec4Links[0].parentNode.insertBefore(newLink2, sec4Links[0].nextSibling);
   }
   
-  const sec7Links = sidebar.querySelectorAll('a[href="#sec7-4"]');
+  const sec7Links = sidebar.querySelectorAll('a[href="#nma2-sec7-4"]');
   if(sec7Links.length > 0) {
     const newLink3 = document.createElement('a');
     newLink3.href = '#sec7ext';
@@ -1413,7 +1413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sec7Links[0].parentNode.insertBefore(newLink3, sec7Links[0].nextSibling);
   }
   
-  const sec8Links = sidebar.querySelectorAll('a[href="#sec8-4"]');
+  const sec8Links = sidebar.querySelectorAll('a[href="#nma2-sec8-4"]');
   if(sec8Links.length > 0) {
     const newLink4 = document.createElement('a');
     newLink4.href = '#sec8ext';
@@ -1496,14 +1496,14 @@ function normalCDF(x) {
   window.showNMA2Section = function(sectionId) {
     var wrap = document.getElementById('nma2-content-wrap');
     if (!wrap) return;
+    // wrapの中のsectionだけを操作（document全体でなくwrap内に限定）
     wrap.querySelectorAll('.section').forEach(function(s){ s.style.display='none'; });
-    var t = document.getElementById(sectionId);
+    var t = wrap.querySelector('#'+sectionId);
     if (t) t.style.display = 'block';
     document.querySelectorAll('#nma2-sidebar a').forEach(function(l){ l.classList.remove('active'); });
     var al = document.querySelector('#nma2-sidebar a[href="#'+sectionId+'"]');
     if (al) al.classList.add('active');
-    var mc = document.getElementById('nma2-content-wrap');
-    if (mc) mc.parentElement.scrollTop = 0;
+    window.scrollTo({top:0, behavior:'smooth'});
   };
 
   window.nma2OpenTab = function(evt, tabName) {
@@ -1550,7 +1550,7 @@ function normalCDF(x) {
 
   // 初期表示
   document.addEventListener('DOMContentLoaded', function(){
-    showNMA2Section('sec1');
+    showNMA2Section('nma2-sec1');
   });
 })();
 </script>

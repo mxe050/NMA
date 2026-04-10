@@ -78,10 +78,10 @@ $outerHeader = @"
   <div class="app-title-bar">ネットワークメタ分析 総合ガイド<small>Network Meta-Analysis Knowledge Base</small></div>
   <div class="main-tabs">
     <div class="main-tabs-inner">
-      <button class="main-tab-btn" data-tab="1" onclick="switchMainTab(1)">1. マルチ介入・NMA</button>
+      <button class="main-tab-btn active" data-tab="1" onclick="switchMainTab(1)">1. マルチ介入・NMA</button>
       <button class="main-tab-btn" data-tab="2" onclick="switchMainTab(2)">2. NMAの基本</button>
       <button class="main-tab-btn" data-tab="3" onclick="switchMainTab(3)">3. 統計的解説</button>
-      <button class="main-tab-btn active" data-tab="4" onclick="switchMainTab(4)">4. エビデンスの確実性</button>
+      <button class="main-tab-btn" data-tab="4" onclick="switchMainTab(4)">4. エビデンスの確実性</button>
       <button class="main-tab-btn" data-tab="5" onclick="switchMainTab(5)">5. 未定</button>
       <button class="main-tab-btn" data-tab="6" onclick="switchMainTab(6)">6. 未定</button>
       <button class="main-tab-btn" data-tab="7" onclick="switchMainTab(7)">7. 未定</button>
@@ -89,14 +89,14 @@ $outerHeader = @"
     </div>
   </div>
 </div>
-<div class="main-panel" id="mp-1">
+<div class="main-panel active" id="mp-1">
 $multiTab1
 </div><!-- /mp-1 -->
 <div class="main-panel" id="mp-2">
 $nmaTab2
 </div><!-- /mp-2 -->
 <div class="main-panel" id="mp-3"><div class="placeholder-panel"><h2>準備中</h2><p>「ネットワークメタ分析の統計的解説」のコンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
-<div class="main-panel active" id="mp-4">
+<div class="main-panel" id="mp-4">
 "@
 
 $p1_before = $p1_before.Replace($navMark, $outerHeader + $navMark)
@@ -112,9 +112,25 @@ function switchMainTab(n){
   var panel=document.getElementById('mp-'+n);
   if(btn) btn.classList.add('active');
   if(panel) panel.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
   // タブ2を開いた時に初期セクションを表示
-  if(n===2){ showNMA2Section('sec1'); }
+  if(n===2 && typeof showNMA2Section==='function'){ showNMA2Section('nma2-sec1'); }
 }
+
+// ===== トップに戻るボタン =====
+(function(){
+  var btn = document.createElement('button');
+  btn.id = 'globalTopBtn';
+  btn.innerHTML = '&#9650;';
+  btn.title = 'トップに戻る';
+  btn.style.cssText = 'position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:#1a5276;color:#fff;border:none;font-size:1.1em;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3);opacity:0;transition:opacity .3s;z-index:9999;display:flex;align-items:center;justify-content:center;';
+  btn.onclick = function(){ window.scrollTo({top:0,behavior:'smooth'}); };
+  document.body.appendChild(btn);
+  window.addEventListener('scroll',function(){
+    btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+    btn.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
+  });
+})();
 
 "@
 
