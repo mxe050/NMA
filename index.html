@@ -207,7 +207,7 @@ tr:nth-child(even){background:#f8f9fa;}
       <button class="main-tab-btn" data-tab="5" onclick="switchMainTab(5)">5. 効果と確実性の表記</button>
       <button class="main-tab-btn" data-tab="6" onclick="switchMainTab(6)">6. コクラン解説</button>
       <button class="main-tab-btn" data-tab="7" onclick="switchMainTab(7)">7. 優勢ループ評価ツール</button>
-      <button class="main-tab-btn" data-tab="8" onclick="switchMainTab(8)">8. 未定</button>
+      <button class="main-tab-btn" data-tab="8" onclick="switchMainTab(8)">8. Doing Meta-Analysis in R</button>
     </div>
   </div>
 </div>
@@ -7239,7 +7239,862 @@ print(ns)
 </script>
 
 </div><!-- /mp-7 -->
-<div class="main-panel" id="mp-8"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div><footer style="background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:30px;">
+<div class="main-panel" id="mp-8"><!-- ===== タブ8: Doing Meta-Analysis in R ===== -->
+<style>
+/* ---- scope: r8 ---- */
+.r8-wrap{max-width:1040px;margin:0 auto;padding:0 16px 60px;font-family:'Segoe UI','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;color:#1e293b;font-size:15px;line-height:1.8}
+.r8-wrap *{box-sizing:border-box}
+.r8-wrap a{color:#1d4ed8}.r8-wrap a:hover{text-decoration:underline}
+
+/* Header bar */
+.r8-hdr{background:linear-gradient(135deg,#134e4a,#0f766e);color:#fff;border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:flex-start;gap:.85rem;flex-wrap:wrap}
+.r8-hdr-icon{font-size:1.5rem;flex-shrink:0;padding-top:.1rem}
+.r8-hdr-body{flex:1;min-width:180px}
+.r8-hdr-body h1{font-size:1.15rem;font-weight:800;margin:0 0 .25rem;letter-spacing:.02em}
+.r8-hdr-body p{font-size:.8rem;opacity:.88;margin:0;line-height:1.5}
+.r8-hdr-btn{background:#2dd4bf;color:#134e4a;border:none;border-radius:7px;padding:.38rem 1rem;font-size:.78rem;font-weight:800;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;flex-shrink:0;align-self:flex-start;transition:background .2s}
+.r8-hdr-btn:hover{background:#5eead4;color:#134e4a;text-decoration:none}
+
+/* Body layout */
+.r8-body{display:grid;grid-template-columns:192px 1fr;gap:1.2rem;align-items:start}
+
+/* Sidebar */
+.r8-sidebar{position:sticky;top:56px}
+.r8-sidebar-label{font-size:.66rem;font-weight:700;color:#64748b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;padding-left:.3rem}
+.r8-nb{width:100%;text-align:left;padding:.48rem .7rem;border-radius:9px;border:none;cursor:pointer;transition:all .18s;margin-bottom:.28rem;display:flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:600;line-height:1.3}
+.r8-nb .r8-num{width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0}
+.r8-nb.off{background:#fff;color:#475569;box-shadow:0 1px 2px rgba(0,0,0,.06)}.r8-nb.off .r8-num{background:#e2e8f0;color:#64748b}
+.r8-nb.off:hover{background:#f0fdf4;color:#0f766e}
+.r8-nb.on{background:#0f766e;color:#fff;box-shadow:0 3px 10px rgba(15,118,110,.28);transform:translateX(3px)}.r8-nb.on .r8-num{background:rgba(255,255,255,.22);color:#fff}
+
+/* Panel */
+.r8-panel{display:none}.r8-panel.on{display:block;animation:r8fi .28s ease-out}
+@keyframes r8fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Content card */
+.r8-card{background:#fff;border-radius:13px;padding:1.7rem 2rem;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+.r8-card h2{font-size:1.18rem;font-weight:800;color:#134e4a;border-bottom:2px solid #ccfbf1;padding-bottom:.5rem;margin-bottom:1rem}
+.r8-card h3{font-size:.97rem;font-weight:700;color:#0f766e;margin-top:1.5rem;margin-bottom:.45rem}
+.r8-card h4{font-size:.88rem;font-weight:700;color:#374151;margin-top:1.1rem;margin-bottom:.3rem}
+.r8-card p{margin-bottom:.8rem;font-size:.87rem;color:#334155;max-width:730px}
+.r8-card ul,.r8-card ol{font-size:.86rem;color:#334155;padding-left:1.3rem;margin:.4rem 0 .8rem}
+.r8-card li{margin-bottom:.32rem}
+
+/* Code blocks */
+.r8-code{background:#0f172a;color:#e2e8f0;border-radius:9px;padding:1rem 1.2rem;font-family:'Consolas','Courier New',monospace;font-size:.8rem;line-height:1.65;overflow-x:auto;margin:.7rem 0 1rem}
+.r8-code .cm{color:#64748b}
+.r8-code .ck{color:#93c5fd}
+.r8-code .cs{color:#a5f3fc}
+.r8-code .cn{color:#fca5a5}
+.r8-code .cf{color:#6ee7b7}
+
+/* Inline code */
+.r8-ic{background:#f1f5f9;color:#0f766e;border-radius:4px;padding:.1rem .38rem;font-family:'Consolas','Courier New',monospace;font-size:.82em;border:1px solid #e2e8f0}
+
+/* Formula box */
+.r8-fml{background:#f0fdf4;border:1px solid #86efac;border-radius:9px;padding:.9rem 1.1rem;margin:.7rem 0;font-family:'Consolas','Courier New',monospace;font-size:.88rem;text-align:center;color:#166534;letter-spacing:.02em}
+
+/* Info / tip / warning boxes */
+.r8-box{border-radius:9px;padding:.85rem 1.1rem;margin:.75rem 0;font-size:.85rem;line-height:1.65}
+.r8-box-tip{background:#f0fdf4;border-left:4px solid #22c55e;color:#166534}
+.r8-box-info{background:#eff6ff;border-left:4px solid #3b82f6;color:#1e3a8a}
+.r8-box-warn{background:#fefce8;border-left:4px solid #eab308;color:#713f12}
+.r8-box-key{background:#fdf4ff;border-left:4px solid #a855f7;color:#581c87}
+.r8-box strong{font-weight:700}
+
+/* Result table */
+.r8-tbl{width:100%;border-collapse:collapse;font-size:.81rem;margin:.7rem 0 1rem}
+.r8-tbl th{background:#134e4a;color:#fff;padding:.45rem .7rem;text-align:left;font-weight:700}
+.r8-tbl td{padding:.38rem .7rem;border-bottom:1px solid #e2e8f0;color:#334155}
+.r8-tbl tr:nth-child(even) td{background:#f8fafc}
+.r8-tbl td.r8-hi{font-weight:700;color:#0f766e}
+
+/* Step flow */
+.r8-steps{display:flex;flex-direction:column;gap:.55rem;margin:.8rem 0}
+.r8-step{display:flex;align-items:flex-start;gap:.8rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:.65rem .95rem}
+.r8-step-num{width:28px;height:28px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;flex-shrink:0}
+.r8-step-body{flex:1;font-size:.85rem}
+.r8-step-body strong{color:#0f766e;display:block;margin-bottom:.15rem}
+
+/* Nav buttons */
+.r8-bnav{display:flex;justify-content:space-between;align-items:center;margin-top:1.8rem;padding-top:.9rem;border-top:1px solid #f1f5f9}
+.r8-bnav button{background:#134e4a;color:#fff;border:none;border-radius:8px;padding:.48rem 1.1rem;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .18s}
+.r8-bnav button:hover{background:#0f766e}
+.r8-bnav button:disabled{background:#e2e8f0;color:#94a3b8;cursor:default}
+
+/* Badge */
+.r8-badge{display:inline-block;background:#ccfbf1;color:#0f766e;border-radius:20px;padding:.12rem .55rem;font-size:.72rem;font-weight:700;margin-left:.3rem;vertical-align:middle}
+.r8-badge-purple{background:#f3e8ff;color:#7c3aed}
+.r8-badge-blue{background:#dbeafe;color:#1d4ed8}
+
+/* Mobile */
+@media(max-width:680px){
+  .r8-body{grid-template-columns:1fr}
+  .r8-sidebar{position:relative;top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.22rem;background:#f0fdf4;border-radius:12px;padding:.5rem .55rem;margin-bottom:.75rem}
+  .r8-sidebar-label{width:100%;font-size:.63rem;margin-bottom:.1rem}
+  .r8-nb{width:auto;flex:0 0 auto;padding:.28rem .5rem;margin-bottom:0;border-radius:20px;font-size:.7rem;box-shadow:none}
+  .r8-nb .r8-num{width:16px;height:16px;font-size:.58rem}
+  .r8-nb.on{transform:none;box-shadow:0 2px 6px rgba(15,118,110,.3)}
+  .r8-card{padding:1.1rem 1rem}
+}
+</style>
+
+<div class="r8-wrap">
+
+<!-- ヘッダーバー -->
+<div class="r8-hdr">
+  <div class="r8-hdr-icon">📦</div>
+  <div class="r8-hdr-body">
+    <h1>Doing Meta-Analysis in R — Chapter 12 ネットワークメタ分析</h1>
+    <p>Harrer M, Cuijpers P, Furukawa T, Ebert DD (2022) の第12章を基に、頻度論的・ベイズ的NMAのRによる実践を詳解。解説は原著を参考に独自に加筆したものです。</p>
+  </div>
+  <a class="r8-hdr-btn" href="https://bookdown.org/content/25561078-f6d8-4a13-b4bd-45ebbc1b05c8/netwma.html" target="_blank" rel="noopener">📖 原文を読む</a>
+</div>
+
+<div class="r8-body">
+
+  <!-- サイドバー -->
+  <nav class="r8-sidebar">
+    <div class="r8-sidebar-label">目次</div>
+    <button class="r8-nb on"  id="r8nb1" onclick="r8go(1)"><span class="r8-num">1</span><span>NMAとは何か</span></button>
+    <button class="r8-nb off" id="r8nb2" onclick="r8go(2)"><span class="r8-num">2</span><span>頻度論的NMA 基礎</span></button>
+    <button class="r8-nb off" id="r8nb3" onclick="r8go(3)"><span class="r8-num">3</span><span>データ準備・モデル適合</span></button>
+    <button class="r8-nb off" id="r8nb4" onclick="r8go(4)"><span class="r8-num">4</span><span>可視化・ランキング</span></button>
+    <button class="r8-nb off" id="r8nb5" onclick="r8go(5)"><span class="r8-num">5</span><span>妥当性評価</span></button>
+    <button class="r8-nb off" id="r8nb6" onclick="r8go(6)"><span class="r8-num">6</span><span>ベイズ的NMA 基礎</span></button>
+    <button class="r8-nb off" id="r8nb7" onclick="r8go(7)"><span class="r8-num">7</span><span>MCMC・収束診断</span></button>
+    <button class="r8-nb off" id="r8nb8" onclick="r8go(8)"><span class="r8-num">8</span><span>ランキング・結果出力</span></button>
+    <button class="r8-nb off" id="r8nb9" onclick="r8go(9)"><span class="r8-num">9</span><span>メタ回帰・演習</span></button>
+  </nav>
+
+  <!-- コンテンツ -->
+  <div>
+
+<!-- ============================================================ -->
+<!-- パネル 1: NMAとは何か -->
+<!-- ============================================================ -->
+<div class="r8-panel on" id="r8p1">
+<div class="r8-card">
+<h2>1. ネットワークメタ分析とは何か（12.1節）</h2>
+
+<p>通常のペアワイズメタ分析では、2つの介入を直接比較した研究だけを統合します。しかし実臨床では「A vs B」の比較だけでなく、「AはBよりも良いか、CよりもBの方が良いか」など、<strong>複数の介入を同時に比較・ランキング</strong>したい場面が多くあります。この要求に応えるのが<strong>ネットワークメタ分析（Network Meta-Analysis, NMA）</strong>です。</p>
+
+<h3>1-1. 直接証拠と間接証拠</h3>
+<p>NMAの核心は「直接比較していない介入同士でも、共通の比較対象を経由して推定できる」という考え方です。グラフ理論の用語で、介入を<strong>ノード（節点）</strong>、比較試験を<strong>エッジ（辺）</strong>と呼びます。</p>
+
+<div class="r8-box r8-box-info">
+<strong>例：うつ病CBT研究ネットワーク</strong><br>
+「個人療法（ind）」と「待機リスト（wlc）」を直接比較した試験がなくても、<br>
+ind vs cau（通常治療）の試験と wlc vs cau の試験から、ind と wlc を間接的に比較できます。
+</div>
+
+<p>このとき、間接推定値の計算式は次のとおりです：</p>
+<div class="r8-fml">θ̂(A,C)_indirect = θ̂(B,A)_direct − θ̂(B,C)_direct</div>
+
+<p>ここで θ̂(A,C) はAとCの効果差の推定値です。たとえば A=ind, B=cau, C=wlc とすれば、indとwlcの間接推定が得られます。</p>
+
+<div class="r8-box r8-box-tip">
+<strong>解説：なぜ「引き算」？</strong><br>
+ログオッズ比や標準化平均差（SMD）などの効果量は<em>加法的</em>性質を持ちます。「AはBより0.5良く、BはCより0.3良い」なら「AはCより0.8良い」と言えるのと同じ論理です。
+</div>
+
+<h3>1-2. 推移性（Transitivity）と一貫性（Consistency）</h3>
+<p>間接比較を成立させるには、<strong>推移性</strong>という前提が必要です。推移性とは「比較に使われる共通の比較対象が、ネットワーク全体で同じ意味を持つ（交換可能である）」という仮定です。</p>
+
+<div class="r8-box r8-box-warn">
+<strong>推移性が崩れる例</strong><br>
+「ind vs cau」の試験が軽症患者を対象とし、「wlc vs cau」の試験が重症患者を対象としていれば、cauの意味（比較対象としての性質）が試験間で異なります。この場合、間接比較の結果は偏ります。
+</div>
+
+<p>一方、<strong>一貫性（Consistency）</strong>とは、同じ比較について直接推定と間接推定が一致しているかどうかを指します。数式で表すと：</p>
+<div class="r8-fml">θ(A,B)_indirect = θ(A,B)_direct</div>
+
+<p>不一貫性（Inconsistency）とは、この式が成り立たない状態です。直接証拠と間接証拠が乖離しているとき、不一貫性が生じます。不一貫性の検出はNMAの妥当性評価で重要なステップになります（セクション5で詳述）。</p>
+
+<h3>1-3. NMAモデルの種類</h3>
+<p>複数の介入を同時に解析するNMAには、主に2つのアプローチがあります。</p>
+
+<table class="r8-tbl">
+<tr><th>アプローチ</th><th>代表的な手法</th><th>Rパッケージ</th><th>特徴</th></tr>
+<tr><td><strong>頻度論的（Frequentist）</strong></td><td>グラフ理論モデル</td><td><span class="r8-ic">{netmeta}</span></td><td>P値・信頼区間、解釈が直感的</td></tr>
+<tr><td><strong>ベイズ的（Bayesian）</strong></td><td>階層モデル＋MCMC</td><td><span class="r8-ic">{gemtc}</span></td><td>事前分布、信用区間、SUCRA</td></tr>
+</table>
+
+<p>両アプローチは、推定原理は異なりますが、結果（点推定値・区間）は多くの場合で近い値を示します。ネットワークが小規模または複雑な場合には、ベイズ的アプローチがより安定した推定を与えることがあります。</p>
+
+<div class="r8-bnav">
+  <button disabled>← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">1 / 9</span>
+  <button onclick="r8go(2)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 2: 頻度論的NMA 基礎 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p2">
+<div class="r8-card">
+<h2>2. 頻度論的NMA — グラフ理論モデル（12.2.1節）</h2>
+
+<p>頻度論的NMAの実装として最も広く使われているのが、Rückerら（2012）が提唱した<strong>グラフ理論に基づくモデル</strong>です。このモデルは <span class="r8-ic">{netmeta}</span> パッケージで実装されており、以下のような数学的枠組みを持ちます。</p>
+
+<h3>2-1. モデルの概要</h3>
+<p>各試験から得られた効果量（SMDやオッズ比など）を観測値 θ̂ としたとき、NMAモデルは次のように表されます：</p>
+<div class="r8-fml">θ̂ = X θ_treat + ε</div>
+
+<p>ここで：</p>
+<ul>
+  <li><strong>X</strong>：デザイン行列（どの2つの介入を比較したかを示す符号行列）</li>
+  <li><strong>θ_treat</strong>：各介入の「共通参照群に対する効果」の真の値ベクトル</li>
+  <li><strong>ε</strong>：誤差（サンプリング誤差＋異質性）</li>
+</ul>
+
+<div class="r8-box r8-box-info">
+<strong>デザイン行列 X の意味</strong><br>
+比較 A vs B の試験では X の対応する行が「A列 = +1, B列 = -1, 他 = 0」となります。これによりネットワーク全体の比較構造を行列で表現し、Moore-Penrose疑似逆行列を用いて全介入の効果を同時推定します。
+</div>
+
+<h3>2-2. 固定効果モデルと変量効果モデル</h3>
+<p>ペアワイズメタ分析と同様に、NMAでも固定効果と変量効果の2つのモデルがあります。</p>
+
+<table class="r8-tbl">
+<tr><th>モデル</th><th>仮定</th><th>推奨場面</th></tr>
+<tr><td>固定効果</td><td>全研究で真の効果は同一</td><td>研究デザインが均質な場合</td></tr>
+<tr><td>変量効果</td><td>各研究の真の効果は分布する（τ²を推定）</td><td>研究間の臨床的・方法論的多様性がある場合</td></tr>
+</table>
+
+<h3>2-3. ネットワークの異質性：I²とτ²</h3>
+<p>NMAでは、ペアワイズ比較ごとの異質性のほかに、<strong>ネットワーク全体の異質性</strong>も評価します。</p>
+<ul>
+  <li><strong>τ²（タウ二乗）</strong>：変量効果の分散。研究間のばらつきの大きさを示す</li>
+  <li><strong>I²</strong>：全変動に占める研究間変動の割合（0〜100%）。25%, 50%, 75%がそれぞれ低・中・高の目安</li>
+</ul>
+
+<div class="r8-box r8-box-tip">
+<strong>ポイント</strong><br>
+<span class="r8-ic">netmeta()</span> の出力では I² と τ² がネットワーク全体のまとまりとして表示されます。ただし比較ペアごとの I² は別途確認が必要です。
+</div>
+
+<h3>2-4. 必要なパッケージのインストール</h3>
+<div class="r8-code"><span class="cm"># CRANからインストール</span>
+install.packages(<span class="cs">"netmeta"</span>)
+install.packages(<span class="cs">"dmetar"</span>)   <span class="cm"># 補助関数（dmetar::direct.evidence.plotなど）</span>
+
+<span class="cm"># dmetarはGitHubからインストールする場合：</span>
+<span class="cm"># install.packages("devtools")</span>
+<span class="cm"># devtools::install_github("MathiasHarrer/dmetar")</span>
+
+library(<span class="cs">"netmeta"</span>)
+library(<span class="cs">"dmetar"</span>)</div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(1)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">2 / 9</span>
+  <button onclick="r8go(3)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 3: データ準備・モデル適合 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p3">
+<div class="r8-card">
+<h2>3. データ準備・モデル適合（12.2.2節）</h2>
+
+<h3>3-1. サンプルデータ：TherapyFormats</h3>
+<p><span class="r8-ic">dmetar</span> パッケージに含まれる <span class="r8-ic">TherapyFormats</span> データセットを使います。これはうつ病に対するCBT（認知行動療法）の提供形式に関する試験のデータです。</p>
+
+<table class="r8-tbl">
+<tr><th>略号</th><th>介入</th></tr>
+<tr><td class="r8-hi">ind</td><td>個人CBT（Individual CBT）</td></tr>
+<tr><td class="r8-hi">grp</td><td>グループCBT（Group CBT）</td></tr>
+<tr><td class="r8-hi">tel</td><td>電話によるCBT（Telephone CBT）</td></tr>
+<tr><td class="r8-hi">gsh</td><td>ガイド付きセルフヘルプ（Guided Self-Help）</td></tr>
+<tr><td class="r8-hi">ush</td><td>非ガイドセルフヘルプ（Unguided Self-Help）</td></tr>
+<tr><td class="r8-hi">cau</td><td>通常治療（Care as Usual）</td></tr>
+<tr><td class="r8-hi">wlc</td><td>待機リスト（Waiting List Control）</td></tr>
+</table>
+
+<div class="r8-code"><span class="cm"># データ読み込みと確認</span>
+library(<span class="cs">"dmetar"</span>)
+data(TherapyFormats)
+head(TherapyFormats)
+
+<span class="cm"># 比較の構造をクロス集計で確認</span>
+as.matrix(table(TherapyFormats$treat1, TherapyFormats$treat2))</div>
+
+<div class="r8-box r8-box-info">
+<strong>データ形式（アーム対形式）</strong><br>
+NMAのデータは「比較ペアごとの1行」形式（コントラスト形式）が標準です。各行には <strong>treat1</strong>（比較対象1）, <strong>treat2</strong>（比較対象2）, <strong>TE</strong>（効果量、例：SMD）, <strong>seTE</strong>（標準誤差）, <strong>studlab</strong>（試験ID）が含まれます。
+</div>
+
+<h3>3-2. netmeta()によるモデル適合</h3>
+<div class="r8-code"><span class="cm"># 固定効果モデルの適合</span>
+m.netmeta &lt;- <span class="cf">netmeta</span>(
+  TE          = TE,           <span class="cm"># 効果量（SMD）</span>
+  seTE        = seTE,         <span class="cm"># 標準誤差</span>
+  treat1      = treat1,       <span class="cm"># 比較の一方の介入名</span>
+  treat2      = treat2,       <span class="cm"># 比較のもう一方の介入名</span>
+  studlab     = studlab,      <span class="cm"># 試験識別子</span>
+  data        = TherapyFormats,
+  sm          = <span class="cs">"SMD"</span>,        <span class="cm"># 効果量の種類</span>
+  fixed       = <span class="ck">TRUE</span>,         <span class="cm"># 固定効果モデルを使用</span>
+  random      = <span class="ck">FALSE</span>,        <span class="cm"># 変量効果は今回省略</span>
+  reference.group = <span class="cs">"cau"</span>,   <span class="cm"># 参照介入（比較の基準）</span>
+  tol.multiarm = <span class="cn">0.001</span>,      <span class="cm"># 多アーム試験の許容誤差</span>
+  sep.trts    = <span class="cs">":"</span>          <span class="cm"># 比較ペアの区切り文字</span>
+)
+
+summary(m.netmeta)</div>
+
+<h4>各引数の詳細解説</h4>
+<table class="r8-tbl">
+<tr><th>引数</th><th>説明</th></tr>
+<tr><td><span class="r8-ic">TE / seTE</span></td><td>効果量とその標準誤差。SMDなら元データから計算済みの値を指定</td></tr>
+<tr><td><span class="r8-ic">sm</span></td><td>効果量の種類。"SMD"（標準化平均差）, "OR"（オッズ比）, "RR"（リスク比）など</td></tr>
+<tr><td><span class="r8-ic">reference.group</span></td><td>全比較の基準となる介入。フォレストプロットや効果推計表の基準に使用</td></tr>
+<tr><td><span class="r8-ic">tol.multiarm</span></td><td>3アーム以上の試験で推移性に微小な不一致があるときの許容値。通常は0.001で十分</td></tr>
+<tr><td><span class="r8-ic">sep.trts</span></td><td>比較ペアの表示形式。"ind:cau" のようにコロンで区切る</td></tr>
+</table>
+
+<div class="r8-box r8-box-warn">
+<strong>fixed=TRUE と random=TRUE の使い分け</strong><br>
+両方をTRUEにすることもできます。その場合、<span class="r8-ic">summary()</span> に固定・変量両方の結果が表示されます。研究間に臨床的な多様性が想定されるなら変量効果モデルが推奨されますが、今回の例では固定効果モデルで解析しています。
+</div>
+
+<h3>3-3. 出力の読み方</h3>
+<p><span class="r8-ic">summary(m.netmeta)</span> を実行すると、参照群（cau）に対する各介入の SMD と95%信頼区間が表示されます。SMDが負の場合は「対照群（cau）よりもうつ症状が少ない（改善している）」ことを意味します（うつスコアでは低いほど良いため）。</p>
+
+<div class="r8-bnav">
+  <button onclick="r8go(2)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">3 / 9</span>
+  <button onclick="r8go(4)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 4: 可視化・ランキング -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p4">
+<div class="r8-card">
+<h2>4. 可視化・ランキング（12.2.2.3節）</h2>
+
+<h3>4-1. ネットワークグラフ</h3>
+<p>ネットワーク図はどの介入同士が直接比較されているかを一目で示します。ノードの大きさは参加者数、エッジの太さは比較に含まれる試験数に比例させることが一般的です。</p>
+
+<div class="r8-code"><span class="cm"># 基本的なネットワークグラフ</span>
+<span class="cf">netgraph</span>(m.netmeta)
+
+<span class="cm"># 介入名を省略なしで表示（ラベルが重なる場合は調整）</span>
+<span class="cf">netgraph</span>(m.netmeta,
+  labels = <span class="cf">c</span>(
+    <span class="cs">"ind"</span>  = <span class="cs">"Individual CBT"</span>,
+    <span class="cs">"grp"</span>  = <span class="cs">"Group CBT"</span>,
+    <span class="cs">"tel"</span>  = <span class="cs">"Telephone CBT"</span>,
+    <span class="cs">"gsh"</span>  = <span class="cs">"Guided Self-Help"</span>,
+    <span class="cs">"ush"</span>  = <span class="cs">"Unguided Self-Help"</span>,
+    <span class="cs">"cau"</span>  = <span class="cs">"Care as Usual"</span>,
+    <span class="cs">"wlc"</span>  = <span class="cs">"Waiting List"</span>
+  )
+)</div>
+
+<h3>4-2. 直接証拠・間接証拠の可視化</h3>
+<p>各比較ペアについて、推定値がどれほど直接証拠に基づいているかを棒グラフで確認できます。</p>
+
+<div class="r8-code"><span class="cm"># {dmetar} の direct.evidence.plot() を使用</span>
+library(<span class="cs">"dmetar"</span>)
+<span class="cf">direct.evidence.plot</span>(m.netmeta)</div>
+
+<div class="r8-box r8-box-info">
+<strong>「mean path length」とは？</strong><br>
+間接推定において、推定値がどれだけ多くの「経由地」を通って計算されているかの平均距離です。値が大きいほど間接証拠の連鎖が長く、推移性の仮定への依存度が高まります。1に近いほど直接証拠への依存度が高いといえます。
+</div>
+
+<h3>4-3. 効果推計表（リーグテーブル）</h3>
+<p>全介入ペアの効果推計をまとめた「リーグテーブル」を作成します。</p>
+
+<div class="r8-code"><span class="cm"># 効果推定値の行列を確認</span>
+m.netmeta$TE.fixed    <span class="cm"># 固定効果の効果推定値（介入間の差）</span>
+
+<span class="cm"># リーグテーブルの作成（{netmeta}組み込み関数）</span>
+lt &lt;- <span class="cf">netleague</span>(m.netmeta,
+  digits = <span class="cn">2</span>,
+  bracket = <span class="cs">"("</span>,
+  separator = <span class="cs">" to "</span>
+)
+
+<span class="cm"># CSVで保存</span>
+<span class="cf">write.csv</span>(lt$fixed, file = <span class="cs">"leaguetable_fixed.csv"</span>)
+
+<span class="cm"># R内でフォレストプロットとして表示することも可能</span>
+<span class="cf">forest</span>(m.netmeta,
+  reference.group = <span class="cs">"wlc"</span>,     <span class="cm"># 待機リストを基準に</span>
+  sortvar = TE,                  <span class="cm"># 効果量順にソート</span>
+  smlab = <span class="cs">"SMD (95% CI)"</span>
+)</div>
+
+<h3>4-4. 治療法のランキング：P-スコア</h3>
+<p>頻度論的NMAでは <strong>P-スコア（P-score）</strong> を用いてランキングを算出します。P-スコアは「ある介入が他の全介入より優れている確率の期待値」であり、0〜1の値を取ります（1が最良）。</p>
+
+<div class="r8-code"><span class="cm"># P-スコアによるランキング</span>
+<span class="cf">netrank</span>(m.netmeta, small.values = <span class="cs">"bad"</span>)
+<span class="cm"># small.values="bad": SMDが小さいほど良い（うつスコアが低いほど良い）場合</span>
+
+<span class="cm"># フォレストプロットで表示</span>
+<span class="cf">forest</span>(<span class="cf">netrank</span>(m.netmeta, small.values = <span class="cs">"bad"</span>))</div>
+
+<p>このデータセットでの結果は以下のとおりです：</p>
+<table class="r8-tbl">
+<tr><th>介入</th><th>P-スコア（固定効果）</th><th>ランク</th></tr>
+<tr><td>個人CBT（ind）</td><td class="r8-hi">0.9958</td><td>1位</td></tr>
+<tr><td>グループCBT（grp）</td><td class="r8-hi">0.8184</td><td>2位</td></tr>
+<tr><td>電話CBT（tel）</td><td>0.6837</td><td>3位</td></tr>
+<tr><td>ガイドSH（gsh）</td><td>0.5022</td><td>4位</td></tr>
+<tr><td>非ガイドSH（ush）</td><td>0.3331</td><td>5位</td></tr>
+<tr><td>通常治療（cau）</td><td>0.1669</td><td>6位</td></tr>
+<tr><td>待機リスト（wlc）</td><td>0.0000</td><td>7位</td></tr>
+</table>
+
+<div class="r8-box r8-box-key">
+<strong>P-スコアの解釈注意点</strong><br>
+P-スコアはランキングの「不確実性を含む確率」であり、効果量の絶対値とは別物です。P-スコアが高くても、信頼区間が広い場合は推定の精度が低い可能性があります。ランキングの解釈には必ず信頼区間を併せて確認してください。
+</div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(3)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">4 / 9</span>
+  <button onclick="r8go(5)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 5: 妥当性評価 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p5">
+<div class="r8-card">
+<h2>5. 妥当性評価（12.2.2.4節）</h2>
+
+<h3>5-1. ネットヒートプロット（Net Heat Plot）</h3>
+<p>ネットヒートプロットは、NMAにおける不一貫性をデザイン（試験の構造）レベルで可視化するツールです。行がネットワーク内の「証拠の流れ（design）」、列が各ペア比較を表すヒートマップです。</p>
+
+<div class="r8-code"><span class="cf">netheat</span>(m.netmeta)</div>
+
+<div class="r8-box r8-box-info">
+<strong>ヒートプロットの見方</strong><br>
+- <strong>赤色のセル</strong>：そのデザイン（直接比較）がそのペアの不一貫性に大きく寄与している<br>
+- <strong>青色のセル</strong>：寄与が小さい<br>
+固定効果と変量効果の推定を比較する列が含まれ、変量効果モデルへの切り替えが不一貫性を減らすかどうかも確認できます。
+</div>
+
+<h3>5-2. ネットワーク分割（netsplit）</h3>
+<p>不一貫性評価の最も直接的な方法です。各比較ペアについて、<strong>直接推定</strong>と<strong>間接推定</strong>を分離して算出し、両者が統計的に有意に異なるかをZ検定で確認します。</p>
+
+<div class="r8-code"><span class="cm"># ネットワーク分割の実行</span>
+ns &lt;- <span class="cf">netsplit</span>(m.netmeta)
+ns   <span class="cm"># 結果を表示</span>
+
+<span class="cm"># フォレストプロットで視覚化</span>
+<span class="cf">forest</span>(ns,
+  show = <span class="cs">"both"</span>,     <span class="cm"># 直接・間接の両方を表示</span>
+  col.square = <span class="cs">"#0f766e"</span>
+)</div>
+
+<h4>結果の読み方</h4>
+<ul>
+  <li><strong>direct</strong>列：直接証拠のみから計算した効果推定（信頼区間付き）</li>
+  <li><strong>indirect</strong>列：間接証拠のみから計算した効果推定</li>
+  <li><strong>network</strong>列：全証拠を統合したNMA推定（最終的な結果）</li>
+  <li><strong>p.value（Incoherence検定）</strong>：p &lt; 0.05 なら不一貫性が統計的に有意</li>
+</ul>
+
+<div class="r8-box r8-box-warn">
+<strong>不一貫性が検出されたときの対応</strong><br>
+1. 対象患者集団・介入の実施方法・アウトカム定義に系統的な差がないか確認する<br>
+2. サブグループ解析やメタ回帰で交絡要因を調整する<br>
+3. 不一貫性の原因が特定できない場合は、NMAの結果の解釈に限界があることを記述する
+</div>
+
+<h3>5-3. 比較調整済みファンネルプロット</h3>
+<p>通常のファンネルプロットは1つの比較ペアに対して描きますが、NMAでは「比較調整済み（comparison-adjusted）ファンネルプロット」を使います。参照群との効果差を縦軸として、出版バイアスを評価します。</p>
+
+<div class="r8-code"><span class="cm"># 比較調整済みファンネルプロット</span>
+<span class="cf">funnel</span>(m.netmeta,
+  order = <span class="cf">c</span>(<span class="cs">"ind"</span>, <span class="cs">"grp"</span>, <span class="cs">"tel"</span>, <span class="cs">"gsh"</span>, <span class="cs">"ush"</span>, <span class="cs">"cau"</span>, <span class="cs">"wlc"</span>),
+  pch   = <span class="cf">c</span>(<span class="cn">16</span>, <span class="cn">17</span>, <span class="cn">15</span>, <span class="cn">18</span>, <span class="cn">8</span>, <span class="cn">3</span>, <span class="cn">4</span>),
+  col   = <span class="cf">c</span>(<span class="cs">"#0f766e"</span>, <span class="cs">"#1d4ed8"</span>, <span class="cs">"#7c3aed"</span>,
+            <span class="cs">"#dc2626"</span>, <span class="cs">"#d97706"</span>, <span class="cs">"#64748b"</span>, <span class="cs">"#475569"</span>),
+  linreg = <span class="ck">TRUE</span>  <span class="cm"># Egger検定の回帰直線を追加</span>
+)</div>
+
+<div class="r8-box r8-box-tip">
+<strong>Egger検定の結果：p = 0.402（このデータセット）</strong><br>
+p &gt; 0.05 であり、統計的に有意な出版バイアスは検出されませんでした。ただし、Egger検定はサンプル数が少ない場合（試験数 &lt; 10）には検出力が低いため、陰性結果をもってバイアスなしと断定することはできません。ファンネルプロットの形状（対称性）を目視でも確認することが重要です。
+</div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(4)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">5 / 9</span>
+  <button onclick="r8go(6)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 6: ベイズ的NMA 基礎 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p6">
+<div class="r8-card">
+<h2>6. ベイズ的NMA — 基礎と準備（12.3節）</h2>
+
+<h3>6-1. ベイズ推論とは</h3>
+<p>ベイズ推論では「データを観察する前の知識（<strong>事前分布</strong>）」と「データから得られる情報（<strong>尤度</strong>）」を組み合わせて「データを観察した後の知識（<strong>事後分布</strong>）」を得ます：</p>
+<div class="r8-fml">P(θ | データ) ∝ P(データ | θ) × P(θ)</div>
+
+<p>つまり：<strong>事後分布 ∝ 尤度 × 事前分布</strong></p>
+
+<div class="r8-box r8-box-info">
+<strong>頻度論 vs ベイズの信頼区間の違い</strong><br>
+<strong>頻度論の95%信頼区間（CI）</strong>：「この手続きを繰り返すと、95%の場合に真の値が区間内に入る」という手続き的解釈<br>
+<strong>ベイズの95%信用区間（CrI）</strong>：「真のパラメータがこの区間内にある事後確率が95%」という直感的な解釈<br>
+CrIは「95%の確率でこの範囲にある」と読めるため、臨床的解釈に非常に使いやすいです。
+</div>
+
+<h3>6-2. MCMC（マルコフ連鎖モンテカルロ法）</h3>
+<p>ベイズ推論では事後分布を解析的に求めることが困難なため、<strong>MCMC</strong>（Markov Chain Monte Carlo）サンプリングで近似します。MCMCは事後分布からランダムサンプルを大量に生成し、そのサンプルの分布で事後分布を近似します。</p>
+
+<div class="r8-steps">
+  <div class="r8-step"><div class="r8-step-num">1</div><div class="r8-step-body"><strong>バーンイン期間（n.adapt）</strong>MCMCチェーンを初期値から「正しい分布」に収束させるための試行期間。この期間のサンプルは推定に使わない</div></div>
+  <div class="r8-step"><div class="r8-step-num">2</div><div class="r8-step-body"><strong>サンプリング期間（n.iter）</strong>収束後に実際の推定に使うサンプルを収集。通常は数万〜数十万イテレーション</div></div>
+  <div class="r8-step"><div class="r8-step-num">3</div><div class="r8-step-body"><strong>間引き（thin）</strong>連続したサンプルは自己相関するため、thin=10なら10個に1個だけ保存。メモリ節約と独立性向上</div></div>
+  <div class="r8-step"><div class="r8-step-num">4</div><div class="r8-step-body"><strong>複数チェーン（n.chain）</strong>独立した初期値からMCMCを複数並列実行し、収束診断に使う。通常4チェーン以上推奨</div></div>
+</div>
+
+<h3>6-3. データ準備：TherapyFormatsGeMTC</h3>
+<p><span class="r8-ic">{gemtc}</span> パッケージでは <span class="r8-ic">TherapyFormatsGeMTC</span> データセット（<span class="r8-ic">dmetar</span>付属）を使います。このデータはgemtcの要求する<strong>ロング形式</strong>です。</p>
+
+<div class="r8-code"><span class="cm"># パッケージの準備</span>
+install.packages(<span class="cs">"gemtc"</span>)
+library(<span class="cs">"gemtc"</span>)
+
+<span class="cm"># データの読み込み</span>
+data(TherapyFormatsGeMTC, package = <span class="cs">"dmetar"</span>)
+head(TherapyFormatsGeMTC)
+
+<span class="cm"># 必要な列：study（試験ID）, treatment（介入名）,</span>
+<span class="cm">#           diff（効果量）, std.err（標準誤差）</span>
+<span class="cm"># 各試験の参照アームは diff=NA, std.err=NA とする</span></div>
+
+<div class="r8-box r8-box-warn">
+<strong>ロング形式のポイント</strong><br>
+gemtcのデータは<strong>アーム別</strong>（1アーム1行）の形式です。参照アーム（比較の基準となる介入）は diff と std.err を NA にします。2アーム試験は2行、3アーム試験は3行になります。アーム対形式（コントラスト形式）で持っている場合は変換が必要です。
+</div>
+
+<h3>6-4. ネットワークオブジェクトの作成</h3>
+<div class="r8-code"><span class="cm"># ネットワークオブジェクトを作成</span>
+network &lt;- <span class="cf">mtc.network</span>(TherapyFormatsGeMTC)
+
+<span class="cm"># Fruchterman-Reingold アルゴリズムでネットワーク図を描画</span>
+<span class="cf">plot</span>(network)
+
+<span class="cm"># igraph を使ったより詳細なグラフ（オプション）</span>
+library(<span class="cs">"igraph"</span>)
+<span class="cm"># plot(network) は内部でigraphを使用</span></div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(5)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">6 / 9</span>
+  <button onclick="r8go(7)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 7: MCMC・収束診断 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p7">
+<div class="r8-card">
+<h2>7. MCMCサンプリングと収束診断（12.3.3.3〜12.3.3.5節）</h2>
+
+<h3>7-1. モデルのコンパイル</h3>
+<div class="r8-code">model &lt;- <span class="cf">mtc.model</span>(
+  network,
+  linearModel = <span class="cs">"random"</span>,   <span class="cm"># 変量効果モデル（推奨）</span>
+  likelihood  = <span class="cs">"normal"</span>,   <span class="cm"># 連続アウトカム（SMD）</span>
+  link        = <span class="cs">"identity"</span>, <span class="cm"># 恒等リンク（対数変換なし）</span>
+  n.chain     = <span class="cn">4</span>           <span class="cm"># 4つの独立チェーン</span>
+)</div>
+
+<h4>引数の詳細</h4>
+<table class="r8-tbl">
+<tr><th>引数</th><th>選択肢</th><th>使う場面</th></tr>
+<tr><td><span class="r8-ic">linearModel</span></td><td>"fixed" / "random"</td><td>研究間の異質性が想定される場合は"random"</td></tr>
+<tr><td><span class="r8-ic">likelihood</span></td><td>"normal" / "binom" / "poisson"</td><td>連続量→"normal", 二値→"binom"</td></tr>
+<tr><td><span class="r8-ic">link</span></td><td>"identity" / "log" / "logit"</td><td>SMD→"identity", OR→"log"+binom</td></tr>
+</table>
+
+<h3>7-2. MCMCサンプリングの実行</h3>
+<div class="r8-code"><span class="cm"># ショートラン（収束確認用）— 本番には使わない</span>
+mcmc1 &lt;- <span class="cf">mtc.run</span>(model,
+  n.adapt = <span class="cn">50</span>,       <span class="cm"># バーンイン：50回（少なすぎる）</span>
+  n.iter  = <span class="cn">1000</span>,     <span class="cm"># サンプリング：1000回</span>
+  thin    = <span class="cn">1</span>
+)
+
+<span class="cm"># 本番ラン（収束診断通過後）</span>
+mcmc2 &lt;- <span class="cf">mtc.run</span>(model,
+  n.adapt = <span class="cn">5000</span>,      <span class="cm"># バーンイン：5000回（十分な収束）</span>
+  n.iter  = <span class="cn">1e5</span>,       <span class="cm"># サンプリング：100,000回</span>
+  thin    = <span class="cn">10</span>          <span class="cm"># 10個に1個保存（自己相関低減）</span>
+)
+
+<span class="cm"># 時間がかかるため並列化を検討：</span>
+<span class="cm"># library("parallel")</span>
+<span class="cm"># model &lt;- mtc.model(..., n.chain = detectCores())</span></div>
+
+<h3>7-3. 収束診断</h3>
+<p>MCMCが正しく収束しているかを複数の方法で確認します。</p>
+
+<div class="r8-code"><span class="cm"># トレースプロット：チェーンの推移を可視化</span>
+<span class="cm"># 良好な収束 = 全チェーンが同じ範囲を「毛虫状」に動く</span>
+<span class="cf">plot</span>(mcmc1)   <span class="cm"># ショートランの確認（収束していないはず）</span>
+<span class="cf">plot</span>(mcmc2)   <span class="cm"># 本番ランの確認</span>
+
+<span class="cm"># Gelman-Rubin 収束診断（PSRF）</span>
+<span class="cf">gelman.diag</span>(mcmc2$samples)    <span class="cm"># PSRFを表示</span>
+<span class="cf">gelman.plot</span>(mcmc2$samples)    <span class="cm"># PSRFの推移をプロット</span></div>
+
+<h4>PSRF（Potential Scale Reduction Factor）の判定基準</h4>
+<table class="r8-tbl">
+<tr><th>PSRF値</th><th>判定</th><th>対応</th></tr>
+<tr><td>≈ 1.00</td><td class="r8-hi">✅ 収束良好</td><td>解析を進めてよい</td></tr>
+<tr><td>≤ 1.05</td><td>⚠️ ほぼ良好</td><td>問題ない場合が多い</td></tr>
+<tr><td>&gt; 1.05</td><td>❌ 要注意</td><td>n.adapt/n.iterを増やす</td></tr>
+<tr><td>&gt; 1.1</td><td>❌ 未収束</td><td>必ずランを延長する</td></tr>
+</table>
+
+<div class="r8-box r8-box-tip">
+<strong>このデータセットでの結果</strong><br>
+mcmc1（n.adapt=50）：PSRF = 1.034（やや未収束）<br>
+mcmc2（n.adapt=5000, n.iter=100,000）：PSRF = 1.000（完全収束）<br>
+→ バーンイン期間と反復回数が十分かどうかの重要性が確認できます。
+</div>
+
+<div class="r8-box r8-box-info">
+<strong>密度プロット（Density plot）の見方</strong><br>
+<span class="r8-ic">plot(mcmc, trace=FALSE, density=TRUE)</span> で確認できます。各パラメータの事後分布が滑らかな山型になっていれば良好。複数のピーク（双峰性）がある場合は収束していない可能性があります。また全チェーンの密度プロットが重なっているかも確認します。
+</div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(6)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">7 / 9</span>
+  <button onclick="r8go(8)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 8: ランキング・結果出力 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p8">
+<div class="r8-card">
+<h2>8. 非一貫性評価・ランキング・結果出力（12.3.3.6〜12.3.3.7節）</h2>
+
+<h3>8-1. ノード分割による非一貫性評価</h3>
+<p>ベイズ的NMAでの不一貫性評価は <span class="r8-ic">mtc.nodesplit()</span> を使います。各比較ペアについて直接推定と間接推定を分離し、その差（inconsistency factor）の95%CrIがゼロを含むかを確認します。</p>
+
+<div class="r8-code"><span class="cm"># ノード分割の実行（時間がかかる）</span>
+ns.bayes &lt;- <span class="cf">mtc.nodesplit</span>(
+  model,
+  n.adapt = <span class="cn">5000</span>,
+  n.iter  = <span class="cn">1e5</span>,
+  thin    = <span class="cn">10</span>
+)
+
+<span class="cm"># 結果の表示</span>
+ns.bayes
+
+<span class="cm"># フォレストプロットで可視化</span>
+<span class="cf">plot</span>(<span class="cf">summary</span>(ns.bayes))</div>
+
+<h3>8-2. SUCRA スコアとランキング</h3>
+<p>ベイズ的NMAでのランキング指標として <strong>SUCRA（Surface Under the Cumulative Ranking）</strong> が使われます。SUCRAは「ある介入が他の全介入より優れている確率の平均」であり、頻度論のP-スコアに相当します。</p>
+
+<div class="r8-code"><span class="cm"># ランク確率の計算</span>
+<span class="cm"># preferredDirection=-1：SMDが小さいほど良い（うつスコア）</span>
+rank.prob &lt;- <span class="cf">rank.probability</span>(mcmc2, preferredDirection = <span class="cn">-1</span>)
+
+<span class="cm"># ランコグラム（各順位に割り当てられる確率）のプロット</span>
+<span class="cf">plot</span>(rank.prob, beside = <span class="ck">TRUE</span>)
+
+<span class="cm"># SUCRAスコアの計算（dmetar::sucra）</span>
+<span class="cf">sucra</span>(<span class="cf">rank.probability</span>(mcmc2, preferredDirection = <span class="cn">-1</span>))</div>
+
+<p>このデータセットでのSUCRAスコア：</p>
+<table class="r8-tbl">
+<tr><th>介入</th><th>SUCRA</th><th>ランク</th></tr>
+<tr><td>個人CBT（ind）</td><td class="r8-hi">0.922</td><td>1位</td></tr>
+<tr><td>電話CBT（tel）</td><td class="r8-hi">0.852</td><td>2位</td></tr>
+<tr><td>ガイドSH（gsh）</td><td>0.645</td><td>3位</td></tr>
+<tr><td>グループCBT（grp）</td><td>0.621</td><td>4位</td></tr>
+<tr><td>非ガイドSH（ush）</td><td>0.361</td><td>5位</td></tr>
+<tr><td>通常治療（cau）</td><td>0.098</td><td>6位</td></tr>
+<tr><td>待機リスト（wlc）</td><td>0.002</td><td>7位</td></tr>
+</table>
+
+<div class="r8-box r8-box-warn">
+<strong>頻度論とベイズのランキング比較</strong><br>
+P-スコア（頻度論）では grp が2位でしたが、SUCRA（ベイズ）では tel が2位になっています。これは推定モデルの違いによるもので、ランキングが若干異なることは珍しくありません。<strong>ランキングの違い自体も不確実性の表れ</strong>と捉え、上位2〜3位を「同程度に有望」として解釈することが推奨されます。
+</div>
+
+<h3>8-3. 全ペアの効果推計表と要約フォレストプロット</h3>
+<div class="r8-code"><span class="cm"># 全比較ペアの相対効果表</span>
+rel.eff &lt;- <span class="cf">relative.effect.table</span>(mcmc2)
+rel.eff
+
+<span class="cm"># 特定の参照群に対するフォレストプロット</span>
+<span class="cf">forest</span>(<span class="cf">relative.effect</span>(mcmc2, t1 = <span class="cs">"wlc"</span>),
+  digits = <span class="cn">2</span>
+)
+<span class="cm"># t1 = 比較の基準となる介入（待機リスト）</span></div>
+
+<div class="r8-box r8-box-key">
+<strong>ベイズ的推定の追加価値：確率的解釈</strong><br>
+ベイズ的NMAでは「個人CBTが待機リストより有意に有効」ではなく、<strong>「個人CBTが待機リストより効果的である事後確率は99.8%」</strong> のような確率的表現が可能です。臨床意思決定において非常に直感的に使えます。
+</div>
+
+<div class="r8-bnav">
+  <button onclick="r8go(7)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">8 / 9</span>
+  <button onclick="r8go(9)">次へ →</button>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- パネル 9: メタ回帰・演習 -->
+<!-- ============================================================ -->
+<div class="r8-panel" id="r8p9">
+<div class="r8-card">
+<h2>9. ネットワークメタ回帰・演習・まとめ（12.3.4〜12.5節）</h2>
+
+<h3>9-1. ネットワークメタ回帰</h3>
+<p>メタ回帰は、試験レベルの共変量（モデレーター）を組み込んで、異質性の原因を探る手法です。NMAにおけるメタ回帰はモデルが複雑になるため、ベイズ的アプローチが特に有用です。</p>
+
+<p>ここでは「バイアスリスク（risk of bias, rob）」をモデレーターとして組み込む例を示します：</p>
+
+<div class="r8-code"><span class="cm"># 共変量付きネットワークの作成（試験レベルの共変量を渡す）</span>
+studies &lt;- <span class="cf">data.frame</span>(
+  study = <span class="cf">unique</span>(TherapyFormatsGeMTC$study),
+  rob   = <span class="cm"># 各試験のバイアスリスクスコア（0〜1）</span>
+)
+
+network.reg &lt;- <span class="cf">mtc.network</span>(
+  TherapyFormatsGeMTC,
+  studies = studies          <span class="cm"># 試験レベルの共変量を含むdata.frame</span>
+)
+
+<span class="cm"># メタ回帰モデルの定義</span>
+model.reg &lt;- <span class="cf">mtc.model</span>(
+  network.reg,
+  linearModel = <span class="cs">"random"</span>,
+  regressor = <span class="cf">list</span>(
+    coefficient = <span class="cs">"shared"</span>,  <span class="cm"># 全介入で共通の係数（共有効果モデル）</span>
+    variable    = <span class="cs">"rob"</span>,      <span class="cm"># 共変量名</span>
+    control     = <span class="cs">"cau"</span>       <span class="cm"># 参照介入</span>
+  )
+)
+
+<span class="cm"># MCMCサンプリング</span>
+mcmc.reg &lt;- <span class="cf">mtc.run</span>(model.reg, n.adapt = <span class="cn">5000</span>, n.iter = <span class="cn">1e5</span>, thin = <span class="cn">10</span>)</div>
+
+<h3>9-2. DIC（逸脱情報量規準）によるモデル比較</h3>
+<p>ベイズ的NMAでは <strong>DIC（Deviance Information Criterion）</strong> でモデルの適合度を比較します。DICが小さいほどモデルが良いとされます（ただし差が5未満なら実質差なし）。</p>
+
+<div class="r8-code"><span class="cm"># DIC の計算</span>
+<span class="cf">summary</span>(mcmc2)$DIC        <span class="cm"># 標準モデル　　→ DIC = 323.6</span>
+<span class="cf">summary</span>(mcmc.reg)$DIC     <span class="cm"># メタ回帰モデル → DIC = 261.19</span></div>
+
+<div class="r8-box r8-box-tip">
+<strong>解釈</strong><br>
+メタ回帰モデルのDIC（261.19）が標準モデル（323.6）より62.4ポイント低く、「バイアスリスク」がNMAの効果推定における重要な修飾因子であることが示されました。この差はモデル適合の実質的な改善を示します。
+</div>
+
+<h4>coefficient オプションの使い分け</h4>
+<table class="r8-tbl">
+<tr><th>オプション</th><th>説明</th></tr>
+<tr><td>"shared"</td><td>全介入で共変量の効果（傾き）が共通と仮定。標準的な選択</td></tr>
+<tr><td>"unrelated"</td><td>各介入ペアで傾きが独立。パラメータ数が多く、データが十分な場合のみ</td></tr>
+<tr><td>"exchangeable"</td><td>傾きは介入ペアで独立だが、共通の分布から来ると仮定。中間的な選択</td></tr>
+</table>
+
+<h3>9-3. 演習問題（12.4節）</h3>
+
+<div class="r8-box r8-box-info">
+<strong>演習 1</strong>：<span class="r8-ic">TherapyFormats</span> データで変量効果モデル（random=TRUE）を適合し、固定効果モデルと結果を比較せよ。P-スコアに違いはあるか？
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 2</strong>：<span class="r8-ic">netgraph()</span> で ノードサイズを試験数に比例させ、エッジ太さを参加者数に比例させるネットワーク図を作成せよ（ヒント：<span class="r8-ic">thickness</span>, <span class="r8-ic">cex</span>引数を調べよ）
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 3</strong>：<span class="r8-ic">netsplit()</span> の結果でp &lt; 0.1の比較ペアを特定し、どの直接比較と間接比較が乖離しているか報告せよ
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 4</strong>：gemtcでベイズ的NMAを実行し、n.adapt=100, n.iter=1000 と n.adapt=5000, n.iter=100000 のGelman-Rubin診断を比較せよ
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 5</strong>：ベイズ的NMAで <span class="r8-ic">preferredDirection=+1</span>（大きいほど良い指標を想定）でSUCRAを計算し、<span class="r8-ic">preferredDirection=-1</span>との違いを考察せよ
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 6</strong>：<span class="r8-ic">relative.effect.table()</span> の出力を整形してExcelに出力せよ（ヒント：<span class="r8-ic">as.data.frame()</span> → <span class="r8-ic">writexl::write_xlsx()</span>）
+</div>
+<div class="r8-box r8-box-info">
+<strong>演習 7</strong>：ネットワークメタ回帰で <span class="r8-ic">coefficient="unrelated"</span> を使い、<span class="r8-ic">"shared"</span> モデルとDICで比較せよ
+</div>
+
+<h3>9-4. まとめ</h3>
+<ul>
+  <li>NMAは直接比較と間接比較を統合し、複数介入を同時にランキングする手法</li>
+  <li>成立前提として<strong>推移性</strong>の検討が不可欠（研究集団・介入・アウトカムの同質性）</li>
+  <li>頻度論（<span class="r8-ic">netmeta</span>）：グラフ理論モデル。P-スコアでランキング。高速で解釈しやすい</li>
+  <li>ベイズ的（<span class="r8-ic">gemtc</span>）：MCMCサンプリング。SUCRAでランキング。信用区間が直感的。収束診断が必須</li>
+  <li>不一貫性の評価（netsplit / mtc.nodesplit）はNMAの妥当性確認に必須のステップ</li>
+  <li>ネットワークメタ回帰でモデレーターを組み込み、DICでモデル比較が可能</li>
+  <li>詳細は <a href="https://bookdown.org/content/25561078-f6d8-4a13-b4bd-45ebbc1b05c8/netwma.html" target="_blank">原著Chapter 12（英語）</a> を参照</li>
+</ul>
+
+<div class="r8-bnav">
+  <button onclick="r8go(8)">← 前へ</button>
+  <span style="font-size:.78rem;color:#64748b">9 / 9</span>
+  <button disabled>次へ →</button>
+</div>
+</div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /r8-body -->
+</div><!-- /r8-wrap -->
+
+<script>
+(function(){
+  var TOTAL = 9;
+  function r8go(n){
+    for(var i=1;i<=TOTAL;i++){
+      var p=document.getElementById('r8p'+i);
+      var b=document.getElementById('r8nb'+i);
+      if(p) p.className='r8-panel'+(i===n?' on':'');
+      if(b) b.className='r8-nb'+(i===n?' on':' off');
+    }
+    var wrap=document.querySelector('.r8-wrap');
+    if(wrap) wrap.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  window.r8go=r8go;
+})();
+</script>
+</div><footer style="background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:30px;">
 <p style="font-size:1em;font-weight:bold;">NMA-GRADE エビデンス確実性評価 完全ガイド</p>
 <p style="font-size:.82em;opacity:.85;margin-top:8px;">
 本ガイドは添付資料のみに基づいて作成されています。主要参考文献: Izcovich et al. BMJ 2023;381:e074495 | Brignardello-Petersen et al. JCE 2018;93:36-44 | Brignardello-Petersen et al. JCE 2019;108:77-85 | Kamso et al. JCE 2026;191:112109 & 112110
