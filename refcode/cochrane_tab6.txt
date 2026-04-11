@@ -174,7 +174,7 @@
 <p>ネットワーク図では各介入を「ノード（節点）」で、直接比較が存在する治療間を「線（辺）」で表します。線の太さを試験数や参加者数に比例させることで情報量が視覚化できます。<span class="c6-cite">Chaimani et al 2013</span></p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-50-57-355.jpg" alt="図11.1.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-50-57-355.jpg" alt="図11.1.a">
   <div class="c6-fig-en">Figure 11.1.a: Example of network diagram with four competing interventions and information on the presence of multi-arm randomized trials</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -183,7 +183,7 @@
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-46-32-024.jpg" alt="ネットワーク図の構造">
+  <img src="ref/image/bandicam%202026-04-11%2008-46-32-024.jpg" alt="ネットワーク図の構造">
   <div class="c6-fig-ja">
     <strong>【補足】</strong>
     同じネットワークの別表示。A・B・D間の三角形ループには3アーム試験が存在し、ループ内での一貫性検定（不整合性評価）が可能です。ループを持たないネットワーク（「star shape」など）では不整合性の評価ができないことに注意が必要です。
@@ -220,7 +220,7 @@
 <p>食事指導を「栄養士（A）」「医師（B）」「看護師（C）」で比較する場面を考えます。A対B（栄養士 vs 医師）とA対C（栄養士 vs 看護師）のRCTは存在しますが、B対C（医師 vs 看護師）の直接RCTはありません。「A」を共通の比較対照として、B対Cを間接的に推定できます。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-51-09-519.jpg" alt="図11.2.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-51-09-519.jpg" alt="図11.2.a">
   <div class="c6-fig-en">Figure 11.2.a: Illustration of an indirect estimate that compares the effectiveness of 'doctor' (B) and 'nurse' (C) in providing dietary advice through a common comparator 'dietitian' (A)</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -245,7 +245,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-51-25-220.jpg" alt="図11.2.b">
+  <img src="ref/image/bandicam%202026-04-11%2008-51-25-220.jpg" alt="図11.2.b">
   <div class="c6-fig-en">Figure 11.2.b: Graphical representation of the indirect comparison 'doctor' (B) versus 'nurse' (C) via 'dietitian' (A)</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -257,7 +257,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 <p>4つ以上の介入がある場合、間接比較の経路が複数存在します。BとDに共通の比較対照がなくても、B→A→C→Dという連鎖経路でつながっていれば推定が可能です。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-51-36-017.jpg" alt="図11.2.c">
+  <img src="ref/image/bandicam%202026-04-11%2008-51-36-017.jpg" alt="図11.2.c">
   <div class="c6-fig-en">Figure 11.2.c: Example of deriving indirect estimate that compares the effectiveness of 'doctor' (B) and 'pharmacist' (D) in providing dietary advice through a connected loop</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -303,7 +303,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-52-19-284.jpg" alt="図11.2.d">
+  <img src="ref/image/bandicam%202026-04-11%2008-52-19-284.jpg" alt="図11.2.d">
   <div class="c6-fig-en">Figure 11.2.d: Example of valid and invalid indirect comparisons when the severity of disease acts as effect modifier. Reproduced with permission of Elsevier (Jansen et al 2014).</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -318,7 +318,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 <p>4つの化学療法レジメン（A・B・C・D）を比較するネットワークで、レジメンDが「ステージII患者専用」でB・Cが「ステージI患者専用」の場合、推移性が成立しません。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-52-58-620.jpg" alt="図11.3.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-52-58-620.jpg" alt="図11.3.a">
   <div class="c6-fig-en">Figure 11.3.a: Example of a network comparing four chemotherapy regimens, where transitivity is violated due to incomparability between the interventions</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -396,7 +396,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 <p>Middleton et al.（2010）の4介入（子宮摘除術・Mirena・第1世代子宮鏡手術・第2世代非子宮鏡手術）のNMAを見ます。ノードの大きさは参加者数、線の太さは試験数に比例しています。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-53-23-641.jpg" alt="図11.4.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-53-23-641.jpg" alt="図11.4.a">
   <div class="c6-fig-en">Figure 11.4.a: Network graph of four interventions for heavy menstrual bleeding (Middleton et al 2010). Reproduced with permission of BMJ Publishing Group.</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -405,7 +405,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-53-40-624.jpg" alt="Table 11.4.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-53-40-624.jpg" alt="Table 11.4.a">
   <div class="c6-fig-en">Table 11.4.a: Intervention effects (odds ratios of patient dissatisfaction at 12 months). Lower triangle = NMA results; upper triangle = pairwise meta-analysis results. OR &lt;1 favours the column-defining intervention.</div>
   <div class="c6-fig-ja">
     <strong>【表の読み方】</strong>
@@ -423,7 +423,7 @@ se²(d<sub>BC</sub>) = se²(d<sub>BA</sub>) + se²(d<sub>CA</sub>)
 <p>各介入が「最良（1位）」「2位」…「K位」である確率（順位確率）を推定し、その累積確率曲線の下面積が<strong>SUCRA</strong>です。<span class="c6-cite">Salanti et al 2011</span></p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-53-52-765.jpg" alt="Table 11.4.b">
+  <img src="ref/image/bandicam%202026-04-11%2008-53-52-765.jpg" alt="Table 11.4.b">
   <div class="c6-fig-en">Table 11.4.b: Ranking probabilities and mean ranks for intervention effectiveness in heavy menstrual bleeding. Lower mean rank values indicate interventions associated with less mortality.</div>
   <div class="c6-fig-ja">
     <strong>【表の読み方】</strong>
@@ -475,7 +475,7 @@ print(ns)
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-54-08-627.jpg" alt="Table 11.4.c">
+  <img src="ref/image/bandicam%202026-04-11%2008-54-08-627.jpg" alt="Table 11.4.c">
   <div class="c6-fig-en">Table 11.4.c: Results based on the SIDE approach to evaluating local incoherence. P values less than 0.05 suggest statistically significant incoherence.</div>
   <div class="c6-fig-ja">
     <strong>【表の読み方】</strong>
@@ -530,7 +530,7 @@ print(ns)
 </div>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-54-43-830.jpg" alt="Table 11.5.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-54-43-830.jpg" alt="Table 11.5.a">
   <div class="c6-fig-en">Table 11.5.a: Steps to obtain the overall confidence ratings (across all GRADE domains) for every combined comparison of the dietary advice example. A ✓ or x indicates whether a particular step is needed in order to proceed to the next step.</div>
   <div class="c6-fig-ja">
     <strong>【表の読み方】</strong>
@@ -544,7 +544,7 @@ print(ns)
 <p>どの直接比較が高バイアスで、それがNMA推定値にどれだけ寄与しているかを視覚化します。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-55-20-034.jpg" alt="図11.5.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-55-20-034.jpg" alt="図11.5.a">
   <div class="c6-fig-en">Figure 11.5.a: Bar graph illustrating the percentage of information for every comparison that comes from low (dark grey), moderate (light grey) or high (black) risk-of-bias studies. Reproduced with permission of BMJ Publishing Group (Middleton et al 2010).</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -585,7 +585,7 @@ print(ns)
 <p>ネットワーク図の線の太さを各比較の<strong>平均年齢</strong>に対応させると、効果修飾因子の分布の偏りを視覚的に確認でき、推移性評価に役立ちます。</p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-55-35-403.jpg" alt="図11.6.a">
+  <img src="ref/image/bandicam%202026-04-11%2008-55-35-403.jpg" alt="図11.6.a">
   <div class="c6-fig-en">Figure 11.6.a: Example of network diagram with lines weighted according to the average age within each pair-wise comparison. Thicker lines correspond to greater average age within the respective comparison.</div>
   <div class="c6-fig-ja">
     <strong>【図の読み方】</strong>
@@ -597,7 +597,7 @@ print(ns)
 <p>各直接比較がNMAの各推定値に何%寄与しているかを行列形式で示します。バイアスの高い比較がどのNMA推定値に最も影響するかを特定できます。<span class="c6-cite">König et al 2013</span></p>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-56-25-899.jpg" alt="図11.6.b">
+  <img src="ref/image/bandicam%202026-04-11%2008-56-25-899.jpg" alt="図11.6.b">
   <div class="c6-fig-en">Figure 11.6.b: Contribution matrix for the network on interventions for heavy menstrual bleeding. Columns = direct comparisons; rows = NMA estimates. Entries = percentage weights attributed to each direct comparison.</div>
   <div class="c6-fig-ja">
     <strong>【表の読み方】</strong>
@@ -609,7 +609,7 @@ print(ns)
 <h3>8-3. フォレストプロットとランコグラム</h3>
 
 <div class="c6-fig">
-  <img src="ref/image/bandicam 2026-04-11 08-56-33-845.jpg" alt="図11.6.c, 11.6.d">
+  <img src="ref/image/bandicam%202026-04-11%2008-56-33-845.jpg" alt="図11.6.c, 11.6.d">
   <div class="c6-fig-en">Figure 11.6.c: Forest plot for effectiveness in heavy menstrual bleeding between four interventions. Figure 11.6.d: Ranking probabilities (rankograms). FGHT=first generation hysteroscopic techniques; SGNHT=second generation non-hysteroscopic techniques.</div>
   <div class="c6-fig-ja">
     <strong>【上：フォレストプロット（Figure 11.6.c）の読み方】</strong><br>
