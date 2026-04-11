@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMA Loop Analyzer v4.1 — GRADE-NMA 間接エビデンス評価ツール</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif; background: #f9fafb; color: #1e293b; min-height: 100vh; }
+
+.header { background: #1e293b; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.header-left { display: flex; align-items: center; gap: 10px; }
+.header-left h1 { font-size: 17px; font-weight: 700; }
+.header-left h1 span { font-size: 10px; font-weight: 400; color: #94a3b8; margin-left: 8px; }
+.header-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+.btn-sm { padding: 4px 10px; font-size: 11px; }
+.btn-orange { background: #ea580c; color: #fff; }
+.btn-orange:hover { background: #c2410c; }
+.btn-slate { background: #334155; color: #fff; }
+.btn-slate:hover { background: #475569; }
+.btn-blue { background: #2563eb; color: #fff; }
+.btn-blue:hover { background: #1d4ed8; }
+.btn-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.btn-red:hover { background: #fee2e2; }
+.btn-white { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
+.btn-white:hover { background: #e2e8f0; }
+.btn-dark { background: #475569; color: #fff; }
+.btn-dark:hover { background: #334155; }
+.btn-green { background: #16a34a; color: #fff; }
+.btn-green:hover { background: #15803d; }
+.btn-teal { background: #0d9488; color: #fff; }
+.btn-teal:hover { background: #0f766e; }
+
+.main { max-width: 1360px; margin: 0 auto; padding: 16px; display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+@media (max-width: 1024px) { .main { grid-template-columns: 1fr; } }
+
+.panel { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden; }
+.panel-header { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; }
+.panel-header h3 { font-size: 13px; font-weight: 700; color: #334155; }
+.panel-body { padding: 14px; }
+
+.matrix-wrap { overflow: auto; border: 1px solid #e2e8f0; border-radius: 6px; max-height: 320px; }
+.matrix { display: grid; }
+.matrix-cell { width: 28px; height: 28px; border-bottom: 1px solid #f1f5f9; border-right: 1px solid #f1f5f9; cursor: pointer; position: relative; transition: background 0.1s; }
+.matrix-cell:hover { background: #f1f5f9; }
+.matrix-cell.direct { background: #dbeafe; }
+.matrix-cell.direct:hover { background: #bfdbfe; }
+.matrix-cell.selected { background: #facc15; outline: 2px solid #ca8a04; z-index: 2; }
+.matrix-cell.diagonal { background: #e2e8f0; cursor: default; }
+.matrix-cell .dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 5px; height: 5px; border-radius: 50%; background: #94a3b8; }
+.matrix-col-header { font-size: 9px; font-weight: 700; writing-mode: vertical-lr; transform: rotate(180deg); height: 70px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; }
+.matrix-row-header { font-size: 9px; font-weight: 700; padding: 2px 6px; display: flex; align-items: center; justify-content: flex-end; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; height: 28px; white-space: nowrap; }
+.matrix-corner { background: #e5e7eb; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; }
+
+.selection-info { margin-top: 10px; padding: 8px; background: #fefce8; border: 1px solid #fde68a; border-radius: 6px; text-align: center; font-weight: 700; font-size: 13px; }
+.selection-info .blue { color: #2563eb; }
+
+.loop-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.loop-table th { background: #f1f5f9; padding: 8px 6px; border-bottom: 1px solid #e2e8f0; text-align: left; font-size: 11px; color: #64748b; position: sticky; top: 0; z-index: 1; }
+.loop-table td { padding: 8px 6px; border-bottom: 1px solid #f1f5f9; }
+.loop-table tr { cursor: pointer; transition: background 0.1s; }
+.loop-table tr:hover { background: #f8fafc; }
+.loop-table tr.active { background: #eff6ff; }
+.loop-type { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; }
+.loop-type-1st { background: #fff7ed; color: #c2410c; }
+.loop-type-2nd { background: #faf5ff; color: #7c3aed; }
+.mono { font-family: 'SF Mono', 'Consolas', 'Courier New', monospace; }
+
+.rating-bubbles { display: flex; gap: 2px; }
+.rating-bubble { width: 7px; height: 7px; border-radius: 50%; }
+.rb-high { background: #4ade80; }
+.rb-moderate { background: #60a5fa; }
+.rb-low { background: #fb923c; }
+.rb-verylow { background: #f87171; }
+.rb-none { background: #e2e8f0; border: 1px solid #cbd5e1; }
+
+.evidence-panel { padding: 12px; background: #eff6ff; border-bottom: 1px solid #bfdbfe; }
+.evidence-panel h4 { font-size: 11px; font-weight: 700; color: #1e40af; margin-bottom: 8px; }
+.evidence-steps { background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #dbeafe; margin-bottom: 10px; }
+.evidence-step { display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-bottom: 4px; }
+.evidence-step:last-child { margin-bottom: 0; }
+.rating-badge { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; display: inline-block; }
+.rating-high { background: #dcfce7; color: #15803d; }
+.rating-moderate { background: #dbeafe; color: #1d4ed8; }
+.rating-low { background: #ffedd5; color: #c2410c; }
+.rating-verylow { background: #fee2e2; color: #dc2626; }
+.indirect-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.indirect-row label { font-size: 11px; font-weight: 700; color: #334155; white-space: nowrap; }
+.indirect-row select { flex: 1; font-size: 11px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px; }
+.intrans-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.intrans-row label { font-size: 11px; font-weight: 700; color: #334155; white-space: nowrap; }
+.intrans-row select { flex: 1; font-size: 11px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px; }
+
+.panel-footer { padding: 12px; border-top: 1px solid #e2e8f0; background: #f8fafc; text-align: center; }
+
+.graph-panel { position: relative; min-height: 550px; }
+.graph-overlay { position: absolute; top: 16px; left: 16px; z-index: 5; pointer-events: none; }
+.graph-overlay h2 { font-size: 15px; font-weight: 700; color: #1e293b; background: rgba(255,255,255,0.88); padding: 2px 8px; border-radius: 4px; }
+.graph-overlay .focus-label { font-size: 12px; color: #2563eb; font-weight: 600; background: rgba(255,255,255,0.88); padding: 2px 8px; border-radius: 4px; }
+.graph-legend { position: absolute; bottom: 16px; right: 16px; background: rgba(255,255,255,0.92); padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-size: 11px; backdrop-filter: blur(4px); pointer-events: none; }
+.graph-legend .legend-title { font-weight: 700; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 6px; color: #334155; }
+.legend-row { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #64748b; margin-bottom: 4px; }
+.legend-line { width: 24px; height: 3px; border-radius: 2px; }
+
+details summary { cursor: pointer; font-size: 13px; font-weight: 700; color: #334155; padding: 4px; }
+textarea.data-input { width: 100%; height: 120px; font-size: 11px; font-family: 'SF Mono', monospace; border: 1px solid #e2e8f0; padding: 8px; border-radius: 6px; resize: vertical; }
+
+.left-col { display: flex; flex-direction: column; gap: 16px; max-height: calc(100vh - 100px); }
+.right-col { display: flex; flex-direction: column; gap: 16px; max-height: calc(100vh - 100px); }
+.loops-panel { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.loops-list { flex: 1; overflow-y: auto; }
+.graph-container { flex: 1; min-height: 0; }
+
+.empty-state { padding: 40px 20px; text-align: center; color: #94a3b8; font-size: 13px; }
+
+/* Guide/Help modal */
+.modal-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.55); }
+.modal { background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); max-width: 780px; width: 95%; padding: 0; max-height: 92vh; overflow: hidden; display: flex; flex-direction: column; }
+.modal-header-bar { background: #1e293b; color: #fff; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.modal-header-bar h3 { font-size: 16px; font-weight: 700; }
+.modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+.modal-body h4 { font-size: 15px; font-weight: 700; color: #1e293b; margin: 20px 0 10px 0; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+.modal-body h4:first-child { margin-top: 0; }
+.modal-body p { font-size: 13px; line-height: 1.8; color: #475569; margin-bottom: 10px; }
+.modal-body li { font-size: 13px; line-height: 1.8; color: #475569; margin-bottom: 6px; }
+.modal-body ol, .modal-body ul { padding-left: 22px; margin-bottom: 12px; }
+.modal-body code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; font-family: 'SF Mono', monospace; font-size: 12px; }
+.modal-body .box { padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 14px; }
+.modal-body .box-blue { background: #eff6ff; border-color: #bfdbfe; }
+.modal-body .box-yellow { background: #fefce8; border-color: #fde68a; }
+.modal-body .box-green { background: #f0fdf4; border-color: #bbf7d0; }
+.modal-body .box-gray { background: #f8fafc; border-color: #e2e8f0; }
+.modal-body .step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #2563eb; color: #fff; border-radius: 50%; font-size: 13px; font-weight: 700; margin-right: 8px; flex-shrink: 0; vertical-align: middle; }
+.modal-body .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; padding: 10px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+.modal-body .step-item p { margin-bottom: 0; }
+.modal-body .ref-item { font-size: 12px; line-height: 1.6; color: #475569; margin-bottom: 6px; padding-left: 20px; text-indent: -20px; }
+.modal-footer-bar { padding: 12px 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; background: #f8fafc; }
+.modal-footer-bar label { font-size: 12px; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+/* Grading view */
+.grading-view { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.grading-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #fff; padding: 16px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+.grading-header-left { display: flex; align-items: center; gap: 12px; }
+.grading-header h2 { font-size: 17px; font-weight: 700; color: #1e293b; }
+.grading-header p { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+.grading-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.grading-table th { background: #f1f5f9; padding: 12px 14px; border-bottom: 1px solid #e2e8f0; text-align: left; color: #475569; font-weight: 600; }
+.grading-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; }
+.grading-table tr:hover { background: #f8fafc; }
+.grading-select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight: 600; }
+
+/* Report view */
+.report-view { max-width: 1100px; margin: 0 auto; padding: 32px; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+.report-header-buttons { display: flex; gap: 10px; }
+.report-title { font-size: 19px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+.report-subtitle { font-size: 13px; color: #94a3b8; }
+.report-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.report-table th { background: #f1f5f9; padding: 10px 8px; border-bottom: 2px solid #cbd5e1; text-align: left; color: #475569; font-weight: 600; font-size: 11px; }
+.report-table td { padding: 10px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+.report-table tr:hover { background: #f8fafc; }
+.report-footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; }
+.check-mark { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #dbeafe; color: #2563eb; border-radius: 50%; font-size: 11px; font-weight: 700; }
+.path-text { font-family: 'SF Mono', monospace; font-size: 11px; color: #475569; line-height: 1.4; }
+.direct-cert-item { display: flex; align-items: center; gap: 4px; font-size: 11px; margin-bottom: 2px; }
+.direct-cert-item .dot { width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; flex-shrink: 0; }
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: #94a3b8; }
+.text-italic { font-style: italic; }
+.text-xs { font-size: 11px; }
+.fw-bold { font-weight: 700; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+.w-full { width: 100%; }
+.gap-2 { gap: 8px; }
+
+.contrib-bar { display: inline-block; height: 8px; border-radius: 3px; background: #60a5fa; margin-right: 4px; vertical-align: middle; }
+.info-text { color: #2563eb; font-size: 10px; font-weight: 600; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+@media print {
+  body * { visibility: hidden; }
+  .report-view, .report-view * { visibility: visible; }
+  .report-view { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px; border: none; box-shadow: none; }
+  .report-header-buttons { display: none !important; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  var state = {
+    inputData: '',
+    parsedData: null,
+    targetPair: null,
+    loops: [],
+    selectedLoop: null,
+    showGuide: false,
+    viewMode: 'analyzer',
+    directRatings: {},
+    selectedHistory: {},
+    intransitivityRatings: {},
+    hideGuideOnStart: false
+  };
+
+  // Check localStorage for guide preference
+  try {
+    state.hideGuideOnStart = localStorage.getItem('nma_hide_guide') === 'true';
+  } catch(e) {}
+
+  var DEFAULT_DATA = "study\ttrial\ttrt\tn\td\n1\tSyst-Eur\tCCB\t2398\t37\n1\tSyst-Eur\tPlacebo\t2297\t49\n2\tSyst-China\tCCB\t1253\t4\n2\tSyst-China\tPlacebo\t1141\t8\n3\tUKPDS\tACE\t400\t12\n3\tUKPDS\tBB\t358\t9\n4\tABCD\tACE\t235\t5\n4\tABCD\tCCB\t235\t6\n5\tVHAS\tCCB\t707\t2\n5\tVHAS\tDD\t707\t0\n6\tCAPPP\tACE\t5492\t75\n6\tCAPPP\tCT\t5493\t66\n7\tNICS-EH\tCCB\t204\t0\n7\tNICS-EH\tDD\t210\t3\n8\tSTOP-2\tCCB\t2196\t186\n8\tSTOP-2\tCT\t2213\t177\n8\tSTOP-2\tACE\t2205\t149\n9\tINSIGHT\tCCB\t3157\t26\n9\tINSIGHT\tDD\t3164\t12\n10\tNORDIL\tCCB\t5410\t63\n10\tNORDIL\tCT\t5471\t53\n11\tALLHAT2000\tAB\t9067\t491\n11\tALLHAT2000\tDD\t15268\t420\n12\tHOPE\tACE\t4645\t417\n12\tHOPE\tPlacebo\t4652\t535\n13\tRENRAL\tARB\t751\t89\n13\tRENRAL\tPlacebo\t762\t127\n14\tLIFE\tARB\t4605\t153\n14\tLIFE\tBB\t4588\t161\n15\tCONVINCE\tCCB\t8179\t126\n15\tCONVINCE\tCT\t8297\t100\n16\tALLHAT2002\tCCB\t9048\t706\n16\tALLHAT2002\tDD\t15255\t870\n16\tALLHAT2002\tACE\t9054\t612\n17\tVALUE\tARB\t7649\t354\n17\tVALUE\tCCB\t7596\t400\n18\tANBP2\tACE\t3044\t69\n18\tANBP2\tDD\t3039\t78\n19\tSHELL\tCCB\t942\t23\n19\tSHELL\tDD\t940\t19\n20\tFEVER\tCCB\t4841\t18\n20\tFEVER\tPlacebo\t4870\t27\n21\tASCOT-BPLA\tCCB\t9639\t134\n21\tASCOT-BPLA\tBB\t9618\t159\n22\tE-COST\tARB\t1053\t35\n22\tE-COST\tCT\t995\t41\n23\tJikei Heart Study\tARB\t1541\t19\n23\tJikei Heart Study\tCT\t1540\t36\n24\tHYVET\tDD\t1933\t22\n24\tHYVET\tPlacebo\t1912\t57\n25\tONTARGET\tACE\t8576\t514\n25\tONTARGET\tARB\t8542\t537\n26\tTRANSEND\tARB\t2954\t134\n26\tTRANSEND\tPlacebo\t2972\t129";
+
+  var CERTAINTY_OPTIONS = [
+    { value: 'High', label: 'High（高）', color: '#15803d', bg: '#dcfce7' },
+    { value: 'Moderate', label: 'Moderate（中）', color: '#1d4ed8', bg: '#dbeafe' },
+    { value: 'Low', label: 'Low（低）', color: '#c2410c', bg: '#ffedd5' },
+    { value: 'Very Low', label: 'Very Low（非常に低）', color: '#dc2626', bg: '#fee2e2' }
+  ];
+  var INTRANS_OPTIONS = [
+    { value: 'none', label: '問題なし（格下げなし）' },
+    { value: 'serious', label: '深刻（1段階格下げ）' },
+    { value: 'very_serious', label: '非常に深刻（2段階格下げ）' }
+  ];
+
+  function getCertaintyOpt(level) { for (var i=0;i<CERTAINTY_OPTIONS.length;i++) { if (CERTAINTY_OPTIONS[i].value===level) return CERTAINTY_OPTIONS[i]; } return null; }
+  function getCertaintyLabel(level) { var o=getCertaintyOpt(level); return o?o.label:'-'; }
+  function getRatingBadgeClass(level) { if(level==='High') return 'rating-high'; if(level==='Moderate') return 'rating-moderate'; if(level==='Low') return 'rating-low'; if(level==='Very Low') return 'rating-verylow'; return ''; }
+  function getRatingBubbleClass(level) { if(level==='High') return 'rb-high'; if(level==='Moderate') return 'rb-moderate'; if(level==='Low') return 'rb-low'; if(level==='Very Low') return 'rb-verylow'; return 'rb-none'; }
+  function certaintyToNum(level) { if(level==='High') return 4; if(level==='Moderate') return 3; if(level==='Low') return 2; if(level==='Very Low') return 1; return 0; }
+  function numToCertainty(n) { if(n>=4) return 'High'; if(n>=3) return 'Moderate'; if(n>=2) return 'Low'; return 'Very Low'; }
+  function getPairKey(a,b) { var arr=[a,b].sort(); return arr[0]+'|||'+arr[1]; }
+
+  function calcStudyStats(n1,d1,n2,d2) {
+    var nc = (d1===0||d2===0||d1===n1||d2===n2);
+    var a=nc?d1+0.5:d1, b=nc?(n1-d1)+0.5:n1-d1, c=nc?d2+0.5:d2, d=nc?(n2-d2)+0.5:n2-d2;
+    var lnOR=Math.log((a*d)/(b*c));
+    var v=1/a+1/b+1/c+1/d;
+    return {lnOR:lnOR,v:v};
+  }
+
+  function parseData(input) {
+    if(!input||!input.trim()) return [];
+    var lines=input.trim().split('\n');
+    if(lines.length<2) return [];
+    var fl=lines[0], del='\t';
+    if(fl.indexOf('\t')<0) { if(fl.indexOf(',')>=0) del=','; else del='space'; }
+    var sp=function(line){ if(del==='space') return line.split(/\s+/).map(function(s){return s.trim();}); return line.split(del).map(function(s){return s.trim();}); };
+    var headers=sp(lines[0]).map(function(h){return h.toLowerCase().replace(/"/g,'');});
+    var data=[];
+    for(var i=1;i<lines.length;i++){
+      var line=lines[i].trim(); if(!line) continue;
+      var vals=sp(line).map(function(v){return v.replace(/"/g,'');});
+      var gv=function(keys){for(var k=0;k<keys.length;k++){var idx=headers.indexOf(keys[k]);if(idx>=0&&vals[idx]!==undefined)return vals[idx];}return null;};
+      var row={study:gv(['study','id','studyid'])||vals[0]||'',trial:gv(['trial','name','trialname'])||vals[1]||'',trt:gv(['trt','treatment','arm','intervention'])||vals[2]||'',n:parseInt(gv(['n','sample','total','samplesize'])||vals[3]||'0',10),d:parseInt(gv(['d','event','events','r'])||vals[4]||'0',10)};
+      if(row.trt&&!isNaN(row.n)&&row.n>0) data.push(row);
+    }
+    return data;
+  }
+
+  function processNetworkData(rows) {
+    var nodesMap={}, studies={};
+    rows.forEach(function(row){ var key=row.trial||row.study; if(!studies[key]) studies[key]=[]; studies[key].push(row); nodesMap[row.trt]=(nodesMap[row.trt]||0)+row.n; });
+    var edgesMap={};
+    Object.keys(studies).forEach(function(key){ var arms=studies[key]; for(var i=0;i<arms.length;i++) for(var j=i+1;j<arms.length;j++){ var a=arms[i],b=arms[j],sorted=[a.trt,b.trt].sort(),ekey=sorted[0]+'|||'+sorted[1]; var s=calcStudyStats(a.n,a.d,b.n,b.d),w=(s.v>0&&isFinite(s.v))?1/s.v:0; if(!edgesMap[ekey]) edgesMap[ekey]={swl:0,sw:0,tN:0,sc:0}; var e=edgesMap[ekey]; e.swl+=w*s.lnOR; e.sw+=w; e.tN+=(a.n+b.n); e.sc+=1; } });
+    var nodes=Object.keys(nodesMap).map(function(id){return{id:id,totalN:nodesMap[id]};}).sort(function(a,b){return a.id.localeCompare(b.id);});
+    var links=Object.keys(edgesMap).map(function(key){ var p=key.split('|||'),d=edgesMap[key]; return{source:p[0],target:p[1],stats:{pooledLnOR:d.sw>0?d.swl/d.sw:0,pooledVar:d.sw>0?1/d.sw:Infinity,totalN:d.tN,studyCount:d.sc}}; });
+    return {nodes:nodes,links:links};
+  }
+
+  function findLoops() {
+    if(!state.parsedData||!state.targetPair){state.loops=[];return;}
+    var tA=state.targetPair[0],tB=state.targetPair[1];
+    if(!tA||!tB||tA===tB){state.loops=[];return;}
+    var links=state.parsedData.links,adj={};
+    links.forEach(function(l){if(!adj[l.source])adj[l.source]={};if(!adj[l.target])adj[l.target]={};adj[l.source][l.target]=l.stats;adj[l.target][l.source]=l.stats;});
+    var found=[];
+    var nA=adj[tA]||{};
+    Object.keys(nA).forEach(function(c){if(c===tB)return;var nC=adj[c]||{};if(nC[tB]){var sAC=nA[c],sCB=nC[tB],bv=sAC.pooledVar+sCB.pooledVar,cw=(bv>0&&isFinite(bv))?1/bv:0; found.push({type:'1次',path:[tA,c,tB],via:[c],totalN:sAC.totalN+sCB.totalN,bucherVar:bv,contribWeight:cw,studyCounts:[sAC.studyCount,sCB.studyCount],edgeStats:[sAC,sCB]});}});
+    Object.keys(nA).forEach(function(c){if(c===tB)return;var nC=adj[c]||{};Object.keys(nC).forEach(function(d){if(d===tA||d===tB||d===c)return;var nD=adj[d]||{};if(nD[tB]){var sAC=nA[c],sCD=nC[d],sDB=nD[tB],bv=sAC.pooledVar+sCD.pooledVar+sDB.pooledVar,cw=(bv>0&&isFinite(bv))?1/bv:0; found.push({type:'2次',path:[tA,c,d,tB],via:[c,d],totalN:sAC.totalN+sCD.totalN+sDB.totalN,bucherVar:bv,contribWeight:cw,studyCounts:[sAC.studyCount,sCD.studyCount,sDB.studyCount],edgeStats:[sAC,sCD,sDB]});}});});
+    found.sort(function(a,b){if(a.type!==b.type)return a.type==='1次'?-1:1;return b.contribWeight-a.contribWeight;});
+    state.loops=found;
+    var pk=getPairKey(tA,tB);
+    if(state.selectedHistory[pk]){var pp=state.selectedHistory[pk].loop.path.join(','),f=false;for(var i=0;i<found.length;i++){if(found[i].path.join(',')=== pp){state.selectedLoop=found[i];state.selectedHistory[pk].loop=found[i];f=true;break;}}if(!f)state.selectedLoop=null;}
+    else state.selectedLoop=null;
+  }
+
+  function getLoopStartCertainty(loop){var m=4;for(var i=0;i<loop.path.length-1;i++){var rk=getPairKey(loop.path[i],loop.path[i+1]),r=state.directRatings[rk];if(r){var lv=certaintyToNum(r);if(lv<m)m=lv;}else return null;}return numToCertainty(m);}
+  function getIndirectCertainty(loop,pk){var s=getLoopStartCertainty(loop);if(!s)return null;var sn=certaintyToNum(s),it=state.intransitivityRatings[pk]||'none',dg=0;if(it==='serious')dg=1;if(it==='very_serious')dg=2;return numToCertainty(Math.max(1,sn-dg));}
+
+  function esc(str){var d=document.createElement('div');d.appendChild(document.createTextNode(str||''));return d.innerHTML;}
+
+  // ========== GUIDE CONTENT ==========
+  function renderGuideContent() {
+    var h = '';
+    h += '<h4>📖 このツールについて</h4>';
+    h += '<p>NMA Loop Analyzerは、ネットワークメタ分析（NMA）においてGRADEアプローチに基づくエビデンスの確実性評価を支援するツールです。特に、<strong>間接エビデンスの確実性評価</strong>（GRADEステップB1〜B2）に焦点を当てています。</p>';
+    h += '<p>任意の治療ペアについて、1次ループ（中間ノード1つ）および2次ループ（中間ノード2つ）を自動的に検出し、Bucher法による間接比較の分散を計算します。各ループの構成辺に対するGRADE直接エビデンス評価を基に、間接推定値の確実性を半自動で算出します。</p>';
+
+    h += '<h4>📋 入力データの形式</h4>';
+    h += '<div class="box box-blue">';
+    h += '<p><strong>必須カラム（5列）：</strong></p>';
+    h += '<ul>';
+    h += '<li><code>study</code> — 研究の識別番号（数値またはテキスト）</li>';
+    h += '<li><code>trial</code> — 試験名（同じ試験の各アームを紐付けるキー）</li>';
+    h += '<li><code>trt</code> — 治療名・介入名（ネットワーク上のノード名になる）</li>';
+    h += '<li><code>n</code> — そのアームの参加者数</li>';
+    h += '<li><code>d</code> — そのアームのイベント数</li>';
+    h += '</ul>';
+    h += '<p><strong>対応形式：</strong>CSV（カンマ区切り）またはTSV（タブ区切り）。1行目はヘッダー行が必要です。</p>';
+    h += '<p style="margin-bottom:4px"><strong>CSV形式の例：</strong></p>';
+    h += '<code style="display:block;white-space:pre;font-size:11px;background:#fff;padding:8px;border:1px solid #e2e8f0;border-radius:4px;margin-bottom:8px">study,trial,trt,n,d\n1,HOPE,ACE,4645,417\n1,HOPE,Placebo,4652,535\n2,LIFE,ARB,4605,153\n2,LIFE,BB,4588,161</code>';
+    h += '<p><strong>重要なポイント：</strong></p>';
+    h += '<ul>';
+    h += '<li>同じ試験の各アーム（治療群）は同じ <code>study</code> または <code>trial</code> の値を共有する必要があります</li>';
+    h += '<li>3アーム以上の多アーム試験も対応しています（例：STOP-2試験はCCB, CT, ACEの3アーム）</li>';
+    h += '<li>デフォルトで降圧薬のサンプルデータが読み込まれています</li>';
+    h += '</ul>';
+    h += '</div>';
+
+    h += '<h4>🔄 使い方の手順（ワークフロー）</h4>';
+    h += '<p>以下の順番で作業を進めてください：</p>';
+
+    h += '<div class="step-item"><span class="step-num">1</span><div><p><strong>データを入力する</strong><br>右側パネル上部の「データ入力（CSV/TSV）」をクリックして開き、テキストエリアにデータを貼り付けて「読み込む」をクリックします。初回起動時にはサンプルデータが自動的に読み込まれています。</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">2</span><div><p><strong>直接エビデンスのGRADE評価を行う（ステップA1）</strong><br>ヘッダーの<strong>「直接エビデンスGRADE」</strong>ボタンをクリックします。すべての直接比較について、リスク・オブ・バイアス、非一貫性、非直接性、出版バイアスの4ドメインを考慮した予備的確実性（精密さを除く）を High / Moderate / Low / Very Low で評価します。<br>この評価が後のステップB1で間接エビデンスの基盤になるため、<strong>最初にすべての直接比較を評価する</strong>ことを推奨します。</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">3</span><div><p><strong>評価したい治療ペアを選択する</strong><br>左上の<strong>比較マトリクス</strong>のセルをクリックするか、右側の<strong>ネットワークグラフ</strong>上のノードを2つクリックして、治療ペアを選択します。<br>青いセル = 直接比較が存在するペア。灰色のドット = 過去に保存したペアです。</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">4</span><div><p><strong>ループ一覧を確認する（ステップB1）</strong><br>選択したペアについて検出された間接比較ループが、左下パネルに一覧表示されます。<br>1次ループが2次ループより優先され、同じ次数では逆分散重み（情報量）の大きい順にソートされます。最も優勢なループには「最優勢」ラベルが付きます。<br>各ループの列には、Bucher法による分散、総参加者数、研究数、寄与重み（%）が表示されます。</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">5</span><div><p><strong>ループをクリックして選択する</strong><br>評価したいループの行をクリックすると、ネットワークグラフ上でそのループが赤色でハイライトされ、上部にエビデンス詳細パネルが表示されます。<br>詳細パネルには以下の情報が表示されます：<br>・各辺（直接比較）のGRADE評価（ステップ2で評価した値）<br>・ループ開始確実性（全辺の最低値 = 間接推定値の出発点）<br>・推移性（intransitivity）の評価欄（ステップB2）<br>・間接推定値の予備的確実性（自動計算結果）</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">6</span><div><p><strong>推移性を評価する（ステップB2）</strong><br>ループを構成する直接比較間で、効果修飾因子（年齢、重症度、併用治療など）の分布に重大な不均衡がないかを評価します。問題がなければ「問題なし」、不均衡があれば「深刻」または「非常に深刻」を選択します。<br>必要に応じて、最終的な間接確実性を「手動上書き」ドロップダウンで調整できます。</p></div></div>';
+
+    h += '<div class="step-item"><span class="step-num">7</span><div><p><strong>レポートを確認・出力する</strong><br>左下の<strong>「レポート表示」</strong>ボタンをクリックすると、これまでに選択・評価したすべてのループの一覧が表示されます。CSVエクスポートや印刷/PDF出力にも対応しています。<br>複数のペアについて繰り返しステップ3〜6を行い、すべてをレポートにまとめることができます。</p></div></div>';
+
+    h += '<h4>📊 結果の見方</h4>';
+    h += '<div class="box box-green">';
+    h += '<p><strong>ネットワークグラフ：</strong>ノード（丸）のサイズは総参加者数に比例し、辺（線）の太さはペアの参加者数に比例します。治療ペアを選択すると、直接比較は青、1次ループ辺はオレンジ、2次ループ辺は紫、選択中のループは赤で表示されます。</p>';
+    h += '<p><strong>ループ一覧の列：</strong></p>';
+    h += '<ul>';
+    h += '<li><strong>経由ノード / 種別</strong> — ループが通過するノードと次数（1次/2次）。色付きの小さな丸は各辺のGRADE評価状況を示します（緑=High, 青=Moderate, オレンジ=Low, 赤=Very Low, 灰色=未評価）</li>';
+    h += '<li><strong>N（研究数）</strong> — ループに含まれる総参加者数と、括弧内は構成する研究の合計数</li>';
+    h += '<li><strong>Bucher分散</strong> — 間接比較の分散。値が小さいほど精度が高い</li>';
+    h += '<li><strong>寄与重み</strong> — 全ループ中のこのループの相対的な情報寄与（逆分散重みに基づく）</li>';
+    h += '</ul>';
+    h += '</div>';
+
+    h += '<h4>🧮 Bucher法の計算原理</h4>';
+    h += '<div class="box box-gray">';
+    h += '<p>Bucher法は、異なる試験間での間接比較を行う際に、各試験のランダム化を保存する方法です。</p>';
+    h += '<ol>';
+    h += '<li>各研究から2×2分割表の対数オッズ比（lnOR）と分散（Var）を計算：<br><code>Var(lnOR) = 1/a + 1/b + 1/c + 1/d</code>（Woolf法）<br>セルにゼロがある場合は0.5の連続性補正を適用</li>';
+    h += '<li>同じ比較の複数研究は逆分散重み付きで統合</li>';
+    h += '<li>1次ループ（AとBをCを経由して間接比較）：<br><code>Var(AB間接) = Var(AC) + Var(CB)</code></li>';
+    h += '<li>2次ループ（AとBをC, Dを経由して間接比較）：<br><code>Var(AB間接) = Var(AC) + Var(CD) + Var(DB)</code></li>';
+    h += '</ol>';
+    h += '</div>';
+
+    h += '<h4>📚 GRADE-NMAプロセスとの対応</h4>';
+    h += '<div class="box box-yellow">';
+    h += '<p>このツールは以下のGRADE-NMAステップに対応しています：</p>';
+    h += '<ul>';
+    h += '<li><strong>ステップA1</strong>（このツールの「直接エビデンスGRADE」画面）：全直接比較の予備的確実性を、リスク・オブ・バイアス・非一貫性・非直接性・出版バイアスの4ドメインで評価（精密さは除く）</li>';
+    h += '<li><strong>ステップB1</strong>（ループ一覧とエビデンス詳細パネル）：最も優勢な1次ループ（または2次ループ）を特定し、構成辺の確実性の最低値をもってループの開始確実性とする</li>';
+    h += '<li><strong>ステップB2</strong>（推移性評価ドロップダウン）：効果修飾因子の不均衡（推移性違反）を評価し、必要に応じて格下げ → 間接推定値の予備的確実性を決定</li>';
+    h += '</ul>';
+    h += '<p>なお、ステップA2（直接推定値の精密さ）、B3（間接推定値の精密さ）、C1〜C3（NMA推定値の確実性）、D（最良推定値の選択）は、このツールの対象範囲外です。公開されたGRADEガイダンスを参照してください。</p>';
+    h += '</div>';
+
+    h += '<h4>📖 参考文献</h4>';
+    h += '<div class="box box-gray" style="font-size:12px">';
+    h += '<div class="ref-item">[1] Bucher HC, Guyatt GH, Griffith LE, Walter SD. The results of direct and indirect treatment comparisons in meta-analysis of randomized controlled trials. <em>J Clin Epidemiol</em>. 1997;50(6):683-691.</div>';
+    h += '<div class="ref-item">[2] Puhan MA, et al. A GRADE Working Group approach for rating the quality of treatment effect estimates from network meta-analysis. <em>BMJ</em>. 2014;349:g5630.</div>';
+    h += '<div class="ref-item">[3] Brignardello-Petersen R, et al. Advances in the GRADE approach to rate the certainty in estimates from a network meta-analysis. <em>J Clin Epidemiol</em>. 2018;93:36-44.</div>';
+    h += '<div class="ref-item">[4] Izcovich A, Chu DK, Mustafa RA, Guyatt G, Brignardello-Petersen R. A guide and pragmatic considerations for applying GRADE to network meta-analysis. <em>BMJ</em>. 2023;381:e074495.</div>';
+    h += '<div class="ref-item">[5] Kamso MM, et al. A semi-automated approach facilitated the assessment of the certainty of evidence in a network meta-analysis: part 1. <em>J Clin Epidemiol</em>. 2026;191:112109.</div>';
+    h += '<div class="ref-item">[6] Tobías A, Catalá-López F, Roqué M. Desarrollo de una hoja Excel para metaanálisis de comparaciones indirectas y mixtas. <em>Rev Esp Salud Pública</em>. 2014;88:5-15.</div>';
+    h += '<div class="ref-item">[7] Brignardello-Petersen R, et al. GRADE approach to rate the certainty from a network meta-analysis: addressing incoherence. <em>J Clin Epidemiol</em>. 2019;108:77-85.</div>';
+    h += '<div class="ref-item">[8] Brignardello-Petersen R, et al. GRADE guidelines 33: Addressing imprecision in a network meta-analysis. <em>J Clin Epidemiol</em>. 2021;139:49-56.</div>';
+    h += '</div>';
+
+    return h;
+  }
+
+  // ========== SVG Drawing ==========
+  function drawGraph() {
+    var svgEl=document.getElementById('network-svg');
+    if(!svgEl||!state.parsedData||state.viewMode!=='analyzer') return;
+    var nodes=state.parsedData.nodes,links=state.parsedData.links,W=600,H=550,R=Math.min(W,H)/2-60;
+    svgEl.innerHTML=''; svgEl.setAttribute('viewBox','0 0 '+W+' '+H);
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g'); g.setAttribute('transform','translate('+(W/2)+','+(H/2)+')'); svgEl.appendChild(g);
+    var np={},n=nodes.length; nodes.forEach(function(nd,i){var a=(2*Math.PI*i/n)-Math.PI/2;np[nd.id]={x:R*Math.cos(a),y:R*Math.sin(a),angle:a};});
+    var maxN=1,maxLN=1; nodes.forEach(function(nd){if(nd.totalN>maxN)maxN=nd.totalN;}); links.forEach(function(l){if(l.stats.totalN>maxLN)maxLN=l.stats.totalN;});
+    function rS(v){return 4+Math.sqrt(v/maxN)*12;} function wS(v){return 1+(v/maxLN)*7;}
+    function gLT(s,t){if(!state.targetPair)return'normal';var a=state.targetPair[0],b=state.targetPair[1];if((s===a&&t===b)||(s===b&&t===a))return'direct';if(state.selectedLoop){for(var i=0;i<state.selectedLoop.path.length-1;i++){var p1=state.selectedLoop.path[i],p2=state.selectedLoop.path[i+1];if((s===p1&&t===p2)||(s===p2&&t===p1))return'selected';}return'faded';}var i1=false,i2=false;state.loops.forEach(function(lp){for(var i=0;i<lp.path.length-1;i++){var p1=lp.path[i],p2=lp.path[i+1];if((s===p1&&t===p2)||(s===p2&&t===p1)){if(lp.type==='1次')i1=true;if(lp.type==='2次')i2=true;}}});if(i1)return'1st';if(i2)return'2nd';return'faded';}
+    var lc={direct:'#2563eb',selected:'#ef4444','1st':'#f97316','2nd':'#9333ea',normal:'#e2e8f0',faded:'#e2e8f0'};
+    links.forEach(function(l){var s=np[l.source],t=np[l.target];if(!s||!t)return;var ln=document.createElementNS('http://www.w3.org/2000/svg','line');ln.setAttribute('x1',s.x);ln.setAttribute('y1',s.y);ln.setAttribute('x2',t.x);ln.setAttribute('y2',t.y);var tp=gLT(l.source,l.target);ln.setAttribute('stroke',lc[tp]||'#e2e8f0');var sw=wS(l.stats.totalN);if(['direct','selected','1st','2nd'].indexOf(tp)>=0)sw+=2;ln.setAttribute('stroke-width',sw);ln.setAttribute('opacity',tp==='faded'?'0.15':'0.8');ln.setAttribute('stroke-linecap','round');g.appendChild(ln);});
+    nodes.forEach(function(node){var pos=np[node.id],ng=document.createElementNS('http://www.w3.org/2000/svg','g');ng.setAttribute('transform','translate('+pos.x+','+pos.y+')');ng.style.cursor='pointer';
+    var ci=document.createElementNS('http://www.w3.org/2000/svg','circle');ci.setAttribute('r',rS(node.totalN));ci.setAttribute('stroke','#fff');ci.setAttribute('stroke-width','2');
+    var fc='#10b981',op=1;if(state.targetPair&&state.targetPair[0]&&state.targetPair[1]){if(state.targetPair.indexOf(node.id)>=0){fc='#2563eb';}else if(state.selectedLoop){fc=state.selectedLoop.path.indexOf(node.id)>=0?'#f59e0b':'#cbd5e1';}else{var in1=false,in2=false;state.loops.forEach(function(l){if(l.path.indexOf(node.id)>=0){if(l.type==='1次')in1=true;else in2=true;}});if(in1)fc='#f97316';else if(in2)fc='#9333ea';else fc='#cbd5e1';}var ir=state.targetPair.indexOf(node.id)>=0;if(!ir)state.loops.forEach(function(l){if(l.path.indexOf(node.id)>=0)ir=true;});op=ir?1:0.2;}
+    ci.setAttribute('fill',fc);ci.setAttribute('opacity',op);ng.appendChild(ci);
+    var tx=document.createElementNS('http://www.w3.org/2000/svg','text');tx.textContent=node.id;tx.setAttribute('font-size','11');tx.setAttribute('font-weight','600');tx.setAttribute('fill','#1e293b');tx.setAttribute('opacity',op);var isL=pos.angle>Math.PI/2&&pos.angle<3*Math.PI/2;tx.setAttribute('dx',isL?'-15':'15');tx.setAttribute('dy','4');tx.setAttribute('text-anchor',isL?'end':'start');ng.appendChild(tx);
+    (function(nid){ng.addEventListener('click',function(){if(!state.targetPair||(!state.targetPair[0]&&!state.targetPair[1])){state.targetPair=[nid,''];}else if(state.targetPair[0]&&!state.targetPair[1]){if(nid!==state.targetPair[0])state.targetPair=[state.targetPair[0],nid];}else{state.targetPair=[nid,''];state.selectedLoop=null;}findLoops();render();});})(node.id);
+    g.appendChild(ng);});
+  }
+
+  function render() {
+    var app=document.getElementById('app');
+    if(state.viewMode==='grading'&&state.parsedData){renderGrading(app);return;}
+    if(state.viewMode==='report'&&state.parsedData){renderReport(app);return;}
+    renderAnalyzer(app);
+  }
+
+  // ========== Grading ==========
+  function renderGrading(c) {
+    if(!state.parsedData) return;
+    var links=state.parsedData.links;
+    var h='<div class="grading-view"><div class="grading-header"><div class="grading-header-left">';
+    h+='<button class="btn btn-slate btn-sm" id="grading-back">&larr; 戻る</button>';
+    h+='<div><h2>直接エビデンスのGRADE評価（ステップA1）</h2>';
+    h+='<p>各直接比較について、リスク・オブ・バイアス、非一貫性、非直接性、出版バイアスの4ドメインを総合した予備的確実性（精密さを除く）を評価します。</p></div>';
+    h+='</div><div class="text-xs text-muted">直接比較数: '+links.length+'</div></div>';
+    h+='<div class="panel"><div style="overflow-x:auto"><table class="grading-table">';
+    h+='<thead><tr><th>比較</th><th class="text-center">研究数</th><th class="text-center">N</th><th>予備的確実性（精密さ除く）</th></tr></thead><tbody>';
+    links.forEach(function(link){var sorted=[link.source,link.target].sort(),key=sorted[0]+'|||'+sorted[1],cr=state.directRatings[key]||'';
+    h+='<tr><td style="font-weight:600;color:#334155">'+esc(sorted[0])+' <span style="color:#94a3b8;margin:0 4px">vs</span> '+esc(sorted[1])+'</td>';
+    h+='<td class="text-center mono">'+link.stats.studyCount+'</td>';
+    h+='<td class="text-center mono">'+link.stats.totalN.toLocaleString()+'</td>';
+    h+='<td><select class="grading-select" data-key="'+esc(key)+'">';
+    h+='<option value="">未評価</option>';
+    CERTAINTY_OPTIONS.forEach(function(opt){h+='<option value="'+opt.value+'"'+(cr===opt.value?' selected':'')+'>'+opt.label+'</option>';});
+    h+='</select></td></tr>';});
+    h+='</tbody></table></div>';
+    if(links.length===0) h+='<div class="empty-state">直接比較がありません</div>';
+    h+='</div><div class="mt-4 justify-end flex"><button class="btn btn-blue" id="grading-done">完了して戻る &rarr;</button></div></div>';
+    c.innerHTML=h;
+    document.getElementById('grading-back').addEventListener('click',function(){state.viewMode='analyzer';render();});
+    document.getElementById('grading-done').addEventListener('click',function(){state.viewMode='analyzer';render();});
+    c.querySelectorAll('.grading-select').forEach(function(sel){sel.addEventListener('change',function(){state.directRatings[this.getAttribute('data-key')]=this.value;var o=getCertaintyOpt(this.value);if(o){this.style.backgroundColor=o.bg;this.style.color=o.color;}else{this.style.backgroundColor='';this.style.color='';}});var v=sel.value,o=getCertaintyOpt(v);if(o){sel.style.backgroundColor=o.bg;sel.style.color=o.color;}});
+  }
+
+  // ========== Report ==========
+  function renderReport(c) {
+    if(!state.parsedData) return;
+    var links=state.parsedData.links,dp={};
+    links.forEach(function(l){dp[getPairKey(l.source,l.target)]=true;});
+    var rd=[];
+    Object.keys(state.selectedHistory).forEach(function(key){var it=state.selectedHistory[key],hd=!!dp[getPairKey(it.pair[0],it.pair[1])],pc=[];
+    for(var i=0;i<it.loop.path.length-1;i++){var p1=it.loop.path[i],p2=it.loop.path[i+1],rk=getPairKey(p1,p2),r=state.directRatings[rk];if(r)pc.push({label:p1+' vs '+p2+': '+getCertaintyLabel(r),level:r});}
+    var sc=getLoopStartCertainty(it.loop),ic=getIndirectCertainty(it.loop,key);
+    rd.push({pair:it.pair,loop:it.loop,indirectCertainty:it.indirectCertainty||(ic||''),startCertainty:sc,hasDirect:hd,pathCertainties:pc,intransitivity:state.intransitivityRatings[key]||'none'});});
+
+    var h='<div class="report-view"><div class="report-header no-print">';
+    h+='<button class="btn btn-slate btn-sm" id="report-back">&larr; 分析画面に戻る</button>';
+    h+='<div class="report-header-buttons"><button class="btn btn-red" id="report-clear">すべてクリア</button>';
+    h+='<button class="btn btn-white" id="report-csv">CSVエクスポート</button>';
+    h+='<button class="btn btn-blue" id="report-print">印刷 / PDF</button></div></div>';
+    h+='<div style="margin-bottom:24px;border-bottom:1px solid #e2e8f0;padding-bottom:16px">';
+    h+='<div class="report-title">NMA 間接エビデンス評価レポート</div>';
+    h+='<div class="flex justify-between items-center"><div class="report-subtitle">GRADE-NMA ステップB1〜B2: 選択されたループと確実性評価の一覧</div>';
+    h+='<div class="text-right text-xs text-muted"><div>ペア数: '+rd.length+'</div><div>'+new Date().toLocaleDateString('ja-JP')+'</div></div></div></div>';
+
+    if(rd.length===0){h+='<div class="empty-state" style="border:2px dashed #e2e8f0;border-radius:8px">保存されたループがありません。分析画面でペアを選択し、ループをクリックしてください。</div>';}
+    else{h+='<div style="overflow-x:auto"><table class="report-table"><thead><tr><th>比較ペア</th><th class="text-center">直接？</th><th>選択ループ</th><th>直接予備的確実性</th><th>開始確実性</th><th>推移性</th><th>間接確実性</th><th class="text-right">Bucher分散</th></tr></thead><tbody>';
+    rd.forEach(function(d){h+='<tr><td><div style="font-weight:700;color:#334155;white-space:nowrap">'+esc(d.pair[0])+' vs '+esc(d.pair[1])+'</div></td>';
+    h+='<td class="text-center">'+(d.hasDirect?'<span class="check-mark">&#10003;</span>':'<span class="text-muted">-</span>')+'</td>';
+    h+='<td><span class="loop-type '+(d.loop.type==='1次'?'loop-type-1st':'loop-type-2nd')+'">'+d.loop.type+'ループ</span>';
+    h+='<div class="path-text" style="margin-top:4px">'+d.loop.path.join(' &rarr; ')+'</div></td><td>';
+    if(d.pathCertainties.length>0){d.pathCertainties.forEach(function(pc){h+='<div class="direct-cert-item"><span class="dot"></span>'+esc(pc.label)+'</div>';});}else h+='<span class="text-muted text-italic text-xs">未評価</span>';
+    h+='</td><td>';
+    if(d.startCertainty)h+='<span class="rating-badge '+getRatingBadgeClass(d.startCertainty)+'">'+getCertaintyLabel(d.startCertainty)+'</span>';else h+='<span class="text-muted">-</span>';
+    h+='</td><td class="text-xs">'+(d.intransitivity==='none'?'問題なし':d.intransitivity==='serious'?'深刻(&darr;1)':'非常に深刻(&darr;2)')+'</td><td>';
+    if(d.indirectCertainty)h+='<span class="rating-badge '+getRatingBadgeClass(d.indirectCertainty)+'">'+getCertaintyLabel(d.indirectCertainty)+'</span>';else h+='<span class="text-muted">-</span>';
+    h+='</td><td class="text-right mono text-xs text-muted">'+d.loop.bucherVar.toFixed(4)+'</td></tr>';});
+    h+='</tbody></table></div>';}
+    h+='<div class="report-footer"><span>NMA Loop Analyzer v4.1 — GRADE-NMA 間接エビデンス評価</span><span>'+new Date().toLocaleDateString('ja-JP')+'</span></div></div>';
+    c.innerHTML=h;
+    document.getElementById('report-back').addEventListener('click',function(){state.viewMode='analyzer';render();});
+    document.getElementById('report-clear').addEventListener('click',function(){state.selectedHistory={};state.intransitivityRatings={};render();});
+    document.getElementById('report-print').addEventListener('click',function(){window.print();});
+    document.getElementById('report-csv').addEventListener('click',function(){var csv='NMA間接エビデンス評価レポート\n日付,'+new Date().toLocaleDateString('ja-JP')+'\n\n比較ペア,直接比較,ループ種別,経路,直接確実性,開始確実性,推移性,間接確実性,総N,Bucher分散\n';rd.forEach(function(d){var dc=d.pathCertainties.map(function(pc){return pc.label;}).join('; ');csv+='"'+d.pair[0]+' vs '+d.pair[1]+'",'+(d.hasDirect?'あり':'なし')+','+d.loop.type+',"'+d.loop.path.join(' -> ')+'","'+dc+'",'+(d.startCertainty||'-')+','+(d.intransitivity==='none'?'問題なし':d.intransitivity)+','+(d.indirectCertainty||'-')+','+d.loop.totalN+','+d.loop.bucherVar+'\n';});var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.setAttribute('download','nma_indirect_evidence_report.csv');document.body.appendChild(a);a.click();document.body.removeChild(a);});
+  }
+
+  // ========== Analyzer ==========
+  function renderAnalyzer(c) {
+    var h='';
+
+    // Guide modal
+    if(state.showGuide){
+      h+='<div class="modal-overlay" id="guide-overlay"><div class="modal">';
+      h+='<div class="modal-header-bar"><h3>📖 使い方ガイド・ヘルプ</h3><button class="btn btn-sm" style="background:#475569;color:#fff" id="guide-close-top">✕ 閉じる</button></div>';
+      h+='<div class="modal-body" id="guide-body">'+renderGuideContent()+'</div>';
+      h+='<div class="modal-footer-bar"><label><input type="checkbox" id="guide-hide-check"'+(state.hideGuideOnStart?' checked':'')+' /> 次回起動時にこのガイドを自動表示しない</label>';
+      h+='<button class="btn btn-blue btn-sm" id="guide-close-bottom">閉じて始める</button></div>';
+      h+='</div></div>';
+    }
+
+    // Header
+    h+='<div class="header"><div class="header-left"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>';
+    h+='<h1>NMA Loop Analyzer <span>v4.1 GRADE-NMA</span></h1></div>';
+    h+='<div class="header-right">';
+    h+='<button class="btn btn-teal btn-sm" id="btn-guide">📖 使い方</button>';
+    h+='<button class="btn btn-orange btn-sm" id="btn-grading">直接エビデンスGRADE (A1)</button>';
+    h+='<button class="btn btn-slate btn-sm" id="btn-reset">サンプルデータ</button>';
+    h+='</div></div>';
+
+    // Main
+    h+='<div class="main"><div class="left-col">';
+
+    // Matrix
+    h+='<div class="panel"><div class="panel-body">';
+    h+='<h3 style="font-size:13px;font-weight:700;color:#334155;margin-bottom:6px">比較マトリクス <span style="font-size:10px;font-weight:400;color:#94a3b8">（クリックでペア選択）</span></h3>';
+    h+='<div style="font-size:10px;color:#94a3b8;margin-bottom:6px">';
+    h+='<span style="display:inline-block;width:10px;height:10px;background:#dbeafe;border:1px solid #bfdbfe;vertical-align:middle;margin:0 2px"></span>直接比較 ';
+    h+='<span style="display:inline-block;width:10px;height:10px;background:#facc15;border:1px solid #ca8a04;vertical-align:middle;margin:0 2px"></span>選択中 ';
+    h+='<span style="display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;vertical-align:middle;margin:0 2px"><span style="width:5px;height:5px;background:#94a3b8;border-radius:50%"></span></span>保存済み</div>';
+    h+=renderMatrix();
+    if(state.targetPair&&state.targetPair[0]&&state.targetPair[1]){
+      var hdl=false;if(state.parsedData)state.parsedData.links.forEach(function(l){if(getPairKey(l.source,l.target)===getPairKey(state.targetPair[0],state.targetPair[1]))hdl=true;});
+      h+='<div class="selection-info">対象ペア: <span class="blue">'+esc(state.targetPair[0])+'</span> vs <span class="blue">'+esc(state.targetPair[1])+'</span>';
+      if(hdl) h+=' <span style="font-size:10px;color:#16a34a;margin-left:6px">（直接比較あり）</span>';
+      h+='</div>';}
+    h+='</div></div>';
+
+    // Loops
+    h+='<div class="panel loops-panel"><div class="panel-header"><h3>間接比較ループ一覧（B1）</h3><span style="font-size:11px;background:#e2e8f0;padding:2px 8px;border-radius:10px">'+state.loops.length+' ループ</span></div>';
+    if(state.selectedLoop&&state.targetPair) h+=renderEvidenceDetail();
+    h+='<div class="loops-list">';
+    if(!state.targetPair||!state.targetPair[1]){h+='<div class="empty-state">マトリクスまたはグラフから治療ペアを選択してください</div>';}
+    else if(state.loops.length===0){h+='<div class="empty-state">このペアの間接比較ループは見つかりませんでした</div>';}
+    else{
+      h+='<table class="loop-table"><thead><tr><th>経由ノード / 種別</th><th class="text-right">N（研究数）</th><th class="text-right">Bucher分散</th><th class="text-right">寄与重み</th></tr></thead><tbody>';
+      var tc=0;state.loops.forEach(function(lp){tc+=lp.contribWeight;});
+      state.loops.forEach(function(lp,i){var is=state.selectedLoop===lp,rb='';
+      for(var j=0;j<lp.path.length-1;j++){var rk=getPairKey(lp.path[j],lp.path[j+1]);rb+='<span class="rating-bubble '+getRatingBubbleClass(state.directRatings[rk]||'')+'"></span>';}
+      var ss=lp.studyCounts.reduce(function(a,b){return a+b;},0),pct=tc>0?(lp.contribWeight/tc*100):0;
+      h+='<tr class="loop-row'+(is?' active':'')+'" data-loop-idx="'+i+'">';
+      h+='<td><div style="font-weight:700;color:#334155;display:flex;align-items:center;gap:6px">'+esc(lp.via.join(', '))+'<span class="rating-bubbles">'+rb+'</span></div>';
+      h+='<span class="loop-type '+(lp.type==='1次'?'loop-type-1st':'loop-type-2nd')+'">'+lp.type+'ループ</span>';
+      if(i===0) h+=' <span class="info-text" style="margin-left:4px">最優勢</span>';
+      h+='</td><td class="text-right mono" style="color:#475569">'+lp.totalN.toLocaleString()+'<div style="font-size:10px;color:#94a3b8">('+ss+'研究)</div></td>';
+      h+='<td class="text-right mono fw-bold" style="color:#334155">'+lp.bucherVar.toFixed(4)+'</td>';
+      h+='<td class="text-right"><span class="contrib-bar" style="width:'+Math.max(2,pct*0.5)+'px"></span><span class="mono text-xs">'+pct.toFixed(1)+'%</span></td></tr>';});
+      h+='</tbody></table>';}
+    h+='</div>';
+    var hc=Object.keys(state.selectedHistory).length;
+    h+='<div class="panel-footer"><button class="btn btn-dark w-full" id="btn-report" style="justify-content:center">レポート表示（'+hc+'ペア保存済み）</button></div></div></div>';
+
+    // Right column
+    h+='<div class="right-col">';
+    h+='<div class="panel"><div class="panel-body"><details id="data-details">';
+    h+='<summary>データ入力（CSV / TSV）</summary>';
+    h+='<div style="margin-top:8px"><p style="font-size:11px;color:#64748b;margin-bottom:6px">カラム: study, trial, trt, n, d を含むCSV（カンマ区切り）またはTSV（タブ区切り）データを貼り付けてください。詳しくは「使い方」をご覧ください。</p>';
+    h+='<textarea class="data-input" id="data-textarea">'+esc(state.inputData)+'</textarea>';
+    h+='<div style="margin-top:6px;display:flex;justify-content:flex-end"><button class="btn btn-blue btn-sm" id="btn-load">読み込む</button></div></div>';
+    h+='</details></div></div>';
+
+    h+='<div class="panel graph-container graph-panel"><div class="graph-overlay"><h2>ネットワークグラフ</h2>';
+    if(state.targetPair&&state.targetPair[0]&&state.targetPair[1]) h+='<div class="focus-label">フォーカス: '+esc(state.targetPair[0])+' vs '+esc(state.targetPair[1])+'</div>';
+    h+='</div><svg id="network-svg" style="width:100%;height:100%;cursor:crosshair" viewBox="0 0 600 550"></svg>';
+    h+='<div class="graph-legend"><div class="legend-title">凡例</div>';
+    h+='<div class="legend-row"><span class="legend-line" style="background:#2563eb"></span>直接比較</div>';
+    h+='<div class="legend-row"><span class="legend-line" style="background:#f97316"></span>1次ループ辺</div>';
+    h+='<div class="legend-row"><span class="legend-line" style="background:#9333ea"></span>2次ループ辺</div>';
+    h+='<div class="legend-row"><span class="legend-line" style="background:#ef4444"></span>選択中のループ</div>';
+    h+='<div style="margin-top:4px;padding-top:4px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">ノードサイズ=総N / 線の太さ=ペアN</div></div></div></div></div>';
+
+    c.innerHTML=h;
+    bindAnalyzerEvents();
+    drawGraph();
+  }
+
+  function renderMatrix() {
+    if(!state.parsedData) return '<div class="empty-state">データを読み込んでください</div>';
+    var nodes=state.parsedData.nodes,links=state.parsedData.links,ls={};
+    links.forEach(function(l){ls[getPairKey(l.source,l.target)]=true;});
+    var h='<div class="matrix-wrap"><div class="matrix" style="grid-template-columns: auto repeat('+nodes.length+', 28px)">';
+    h+='<div class="matrix-corner"></div>';
+    nodes.forEach(function(n){h+='<div class="matrix-col-header">'+esc(n.id)+'</div>';});
+    nodes.forEach(function(rn,i){h+='<div class="matrix-row-header">'+esc(rn.id)+'</div>';
+    nodes.forEach(function(cn,j){if(i===j){h+='<div class="matrix-cell diagonal"></div>';return;}
+    var id=!!ls[getPairKey(rn.id,cn.id)],vi=!!state.selectedHistory[getPairKey(rn.id,cn.id)];
+    var is=state.targetPair&&((state.targetPair[0]===rn.id&&state.targetPair[1]===cn.id)||(state.targetPair[1]===rn.id&&state.targetPair[0]===cn.id));
+    var cls='matrix-cell';if(is)cls+=' selected';else if(id)cls+=' direct';
+    h+='<div class="'+cls+'" data-row="'+esc(rn.id)+'" data-col="'+esc(cn.id)+'" title="'+esc(rn.id)+' vs '+esc(cn.id)+(id?' (直接比較あり)':'')+(vi?' (保存済み)':'')+'">';
+    if(vi&&!is) h+='<span class="dot"></span>';
+    h+='</div>';});});
+    h+='</div></div>';return h;
+  }
+
+  function renderEvidenceDetail() {
+    var loop=state.selectedLoop,tp=state.targetPair;if(!loop||!tp) return '';
+    var pk=getPairKey(tp[0],tp[1]),sc=getLoopStartCertainty(loop),ci=state.intransitivityRatings[pk]||'none',ic=getIndirectCertainty(loop,pk);
+
+    var h='<div class="evidence-panel">';
+    h+='<h4>エビデンス詳細 — '+loop.type+'ループ: '+loop.path.join(' → ')+'</h4>';
+    h+='<div class="evidence-steps">';
+    h+='<div style="font-weight:600;color:#94a3b8;font-size:11px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e2e8f0">ステップB1: ループ構成辺の直接予備的確実性</div>';
+    for(var i=0;i<loop.path.length-1;i++){var p1=loop.path[i],p2=loop.path[i+1],rk=getPairKey(p1,p2),r=state.directRatings[rk]||'',es=loop.edgeStats[i];
+    h+='<div class="evidence-step"><span style="color:#334155">'+esc(p1)+' vs '+esc(p2)+' <span class="text-muted" style="font-size:10px">(k='+es.studyCount+', N='+es.totalN.toLocaleString()+')</span>:</span>';
+    if(r) h+='<span class="rating-badge '+getRatingBadgeClass(r)+'">'+getCertaintyLabel(r)+'</span>';
+    else h+='<span class="text-muted text-italic">未評価 → 「直接エビデンスGRADE」で評価</span>';
+    h+='</div>';}
+    h+='</div>';
+
+    h+='<div style="font-size:11px;margin-bottom:6px;padding:4px 6px;background:#fff;border-radius:4px;border:1px solid #dbeafe"><strong>ループ開始確実性（全辺の最低値）:</strong> ';
+    if(sc) h+='<span class="rating-badge '+getRatingBadgeClass(sc)+'">'+getCertaintyLabel(sc)+'</span>';
+    else h+='<span class="text-muted">全辺を評価してください</span>';
+    h+='</div>';
+
+    h+='<div class="intrans-row"><label>ステップB2 — 推移性:</label><select id="intrans-select">';
+    INTRANS_OPTIONS.forEach(function(opt){h+='<option value="'+opt.value+'"'+(ci===opt.value?' selected':'')+'>'+opt.label+'</option>';});
+    h+='</select></div>';
+
+    h+='<div style="font-size:11px;margin-top:6px;padding:4px 6px;background:#fff;border-radius:4px;border:1px solid #dbeafe"><strong>間接予備的確実性（B2結果）:</strong> ';
+    if(ic) h+='<span class="rating-badge '+getRatingBadgeClass(ic)+'">'+getCertaintyLabel(ic)+'</span>';
+    else h+='<span class="text-muted">-</span>';
+    h+='</div>';
+
+    var co=(state.selectedHistory[pk]&&state.selectedHistory[pk].indirectCertainty)||'';
+    h+='<div class="indirect-row"><label>手動上書き（任意）:</label><select id="indirect-rating-select"><option value="">自動計算値を使用</option>';
+    CERTAINTY_OPTIONS.forEach(function(opt){h+='<option value="'+opt.value+'"'+(co===opt.value?' selected':'')+'>'+opt.label+'</option>';});
+    h+='</select></div></div>';
+    return h;
+  }
+
+  function bindAnalyzerEvents() {
+    var go=document.getElementById('guide-overlay');
+    if(go){go.addEventListener('click',function(e){if(e.target===go){state.showGuide=false;render();}});}
+    ['guide-close-top','guide-close-bottom'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',function(){state.showGuide=false;render();});});
+    var ghc=document.getElementById('guide-hide-check');
+    if(ghc){ghc.addEventListener('change',function(){state.hideGuideOnStart=this.checked;try{localStorage.setItem('nma_hide_guide',this.checked?'true':'false');}catch(e){}});}
+
+    var bg=document.getElementById('btn-guide');if(bg)bg.addEventListener('click',function(){state.showGuide=true;render();});
+    var br=document.getElementById('btn-reset');if(br)br.addEventListener('click',function(){state.inputData=DEFAULT_DATA;loadData();});
+    var bGr=document.getElementById('btn-grading');if(bGr)bGr.addEventListener('click',function(){state.viewMode='grading';render();});
+    var bRp=document.getElementById('btn-report');if(bRp)bRp.addEventListener('click',function(){state.viewMode='report';render();});
+    var bLd=document.getElementById('btn-load');if(bLd)bLd.addEventListener('click',function(){var ta=document.getElementById('data-textarea');if(ta)state.inputData=ta.value;loadData();});
+
+    document.querySelectorAll('.matrix-cell:not(.diagonal)').forEach(function(cell){cell.addEventListener('click',function(){var r=this.getAttribute('data-row'),c=this.getAttribute('data-col');if(r&&c&&r!==c){state.targetPair=[r,c];state.selectedLoop=null;findLoops();render();}});});
+
+    document.querySelectorAll('.loop-row').forEach(function(tr){tr.addEventListener('click',function(){var idx=parseInt(this.getAttribute('data-loop-idx')),lp=state.loops[idx];if(lp&&state.targetPair){state.selectedLoop=lp;var pk=getPairKey(state.targetPair[0],state.targetPair[1]),ex=state.selectedHistory[pk];state.selectedHistory[pk]={pair:[state.targetPair[0],state.targetPair[1]],loop:lp,indirectCertainty:(ex&&ex.loop===lp)?ex.indirectCertainty:''};render();}});});
+
+    var its=document.getElementById('intrans-select');
+    if(its)its.addEventListener('change',function(){if(!state.targetPair)return;state.intransitivityRatings[getPairKey(state.targetPair[0],state.targetPair[1])]=this.value;render();});
+
+    var irs=document.getElementById('indirect-rating-select');
+    if(irs)irs.addEventListener('change',function(){if(!state.targetPair||!state.selectedLoop)return;var pk=getPairKey(state.targetPair[0],state.targetPair[1]);if(state.selectedHistory[pk])state.selectedHistory[pk].indirectCertainty=this.value;});
+  }
+
+  function loadData() {
+    var rows=parseData(state.inputData);
+    if(rows.length===0){alert('有効なデータが見つかりません。\n\n入力形式を確認してください：\n- 1行目にヘッダー行（study, trial, trt, n, d）\n- CSVまたはTSV形式\n\n詳しくは「使い方」ボタンをクリックしてください。');return;}
+    state.parsedData=processNetworkData(rows);
+    state.targetPair=null;state.loops=[];state.selectedLoop=null;state.viewMode='analyzer';
+    render();
+  }
+
+  // Initialize
+  state.inputData=DEFAULT_DATA;
+  var rows=parseData(state.inputData);
+  if(rows.length>0){
+    state.parsedData=processNetworkData(rows);
+  }
+  // Show guide on first launch unless user has opted out
+  if(!state.hideGuideOnStart) state.showGuide=true;
+  render();
+
+})();
+</script>
+</body>
+</html>

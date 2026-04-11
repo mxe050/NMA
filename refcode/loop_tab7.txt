@@ -1,0 +1,37 @@
+<!-- ===== タブ7: 優勢ループ評価ツール ===== -->
+<style>
+.lp7-wrap{width:100%;background:#f9fafb}
+.lp7-frame{width:100%;border:none;display:block}
+</style>
+<div class="lp7-wrap">
+  <iframe
+    class="lp7-frame"
+    src="loop_tool.html"
+    id="lp7-iframe"
+    title="間接ネットワーク優勢ループ評価ツール"
+    allowfullscreen
+  ></iframe>
+</div>
+<script>
+(function(){
+  var fr = document.getElementById('lp7-iframe');
+  function resizeLp7(){
+    // タブパネルの残り高さに合わせて伸縮
+    var windowH = window.innerHeight;
+    var rect = fr.getBoundingClientRect();
+    var h = Math.max(600, windowH - rect.top - 8);
+    fr.style.height = h + 'px';
+  }
+  // パネルが表示されたときにリサイズ
+  resizeLp7();
+  window.addEventListener('resize', resizeLp7);
+  // switchMainTab(7) が呼ばれた後にも再計算
+  var orig = window.switchMainTab;
+  if(typeof orig === 'function'){
+    window.switchMainTab = function(n){
+      orig(n);
+      if(n === 7){ setTimeout(resizeLp7, 50); }
+    };
+  }
+})();
+</script>

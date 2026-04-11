@@ -79,6 +79,10 @@ function ConvertClasses($html) {
 $mainContent  = ConvertClasses $mainContent
 $tmplContent  = ConvertClasses $tmplContent
 
+# onclick="showTab(event,'xxx')" → onclick="m1ShowTab(event,'xxx')"
+$mainContent  = $mainContent  -replace 'onclick="showTab\(event,', 'onclick="m1ShowTab(event,'
+$tmplContent  = $tmplContent  -replace 'onclick="showTab\(event,', 'onclick="m1ShowTab(event,'
+
 # --- CSS ---
 $scopedCss = @"
 /* ===== マルチ介入NMAタブ 専用スタイル ===== */
@@ -272,6 +276,18 @@ $js = @"
   // サイドバートグル
   window.m1_toggleSidebar = function() {
     document.getElementById('m1-sidebar').classList.toggle('hidden');
+  };
+
+  // タブ切替（onclick="m1ShowTab(event,'tabId')" から呼ばれる）
+  window.m1ShowTab = function(evt, tabId) {
+    var btn = evt.currentTarget;
+    var tabsContainer = btn.parentElement;          // .m1-tabs
+    var sectionBody   = tabsContainer.parentElement; // .m1-section-body
+    tabsContainer.querySelectorAll('.m1-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    sectionBody.querySelectorAll('.m1-tab-content').forEach(function(c){ c.classList.remove('active'); });
+    btn.classList.add('active');
+    var tc = sectionBody.querySelector('#'+tabId);
+    if(tc) tc.classList.add('active');
   };
 
   // セクションヘッダークリックで折りたたみ

@@ -20,6 +20,12 @@ $statTab3 = [System.IO.File]::ReadAllText("$base\stat_tab3.txt", [System.Text.En
 # タブ5: 効果と確実性の表記
 $iroTab5 = [System.IO.File]::ReadAllText("$base\iro_tab5.txt", [System.Text.Encoding]::UTF8)
 
+# タブ6: コクラン解説
+$cochraneTab6 = [System.IO.File]::ReadAllText("$base\cochrane_tab6.txt", [System.Text.Encoding]::UTF8)
+
+# タブ7: 優勢ループ評価ツール
+$loopTab7 = [System.IO.File]::ReadAllText("$base\loop_tab7.txt", [System.Text.Encoding]::UTF8)
+
 # Split p1 at </div><!-- /container -->
 $marker = '</div><!-- /container -->'
 $idx1 = $p1.IndexOf($marker)
@@ -89,8 +95,8 @@ $outerHeader = @"
       <button class="main-tab-btn" data-tab="3" onclick="switchMainTab(3)">3. 統計的解説</button>
       <button class="main-tab-btn" data-tab="4" onclick="switchMainTab(4)">4. エビデンスの確実性</button>
       <button class="main-tab-btn" data-tab="5" onclick="switchMainTab(5)">5. 効果と確実性の表記</button>
-      <button class="main-tab-btn" data-tab="6" onclick="switchMainTab(6)">6. 未定</button>
-      <button class="main-tab-btn" data-tab="7" onclick="switchMainTab(7)">7. 未定</button>
+      <button class="main-tab-btn" data-tab="6" onclick="switchMainTab(6)">6. コクラン解説</button>
+      <button class="main-tab-btn" data-tab="7" onclick="switchMainTab(7)">7. 優勢ループ評価ツール</button>
       <button class="main-tab-btn" data-tab="8" onclick="switchMainTab(8)">8. 未定</button>
     </div>
   </div>
@@ -150,8 +156,12 @@ $closingPanels = @"
 <div class="main-panel" id="mp-5">
 $iroTab5
 </div><!-- /mp-5 -->
-<div class="main-panel" id="mp-6"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
-<div class="main-panel" id="mp-7"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
+<div class="main-panel" id="mp-6">
+$cochraneTab6
+</div><!-- /mp-6 -->
+<div class="main-panel" id="mp-7">
+$loopTab7
+</div><!-- /mp-7 -->
 <div class="main-panel" id="mp-8"><div class="placeholder-panel"><h2>準備中</h2><p>コンテンツは現在作成中です。</p><span class="coming-soon">Coming Soon</span></div></div>
 "@
 
