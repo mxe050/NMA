@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMA GRADE評価サポートツール v2.2 - R Shiny版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:16px;}
+        .container-custom{max-width:860px;margin:0 auto;}
+        h1{text-shadow:2px 2px 4px rgba(0,0,0,0.3);}
+        .doc-card{background:white;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);padding:32px 36px;margin-top:12px;}
+        .section-title{font-size:1.05rem;font-weight:800;color:#1e40af;border-left:4px solid #667eea;padding-left:10px;margin:28px 0 12px;}
+        .section-title:first-of-type{margin-top:0;}
+        .sub-title{font-size:0.92rem;font-weight:700;color:#374151;margin:16px 0 8px;}
+        .info-box{background:#f0f9ff;border:1px solid #bae6fd;border-left:4px solid #0284c7;padding:12px 16px;border-radius:6px;font-size:0.85rem;color:#1e3a5f;margin-bottom:16px;}
+        .code-block{background:#1e293b;color:#e2e8f0;padding:14px 18px;border-radius:8px;font-family:'Consolas',monospace;font-size:0.82rem;line-height:1.7;white-space:pre;overflow-x:auto;margin:8px 0 14px;}
+        .step-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:10px 0 16px;}
+        .step-table th{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:7px 12px;text-align:left;font-size:0.82rem;}
+        .step-table td{padding:7px 12px;border-bottom:1px solid #e5e7eb;}
+        .step-table tr:last-child td{border-bottom:none;}
+        .step-table tr:hover td{background:#f8faff;}
+        .step-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.72rem;font-weight:700;}
+        .step-a{background:#dbeafe;color:#1e40af;}
+        .step-b{background:#fce7f3;color:#9d174d;}
+        .step-c{background:#d1fae5;color:#065f46;}
+        .step-d{background:#fef3c7;color:#92400e;}
+        .flow-box{background:#f8faff;border:1px solid #c7d9ff;border-radius:10px;padding:16px 20px;font-size:0.85rem;line-height:2.1;margin-bottom:16px;}
+        .flow-box .flow-sep{color:#94a3b8;font-size:0.8rem;margin:6px 0;}
+        .flow-arrow{color:#667eea;font-weight:700;}
+        .pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:8px;}
+        .pkg-group{padding:10px 14px;border-radius:8px;margin-bottom:10px;}
+        .pkg-group h4{font-size:0.8rem;font-weight:700;margin-bottom:8px;letter-spacing:0.03em;}
+        .pkg-group ul{list-style:none;padding:0;margin:0;}
+        .pkg-group li{font-size:0.82rem;padding:3px 0;border-bottom:1px solid rgba(0,0,0,0.05);color:#374151;}
+        .pkg-group li:last-child{border-bottom:none;}
+        .pkg-group li strong{color:#1e40af;font-family:'Consolas',monospace;font-size:0.82rem;}
+        .pkg-stat{background:#eff6ff;border:1px solid #bfdbfe;}
+        .pkg-shiny{background:#fdf4ff;border:1px solid #e9d5ff;}
+        .pkg-data{background:#f0fdf4;border:1px solid #bbf7d0;}
+        .pkg-io{background:#fffbeb;border:1px solid #fde68a;}
+        .quickstart-list{list-style:none;padding:0;counter-reset:qs-counter;}
+        .quickstart-list li{counter-increment:qs-counter;display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:0.87rem;color:#374151;}
+        .quickstart-list li:last-child{border-bottom:none;}
+        .quickstart-list li::before{content:counter(qs-counter);display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:0.72rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+        .cite-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:12px 16px;font-size:0.78rem;color:#4b5563;line-height:1.7;margin-bottom:8px;}
+        .cite-box strong{color:#1e40af;font-size:0.8rem;}
+        .download-section{text-align:center;margin:20px 0 6px;}
+        .download-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#10b981,#059669);color:white;text-decoration:none;padding:14px 32px;border-radius:12px;font-weight:700;font-size:1rem;box-shadow:0 4px 16px rgba(16,185,129,0.35);transition:opacity 0.15s,transform 0.15s;}
+        .download-btn:hover{opacity:0.9;transform:translateY(-2px);}
+        .download-sub{font-size:0.78rem;color:#64748b;margin-top:8px;}
+        .gh-link{display:inline-flex;align-items:center;gap:6px;color:#667eea;text-decoration:none;font-size:0.83rem;font-weight:600;}
+        .gh-link:hover{text-decoration:underline;}
+        @media(max-width:600px){.pkg-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body class="text-gray-800">
+<div class="container-custom">
+
+    <div class="page-nav">
+        <a href="index.html">&#127968; ホーム</a>
+        <a href="tutorial.html">&#127891; チュートリアル</a>
+        <a href="reference.html" target="_blank">&#128218; リファレンス</a>
+    </div>
+
+    <h1 class="text-2xl font-bold text-center text-white mb-1">🔬 NMA GRADE評価サポートツール v2.2</h1>
+    <p class="text-center text-white/80 text-xs mb-5">Izcovich BMJ 2023 | Kamso JCE 2026 P1&amp;P2 | Brignardello-Petersen JCE 2018/2019/2021 | Puhan BMJ 2014 | Yao JCE 2026</p>
+
+    <div class="doc-card">
+
+        <!-- 概要 -->
+        <div class="info-box">
+            <strong>🧪 NMA GRADE 評価サポートツール（R Shiny版）</strong><br>
+            NMAにおけるエビデンスの確実性の評価サポートツールとして、統計ソフトのRを利用したShinyアプリです。
+            データ読込・NMA実行・GRADE評価（A1〜D）・SoFテーブル出力まで、一連のフローをGUI操作で実施できます。
+        </div>
+
+        <!-- ダウンロード -->
+        <p class="section-title">📥 ダウンロード</p>
+        <div class="download-section">
+            <button onclick="downloadAppR()" class="download-btn" style="border:none;cursor:pointer;">
+                <span style="font-size:1.4rem;">⬇️</span>
+                <span>app.R をダウンロード</span>
+            </button>
+            <p class="download-sub">
+                単一ファイル版（app.R）をダウンロードして、RStudio または Rコンソールから実行してください。<br>
+                <a href="R/app.R" download class="gh-link" style="margin-top:4px;display:inline-flex;">
+                    <span>📂</span> GitHub でファイルを確認する ↗
+                </a>
+            </p>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- 起動方法 -->
+        <p class="section-title">🚀 起動方法</p>
+
+        <p class="sub-title">RStudio から起動する場合</p>
+        <ol style="list-style:decimal;padding-left:22px;font-size:0.87rem;color:#374151;line-height:2;">
+            <li><code style="background:#f1f5f9;padding:1px 5px;border-radius:3px;font-size:0.82rem;">app.R</code> を RStudio で開く</li>
+            <li>右上の「<strong>Run App</strong>」ボタンをクリック</li>
+        </ol>
+
+        <p class="sub-title">R コンソールから起動する場合</p>
+        <div class="code-block"># 作業ディレクトリを app.R のある場所に変更（自分のPC環境に合わせて変更）
+setwd("F:/マイドライブ/2016年works/AI/作成アプリ/NMA確実性")
+
+shiny::runApp("app.R")</div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- 使用フロー -->
+        <p class="section-title">🔄 使用フロー（ステップ順）</p>
+        <div class="flow-box">
+            <div><strong style="color:#1e40af;">0. プロジェクト設定</strong>　&nbsp;効果指標（OR/RR等）・アウトカム・閾値を設定</div>
+            <div class="flow-arrow">↓</div>
+            <div><strong style="color:#1e40af;">1. データ読込</strong>　&nbsp;CSVアップロード <em>or</em> サンプルデータ（smoking 等）を読込</div>
+            <div class="flow-arrow">↓</div>
+            <div><strong style="color:#1e40af;">2. NMA実行</strong>　&nbsp;参照介入・推定法を選択して「NMA実行」ボタン</div>
+            <div class="flow-sep">─── 解析結果確認 ───</div>
+            <div style="padding-left:16px;color:#475569;">
+                ネットワーク図 <span class="flow-arrow">→</span> Forest Plot <span class="flow-arrow">→</span> netsplit <span class="flow-arrow">→</span> リーグテーブル <span class="flow-arrow">→</span> ランキング
+            </div>
+            <div class="flow-sep">─── GRADE評価（順番に実施） ───</div>
+            <div style="padding-left:16px;">
+                <span class="step-badge step-a">A1</span>&nbsp;
+                <span class="step-badge step-a">A2</span>&nbsp;
+                <span class="flow-arrow">→</span>
+                <span class="step-badge step-b">B1</span>&nbsp;
+                <span class="step-badge step-b">B2</span>&nbsp;
+                <span class="step-badge step-b">B3</span>&nbsp;
+                <span class="flow-arrow">→</span>
+                <span class="step-badge step-c">C1</span>&nbsp;
+                <span class="step-badge step-c">C2</span>&nbsp;
+                <span class="step-badge step-c">C3</span>&nbsp;
+                <span class="flow-arrow">→</span>
+                <span class="step-badge step-d">D</span>
+            </div>
+            <div class="flow-sep">─── 結果出力 ───</div>
+            <div style="padding-left:16px;color:#475569;">
+                SoFテーブル <span class="flow-arrow">→</span> 色分け図 <span class="flow-arrow">→</span> 保存 / 読込
+            </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- 各ステップの概要 -->
+        <p class="section-title">📋 各ステップの概要</p>
+        <table class="step-table">
+            <thead>
+                <tr><th>ステップ</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="step-badge step-a">A1</span></td>
+                    <td>直接比較の4ドメイン評価（RoB・非一貫性・非直接性・出版バイアス）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-a">A2</span></td>
+                    <td>直接推定値の不精確さ（非整合性 Serious の場合のみ）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-b">B1</span></td>
+                    <td>ループ選択（間接エビデンスの出発点）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-b">B2</span></td>
+                    <td>非推移性の評価</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-b">B3</span></td>
+                    <td>間接推定値の不精確さ（非整合性 Serious の場合のみ）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-c">C1</span></td>
+                    <td>NMA出発点の選択（直接 vs 間接）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-c">C2</span></td>
+                    <td>非整合性（netsplit p値）</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-c">C3</span></td>
+                    <td>NMA推定値の不精確さ</td>
+                </tr>
+                <tr>
+                    <td><span class="step-badge step-d">D</span></td>
+                    <td>最良推定値の選択</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- クイックスタート -->
+        <p class="section-title">⚡ 初回テスト用クイックスタート</p>
+        <p style="font-size:0.83rem;color:#64748b;margin-bottom:12px;">サンプルデータ（smoking）を使って動作確認をする手順です。</p>
+        <ol class="quickstart-list">
+            <li>「1. データ読込」→ サンプルデータ「<strong>smoking</strong>」を選択 → 読込</li>
+            <li>「2. NMA実行」→ 参照介入を選択 → 「<strong>NMA実行</strong>」ボタン</li>
+            <li>「A1. 直接4ドメイン」→ 一括「<strong>Not serious</strong>」→「一括適用」→「保存」</li>
+            <li>「C2. 非整合性」→「<strong>p&ge;0.10 一括 NS</strong>」</li>
+            <li>「C3. NMA不精確さ」→「<strong>自動判定実行</strong>」</li>
+            <li>「D. 最良推定値」→「<strong>自動判定</strong>」</li>
+            <li>「SoFテーブル」→ 結果確認</li>
+        </ol>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- 使用パッケージ -->
+        <p class="section-title">📦 使用パッケージ</p>
+
+        <div class="pkg-grid">
+            <div class="pkg-group pkg-stat" style="margin-right:6px;">
+                <h4>📊 統計解析・NMA関連</h4>
+                <ul>
+                    <li><strong>netmeta</strong> — ネットワークメタアナリシスの頻度論的実行。<br><span style="color:#6b7280;font-size:0.78rem;">netmeta(), netsplit(), netrank(), netleague() 等</span></li>
+                    <li><strong>meta</strong> — ペアワイズメタアナリシス。netmetaの依存パッケージ。<br><span style="color:#6b7280;font-size:0.78rem;">metagen(), forest(), funnel() 等</span></li>
+                    <li><strong>NMA</strong> — サンプルデータセット提供。<br><span style="color:#6b7280;font-size:0.78rem;">smoking, heartfailure 等</span></li>
+                </ul>
+            </div>
+            <div class="pkg-group pkg-shiny">
+                <h4>🖥️ Shinyアプリ関連</h4>
+                <ul>
+                    <li><strong>shiny</strong> — インタラクティブウェブアプリフレームワーク</li>
+                    <li><strong>shinydashboard</strong> — ダッシュボードレイアウト</li>
+                    <li><strong>shinyWidgets</strong> — 追加UIウィジェット</li>
+                    <li><strong>shinyjs</strong> — JavaScript操作</li>
+                </ul>
+            </div>
+        </div>
+        <div class="pkg-grid">
+            <div class="pkg-group pkg-data" style="margin-right:6px;">
+                <h4>📈 データ操作・可視化</h4>
+                <ul>
+                    <li><strong>dplyr</strong> — データ操作（case_when() 等）</li>
+                    <li><strong>tidyr</strong> — データ整形</li>
+                    <li><strong>ggplot2</strong> — 色分け図（Phillips et al.準拠）の描画</li>
+                    <li><strong>DT</strong> — インタラクティブなデータテーブル表示</li>
+                </ul>
+            </div>
+            <div class="pkg-group pkg-io">
+                <h4>💾 入出力</h4>
+                <ul>
+                    <li><strong>openxlsx</strong> — Excelファイル（.xlsx）の出力</li>
+                    <li><strong>jsonlite</strong> — JSON形式での保存・読込</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;">
+
+        <!-- 引用 -->
+        <p class="section-title">📖 引用情報</p>
+        <div class="cite-box">
+            <strong>R 本体</strong><br>
+            R Core Team (2024). <em>R: A Language and Environment for Statistical Computing.</em> R Foundation for Statistical Computing, Vienna, Austria.
+            <a href="https://www.R-project.org/" target="_blank" style="color:#667eea;">https://www.R-project.org/</a>
+        </div>
+        <div class="cite-box">
+            <strong>netmeta</strong><br>
+            Rücker G, Krahn U, König J, Efthimiou O, Schwarzer G (2024). <em>netmeta: Network Meta-Analysis using Frequentist Methods.</em> R package.<br>
+            関連論文: Rücker G. Network meta-analysis, electrical networks and graph theory. <em>Res Synth Methods.</em> 2012;3(4):312-324.
+        </div>
+        <div class="cite-box">
+            <strong>meta</strong><br>
+            Balduzzi S, Rücker G, Schwarzer G. How to perform a meta-analysis with R: a practical tutorial. <em>Evid Based Ment Health.</em> 2019;22(4):153-160.
+        </div>
+
+    </div><!-- /doc-card -->
+</div><!-- /container-custom -->
+
+<script>
+function downloadAppR() {
+    var url = 'R/app.R';
+    var btn = document.querySelector('.download-btn');
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<span style="font-size:1.4rem;">⏳</span><span>ダウンロード中...</span>';
+    btn.disabled = true;
+    fetch(url)
+        .then(function(r) {
+            if (!r.ok) throw new Error('Network error');
+            return r.blob();
+        })
+        .then(function(blob) {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'app.R';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            btn.innerHTML = '<span style="font-size:1.4rem;">✅</span><span>ダウンロード完了</span>';
+            btn.disabled = false;
+            setTimeout(function() { btn.innerHTML = orig; }, 2500);
+        })
+        .catch(function(e) {
+            btn.innerHTML = orig;
+            btn.disabled = false;
+            window.open(url, '_blank');
+        });
+}
+</script>
+<footer class="text-center text-white/50 text-xs py-6 px-6 mt-4">
+    <p>NMA GRADE評価サポートツール |
+       Izcovich et al. BMJ 2023;381:e074495 |
+       Kamso et al. JCE 2026 |
+       Brignardello-Petersen et al. JCE 2018/2019/2021 |
+       Puhan et al. BMJ 2014;349:g5630 |
+       Yao et al. JCE 2026;189:112050
+    </p>
+    <p class="mt-1">
+        <a href="../" class="underline hover:text-white/80">ネットワークメタ分析 総合ガイドへ戻る</a>
+    </p>
+</footer>
+</body>
+</html>

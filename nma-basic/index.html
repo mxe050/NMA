@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NMA基本 | ネットワークメタ分析 総合ガイド</title>
+  <style>
+    :root{--navy:#12385a;--blue:#1e40af;--blue-2:#2563eb;--ink:#1e293b;--muted:#64748b;--line:#d9e2ec;--paper:#fff;--wash:#f2f6fa}
+    *{box-sizing:border-box} body{margin:0;background:var(--wash);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.75}
+    .topbar{background:var(--navy);color:#fff;box-shadow:0 2px 10px rgba(15,43,69,.24)}.topbar-in{max-width:1240px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand,.back{color:#fff;text-decoration:none}.brand{font-weight:700}.back{font-size:.92rem;opacity:.9}.back:hover{text-decoration:underline}
+    main{max-width:1240px;margin:0 auto;padding:32px 18px 56px}.intro{max-width:860px;margin:0 auto 24px;text-align:center}.intro .eyebrow{margin:0;color:var(--blue);font-size:.82rem;font-weight:800;letter-spacing:.12em}.intro h1{font-size:clamp(1.65rem,4vw,2.45rem);line-height:1.28;margin:6px 0 6px}.intro p{margin:0;color:var(--muted)}
+    .loading{margin:28px auto;padding:30px;max-width:720px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;color:var(--muted)}
+    #nma-basic-content .page{display:block;max-width:1100px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 28px rgba(34,65,91,.08);overflow:hidden}
+    #nma-basic-content .page-header{padding:34px 28px 27px;text-align:center;background:linear-gradient(135deg,#eff6ff,#f8fbff);border-bottom:1px solid #dbeafe}#nma-basic-content .chapter-badge{display:inline-block;padding:4px 13px;background:#dbeafe;color:#1e40af;border-radius:999px;font-size:.82rem;font-weight:800;letter-spacing:.04em}#nma-basic-content .page-header h1{margin:12px 0 3px;color:#12385a;font-size:clamp(1.65rem,4vw,2.35rem);line-height:1.3}#nma-basic-content .en-title{color:#52677e;font-size:.98rem;font-style:italic}
+    #nma-basic-content .page-body{padding:26px 28px 34px}#nma-basic-content .tabs-nav{display:flex;gap:7px;flex-wrap:wrap;border-bottom:2px solid #cbd5e1;margin-bottom:24px}#nma-basic-content .tab-btn{appearance:none;border:0;border-radius:8px 8px 0 0;padding:10px 15px;cursor:pointer;background:#e8eff7;color:#29465f;font:700 .92rem/1.35 inherit;transition:background .18s,color .18s}#nma-basic-content .tab-btn:hover{background:#dbeafe}#nma-basic-content .tab-btn.active{background:var(--blue);color:#fff}#nma-basic-content .tab-pane{display:none}#nma-basic-content .tab-pane.active{display:block}
+    #nma-basic-content .content-section{max-width:none}#nma-basic-content .section-title{margin:0 0 20px;color:#12385a;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.4;border-left:5px solid var(--blue-2);padding-left:13px}#nma-basic-content h3{color:#173f67;line-height:1.45}#nma-basic-content h4{line-height:1.55}#nma-basic-content p{margin:0 0 1em}#nma-basic-content ul,#nma-basic-content ol{padding-left:1.45em;margin:.5em 0 1em}#nma-basic-content li+li{margin-top:.28em}
+    #nma-basic-content .accordion-item{display:block;margin:15px 0;border:1px solid #cfdbe8;border-radius:10px;background:#fff;overflow:hidden}#nma-basic-content .accordion-header{cursor:pointer;padding:13px 16px;background:#f8fafc;color:#173f67;font-weight:800;list-style-position:inside}#nma-basic-content .accordion-header:hover{background:#eff6ff}#nma-basic-content .accordion-body{padding:18px 18px 4px}#nma-basic-content details[open]>.accordion-header{border-bottom:1px solid #dbe4ed}#nma-basic-content img{display:block;max-width:100%;height:auto;margin:14px auto;border-radius:8px;box-shadow:0 2px 10px rgba(15,43,69,.13)}#nma-basic-content table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;margin:14px 0}#nma-basic-content th,#nma-basic-content td{border:1px solid #cbd5e1;padding:8px 10px;vertical-align:top}#nma-basic-content th{background:#eaf2fb;color:#173f67}#nma-basic-content a{color:#1d4ed8;text-underline-offset:2px}#nma-basic-content blockquote{margin:1em 0;padding:12px 16px;border-left:4px solid #93c5fd;background:#f8fbff}
+    .footer{padding:25px 20px;text-align:center;color:#718195;font-size:.83rem}@media(max-width:640px){.topbar-in{padding:12px 14px}main{padding:24px 10px 40px}#nma-basic-content .page-header{padding:27px 16px 22px}#nma-basic-content .page-body{padding:19px 14px 25px}#nma-basic-content .tabs-nav{gap:5px}#nma-basic-content .tab-btn{flex:1 1 140px;padding:9px 8px;font-size:.82rem}#nma-basic-content .accordion-body{padding:14px 12px 2px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="../">ネットワークメタ分析 総合ガイド</a>
+      <a class="back" href="../">← 表紙に戻る</a>
+    </div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="basic-title">
+      <p class="eyebrow">NMA BASICS</p>
+      <h1 id="basic-title">ネットワークメタ分析・マルチ介入</h1>
+      <p>マルチ介入からランキングの読み方まで、4つのタブで学べます。</p>
+    </section>
+    <div id="nma-basic-content" aria-live="polite">
+      <div class="loading">NMA基本の内容を読み込んでいます…</div>
+    </div>
+  </main>
+  <footer class="footer">ネットワークメタ分析 総合ガイド</footer>
+  <script>
+    const container = document.getElementById('nma-basic-content');
+    const localImages = new Set(['M3.jpg', 'nma-1.jpg', 'nma-2.jpg', 'nma-3.jpg']);
+
+    fetch('coregrade-source.html', {cache: 'no-store'})
+      .then((response) => {
+        if (!response.ok) throw new Error('source unavailable');
+        return response.text();
+      })
+      .then((source) => {
+        const sourceDocument = new DOMParser().parseFromString(source, 'text/html');
+        const page = sourceDocument.getElementById('page-16');
+        if (!page) throw new Error('requested content unavailable');
+
+        page.querySelectorAll('script').forEach((script) => script.remove());
+        page.querySelectorAll('.page-header a').forEach((link) => {
+          if (link.href.includes('NMA-GRADE')) link.setAttribute('href', '../nma-grade/');
+          else link.setAttribute('href', '../guide/');
+          link.removeAttribute('target');
+        });
+        page.querySelectorAll('img').forEach((image) => {
+          const filename = image.getAttribute('src').split('/').pop();
+          if (localImages.has(filename)) image.src = 'assets/' + filename;
+        });
+
+        const buttons = Array.from(page.querySelectorAll('.tabs-nav .tab-btn'));
+        const panes = Array.from(page.querySelectorAll('.tab-content > .tab-pane'));
+        const activate = (index) => {
+          buttons.forEach((button, buttonIndex) => {
+            const selected = buttonIndex === index;
+            button.classList.toggle('active', selected);
+            button.setAttribute('aria-selected', String(selected));
+          });
+          panes.forEach((pane, paneIndex) => pane.classList.toggle('active', paneIndex === index));
+        };
+        buttons.forEach((button, index) => {
+          button.removeAttribute('onclick');
+          button.setAttribute('type', 'button');
+          button.setAttribute('role', 'tab');
+          button.addEventListener('click', () => activate(index));
+        });
+        panes.forEach((pane) => pane.setAttribute('role', 'tabpanel'));
+        activate(0);
+        container.replaceChildren(page);
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="loading">内容を読み込めませんでした。ページを再読み込みしてください。</div>';
+      });
+  </script>
+</body>
+</html>

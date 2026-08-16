@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RでNMAを行うWebアプリ | ネットワークメタ分析 総合ガイド</title>
+  <style>
+    :root{--navy:#12385a;--blue:#1e6f9f;--ink:#18324a;--muted:#62758a;--paper:#fff;--wash:#f3f7fa;--line:#d8e2ea;--accent:#e78b2f}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;color:var(--ink);background:var(--wash);line-height:1.7}
+    .topbar{background:var(--navy);color:#fff}.topbar-in{max-width:1180px;margin:auto;padding:14px 20px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{font-weight:700;text-decoration:none;color:#fff}.back{color:#fff;text-decoration:none;font-size:.92rem;opacity:.92}.back:hover{text-decoration:underline}
+    main{max-width:1180px;margin:0 auto;padding:42px 20px 56px}.eyebrow{color:var(--blue);font-size:.86rem;font-weight:700;letter-spacing:.08em}.hero{max-width:800px;margin-bottom:28px}.hero h1{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.25;margin:8px 0 14px}.hero p{font-size:1.05rem;margin:0;color:var(--muted)}
+    .notice{background:#fff7ea;border-left:5px solid var(--accent);border-radius:8px;padding:18px 20px;margin:24px 0 28px;font-size:1.04rem}.notice strong{color:#9a5011}
+    .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 12px}.toolbar h2{font-size:1.1rem;margin:0 auto 0 0}.button{appearance:none;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px}.button.primary{background:var(--blue);color:#fff}.button.secondary{background:#e7eef4;color:var(--ink)}.button:hover{filter:brightness(.95)}
+    .code-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 6px 24px rgba(23,54,80,.08)}textarea{display:block;width:100%;min-height:68vh;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:16px;background:#102333;color:#edf7ff;font:13px/1.55 Consolas,"Cascadia Code","Courier New",monospace;tab-size:2}textarea:focus{outline:3px solid rgba(30,111,159,.24);border-color:var(--blue)}
+    .status{min-height:1.5em;color:var(--muted);font-size:.9rem;margin:10px 2px 0}.guide{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}.guide h2{margin-top:0;font-size:1.18rem}.guide ol{margin:0;padding-left:1.4em}.guide li+li{margin-top:7px}.footer{padding:24px 20px;text-align:center;color:#718195;font-size:.83rem}
+    @media(max-width:640px){main{padding:28px 14px 42px}.topbar-in{padding:12px 14px}.toolbar h2{width:100%;margin-bottom:2px}.button{flex:1;justify-content:center}textarea{min-height:58vh;font-size:12px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="../">ネットワークメタ分析 総合ガイド</a>
+      <a class="back" href="../">← 表紙に戻る</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="eyebrow">NMA WEB APP</div>
+      <h1 id="page-title">RでNMAを行うWebアプリ</h1>
+      <p>下のコードをコピーして、RStudioで実行するためのページです。</p>
+    </section>
+
+    <div class="notice"><strong>解説：</strong>RStudioで、このコードを実行すると、RStudio用のアプリが展開します。</div>
+
+    <section class="code-card" aria-labelledby="code-heading">
+      <div class="toolbar">
+        <h2 id="code-heading">Rコード</h2>
+        <button class="button primary" type="button" id="copy-button">コードをコピー</button>
+        <button class="button secondary" type="button" id="select-button">すべて選択</button>
+        <a class="button secondary" href="app.R" download>ファイルを保存</a>
+      </div>
+      <textarea id="code" aria-label="RでNMAを行うWebアプリのコード" spellcheck="false" readonly>コードを読み込んでいます…</textarea>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="guide" aria-labelledby="how-to-heading">
+      <h2 id="how-to-heading">使い方</h2>
+      <ol>
+        <li>「コードをコピー」を押します。</li>
+        <li>RStudioで新しいRスクリプトを開き、貼り付けます。</li>
+        <li>スクリプトを実行すると、必要なパッケージの確認後にアプリが起動します。</li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer">ネットワークメタ分析 総合ガイド</footer>
+  <script>
+    const code = document.getElementById('code');
+    const status = document.getElementById('status');
+
+    fetch('app.R', {cache: 'no-store'})
+      .then((response) => {
+        if (!response.ok) throw new Error('コードを読み込めませんでした。');
+        return response.text();
+      })
+      .then((text) => {
+        code.value = text;
+        status.textContent = 'コードをコピーできます。';
+      })
+      .catch(() => {
+        code.value = '';
+        status.textContent = 'コードの読み込みに失敗しました。ページを再読み込みしてください。';
+      });
+
+    document.getElementById('select-button').addEventListener('click', () => {
+      code.focus();
+      code.select();
+      status.textContent = 'コードを選択しました。';
+    });
+
+    document.getElementById('copy-button').addEventListener('click', async () => {
+      if (!code.value) return;
+      code.focus();
+      code.select();
+      try {
+        await navigator.clipboard.writeText(code.value);
+        status.textContent = 'コードをクリップボードにコピーしました。';
+      } catch (_) {
+        document.execCommand('copy');
+        status.textContent = 'コードをコピーしました。';
+      }
+    });
+  </script>
+</body>
+</html>

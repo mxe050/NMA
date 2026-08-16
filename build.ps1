@@ -1,5 +1,5 @@
-﻿$base = Join-Path $PSScriptRoot 'refcode'
-$out  = Join-Path $PSScriptRoot 'index.html'
+$base = Join-Path $PSScriptRoot 'refcode'
+$out  = Join-Path $PSScriptRoot 'guide\index.html'
 
 $p1 = [System.IO.File]::ReadAllText("$base\パート1.txt", [System.Text.Encoding]::UTF8)
 $p2 = [System.IO.File]::ReadAllText("$base\パート2.txt", [System.Text.Encoding]::UTF8)
