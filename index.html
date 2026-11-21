@@ -7,17 +7,36 @@
   <title>ネットワークメタ分析 総合ガイド</title>
   <style>
     :root{--navy:#123853;--blue:#2073a5;--aqua:#178b7a;--gold:#e99a39;--ink:#19334a;--muted:#607488;--paper:#fff;--wash:#f2f7fa;--line:#d8e4ec}
-    *{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.65}.site-header{background:var(--navy);color:#fff;box-shadow:0 2px 14px rgba(13,40,64,.25)}.header-in{max-width:1200px;margin:auto;padding:15px 22px 0}.brand{display:flex;align-items:baseline;gap:12px;padding-bottom:13px}.brand a{color:#fff;text-decoration:none;font-size:1.14rem;font-weight:800}.brand small{font-size:.73rem;letter-spacing:.12em;opacity:.65}.tabs{display:flex;flex-wrap:wrap}.tabs a{position:relative;padding:11px 14px;color:rgba(255,255,255,.8);font-size:.88rem;font-weight:700;text-decoration:none;white-space:nowrap}.tabs a:hover{background:rgba(255,255,255,.1);color:#fff}.tabs a::after{content:"";position:absolute;right:14px;bottom:0;left:14px;height:3px;background:transparent}.tabs a:hover::after{background:#79c7ee}
+    *{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.65}.site-header{background:var(--navy);color:#fff;box-shadow:0 2px 14px rgba(13,40,64,.25)}.header-in{max-width:1200px;margin:auto;padding:15px 22px 0}.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;padding-bottom:13px}.brand a{color:#fff;text-decoration:none;font-size:1.14rem;font-weight:800}.brand small{font-size:.73rem;letter-spacing:.12em;opacity:.65}.tabs{display:flex;flex-wrap:wrap}.tabs a{position:relative;padding:11px 14px;color:rgba(255,255,255,.8);font-size:.88rem;font-weight:700;text-decoration:none;white-space:nowrap}.tabs a:hover{background:rgba(255,255,255,.1);color:#fff}.tabs a::after{content:"";position:absolute;right:14px;bottom:0;left:14px;height:3px;background:transparent}.tabs a:hover::after{background:#79c7ee}
     main{max-width:1200px;margin:auto;padding:52px 22px 62px}.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:42px;align-items:center;margin-bottom:46px}.eyebrow{margin:0 0 10px;color:var(--blue);font-size:.82rem;font-weight:800;letter-spacing:.14em}.hero h1{margin:0;font-size:clamp(2rem,5vw,3.65rem);line-height:1.22;letter-spacing:.02em}.hero h1 span{display:block;color:#1b537b}.hero p{max-width:620px;margin:20px 0 0;color:var(--muted);font-size:1.04rem}.hero-note{display:flex;align-items:center;gap:14px;margin-top:24px;color:#49667d;font-size:.9rem}.hero-note::before{content:"";width:44px;height:2px;background:var(--gold)}
     .network-card{position:relative;min-height:255px;overflow:hidden;border-radius:22px;background:linear-gradient(145deg,#174b71,#1f7d92);box-shadow:0 18px 35px rgba(20,74,110,.2)}.network-card::before{content:"";position:absolute;width:270px;height:270px;right:-85px;top:-110px;border:1px solid rgba(255,255,255,.32);border-radius:50%;box-shadow:0 0 0 36px rgba(255,255,255,.07),0 0 0 72px rgba(255,255,255,.045)}.network-card::after{content:"";position:absolute;width:175px;height:175px;bottom:-92px;left:-38px;border-radius:50%;background:rgba(232,155,59,.22)}svg{position:absolute;inset:0;width:100%;height:100%}.network-card line{stroke:rgba(255,255,255,.58);stroke-width:2}.network-card circle{fill:#fff;stroke:#70d3c5;stroke-width:5}.network-card circle:nth-of-type(2n){fill:#f7c475;stroke:#fff}.network-copy{position:absolute;z-index:1;bottom:25px;left:27px;color:#fff}.network-copy strong{display:block;font-size:1.27rem}.network-copy span{display:block;margin-top:3px;font-size:.82rem;opacity:.82}
     .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{margin:0;color:var(--navy);font-size:1.38rem}.section-head p{margin:0;color:var(--muted);font-size:.88rem}.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{position:relative;display:flex;flex-direction:column;min-height:250px;padding:25px 26px 23px;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:15px;color:inherit;text-decoration:none;box-shadow:0 5px 17px rgba(20,60,87,.07);transition:transform .2s,box-shadow .2s,border-color .2s}.card:hover{transform:translateY(-5px);border-color:#b7d2e2;box-shadow:0 14px 28px rgba(20,60,87,.14)}.card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.card::after{content:"";position:absolute;width:145px;height:145px;right:-55px;bottom:-65px;border-radius:50%;background:#e6f3fb}.card:nth-child(2)::after{background:#e6f4ef}.card:nth-child(3)::after{background:#f1edfb}.card:nth-child(4)::after{background:#fff0dc}.num{position:relative;color:var(--blue);font-size:.76rem;font-weight:800;letter-spacing:.12em}.card:nth-child(2) .num{color:var(--aqua)}.card:nth-child(3) .num{color:#7554ad}.card:nth-child(4) .num{color:#bf6b18}.card h3{position:relative;margin:16px 0 8px;color:var(--navy);font-size:1.33rem;line-height:1.35}.card p{position:relative;margin:0;color:var(--muted);font-size:.91rem}.go{position:relative;display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:18px;color:#1b537b;font-size:.87rem;font-weight:800}.go b{font-size:1.35rem;transition:transform .2s}.card:hover .go b{transform:translateX(5px)}.footer{padding:27px 20px;text-align:center;border-top:1px solid var(--line);background:#fff;color:#718395;font-size:.82rem}.footer strong{color:var(--navy)}
     @media(max-width:800px){.header-in{padding:13px 14px 0}.brand{padding-bottom:9px}.brand small{display:none}.tabs a{padding:10px 9px;font-size:.8rem}.tabs a::after{right:9px;left:9px}main{padding:34px 14px 45px}.hero{grid-template-columns:1fr;gap:27px;margin-bottom:36px}.network-card{min-height:205px}.card-grid{grid-template-columns:1fr}.card{min-height:205px}.section-head{align-items:start;flex-direction:column;gap:3px}}@media(max-width:410px){.tabs a{flex:1 1 46%;text-align:center}.hero h1{font-size:2rem}}
+    .brand .grade-open-return {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-inline-start: auto;
+      padding: 6px 14px;
+      border: 1px solid #b7d2e2;
+      border-radius: 8px;
+      font-size: .95rem;
+    }
+    .grade-open-return:hover { background: #214b67; }
+    .grade-open-return:focus-visible { outline: 3px solid #f7c475; outline-offset: 3px; }
+    @media (max-width: 520px) {
+      .brand .grade-open-return { margin-inline-start: 0; }
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="header-in">
-      <div class="brand"><a href="./">ネットワークメタ分析 総合ガイド</a><small>NETWORK META-ANALYSIS</small></div>
+      <div class="brand">
+        <a href="./">ネットワークメタ分析 総合ガイド</a>
+        <small>NETWORK META-ANALYSIS</small>
+        <a class="grade-open-return" href="https://core-grade-guide-1-mxe050s-projects.vercel.app/?tab=home">GRADE Openに戻る</a>
+      </div>
       <nav class="tabs" aria-label="総合ガイドのタブ">
         <a href="nma-basic/">NMA基本</a>
         <a href="guide/">総合ガイド</a>
