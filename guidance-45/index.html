@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRADE Guidance 45 多重比較EtD 完全手順書</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--tx:#1d2733;--mut:#5b6b7b;--pri:#1f5fa8;--pri2:#e8f1fb;--bd:#d9e1ea;--warn:#fff6dd;--warnb:#e0a800;--ok:#e6f6ec;--okb:#2e9e5b;--ng:#fdeaea;--ngb:#d64545}
+body.dark{--bg:#12171d;--card:#1b222b;--tx:#e6edf3;--mut:#9fb0c0;--pri:#6fb1ff;--pri2:#1e2c3d;--bd:#33404e;--warn:#3a3214;--ok:#16301f;--ng:#3a1b1b}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.85;font-size:16px}
+#bar{position:fixed;top:0;left:0;height:4px;background:var(--pri);width:0;z-index:50}
+nav{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--bd);display:flex;gap:6px;overflow-x:auto;padding:8px 10px;white-space:nowrap}
+nav a,nav button{flex:none;font-size:13px;padding:5px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--pri2);color:var(--pri);text-decoration:none;cursor:pointer}
+main{max-width:980px;margin:0 auto;padding:14px}
+header.hero{background:linear-gradient(135deg,#1f5fa8,#2a8a9e);color:#fff;border-radius:16px;padding:22px 18px;margin:12px 0}
+header.hero h1{margin:0 0 6px;font-size:1.5rem;line-height:1.4}header.hero p{margin:4px 0;font-size:.92rem;opacity:.95}
+section{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:16px 0}
+h2{font-size:1.3rem;margin:.2em 0 .6em;padding-left:10px;border-left:6px solid var(--pri);line-height:1.4}
+h3{font-size:1.08rem;margin:1.4em 0 .4em;color:var(--pri)}h4{margin:1em 0 .3em;font-size:1rem}
+p{margin:.55em 0}small,.mut{color:var(--mut);font-size:.85rem}
+.box{border-left:5px solid var(--pri);background:var(--pri2);padding:10px 12px;border-radius:8px;margin:10px 0}
+.box.w{border-color:var(--warnb);background:var(--warn)}.box.o{border-color:var(--okb);background:var(--ok)}.box.n{border-color:var(--ngb);background:var(--ng)}
+.box b.t{display:block;margin-bottom:2px}
+.tw{overflow-x:auto;margin:10px 0;border:1px solid var(--bd);border-radius:10px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:520px}
+th,td{border:1px solid var(--bd);padding:6px 8px;vertical-align:top;text-align:left}
+th{background:var(--pri2);color:var(--tx);font-weight:700}
+td:first-child,th:first-child{position:sticky;left:0;background:var(--card);font-weight:600;z-index:1}th:first-child{background:var(--pri2)}
+.d1{background:#e9f6e4}.d2{background:#c9e8bd}.d3{background:#9fd48c}.d4{background:#6fb85a;color:#fff}
+.u1{background:#fdeee3}.u2{background:#f9d3b6}.u3{background:#f3b083}.u4{background:#e5803f;color:#fff}
+.b1{background:#dbeaf8}.b2{background:#a9cdee}.b3{background:#5d9fd8;color:#fff}.b4{background:#1f5fa8;color:#fff}
+.gy{background:#e3e6ea}.yl{background:#fff3a6}.rd{background:#e23b3b;color:#fff}.nv{background:#1f5fa8;color:#fff}
+body.dark td[class]{color:#111}body.dark td.d4,body.dark td.u4,body.dark td.b3,body.dark td.b4,body.dark td.rd,body.dark td.nv{color:#fff}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:10px 0}
+.flow>div{flex:1 1 130px;background:var(--pri2);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;font-size:.86rem;line-height:1.5}
+.flow>div b{display:block;color:var(--pri)}.flow>i{align-self:center;font-style:normal;color:var(--pri);font-weight:700}
+.flow>div.g{background:var(--ok)}.flow>div.r{background:var(--ng)}.flow>div.y{background:var(--warn)}
+figure{margin:12px 0;border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--card)}
+figure img{display:block;width:100%;height:auto}figcaption{font-size:.82rem;color:var(--mut);padding:6px 10px}
+figure.noimg img{display:none}figure.noimg figcaption::before{content:"(画像はログイン中のブラウザでのみ表示。下の再現図を参照) "}
+details{border:1px solid var(--bd);border-radius:10px;margin:10px 0;background:var(--card)}
+summary{cursor:pointer;padding:10px 12px;font-weight:700}details>div{padding:0 12px 12px}
+.qa{border:1px solid var(--bd);border-radius:12px;padding:12px;margin:14px 0}
+.qa .q{font-weight:700;color:var(--pri)}.qa .q::before{content:"Q ";background:var(--pri);color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px}
+.qa .a::before{content:"A ";background:var(--okb);color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-weight:700}
+.step{display:inline-block;background:var(--pri);color:#fff;border-radius:8px;padding:1px 9px;font-size:.8rem;margin-right:6px}
+ul.chk{list-style:none;padding:0}ul.chk li{padding:6px 0;border-bottom:1px dashed var(--bd)}ul.chk input{transform:scale(1.3);margin-right:8px}
+code{background:var(--pri2);padding:1px 5px;border-radius:4px;font-size:.88em}
+a{color:var(--pri)}svg{max-width:100%;height:auto}svg text{font-family:inherit}
+#top{position:fixed;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:0;background:var(--pri);color:#fff;font-size:20px;z-index:40}
+@media(max-width:600px){body{font-size:15px}main{padding:8px}section{padding:12px}h2{font-size:1.15rem}.flow>i{display:none}}
+@media (max-width:600px){
+  body{font-size:16px}
+  main{overflow-wrap:anywhere}
+  .tw,nav{overscroll-behavior-x:contain}
+  #s11 .tw table{display:block;min-width:0!important}
+  #s11 .tw tbody,#s11 .tw tr,#s11 .tw td{display:block}
+  #s11 .tw tr:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  #s11 .tw td{position:static;border:0;padding:4px 10px}
+  #s11 .tw td:first-child{background:var(--pri2);padding:7px 10px}
+  #s11 .tw td:last-child{padding-bottom:10px}
+  #s11 .tw td:nth-child(2)::before,#s11 .tw td:nth-child(3)::before{display:block;color:var(--mut);font-size:.85em}
+  #s11 .tw td:nth-child(2)::before{content:"問い(多重比較版)"}
+  #s11 .tw td:nth-child(3)::before{content:"判断カテゴリー"}
+}
+@media print{nav,#top,#bar{display:none}details{open:true}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav aria-label="教材と章の移動">
+<a href="../">総合ガイドの表紙へ</a>
+<a href="#s0">はじめに</a><a href="#s1">全体像</a><a href="#s2">用語</a><a href="#s3">Step0 準備</a><a href="#s4">Step1 Question</a><a href="#s5">Step2 効果</a><a href="#s6">Net effect</a><a href="#s7">確実性・Balance</a><a href="#s8">コスト等</a><a href="#s9">Step3 SoJ</a><a href="#s10">Step4 推奨</a><a href="#s11">テンプレ</a><a href="#s12">Q&amp;A</a><a href="#s13">チェックリスト</a><a href="#s14">注意点</a><button id="th" aria-label="明るい表示と暗い表示を切り替える">🌓</button>
+</nav>
+<main>
+
+<header class="hero">
+<h1>GRADE Guidance 45<br>多重比較(Multiple Comparisons)EtD 完全手順書</h1>
+<p>原著:Beltran J, et al. New GRADE Evidence-to-Decision Framework for Pairwise and Multiple Comparisons (GRADE Guidance 45). Ann Intern Med. 2026;179(4). doi:10.7326/ANNALS-25-04273</p>
+<p>動画:U.S. GRADE Network ウェビナー「GRADE for Multiple Comparisons」(演者 Jessica Beltran、約55分)</p>
+<p>個人学習用まとめ。Supplement 1・2 と動画Q&amp;Aを統合。</p>
+</header>
+
+<section id="s0">
+<h2>0. この手順書の読み方</h2>
+<p>この手順書は「読めば多重比較EtDを自分で作れる」ことを目標に、論文・付録・動画を1本の流れに並べ直したものです。全体は <b>Step 0(準備)→ Step 1(Question)→ Step 2(Assessment)→ Step 3(Summary of Judgments)→ Step 4(Conclusions)</b> の順で進みます。</p>
+<p>全編を通して使う実例は、論文が採用している<b>MS国際連合(MSIF)の必須薬ガイドライン</b>です。問いは「低資源環境で、進行型の多発性硬化症(MS)にどの疾患修飾薬(DMT)を使うべきか」。ランダム化試験のNMAで多数のDMTをプラセボと比較しています。</p>
+<div class="box w"><b class="t">表示ラベルの意味</b>
+「原資料」=論文・Supplement・動画にそのまま書かれている内容。<br>
+「検算」「私の整理」「再構成」=原資料の数値や記述から私が計算・要約したもの。原資料の記載ではありません。</div>
+<div class="box"><b class="t">色の凡例(全ページ共通)</b>
+<div class="tw"><table style="min-width:420px"><tr><td>望ましい効果</td><td class="d1">Trivial</td><td class="d2">Small</td><td class="d3">Moderate</td><td class="d4">Large</td></tr>
+<tr><td>望ましくない効果</td><td class="u1">Trivial</td><td class="u2">Small</td><td class="u3">Moderate</td><td class="u4">Large</td></tr>
+<tr><td>正味の効果</td><td class="b1">Null/Trivial</td><td class="b2">Small net</td><td class="b3">Moderate net</td><td class="b4">Large net</td></tr></table></div></div>
+</section>
+
+<section id="s1">
+<h2>1. 全体像:なぜ新しいEtDが必要で、何が変わったか</h2>
+<h3>1-1. 背景</h3>
+<p>従来のGRADE EtDフレームワークは「AかBか」という<b>1対1(pairwise)の比較</b>のために設計されていました。しかし現実のガイドラインパネルは、3つ以上の選択肢の中から選ぶ場面がほとんどです。従来のやり方では比較の数だけEtDを作ることになり、時間がかかり非効率でした(動画 4:16〜)。</p>
+<p>ネットワークメタアナリシス(NMA)は3つ以上の選択肢を統計的に比較し、効果推定値と順位を出してくれます。しかしNMAは「どれだけ望ましいか」という正味の健康利益を客観的に示すわけではなく、公平性や費用対効果も教えてくれません。効果だけで決めず、患者にとっての重要性・実行可能性・受容性・公平性・費用まで見る必要があります。</p>
+<h3>1-2. 新フレームワークの変更点(原資料)</h3>
+<div class="flow">
+<div><b>① 事前の合意</b>アウトカムの優先順位、アウトカムの重要性(価値・効用値)、効果の大きさの判断閾値を、評価の前に決めてQuestion欄に書く</div><i>→</i>
+<div><b>② 3つのシナリオに対応</b>NMAあり/共通対照をもつ複数SR/共通対照のない複数SR</div><i>→</i>
+<div><b>③ Net effect(新基準)</b>望ましい効果と望ましくない効果の差の大きさを明示的に判断</div><i>→</i>
+<div><b>④ 詳細判断グリッドとSoJ</b>全介入の判断を一覧化し、クラスター化・順位付けして推奨へ</div>
+</div>
+<p>加えて、「価値のばらつき(variability)」を独立の概念として扱わなくなりました。ばらつきは、価値に関するエビデンスの確実性評価の中で、不精確さや説明できない非一貫性として反映されます。これらの変更は1対1比較のEtDにも当てはまります。</p>
+<h3>1-3. 3つのシナリオ</h3>
+<div class="tw"><table>
+<tr><th>シナリオ</th><th>効果のエビデンス源</th><th>Question欄の書き方</th><th>動画・論文の例</th></tr>
+<tr><td>A. NMAあり</td><td>NMA(対プラセボ、または介入同士)</td><td>介入のリスト+共通対照</td><td>MSのDMT 対 プラセボ</td></tr>
+<tr><td>B. 共通対照をもつ複数SR</td><td>同じ対照を使った別々のSR</td><td>介入のリスト+共通対照</td><td>糖尿病薬 対 プラセボを別々のSRで評価</td></tr>
+<tr><td>C. 共通対照なしの複数SR</td><td>対照が揃っていないSR群</td><td>「A vs B」「B vs C」のように比較のリスト</td><td>論文の引用文献3(乳がんガイドライン)</td></tr>
+</table></div>
+<h3>1-4. 全体フロー(本文の記述から再構成)</h3>
+<div class="flow">
+<div><b>Step 0 準備</b>全基準のエビデンス収集。アウトカム・効用値・閾値・WTP閾値に合意。評価する比較を選ぶ</div><i>→</i>
+<div><b>Step 1 Question</b>PICO、価値、閾値、設定、視点、背景、COI</div><i>→</i>
+<div><b>Step 2 Assessment</b>各基準を全介入について順に判断(詳細判断グリッド)</div><i>→</i>
+<div><b>Step 3 SoJ</b>各比較の方向と強さを決める</div><i>→</i>
+<div><b>Step 4 Conclusions</b>クラスター化、優先順位、推奨文、正当化など</div>
+</div>
+<p>論文の表現では、個々の判断がまず介入を「強く/条件付きで」「推奨する/しない」に分類し、次にSoJ表を使って優先クラスターにまとめるか、個別の優先順に並べます。</p>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/q1UJ7Imh" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1673s" aria-label="元動画の27分53秒を開く">動画 27:53</a>:さらに学ぶには GRADE Book の「From evidence to decision」章(Introduction to the EtD Frameworks/GRADE Recommendations)。GRADE Book は GRADE Handbook を置き換える公式資料。</figcaption></figure>
+</section>
+
+<section id="s2">
+<h2>2. 用語集</h2>
+<div class="tw"><table>
+<tr><th>用語</th><th>意味</th></tr>
+<tr><td>EtD</td><td>Evidence-to-Decision。エビデンスから決定(推奨)へ進むための構造化された枠組み。Question・Assessment・Conclusions の3部構成</td></tr>
+<tr><td>MC-EtD</td><td>多重比較(Multiple Comparisons)用のEtD</td></tr>
+<tr><td>共通対照(common comparator)</td><td>すべての介入が比べられる相手。プラセボ、通常ケア、ある実薬など</td></tr>
+<tr><td>判断閾値(decision threshold)</td><td>絶対効果を trivial/small/moderate/large に分ける境界値。事前に決める</td></tr>
+<tr><td>効用値/負の効用値(utility/disutility)</td><td>アウトカムの重要性を0〜1で表した値。disutility = 1 − utility</td></tr>
+<tr><td>SoF表</td><td>Summary of Findings。アウトカムごとの相対効果・絶対効果・確実性</td></tr>
+<tr><td>詳細判断グリッド(detailed/multiple judgment grid)</td><td>介入×アウトカム(または介入×基準)の判断を色付きで並べた表</td></tr>
+<tr><td>Net effect</td><td>望ましい効果全体と望ましくない効果全体の差の大きさ。確実性は考慮しない</td></tr>
+<tr><td>Balance of effects</td><td>望ましい効果、望ましくない効果、Net effect、効果の確実性、価値の不確実性の5つを統合した判断</td></tr>
+<tr><td>SoJ</td><td>Summary of Judgments。全基準×全介入の最終判断の一覧表</td></tr>
+<tr><td>WTP閾値</td><td>支払意思額の閾値。費用対効果の判断に使う</td></tr>
+<tr><td>推移性(transitivity)</td><td>間接比較の前提となる、研究特性(効果修飾因子)の比較可能性</td></tr>
+</table></div>
+</section>
+
+<section id="s3">
+<h2>3. <span class="step">Step 0</span>始める前の準備</h2>
+<p>論文は、フレームワークを使う前に次のことを済ませるよう求めています。動画でも「評価の前に、その後のルールを決める土台に合意する」と強調されています(6:44〜)。</p>
+<h3>3-1. 事前に合意する4つのパラメータ</h3>
+<div class="flow">
+<div><b>① 検討するアウトカム</b>GRADEの通常の方法で優先順位付け</div>
+<div><b>② アウトカムの相対的重要性</b>効用値など</div>
+<div><b>③ 効果の大きさの判断閾値</b>trivial/small/moderate/large</div>
+<div><b>④ WTP閾値</b>費用対効果の判断用</div>
+</div>
+<p>このほかに、EtDの<b>各基準</b>について必要なエビデンスをすべて集めておきます。効果だけでなく、価値、資源、費用対効果、公平性、受容性、実行可能性も対象です。</p>
+<h3>3-2. どの比較を評価するかを選ぶ</h3>
+<p>NMAを使う場合、すべての選択肢が臨床的に意味をもつとは限りません。パネルは臨床的に重要なものに絞ってよいとされています。公表済みガイドラインのやり方は3通りです。</p>
+<div class="tw"><table>
+<tr><th>方式</th><th>内容</th></tr>
+<tr><td>主解析のみ</td><td>共通対照との比較だけに基づいて推奨を作る(MSの例はこれ)</td></tr>
+<tr><td>全ネットワーク比較</td><td>直接比較(head-to-head)も含め、関連する比較すべてについてEtD基準を判断する</td></tr>
+<tr><td>併用</td><td>上の2つを組み合わせる</td></tr>
+</table></div>
+<div class="box o"><b class="t">実務のヒント(動画Q&amp;Aより)</b>介入が多いときは、まずNet effectまで全介入を評価し、正味の利益が見込めるものだけ残りの基準(経済評価など)に進む、というグループがあります。詳しくは <a href="#q2">Q2</a>。</div>
+<h3>3-3. アウトカムの重要性の決め方</h3>
+<p>重要性は既存文献から得るか、パネルで構造化された演習(健康状態の記述を使うなど)を行って引き出します。個人の最初の評価では多くのアウトカムが「重大」になりがちなので、最終的には質的な議論で、意思決定に最も関係する少数のアウトカムに絞ります。</p>
+<p>動画Q&amp;Aでの演者の補足:効用値が必須なわけではなく、もっと簡素な方法でもよい。ただし何らかの尺度やスコアは必要で、パネルへのアンケートでも構わない。目的は、パネル全員が各アウトカムの意味と患者にとっての重要性を共通理解することです。</p>
+<h3>3-4. 閾値を事前に決める理由</h3>
+<p>論文によれば、閾値の事前設定は判断の基準点を固定し、結果を見てから閾値を動かすことを防ぎ、トレードオフを透明で再現可能にします。閾値は、望ましい効果・望ましくない効果・Net effect・エビデンスの確実性の判断を支えます。</p>
+</section>
+
+<section id="s4">
+<h2>4. <span class="step">Step 1</span>Question(問いの定式化)</h2>
+<p>Question欄には次の項目を書きます(Supplement 1)。</p>
+<div class="tw"><table>
+<tr><th>項目</th><th>単一比較</th><th>多重比較</th></tr>
+<tr><td>問い</td><td>Should [介入] vs. [対照] be used for [健康問題/集団]?</td><td>Which [介入(複数)] should be used for [健康問題/集団]?</td></tr>
+<tr><td>Population</td><td colspan="2">推奨の対象となる患者・集団</td></tr>
+<tr><td>Intervention(s)</td><td>介入1つ</td><td>共通対照あり:優先された介入のリスト<br>共通対照なし:優先された比較のリスト</td></tr>
+<tr><td>Comparison(s)</td><td>対照1つ</td><td>選んだ共通対照(ある場合)</td></tr>
+<tr><td>Outcomes</td><td colspan="2">重大・重要アウトカムのリスト+<b>重要性(価値)</b>+<b>効果の大きさの判断閾値</b>(閾値1:Trivial/Small、閾値2:Small/Moderate、閾値3:Moderate/Large)</td></tr>
+<tr><td>Setting</td><td colspan="2">ガイドラインが実施される場</td></tr>
+<tr><td>Perspective</td><td colspan="2">集団か個人か</td></tr>
+<tr><td>Background</td><td colspan="2">推奨作成と効果の解釈のための背景</td></tr>
+<tr><td>Conflict of interests</td><td colspan="2">潜在的な利益相反</td></tr>
+</table></div>
+<p>動画(9:18〜)の説明:中心の問いは「複数の介入のうち、使うべきか、どれが好ましいか」。介入欄でシナリオを書き分けます。NMAがあれば介入を列挙して共通対照との結果を示し、共通対照がなければ比較そのものを列挙します。</p>
+
+<h3>4-1. MSの例:Question欄</h3>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/f3ePqLSA" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=576s" aria-label="元動画の9分36秒を開く">動画 9:36</a>:MSガイドラインのQuestion欄。30の介入、対照はプラセボ、アウトカムごとに効用値と3つの閾値。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>項目</th><th>内容(Supplement 2 Table 1/動画)</th></tr>
+<tr><td>問い</td><td>低資源環境で、進行型MSにどの必須DMTを使うべきか(動画スライドは再発型と進行型の両方を含む版)</td></tr>
+<tr><td>Population</td><td>進行型MSの人</td></tr>
+<tr><td>Interventions(30)</td><td>interferon beta-1a、interferon beta-1b、PEG IFN-beta-1a、mitoxantrone、glatiramer acetate、natalizumab、fingolimod、teriflunomide、leflunomide、dimethyl fumarate、diroximel fumarate、alemtuzumab、laquinimod、azathioprine、immunoglobulin、steroid、ocrelizumab、cladribine、siponimod、ozanimod、ponesimod、ofatumumab、daclizumab、rituximab、cyclophosphamide、fludarabine、methotrexate、minocycline、mycophenolate mofetil、monomethyl fumarate</td></tr>
+<tr><td>共通対照</td><td>プラセボ</td></tr>
+<tr><td>Setting/Perspective</td><td>外来/集団</td></tr>
+<tr><td>Background</td><td>MSは未治療だと重い障害に至りうる。世界に280万人、うち11%が進行型。DMTへのアクセスは世界的に不平等</td></tr>
+<tr><td>COI</td><td>DMTに関する利益相反をもつパネル委員を開示</td></tr>
+</table></div>
+
+<h4>アウトカム・効用値・閾値(1,000人あたりのイベント数)</h4>
+<div class="tw"><table>
+<tr><th>優先アウトカム</th><th>効用値</th><th>負の効用値</th><th>Trivial/Small</th><th>Small/Moderate</th><th>Moderate/Large</th></tr>
+<tr><td>死亡</td><td>0</td><td>1</td><td>15.6(16)</td><td>30.7(31)</td><td>59.5(60)</td></tr>
+<tr><td>QOL *</td><td>0.51</td><td>0.49</td><td>31.84(32)</td><td>62.65(63)</td><td>121.43(121)</td></tr>
+<tr><td>MS再発 *</td><td>0.62</td><td>0.38</td><td>41.05(41)</td><td>80.79(81)</td><td>156.58(157)</td></tr>
+<tr><td>障害 ***</td><td>0.481</td><td>0.519</td><td>30.06(30)</td><td>59.15(59)</td><td>114.64(115)</td></tr>
+<tr><td>重篤な有害事象 **</td><td>0.6</td><td>0.4</td><td>39</td><td>76.75(77)</td><td>148.75(149)</td></tr>
+<tr><td>有害事象による中止 **</td><td>0.85</td><td>0.15</td><td>104</td><td>204.67(205)</td><td>396.67(397)</td></tr>
+</table></div>
+<small>小数は動画スライド、括弧内はSupplementの丸め値。* 公表エビデンスに基づく ** パネルの合意で決定 *** EDSSスコア6に相当する健康状態効用値を採用</small>
+
+<div class="box"><b class="t">検算:この閾値表の作り方</b>
+各アウトカムの閾値は、<b>死亡の閾値 ÷ そのアウトカムの負の効用値</b>と一致します。<br>
+例:再発の Trivial/Small = 15.6 ÷ 0.38 = 41.05。障害 = 15.6 ÷ 0.519 = 30.06。中止 = 15.6 ÷ 0.15 = 104。<br>
+Small/Moderate も同じで、QOL = 30.7 ÷ 0.49 = 62.65。Moderate/Large は QOL = 59.5 ÷ 0.49 = 121.43。<br>
+つまり「重要性が低いアウトカムほど、同じ"小さい効果"と呼ぶのに多くのイベント差が必要」という設計です。自作するときは、基準となる閾値3つ(ここでは 15.6/30.7/59.5)と各アウトカムの負の効用値を決めれば、表全体が計算できます。<br>
+<small>これは数値の一致から私が確認した関係で、論文本文に式として書かれているわけではありません。閾値設定の正式な方法は論文の引用文献6・7(GRADEの判断閾値ガイダンス)を参照してください。</small></div>
+</section>
+
+<section id="s5">
+<h2>5. <span class="step">Step 2-a</span>Assessment:問題の優先度と効果の大きさ</h2>
+<p>Assessment欄では、従来の基準に新基準 Net effect を加えて評価します。各基準は<b>Judgement(判断)/Research evidence(研究エビデンス)/Additional considerations(追加の考慮事項)</b>の3列構成です。多重比較では基準ごとに詳細判断グリッドを使い、全介入を同時に判断します。</p>
+<p>EtDは柔軟で、視点や文脈に応じて基準を減らしたり、別の基準(地球の健康への影響など)を足したりできます。</p>
+<div class="box"><b class="t">推移性の考え方を全基準に広げる</b>
+推移性は本来NMAの概念ですが、「比較可能な情報に基づいて判断する」という原則は他の基準にも当てはまります。費用なら設定・通貨・時間軸が揃っているか、公平性なら社会経済的地位・居住地・人種などの特性が揃っているかを確認します。重要な違いは記録し、その基準の確実性評価で<b>非直接性</b>として反映します。</div>
+
+<h3>5-1. 問題の優先度(Problem)</h3>
+<p>従来のEtDと同じです。問い「その問題は優先事項か」に No/Probably no/Probably yes/Yes/Varies/Don't know で答えます。MSの例の判断は Yes 側で、根拠は280万人の患者数、進行型11%、DMTアクセスの不平等、進行型への治療選択肢の乏しさです。</p>
+
+<h3>5-2. 望ましい効果・望ましくない効果の大きさ</h3>
+<p>効果の大きさの判断は2つの要素で決まります。<b>絶対効果の大きさ</b>と<b>アウトカムの重要性</b>です。新EtDでは、Step 1で決めた閾値と絶対効果を比べて大きさを決めます。望ましい効果と望ましくない効果は別々の基準として評価します。</p>
+<div class="box"><b class="t">押さえるべきルール(論文)</b>
+<b>1. 方向で振り分ける。</b>同じアウトカムでも、ある介入では減って「望ましい」、別の介入では増えて「望ましくない」になりえます。多重比較では特に重要です。<br>
+<b>2. 絶対効果を使う。</b>絶対効果は、統合された相対リスクを、対象集団に近いベースラインリスク(対照群または共通対照群)に当てはめて計算します。直接比較では実薬対照群のベースラインリスクを使います。<br>
+<b>3. 全体判断は、重大アウトカムの中で最大の効果より小さくしない。</b><br>
+<b>4. 相関のないアウトカムは合算してよい。</b>独立した trivial・small・moderate の効果が積み重なって、より大きい全体判断になりえます。<br>
+<b>5. 相関するアウトカムは安易に合算しない。</b>同じ情報の二重計上になり、効果を過大評価します。</div>
+
+<h4>手順1:SoF表の1セルを閾値に当てはめる</h4>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/HxTuh30Q" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=732s" aria-label="元動画の12分12秒を開く">動画 12:12</a>〜:NMAのSoF表は情報量が多いが、閾値があれば解釈は簡単。アザチオプリンの死亡は1,000人あたり29人減で「Small」。</figcaption></figure>
+<svg viewBox="0 0 640 170" role="img" aria-label="閾値の数直線">
+<rect x="20" y="30" width="150" height="80" fill="#6fb85a"/><rect x="170" y="30" width="150" height="80" fill="#9fd48c"/><rect x="320" y="30" width="150" height="80" fill="#c9e8bd"/><rect x="470" y="30" width="150" height="80" fill="#e9f6e4"/>
+<g font-size="15" text-anchor="middle" fill="#123"><text x="95" y="135">Large</text><text x="245" y="135">Moderate</text><text x="395" y="135">Small</text><text x="545" y="135">Trivial</text></g>
+<g stroke="#1f5fa8" stroke-width="3" stroke-dasharray="6 4"><line x1="170" y1="20" x2="170" y2="118"/><line x1="320" y1="20" x2="320" y2="118"/><line x1="470" y1="20" x2="470" y2="118"/></g>
+<g font-size="15" font-weight="700" text-anchor="middle" fill="#d9720b"><text x="170" y="160">60</text><text x="320" y="160">31</text><text x="470" y="160">16</text></g>
+<circle cx="338" cy="70" r="20" fill="#f2b01e"/><text x="338" y="75" text-anchor="middle" font-size="12" font-weight="700">AZP</text>
+<text x="400" y="52" font-size="13" font-weight="700" fill="#123">29人減/1,000人</text>
+<text x="320" y="14" text-anchor="middle" font-size="13" fill="#555">死亡(1,000人あたりのイベント差)</text>
+</svg>
+<p>29は16以上31未満なので <b>Small desirable</b> です。これを全介入・全アウトカムで繰り返します。</p>
+
+<h4>MSの例:死亡(24〜36か月)の列</h4>
+<div class="tw"><table>
+<tr><th>介入(対プラセボ)</th><th>相対効果 OR(95%CI)</th><th>絶対効果(1,000人あたり、95%CI)</th><th>判断</th></tr>
+<tr><td>Azathioprine</td><td>0.50(0.04–5.79)</td><td>29減(56減〜207増)</td><td class="d2">Small desirable</td></tr>
+<tr><td>Methotrexate</td><td>—</td><td>—</td><td class="gy">データなし</td></tr>
+<tr><td>Interferon beta 1a</td><td>1.55(0.41–5.91)</td><td>3増(3減〜27増)</td><td class="u1">Trivial undesirable</td></tr>
+<tr><td>Rituximab</td><td>0.17(0.01–4.12)</td><td>8減(10減〜30増)</td><td class="d1">Trivial desirable</td></tr>
+<tr><td>Fingolimod</td><td>0.72(0.07–8.02)</td><td>1減(4減〜28増)</td><td class="d1">Trivial desirable</td></tr>
+<tr><td>Interferon beta 1b</td><td>2.29(0.58–9.03)</td><td>8増(2減〜38増)</td><td class="u1">Trivial undesirable</td></tr>
+<tr><td>Glatiramer acetate</td><td>0.28(0.08–0.98)</td><td>16減(20減〜0減)</td><td class="d2">Small desirable</td></tr>
+<tr><td>Natalizumab</td><td>3.07(0.12–75.52)</td><td>2増(1減〜75増)</td><td class="u1">Trivial undesirable</td></tr>
+<tr><td>Ocrelizumab</td><td>2.01(0.22–18.07)</td><td>4増(3減〜65増)</td><td class="u1">Trivial undesirable</td></tr>
+<tr><td>Immunoglobulins</td><td>0.33(0.01–8.13)</td><td>9減</td><td class="d1">Trivial desirable</td></tr>
+<tr><td>Siponimod</td><td>0.49(0.12–1.93)</td><td>4減(6減〜7増)</td><td class="d2">Small desirable(原資料の脚注)</td></tr>
+<tr><td>Laquinimod</td><td>1.81(0.07–44.62)</td><td>3増(3減〜133増)</td><td class="u1">Trivial undesirable</td></tr>
+</table></div>
+<small>判断列は原資料の脚注(1=trivial undesirable、2=trivial desirable、3=small desirable など)による。Siponimodの「4減」は閾値16に照らすとtrivialに当たるが、原資料の脚注はsmallになっている(<a href="#s14">注意点</a>参照)。障害・再発・SAE・中止の各列は Supplement 2 Table 2 を参照。</small>
+
+<h4>手順2:アウトカムごとの判断を横に並べ、全体判断を出す</h4>
+<p>SoF表は詳細判断グリッドに変換でき、この工程は半自動化できます(動画 13:01〜)。アザチオプリンの行は次のとおりです。</p>
+<div class="tw"><table>
+<tr><th>Azathioprine</th><th>死亡</th><th>障害</th><th>再発</th><th>SAE</th><th>中止</th><th>全体判断</th></tr>
+<tr><td>絶対効果</td><td>29減</td><td>141減</td><td>257減</td><td>1減</td><td>95増</td><td>—</td></tr>
+<tr><td>望ましい効果グリッド</td><td class="d2">Small</td><td class="d4">Large</td><td class="d4">Large</td><td class="d1">Trivial</td><td class="gy">(対象外)</td><td class="d4"><b>Large desirable</b></td></tr>
+<tr><td>望ましくない効果グリッド</td><td class="gy">(対象外)</td><td class="gy">(対象外)</td><td class="gy">(対象外)</td><td class="gy">(対象外)</td><td class="u1">Trivial</td><td class="u1"><b>Trivial undesirable</b></td></tr>
+</table></div>
+<p>死亡で小さい利益、障害予防で大きい利益、再発減少で大きい利益なので、ほとんどのパネルは望ましい効果全体を Large と判断するだろう、というのが動画の説明です。中止は95増ですが、閾値104未満なので Trivial です。望ましい効果のグリッドでは害の方向のセルを灰色にして考慮せず、望ましくない効果のグリッドではその逆にします。</p>
+
+<h4>MSの例:全体判断(Supplement 2 Table 2・9)</h4>
+<div class="tw"><table>
+<tr><th>判断</th><th>望ましい効果</th><th>望ましくない効果(判断欄)</th></tr>
+<tr><td>Large</td><td class="d4">Azathioprine、Interferon beta 1a、Methotrexate、Siponimod</td><td>—</td></tr>
+<tr><td>Moderate</td><td class="d3">Fingolimod、Rituximab、Ocrelizumab、Glatiramer acetate、Immunoglobulins、Interferon beta 1b、Natalizumab</td><td class="u3">Interferon beta 1a</td></tr>
+<tr><td>Small</td><td>—</td><td class="u2">Interferon beta 1b</td></tr>
+<tr><td>Trivial</td><td>—</td><td class="u1">Azathioprine、Fingolimod、Rituximab、Ocrelizumab、Glatiramer acetate、Immunoglobulins、Methotrexate、Siponimod、Natalizumab</td></tr>
+</table></div>
+<div class="box w"><b class="t">追加の考慮事項に書かれたこと(MSの例)</b>
+NMAにはランダム化試験だけを含めた。試験ごとに測定アウトカムが違い、比較が難しかった(例:ocrelizumabの試験は障害進行が中心で再発は未評価)。<br>
+望ましくない効果を「trivial」とする判断は試験データには合うが、<b>市販後調査を踏まえた臨床の見方とは合わない</b>とパネルは指摘。そこで市販後の安全性情報を考慮した:daclizumabとlaquinimodは市場撤退または未承認、mitoxantroneは遅発性の心毒性、alemtuzumabはEMAによる使用制限、natalizumabはJCV陽性者のPMLリスク、fingolimodはリバウンドと心血管・肝・がんのリスク。</div>
+
+<h4>相関するアウトカムの例(Supplement 2 Figure 1)</h4>
+<p>COVID-19中等症への治療量抗凝固療法の例です。</p>
+<div class="tw"><table>
+<tr><th>アウトカム</th><th>効果の大きさ</th></tr>
+<tr><td>全死亡</td><td class="d2">Small</td></tr><tr><td>肺塞栓症</td><td class="d1">Trivial</td></tr><tr><td>上肢近位の深部静脈血栓症</td><td class="d1">Trivial</td></tr><tr><td>多臓器不全</td><td class="d2">Small</td></tr><tr><td>侵襲的人工呼吸</td><td class="d1">Trivial</td></tr>
+<tr><td>全体判断</td><td class="d2"><b>Small</b></td></tr>
+</table></div>
+<p>パネルは、死亡と多臓器不全での小さい利益に加え、他のアウトカムで些細な利益が積み重なると見ましたが、これらは互いに重なり依存している可能性が高いと認め、全体を Small にとどめました。足し上げて Moderate にしなかった点が要点です。</p>
+</section>
+
+<section id="s6">
+<h2>6. <span class="step">Step 2-b</span>Net effect(正味の効果)— 新基準</h2>
+<p>Net effect は、各比較について「望ましい効果全体」と「望ましくない効果全体」の差の大きさを評価します。従来はパネルが頭の中で暗黙に行っていた判断を、明示的に書き出すものです。</p>
+<p>判断カテゴリーは9つです:Large net undesirable/Moderate net undesirable/Small net undesirable/Null or trivial net effect/Small net desirable/Moderate net desirable/Large net desirable/Varies/Don't know。</p>
+<div class="box"><b class="t">論文の例(脳卒中)</b>
+虚血性脳卒中リスクの大幅な減少(large desirable)は、軽い消化管出血のわずかな増加(small undesirable)を上回り、moderate または large の net desirable になりえます。一方、同じ脳卒中減少に重い頭蓋内出血の小さな増加が伴うなら、net effect は small net desirable まで下がりえます。害の「大きさ」だけでなく、そのアウトカムの重要性が効いてきます。</div>
+
+<h3>6-1. Net effect を加える意味</h3>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/8zV04NoY" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=934s" aria-label="元動画の15分34秒を開く">動画 15:34</a>〜:Net effect なし。3つの介入はどれも「Favours the intervention」で区別がつかない。</figcaption></figure>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/Ow4bwKKq" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=948s" aria-label="元動画の15分48秒を開く">動画 15:48</a>〜:Net effect を明示すると、Large/Small/Moderate と差が見える。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>介入</th><th>望ましい効果</th><th>望ましくない効果</th><th>Net effect</th><th>Balance of effects</th></tr>
+<tr><td>1</td><td class="d4">Large</td><td class="u1">Trivial</td><td class="b4">Large net desirable</td><td>Favours the intervention</td></tr>
+<tr><td>2</td><td class="d4">Large</td><td class="u3">Moderate</td><td class="b2">Small net desirable</td><td>Favours the intervention</td></tr>
+<tr><td>3</td><td class="d3">Moderate</td><td class="u1">Trivial</td><td class="b3">Moderate net desirable</td><td>Favours the intervention</td></tr>
+</table></div>
+<p>Balance だけ見ると3つとも同じですが、Net effect を挟むと差が見えます。この粒度が、Balance の判断を良くするだけでなく、後で介入同士を相対比較して順位を付けるときに役立ちます。</p>
+
+<h3>6-2. 質的な求め方(基本)</h3>
+<p>望ましい効果と望ましくない効果の全体判断を横に並べたグリッドを作り、1行ずつ Net effect を判断します。</p>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/AngvgpbV" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=861s" aria-label="元動画の14分21秒を開く">動画 14:21</a>:MSの例の Net effect グリッド。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>介入(対プラセボ)</th><th>望ましい効果</th><th>望ましくない効果</th><th>Net effect(グリッド)</th><th>SumValue</th><th>検算:閾値での区分</th></tr>
+<tr><td>Azathioprine</td><td class="d4">Large</td><td class="u1">Trivial</td><td class="b4">Large net desirable</td><td>0.1856</td><td>Large</td></tr>
+<tr><td>Siponimod</td><td class="d4">Large</td><td class="u1">Trivial</td><td class="b4">Large net desirable</td><td>0.0806</td><td>Large</td></tr>
+<tr><td>Methotrexate</td><td class="d4">Large</td><td class="u1">Trivial</td><td class="b4">Large net desirable</td><td>0.0755</td><td>Large</td></tr>
+<tr><td>Rituximab</td><td class="d3">Moderate</td><td class="u1">Trivial</td><td class="b3">Moderate net desirable</td><td>0.0529</td><td>Moderate</td></tr>
+<tr><td>Glatiramer acetate</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0459</td><td>Moderate(グリッドと不一致)</td></tr>
+<tr><td>Immunoglobulins</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0301</td><td>Small</td></tr>
+<tr><td>Natalizumab</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0300</td><td>Small</td></tr>
+<tr><td>Ocrelizumab</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0296</td><td>Small</td></tr>
+<tr><td>Interferon beta 1a</td><td class="d4">Large</td><td class="u3">Moderate</td><td class="b2">Small net desirable</td><td>0.0267</td><td>Small</td></tr>
+<tr><td>Fingolimod</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0209</td><td>Small</td></tr>
+<tr><td>Interferon beta 1b</td><td class="d3">Moderate</td><td class="u2">Small</td><td class="b2">Small net desirable</td><td>0.0162</td><td>Small</td></tr>
+<tr><td>Laquinimod</td><td class="gy">(なし)</td><td class="u1">Trivial</td><td class="u1">Trivial net undesirable</td><td>−0.0086</td><td>Trivial(害の方向)</td></tr>
+</table></div>
+<small>「検算」列は、SumValueを死亡の閾値(0.0156/0.0307/0.0595)に当てはめた私の区分。判断欄のリストは「Moderate net desirable: Rituximab, Glatiramer acetate」と書いており、グリッドのGlatiramer(Small)と食い違う。</small>
+
+<h3>6-3. 半定量的な求め方:MSパネルの SumValue 法</h3>
+<p>MSの例では、まず効用値に基づく半自動の計算で Net effect を出し、それをパネルが確認・検証しました。パネルが合意した手順は次のとおりです(Supplement 2 Table 3)。</p>
+<div class="flow">
+<div><b>1</b>各アウトカムに健康状態効用値(HSUV)に対応する数値を割り当てる(文献または合意)</div><i>→</i>
+<div><b>2</b>その値に、絶対リスク減少の点推定値(1,000人あたり)と95%CIを掛ける</div><i>→</i>
+<div><b>3</b>利益の合計から害を引いた SumValue を、事前の閾値で trivial〜large に位置づける</div><i>→</i>
+<div><b>4</b>二重計上を避ける:2時点あれば確実性の高い方、同じなら長い方だけ使う</div><i>→</i>
+<div><b>5</b>順位は Balance の議論の出発点。限界を慎重に考える</div><i>→</i>
+<div class="r"><b>6</b>絞り込み:laquinimod は正味の害を示したので、以降の完全なEtD評価から除外</div>
+</div>
+<div class="box"><b class="t">検算:アザチオプリンの SumValue を再現する</b>
+<div class="tw"><table style="min-width:460px">
+<tr><th>アウトカム</th><th>絶対効果/1,000</th><th>負の効用値</th><th>積</th></tr>
+<tr><td>死亡</td><td>29減</td><td>1</td><td>+29.00</td></tr>
+<tr><td>障害</td><td>141減</td><td>0.519</td><td>+73.18</td></tr>
+<tr><td>再発</td><td>257減</td><td>0.38</td><td>+97.66</td></tr>
+<tr><td>中止</td><td>95増</td><td>0.15</td><td>−14.25</td></tr>
+<tr><td>合計</td><td colspan="2">1,000人あたり</td><td><b>185.59 → 0.1856</b></td></tr>
+</table></div>
+原資料の 0.1856 と一致します。SAE(1減×0.4)を入れると一致しません。これは脚注の「SAEとの二重計上を避けるため、正味の合計には中止だけを含めた」と整合します。<br>
+<small>他の介入はSoF表の全セルを確認できていないため、再現したのはアザチオプリンだけです。原著の計算シートのURLは Supplement 2 Table 3 に記載されています。</small></div>
+
+<h3>6-4. Net effect の限界</h3>
+<div class="box w"><b class="t">論文・パネル・動画が挙げた注意</b>
+<b>パネル判断の代わりではない。</b>半定量的な推定は決定ルールではなく、議論の明示的な出発点です。<br>
+<b>報告アウトカム数の違いが結果を左右する。</b>interferon beta 1a は多くのアウトカムを報告しており、有利に見える可能性があります。両インターフェロンに共通の重大アウトカム(再発と障害)だけで合計すると、1b は moderate な利益のままですが、1a は trivial な害になります。1a が大きい利益になるのは、QOLやMRI病変という追加アウトカムのデータがあるためです。ocrelizumab は再発が未測定で、スコアに影響しました。<br>
+<b>効用値の限界。</b>HSUVはMSで妥当性が検証されておらず、MS当事者の意見が入っていません。研究の異質性のため、1つの要約値を出すこと自体が難しいとパネルは懸念しました。<br>
+<b>アウトカムが厳密に独立でない。</b><br>
+<b>確実性を考慮していない。</b>確実性は次の Balance で加味します。<br>
+<b>計算方法は開発中。</b>GRADE Working Group が定量評価の選択肢を検討中です。</div>
+</section>
+
+<section id="s7">
+<h2>7. <span class="step">Step 2-c</span>確実性と Balance of effects</h2>
+<h3>7-1. 効果のエビデンスの確実性</h3>
+<p>各比較について、通常のGRADEガイダンスに従ってアウトカム全体の確実性を決めます。<b>重大アウトカムだけ</b>に注目し、それらの確実性が異なるときは、ふつう<b>最も低い確実性</b>が全体の確実性になります。カテゴリーは Very low/Low/Moderate/High/No included studies です。</p>
+<div class="tw"><table>
+<tr><th>MSの例</th><th>介入</th></tr>
+<tr><td>Very low</td><td>Azathioprine、Rituximab、Ocrelizumab、Immunoglobulins、Glatiramer acetate、Interferon beta 1b、Methotrexate、Natalizumab</td></tr>
+<tr><td>Low</td><td>Fingolimod、Interferon beta 1a、Siponimod</td></tr>
+</table></div>
+<p>グリッド上は、ほとんどのアウトカムが不精確さで3段階下げの Very low、一部が Low や Moderate でした。どの治療にも Very low のアウトカムが少なくとも1つあったので、原則どおりなら全介入が Very low になります。</p>
+<div class="box w"><b class="t">標準からの逸脱を明記した例</b>MSパネルは「標準的なGRADE方法論から外れる」と断ったうえで、interferon beta 1a・siponimod・fingolimod については、複数のアウトカムが同じ方向に揃っていて不精確さへの懸念が減るとして、全体評価での格下げを小さくしました。逸脱するなら、こうして Additional considerations に理由を書きます。</div>
+
+<h3>7-2. 価値(アウトカムの重要性)に関するエビデンスの確実性</h3>
+<p>問い「人々が主要アウトカムをどれだけ重視するかについて、重要な不確実性があるか」。カテゴリーは Important uncertainty/Possibly important uncertainty/Probably no important uncertainty/No important uncertainty です。</p>
+<p>確実性そのものはアウトカム単位で評価しますが、その不確実性がどれだけ問題になるかは<b>比較ごと</b>に判断します。Net effect が比較ごとに違うからです。</p>
+<div class="flow">
+<div class="y"><b>Net effect が小さい、またはゼロに近い</b>価値の不確実性が Balance を左右しやすい</div>
+<div class="g"><b>Net effect が大きい</b>価値が多少違っても結論は変わりにくい</div>
+</div>
+<p>MSの例では全介入が「Probably no important uncertainty」でした。パネルはHSUVの正確さと妥当性に懸念をもち、効用値や閾値に頼らずにこの判断を行っています。死亡は、進行型MSで人々がどう価値づけるかの実証研究が見つからず「NA」でした。</p>
+
+<h3>7-3. Balance of effects</h3>
+<p>Balance は、ここまでの<b>5つの基準</b>を統合します。</p>
+<div class="flow">
+<div>望ましい効果</div><div>望ましくない効果</div><div>Net effect</div><div>効果の確実性</div><div>価値の不確実性</div><i>→</i><div class="g"><b>Balance of effects</b>Favors the comparison/Probably favors the comparison/Does not favor either/Probably favors the intervention/Favors the intervention/Varies/Don't know</div>
+</div>
+<div class="box"><b class="t">確実性が低いときは控えめに(論文の例)</b>
+大きい望ましい効果は確実性が高いが、小さい望ましくない効果は確実性が非常に低い、という場合を考えます。害は推定より大きいかもしれません。そこでパネルは全体を moderate net desirable と判断し、Balance は「favors」ではなく「<b>probably</b> favors the intervention」とすることがあります。</div>
+<h4>MSの例:Balance のグリッド(Supplement 2 Table 5)</h4>
+<div class="tw"><table>
+<tr><th>介入</th><th>効果の確実性</th><th>価値の不確実性</th><th>Balance</th></tr>
+<tr><td>Azathioprine、Methotrexate、Rituximab、Interferon beta 1b、Glatiramer acetate、Natalizumab、Ocrelizumab、Immunoglobulins</td><td>⨁◯◯◯ Very low</td><td>Probably no important uncertainty</td><td>Probably favors the intervention</td></tr>
+<tr><td>Interferon beta 1a、Fingolimod</td><td>⨁⨁◯◯ Low</td><td>Probably no important uncertainty</td><td>Probably favors the intervention</td></tr>
+<tr><td>Siponimod</td><td>Low</td><td>Probably no important uncertainty</td><td class="d3"><b>Favours the intervention</b></td></tr>
+</table></div>
+<p>パネルの説明:確実性が Very low のDMTは「probably favors」。Siponimod は確実性がより高く(very low ではなく low)、interferon beta 1b や fingolimod より正味の効果が大きそうなので「favors」としました。</p>
+</section>
+
+<section id="s8">
+<h2>8. <span class="step">Step 2-d</span>資源・費用対効果・公平性・受容性・実行可能性</h2>
+<h3>8-1. 必要資源と、そのエビデンスの確実性</h3>
+<p>比較ごとに、関係する資源利用項目(費用と節約)の差を評価します。費用の単位(1人あたりか集団あたりか)、時間軸(年間か生涯か)を明確にします。パネルは資源利用の差についても明示的な閾値を決められます。</p>
+<p>単価は、同じ管轄の行政データベースや公表データから得たものが最も信頼できます。なければ公表研究などを使い、限界を書きます。カテゴリーは Large costs/Moderate costs/Negligible costs and savings/Moderate savings/Large savings/Varies/Don't know です。</p>
+<div class="tw"><table>
+<tr><th>MSパネルの閾値(対プラセボ、低中所得国を重視)</th><th>該当</th></tr>
+<tr><td>Large costs:年間1人あたり1,000ドル超</td><td>Fingolimod、Rituximab、Ocrelizumab、Glatiramer acetate、Immunoglobulins、Interferon beta 1a、Interferon beta 1b、Siponimod、Natalizumab</td></tr>
+<tr><td>Moderate costs:100ドル超</td><td>Azathioprine</td></tr>
+<tr><td>Negligible costs/savings:100ドル未満</td><td>Methotrexate</td></tr>
+</table></div>
+<p>エビデンスは公開されている価格データベースの手作業検索で集め、先発品と後発品・バイオシミラーの両方を調べて最安値を採用しました。年間費用は、1単位の価格に推奨用量での年間使用量を掛けて計算しています。高所得国の中央値(年間・1人・米ドル)の例は、rituximab 6,558、glatiramer acetate 9,121、interferon beta 1b 10,123、natalizumab 23,023、fingolimod 23,258、ocrelizumab 25,756、immunoglobulins 48,855 です。資源のエビデンスの確実性は、SoJでは全介入「No included studies」でした。</p>
+
+<h3>8-2. 費用対効果</h3>
+<p>比較ごとに、事前に決めたWTP閾値に照らして、介入・対照・どちらでもない、のいずれが支持されるかを判断します。</p>
+<div class="flow">
+<div><b>理想</b>パネル自身が経済モデルを作る</div>
+<div><b>代替</b>公表された経済分析のICER(QALYあたり増分費用)を使い、頑健性・妥当性・移転可能性を評価する</div>
+<div><b>経済評価がない</b>1イベントを防ぐ(達成する)費用を推定するGRADEガイダンスを使う</div>
+</div>
+<div class="box"><b class="t">多重比較では逐次増分分析を優先</b>
+介入を費用の安い順に並べ、「何もしない」とではなく、<b>優位でない次に効率的な選択肢</b>と段階的に比べます。これで効率的フロンティアが特定でき、追加費用が許容できる戦略だけが残ります。最も効率的な選択肢から採用して次善へ進む、という実装の流れにも合います。<br>
+補足として、共通対照(無介入など)に対する結果も示すと、各選択肢を独立に記述でき、既存研究とも比べやすくなります。</div>
+<h4>費用対効果エビデンスプロファイルの例(Supplement 2 Table 7:片頭痛予防、ACP 2025)</h4>
+<div class="tw"><table>
+<tr><th>比較</th><th>研究数</th><th>視点</th><th>期間</th><th>増分費用</th><th>増分効果</th><th>ICER</th><th>費用対効果的である確率</th><th>確実性</th></tr>
+<tr><td>erenumab 140mg vs 無治療</td><td>1</td><td>医療制度・第三者支払者</td><td>2年</td><td>$5,525</td><td>0.04 QALY</td><td>$154,000/QALY</td><td>74.1%</td><td>Low</td></tr>
+<tr><td>fremanezumab 225mg vs 無治療</td><td>1</td><td>医療制度・第三者支払者</td><td>2年</td><td>$3,753</td><td>0.03 QALY</td><td>$146,000/QALY</td><td>80.5%</td><td>Low</td></tr>
+<tr><td>atogepant 60mg vs プラセボ</td><td>1</td><td>社会</td><td>1年</td><td>$11,978</td><td>0.03 QALY</td><td>$456,739/QALY</td><td>提供なし</td><td>Low</td></tr>
+<tr><td>rimegepant 60mg vs プラセボ</td><td>1</td><td>社会</td><td>1年</td><td>$21,692</td><td>0.02 QALY</td><td>$894,727/QALY</td><td>提供なし</td><td>Low</td></tr>
+</table></div>
+<small>このガイドラインの価値区分(委員会の合意によるWTP閾値):High value=優位または10万ドル未満、Intermediate=10万〜20万ドル、Low=20万ドル超、No value=劣位、Uncertain value=エビデンス不十分、No evidence。</small>
+<p><b>MSの例:</b>経済評価のSRに基づきましたが、結果は一貫せず、長期データが乏しく、高所得国以外の研究が少なく、WTP閾値もまちまちでした。判断は「Varies」が ocrelizumab・glatiramer acetate・interferon beta 1a・1b・siponimod、「No included studies」が azathioprine・fingolimod・rituximab・immunoglobulins・methotrexate・natalizumab です。パネルは追加の経済評価を勧めました。siponimod とペルーのインターフェロンの研究は、企業が実施または著者が企業所属で、バイアスのリスクがあるとされています。</p>
+
+<h3>8-3. 公平性・受容性・実行可能性</h3>
+<div class="tw"><table>
+<tr><th>基準</th><th>見るもの(論文)</th><th>カテゴリー</th></tr>
+<tr><td>Equity</td><td>不利な集団や環境で効果が違うか。不平等を減らす介入を優先する</td><td>Reduced/Probably reduced/Probably no impact/Probably increased/Increased/Varies/Don't know</td></tr>
+<tr><td>Acceptability</td><td>利害関係者が受け入れるか。利益・害・費用の分配、効果の時期、アウトカムの重要性への不一致、倫理原則(自律など)</td><td>No/Probably no/Probably yes/Yes/Varies/Don't know</td></tr>
+<tr><td>Feasibility</td><td>実装の障壁。専門職や人に関する要因、インセンティブ、資源、組織の能力、社会・法・政治的要因</td><td>No/Probably no/Probably yes/Yes/Varies</td></tr>
+</table></div>
+<p>研究エビデンス欄には、理想的には介入ごとのSRエビデンスを入れます。</p>
+<h4>MSの例</h4>
+<div class="tw"><table>
+<tr><th>基準</th><th>判断</th><th>追加の考慮事項</th></tr>
+<tr><td>Equity</td><td>Reduced:Immunoglobulins<br>Probably reduced:Fingolimod、Ocrelizumab、Siponimod、Natalizumab<br>Probably no impact:Glatiramer acetate、Interferon beta 1a、1b、Methotrexate<br>Probably increased:Azathioprine、Rituximab</td><td>個々のDMT間の公平性を扱ったエビデンスは不足。影響因子は費用・収入、投与経路、医療施設へのアクセス、保管など。貧困や住居がないなどの障壁がある患者には、冷蔵が必要な自己注射より、年2回の点滴の方が好まれ楽なことが多い</td></tr>
+<tr><td>Acceptability</td><td>Probably no:Immunoglobulins<br>Probably yes:Fingolimod、Rituximab、Ocrelizumab、Glatiramer acetate、Interferon beta 1a、1b、Siponimod、Natalizumab<br>Yes:Azathioprine、Methotrexate</td><td>経口は点滴より受け入れられやすく、どちらも注射より受け入れられやすい。ただし毎日の経口より頻度の少ない点滴を好む人もいる。低資源環境では使えるDMTが1つだけのこともあり、それでも人々はおそらく使う。免疫グロブリンは高費用・調達・保管・点滴の要件のため Probably no</td></tr>
+<tr><td>Feasibility</td><td>Probably no:Immunoglobulins<br>Probably yes:Fingolimod、Rituximab、Ocrelizumab、Glatiramer acetate、Interferon beta 1a、1b<br>Yes:Azathioprine、Methotrexate<br>Varies:Siponimod、Natalizumab</td><td>実行可能性は必要資源に左右される。特許の状況が地域で異なり、入手可能性と負担可能性に影響する</td></tr>
+</table></div>
+</section>
+
+<section id="s9">
+<h2>9. <span class="step">Step 3</span>Summary of Judgments(SoJ)から推奨の方向と強さを決める</h2>
+<p>全基準の判断が終わると、SoJ表が全判断を1画面にまとめます(GRADEproでは自動生成)。これが選択肢を比べるダッシュボードになります。単一比較のSoJは全カテゴリーを並べて該当を強調しますが、多重比較のSoJは<b>各介入の最終判断だけ</b>を列に並べます。</p>
+<div class="flow">
+<div><b>① 方向</b>主に Net effect と Balance から、for/against/either を決める</div><i>→</i>
+<div><b>② 強さ</b>効果の確実性を見る。High・Moderate なら strong になりやすく、Low・Very low なら conditional</div><i>→</i>
+<div><b>③ 他の基準で調整</b>費用、費用対効果、公平性、受容性、実行可能性</div><i>→</i>
+<div><b>④ 順位付け</b>推奨された選択肢の間で相対比較</div>
+</div>
+
+<h3>9-1. 仮想例で手順をたどる(動画 16:26〜22:20)</h3>
+<p>列は、共通対照なしなら「A vs. D」などの比較、共通対照ありなら介入A〜Fに対応します。</p>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/v4WXB4Nd" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1071s" aria-label="元動画の17分51秒を開く">動画 17:51</a>:① 方向を決める。Net effect と Balance の行に注目。</figcaption></figure>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/gHz5eScT" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1170s" aria-label="元動画の19分30秒を開く">動画 19:30</a>〜:②③ 確実性と他の基準を加えて最終カテゴリーへ。</figcaption></figure>
+<div class="tw"><table style="min-width:900px">
+<tr><th>基準</th><th>A vs D(またはA)</th><th>A vs B(またはB)</th><th>B vs C(またはC)</th><th>B vs D(またはD)</th><th>C vs D(またはE)</th><th>D vs E(またはF)</th></tr>
+<tr><td>Problem</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Desirable effects</td><td>Trivial to no effect</td><td class="d3">Moderate</td><td>Trivial to no effect</td><td class="d2">Small</td><td>Moderate</td><td>Small</td></tr>
+<tr><td>Undesirable effects</td><td>Trivial to no effect</td><td>Trivial to no effect</td><td>Trivial to no effect</td><td>Trivial to no effect</td><td>Moderate</td><td>Large</td></tr>
+<tr><td>Net effect</td><td class="d1">Null or trivial</td><td class="d2">Moderate net desirable</td><td>Null or trivial</td><td class="d2">Small net desirable</td><td class="d1">Null or trivial</td><td class="u2">Moderate net undesirable</td></tr>
+<tr><td>CoE of effects</td><td class="d2">High</td><td class="d2">High</td><td class="u2">Low</td><td class="u2">Very low</td><td class="d2">Moderate</td><td class="u2">Very low</td></tr>
+<tr><td>CoE of values</td><td>Possibly important uncertainty</td><td>Probably no important uncertainty</td><td>Possibly important uncertainty</td><td>Probably no important uncertainty</td><td>Possibly important uncertainty</td><td>Probably no important uncertainty</td></tr>
+<tr><td>Balance of effects</td><td>Does not favor either</td><td class="d2">Favors the intervention</td><td class="yl">Does not favor either</td><td>Probably favors the intervention</td><td>Does not favor either</td><td>Favors the comparator</td></tr>
+<tr><td>Resources required</td><td class="u2">Large costs</td><td>Large costs</td><td>Negligible costs and savings</td><td>Moderate savings</td><td class="d2">Large savings</td><td class="u2">Large costs</td></tr>
+<tr><td>CoE of resources</td><td>Moderate</td><td>Moderate</td><td>Moderate</td><td>Moderate</td><td>Moderate</td><td>Moderate</td></tr>
+<tr><td>Cost-effectiveness</td><td class="u2">Probably favors the comparison</td><td>Probably favors the comparison</td><td>Does not favor either</td><td>Probably favors the intervention</td><td class="d2">Favors the intervention</td><td class="u2">Favors the comparison</td></tr>
+<tr><td>Equity</td><td>Probably no impact</td><td>Probably no impact</td><td>Probably no impact</td><td>Probably reduced</td><td>Reduced</td><td>Probably increase</td></tr>
+<tr><td>Acceptability</td><td>Probably yes</td><td>Probably yes</td><td>Probably yes</td><td>Yes</td><td>Probably yes</td><td>Probably no</td></tr>
+<tr><td>Feasibility</td><td>Probably yes</td><td>Probably yes</td><td>Probably yes</td><td>Yes</td><td>Probably yes</td><td>Probably no</td></tr>
+<tr><td>① 方向</td><td>either</td><td>for</td><td>either</td><td>for</td><td>either → for(他の要因)</td><td>against</td></tr>
+<tr><td>最終カテゴリー</td><td class="rd">Strong against</td><td class="nv">Strong for</td><td class="nv">Conditional for either</td><td class="nv">Conditional for</td><td class="nv">Conditional for</td><td class="rd">Conditional against</td></tr>
+</table></div>
+<h4>列ごとの理由(動画での演者の説明)</h4>
+<div class="tw"><table>
+<tr><th>列</th><th>方向の根拠</th><th>最終カテゴリーの理由</th></tr>
+<tr><td>1</td><td>Net effect は null/trivial、Balance はどちらも支持しない。方向は either</td><td><b>Strong against</b>。利益が trivial であることの確実性が高く、費用が大きい。効果の方向が中立でも、他の基準で against になりうる</td></tr>
+<tr><td>2</td><td>Moderate net desirable、Balance は介入を支持。方向は for</td><td><b>Strong for</b>。確実性が High</td></tr>
+<tr><td>3</td><td>Null/trivial、Balance は中立。方向は either</td><td><b>Conditional for either</b>。確実性が低く、経済面や実装面で差をつける要素がない</td></tr>
+<tr><td>4</td><td>Small net desirable、Balance は probably favors。方向は for</td><td><b>Conditional for</b>。確実性は very low だが、中等度の節約という経済的利点がある</td></tr>
+<tr><td>5</td><td>Null/trivial、Balance は中立</td><td><b>Conditional for</b>。臨床的には中立だが、大きな節約という強い経済的利点と、公平性に関する価値のトレードオフがある</td></tr>
+<tr><td>6</td><td>Moderate net undesirable、Balance は対照を支持。方向は against</td><td><b>Conditional against</b>。害と費用で対照が支持され、受容性も実行可能性もない</td></tr>
+</table></div>
+<p>Supplement 1 の結論欄では、同じ仮想例がこう整理されています:Strong against=A(費用と費用対効果が主因)、Conditional against=F(Balanceが主因)、Strong for=B(Balanceと費用対効果が主因)、Conditional for=C・D・E(Balanceと確実性が主因)。さらにクラスター内の優先順は 1位D、2位E、3位C です。</p>
+<div class="box"><b class="t">GRADE Book の補足</b>強い推奨には、ふつう Net effect について中等度以上の確実性が必要です。確実性が low・very low のときの強い推奨は例外的で、説得力のある文脈上の理由が要ります。方向と強さに影響しうる基準は、エビデンスを見る前に決めておきます。</div>
+
+<h3>9-2. MSの例:SoJ(Supplement 2 Table 9)</h3>
+<div class="tw"><table style="min-width:1250px">
+<tr><th>基準(対プラセボ)</th><th>Azathio&shy;prine</th><th>Fingoli&shy;mod</th><th>Rituxi&shy;mab</th><th>Ocreli&shy;zumab</th><th>Glatiramer</th><th>Immuno&shy;globulins</th><th>IFN β1a</th><th>IFN β1b</th><th>Metho&shy;trexate</th><th>Siponi&shy;mod</th><th>Natali&shy;zumab</th></tr>
+<tr><td>Desirable</td><td class="d4">Large</td><td class="d3">Mod</td><td class="d3">Mod</td><td class="d3">Mod</td><td class="d3">Mod</td><td class="d3">Mod</td><td class="d4">Large</td><td class="d3">Mod</td><td class="d4">Large</td><td class="d4">Large</td><td class="d3">Mod</td></tr>
+<tr><td>Undesirable</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u3">Mod</td><td class="u2">Small</td><td class="u1">Trivial</td><td class="u1">Trivial</td><td class="u1">Trivial</td></tr>
+<tr><td>Net effect</td><td class="b4">Large</td><td class="b2">Small</td><td class="b3">Mod</td><td class="b2">Small</td><td class="b2">Small</td><td class="b2">Small</td><td class="b2">Small</td><td class="b2">Small</td><td class="b4">Large</td><td class="b4">Large</td><td class="b2">Small</td></tr>
+<tr><td>CoE effects</td><td>Very low</td><td>Low</td><td>Very low</td><td>Very low</td><td>Very low</td><td>Very low</td><td>Low</td><td>Very low</td><td>Very low</td><td>Low</td><td>Very low</td></tr>
+<tr><td>CoE values</td><td colspan="11">全介入:Probably no important uncertainty</td></tr>
+<tr><td>Balance</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td>Prob favors</td><td class="d3">Favours</td><td>Prob favors</td></tr>
+<tr><td>Resources</td><td>Moderate costs</td><td>Large</td><td>Large</td><td>Large</td><td>Large</td><td>Large</td><td>Large</td><td>Large</td><td>Negligible</td><td>Large</td><td>Large</td></tr>
+<tr><td>CoE resources</td><td colspan="11">全介入:No included studies</td></tr>
+<tr><td>Cost-effectiveness</td><td>No studies</td><td>No studies</td><td>No studies</td><td>Varies</td><td>Varies</td><td>No studies</td><td>Varies</td><td>Varies</td><td>No studies</td><td>Varies</td><td>No studies</td></tr>
+<tr><td>Equity</td><td>Prob increased</td><td>Prob reduced</td><td>Prob increased</td><td>Prob reduced</td><td>Prob no impact</td><td>Reduced</td><td>Prob no impact</td><td>Prob no impact</td><td>Prob no impact</td><td>Prob reduced</td><td>Prob reduced</td></tr>
+<tr><td>Acceptability</td><td>Yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob no</td><td>Prob yes</td><td>Prob yes</td><td>Yes</td><td>Prob yes</td><td>Prob yes</td></tr>
+<tr><td>Feasibility</td><td>Yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob yes</td><td>Prob no</td><td>Prob yes</td><td>Prob yes</td><td>Yes</td><td>Varies</td><td>Varies</td></tr>
+<tr><td>推奨の種類</td><td colspan="11">全介入:conditional in favor</td></tr>
+</table></div>
+<small>Laquinimod の列:望ましくない効果 Trivial、Net effect は Trivial net undesirable、確実性 Low、Balance は Probably against、以降の基準は NA、推奨は conditional against。</small>
+<p>SoJを眺めると、全介入が「条件付き賛成」の同じクラスターに入ることがわかります。ここから先は、クラスター内の相対比較が勝負になります。</p>
+</section>
+
+<section id="s10">
+<h2>10. <span class="step">Step 4</span>Conclusions:クラスター化・順位付け・推奨文</h2>
+<p>結論欄は従来の中核要素を保ちつつ、複数の介入にまたがる複数の推奨を、<b>クラスター</b>または<b>優先順のリスト</b>として提示できます。</p>
+<div class="flow">
+<div class="r"><b>Strong against</b></div><div class="r"><b>Conditional against</b></div><div class="y"><b>Conditional for either</b></div><div class="g"><b>Conditional for</b>クラスター内で順位付け可</div><div class="g"><b>Strong for</b>クラスター内で順位付け可</div>
+</div>
+<p>手順(動画 22:22〜):SoJ完成後、最終カテゴリーを「賛成」と「反対」にまとめます。賛成の介入について相対比較を行い、最も好ましいものから順に並べます。この段階はふつう質的判断で、基準ごとの相対的な差を明示的に評価します。星などの視覚的スコアを使ってもかまいません。推奨文はこのグルーピングに従います。</p>
+<h4>結論欄の項目(Supplement 1)</h4>
+<div class="tw"><table>
+<tr><th>項目</th><th>書くこと</th></tr>
+<tr><td>Recommendation(s)</td><td>全基準の帰結のバランスに基づく推奨。カテゴリーごとに介入を列挙し、必要なら優先順も</td></tr>
+<tr><td>Justification</td><td>推奨を動かした基準は何か、それがどう影響したかの簡潔な要約</td></tr>
+<tr><td>Subgroup considerations</td><td>検討したサブグループと、推奨の修正</td></tr>
+<tr><td>Implementation considerations</td><td>受容性や実行可能性への懸念に対処する戦略など</td></tr>
+<tr><td>Monitoring and evaluation</td><td>監視すべき指標。パイロットや影響評価の必要性</td></tr>
+<tr><td>Research priorities</td><td>今後の研究で優先すべき不確実性</td></tr>
+</table></div>
+
+<h3>10-1. 例1:MSガイドライン(順位付きの条件付き推奨)</h3>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/YVQ4yL0A" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1430s" aria-label="元動画の23分50秒を開く">動画 23:50</a>〜:MSの推奨。黄色のセルが優先順位(1º〜6º)。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>カテゴリー</th><th>介入</th><th>Remark</th></tr>
+<tr><td>Strong against</td><td>—</td><td></td></tr>
+<tr><td>Conditional against</td><td>—(laquinimod は正味の害で評価から除外)</td><td></td></tr>
+<tr><td class="d2">Conditional for(個別の優先順)</td><td><b>1º Rituximab → 2º Glatiramer acetate → 3º Ocrelizumab → 4º Interferon beta 1a → 5º Fingolimod → 6º Interferon beta 1b</b></td><td>効果のエビデンスの確実性が low・very low のため条件付き</td></tr>
+<tr><td class="yl">Conditional for either</td><td>Azathioprine、Methotrexate、Siponimod、Natalizumab、Immunoglobulins</td><td>他のDMTが利用できず、代替が無治療となる場合という条件付き</td></tr>
+<tr><td>Strong for</td><td>—</td><td></td></tr>
+</table></div>
+<div class="box"><b class="t">Net effect の順位と最終順位は一致しない</b>
+Net effect が Large だった azathioprine・methotrexate・siponimod は、1位にはなっていません。Justification の説明は次のとおりです。<br>
+<b>Rituximab(1位):</b>Balance、6か月ごとの点滴という投与方法、スクリーニングとモニタリングの負担の少なさ、中止時のリバウンドリスクの低さ、中止率の低さ。ただし点滴設備と施設での冷蔵保管が必要。<br>
+<b>Glatiramer acetate:</b>モニタリング負担が非常に少ない。ただし注射で、患者自身の冷蔵保管が必要なため受容性は劣る。<br>
+<b>Ocrelizumab:</b>rituximab に似るが、薬剤費が高く受容性で劣る。<br>
+<b>Interferon beta 1a・1b:</b>モニタリング負担は少ないが、注射、冷蔵保管、有害事象の種類で受容性が劣る。<br>
+<b>Fingolimod:</b>経口で保管が容易。ただしモニタリング負担が大きく、供給が不安定で突然中止されると疾患活動性がリバウンドするリスクがある。<br>
+<b>Siponimod・Natalizumab:</b>Balance は明確に支持するが、安全な使用に不可欠な検査(siponimod の CYP2C9 遺伝子型検査、natalizumab の定期的なJCV検査とMRI)が低資源環境で広く利用できない。高額で予算への影響も大きい。<br>
+<b>Azathioprine・Methotrexate:</b>経口、広く入手可能、低費用、コールドチェーン不要で実行可能。ただし進行型MSでのエビデンス基盤が非常に限られる。<br>
+順位付けは Balance に基づく、とされています。<br>
+<small>教訓(私の整理):低資源環境という文脈では、実行可能性・受容性・費用が、どの介入をどのクラスターに入れるかを大きく左右している。</small></div>
+<p><b>サブグループ:</b>活動性も進行もない、または判定不能の進行型MSでは利益と害の比が異なる可能性があり、個別の話し合いを勧める。治療反応がない活動性・進行性の例にはRCTのエビデンスがなく、観察研究や個別事情を考慮する。<br>
+<b>研究の優先事項:</b>全DMTの非ランダム化研究のSR、適応外で後続品のある薬(rituximab、azathioprine、methotrexate)のエビデンス強化、siponimod の長期的な利益と害の評価。</p>
+
+<h3>10-2. 例2:結核の感染対策(換気、WHO 2019)— 星による相対比較</h3>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/ZfkvC3NJ" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1457s" aria-label="元動画の24分17秒を開く">動画 24:17</a>〜:基準ごとに星で相対比較。4列目は画面右端で切れている。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>基準</th><th>自然換気</th><th>混合換気</th><th>機械換気</th><th>4列目(見出しが切れて不明)</th></tr>
+<tr><td>Balance of effects</td><td>Probably favors ★★★★</td><td>Probably favors ★★★★</td><td>Probably favors ★★★★</td><td>Probably favors ★★★★</td></tr>
+<tr><td>Resource use</td><td class="d2">Moderate savings ★★★★</td><td>Moderate costs ★★★</td><td>Moderate costs ★</td><td>Moderate costs ★★</td></tr>
+<tr><td>Cost-effectiveness</td><td class="d2">Probably favors ★★★★★</td><td>Probably favors ★</td><td>Favors ★</td><td>Probably favors ★</td></tr>
+<tr><td>Equity</td><td class="d2">Increased ★★★★</td><td>Probably increased ★★★</td><td>Probably reduced ★★</td><td>Probably reduced ★★</td></tr>
+<tr><td>Acceptability</td><td class="d2">Probably yes ★★★★★</td><td>Probably yes ★★★★</td><td>Probably yes ★★★★</td><td>Probably yes ★★★★</td></tr>
+<tr><td>Feasibility</td><td class="d2">Probably yes ★★★★</td><td>Probably yes ★★★</td><td>Probably yes ★★</td><td>Probably yes ★</td></tr>
+</table></div>
+<p>Balance はどの介入も同程度で、すべて介入を支持します。差がつくのは資源利用と費用対効果で、自然換気が明確に有利です。公平性・受容性・実行可能性でも上回ります。判断カテゴリーが同じ(例:全部 Probably yes)でも、星の数で相対的な差を表せるのがこの方法の利点です。</p>
+
+<h3>10-3. 例3:ACP/AAFP 急性疼痛ガイドライン(2020)— グループ化して推奨文へ</h3>
+<figure><img loading="lazy" src="https://www.genspark.ai/api/files/s/zvyERlB3" onerror="this.parentNode.classList.add('noimg')"><figcaption><a href="https://www.youtube.com/watch?v=mXl-tagtaIo&amp;t=1530s" aria-label="元動画の25分30秒を開く">動画 25:30</a>〜:介入を推奨の種類ごとに振り分け、グループごとに推奨文を作る。</figcaption></figure>
+<div class="tw"><table>
+<tr><th>グループ(スライドの表)</th><th>介入</th><th>推奨文</th></tr>
+<tr><td class="d3">Strong for</td><td>Topical NSAID</td><td><b>推奨1:</b>腰痛以外の筋骨格系損傷による急性疼痛に、第一選択として外用NSAIDs(メントールゲル併用の有無を問わず)(強い推奨、中等度の確実性)</td></tr>
+<tr><td class="d2">Conditional for</td><td>Oral NSAID、Acetaminophen/Topical NSAID+Menthol gel、TENS、Specific acupressure</td><td><b>推奨2a:</b>経口NSAIDs、または経口アセトアミノフェン(条件付き、中等度の確実性)<br><b>推奨2b:</b>特定の指圧、またはTENS(条件付き、低い確実性)</td></tr>
+<tr><td>No recommendation</td><td>Acetaminophen+Diclofenac、Joint manipulation、Acetaminophen+Chlorzoxazone、Ibuprofen+Cyclobenzaprine、Menthol gel、Laser therapy、Mobilization、Ultrasound、Glucosamine、Acetaminophen+Ibuprofen、Non-specific acupressure、Exercise、Cyclobenzaprine、Supervised rehabilitation</td><td>—</td></tr>
+<tr><td class="u2">Conditional against</td><td>Transbuccal fentanyl、Tramadol、Acetaminophen+Opioid</td><td><b>推奨3:</b>トラマドールを含むオピオイドでの治療をしないことを提案(条件付き、低い確実性)</td></tr>
+</table></div>
+<p>同じ「条件付き賛成」でも、確実性などの違いで 2a と 2b に分けています。<small>スライドでは「Acetaminophen, Ibuprofen+Oxycodone」の行の印が読み取れませんでした。</small></p>
+
+<h3>10-4. その他の推奨文の書き方(Supplement 2 Figure 2)</h3>
+<details><summary>MSIF(再発型MS):優先順を番号で示す</summary><div>
+<p>パネルは、活動性または悪化する再発型MSの治療に、優先順で次を提案(条件付き推奨):1. cladribine(low)、2. dimethyl fumarate(low)、3. fingolimod(low)、4. ocrelizumab(very low)、5. interferon beta 1b(very low)、6. interferon beta 1a(low)、7. glatiramer acetate(very low)。Remark:確実性が low・very low のため条件付き。</p>
+<p>介入ごとに確実性を括弧書きで添えている点が参考になります。</p></div></details>
+<details><summary>EAES 総胆管結石の迅速ガイドライン:条件で書き分ける</summary><div>
+<p>弱い推奨として、条件ごとに好ましい選択肢を変えています。<br>
+・外科的な経験と専門性があれば、術前・術中・術後ERCPよりLCBDEを提案。<br>
+・その施設で実施可能なら、術中ERCPを提案。<br>
+・術中ERCPが実施できず、LCBDEの経験と専門性もなければ、術前ERCPを提案。<br>
+・術中ERCPが実施可能で、LCBDEの経験と専門性もあれば、術中ERCPを提案。</p>
+<p>順位を1つに決めず、「どの条件ならどれ」という形にしています。</p></div></details>
+<details><summary>ACP 片頭痛予防(2025):段階的に書く</summary><div>
+<p><b>推奨1:</b>単剤療法の開始に、β遮断薬(metoprolol または propranolol)、valproate、venlafaxine、amitriptyline のいずれかを選ぶ(条件付き、低い確実性)。<br>
+<b>推奨2:</b>上記に忍容性がない、または効果不十分な場合、CGRP拮抗薬ゲパント(atogepant、rimegepant)またはCGRPモノクローナル抗体(eptinezumab、erenumab、fremanezumab、galcanezumab)(条件付き、低い確実性)。<br>
+<b>推奨3:</b>さらにそれらにも忍容性がない、または効果不十分な場合、topiramate(条件付き、低い確実性)。<br>
+選択にあたっては、利益、害、費用、患者の価値観と希望(経済的負担や投与方法を含む)、禁忌、妊娠、併存症、入手可能性を話し合う。</p></div></details>
+</section>
+
+<section id="s11">
+<h2>11. 自作用テンプレート:全基準の問いと判断カテゴリー(Supplement 1)</h2>
+<p>多重比較では、各カテゴリーの後ろに「該当する介入(または比較)のリスト」を書き込みます。下の表をそのまま骨組みに使えます。</p>
+<div class="tw"><table style="min-width:760px">
+<tr><th>基準</th><th>問い(多重比較版)</th><th>判断カテゴリー</th></tr>
+<tr><td>Problem</td><td>その問題は優先事項か</td><td>No/Probably no/Probably yes/Yes/Varies/Don't know</td></tr>
+<tr><td>Desirable effects</td><td>各比較で、望ましい健康・ウェルビーイング効果はどれほど大きいか</td><td>Trivial to no effect/Small/Moderate/Large/Varies/Don't know</td></tr>
+<tr><td>Undesirable effects</td><td>各比較で、望ましくない効果はどれほど大きいか</td><td>Large/Moderate/Small/Trivial to no effect/Varies/Don't know</td></tr>
+<tr><td>Net effect(新)</td><td>各比較で、望ましくない効果との関係で望ましい効果はどれほど大きいか</td><td>Large net undesirable/Moderate net undesirable/Small net undesirable/Null or trivial net effect/Small net desirable/Moderate net desirable/Large net desirable/Varies/Don't know</td></tr>
+<tr><td>Certainty of evidence of effects</td><td>各比較で、効果のエビデンスの全体的な確実性は</td><td>Very low/Low/Moderate/High/No included studies</td></tr>
+<tr><td>Certainty of evidence of values</td><td>人々が主要アウトカムをどれだけ重視するかに重要な不確実性があるか</td><td>Important uncertainty/Possibly important uncertainty/Probably no important uncertainty/No important uncertainty</td></tr>
+<tr><td>Balance of effects</td><td>各比較で、バランスは介入と(共通)対照のどちらを支持するか</td><td>Favors the comparison/Probably favors the comparison/Does not favor either/Probably favors the intervention/Favors the intervention/Varies/Don't know</td></tr>
+<tr><td>Resources required</td><td>必要資源(費用)はどれほど大きいか</td><td>Large costs/Moderate costs/Negligible costs and savings/Moderate savings/Large savings/Varies/Don't know</td></tr>
+<tr><td>Certainty of evidence of required resources</td><td>必要資源のエビデンスの確実性は</td><td>Very low/Low/Moderate/High/No included studies</td></tr>
+<tr><td>Cost-effectiveness</td><td>各比較で、費用対効果は介入と対照のどちらを支持するか</td><td>Balance と同じ7カテゴリー</td></tr>
+<tr><td>Equity</td><td>各比較で、健康の公平性への影響は</td><td>Reduced/Probably reduced/Probably no impact/Probably increased/Increased/Varies/Don't know</td></tr>
+<tr><td>Acceptability</td><td>介入は主要な利害関係者に受け入れられるか</td><td>No/Probably no/Probably yes/Yes/Varies/Don't know</td></tr>
+<tr><td>Feasibility</td><td>介入は実装可能か</td><td>No/Probably no/Probably yes/Yes/Varies</td></tr>
+<tr><td>Recommendation</td><td>全基準の帰結のバランスに基づく推奨は</td><td>Strong against/Conditional against/Conditional for either the intervention or the comparison/Conditional for/Strong for(各クラスターに介入を列挙。クラスター内の順位付けも可)</td></tr>
+</table></div>
+<div class="box"><b class="t">Supplement 1 の脚注</b>
+・Net effect は、従来の単一比較EtDで暗黙に考慮されていた判断を明示化したもの。<br>
+・従来は Values の基準で不確実性とばらつきの両方を評価していたが、ばらつきは不確実性の中に含まれる扱いになった。<br>
+・Question欄には、優先した重大・重要アウトカム、その相対的重要性、効果の大きさの判断閾値を報告する。</div>
+<h3>ツール</h3>
+<p>GRADEpro の多重比較モジュールは、複数介入のSoF表を作ってこのフレームワークと統合し、複数介入の判断を一度に記録し、SoJ表を自動生成します。大きなデータセットの対話的な扱い、詳細判断グリッド、パネルボイスなどの機能があります。スプレッドシートも使えますが、使い勝手は劣るとされています。動画Q&amp;Aによれば、モジュールが見当たらなければ GRADEpro に連絡してアクセスを依頼します(<a href="#q8">Q8</a>)。</p>
+</section>
+
+<section id="s12">
+<h2>12. 動画のQ&amp;A(全10件)</h2>
+<p>質疑は 28:38 以降です。質問者名は自動字幕によるもので、表記は不確かです。図は私が内容を整理して作ったものです。</p>
+
+<div class="qa" id="q1"><p class="q">望ましい効果・望ましくない効果は、絶対効果だけに基づくのですか(Adrienne、28:45)</p>
+<p class="a">はい。GRADEは今、この評価だけでなく確実性の評価でも絶対効果を重視しています。最終的に自分たちの文脈で健康上の決定を下すので、相対効果ではなく絶対効果が必要です。</p>
+<div class="flow"><div><b>相対効果</b>OR 0.50</div><i>×</i><div><b>ベースラインリスク</b>対象集団に近い対照群</div><i>→</i><div class="g"><b>絶対効果</b>29人減/1,000人</div><i>→</i><div><b>閾値と比較</b>Small</div></div></div>
+
+<div class="qa" id="q2"><p class="q">介入が10個あると1対1比較は45通り、つまり45列になります。関係者にとって重要な4〜5個に絞るのが良いのですか(Hassan と呼ばれた参加者、29:45)</p>
+<p class="a">他のグループがやったことをお伝えします。Net effect まで評価し、正味の効果が最も良いものを選んで、残りの介入はそれ以上評価しない、という方法です。EtDは基準ごとにSRのエビデンスを集める必要があり、患者に有利にならない介入の経済評価まで行うグループはほとんどありません。費用など、優先したい別の基準で絞るのも有用です。</p>
+<svg viewBox="0 0 640 190" role="img" aria-label="絞り込みの漏斗">
+<polygon points="40,20 600,20 470,75 170,75" fill="#a9cdee"/><polygon points="170,80 470,80 400,130 240,130" fill="#5d9fd8"/><polygon points="240,135 400,135 360,175 280,175" fill="#1f5fa8"/>
+<g text-anchor="middle" font-size="14"><text x="320" y="45" fill="#123">全介入:効果の大きさ → Net effect まで評価</text><text x="320" y="64" fill="#123" font-size="12">(k個なら1対1比較は k(k−1)/2 通り)</text>
+<text x="320" y="110" fill="#fff">正味の利益があるもの/関係者が関心をもつ比較</text><text x="320" y="160" fill="#fff" font-size="13">残りのEtD基準</text></g></svg>
+<p class="mut">質問者は「19治療なら 19×18÷2 で76くらい」と述べましたが、計算上は171通りです。10介入で45通りは正しい値です。質問者のまとめは「76列のEtDは作れない。正味の利益を示すもの、または関係者が本当に関心をもつ比較を選ぶ」。MSの例で laquinimod を正味の害で除外したのがこの考え方の実例です。</p></div>
+
+<div class="qa" id="q3"><p class="q">Net effect とは、数学的な計算ではなく、利益が害を上回るという判断のことですか(32:04)</p>
+<p class="a">MSの例では、効用値と効果から各アウトカムに重みのような数値を与え、その合計(sum value)で Net effect を計算しました。アウトカムが相関していないと仮定し、同じ構成概念を測る似たアウトカムは片方だけにして二重計上を避けています。Net effect の計算方法は GRADE Working Group の進行中のプロジェクトで、複数の方法が開発中です。</p>
+<div class="tw"><table><tr><th></th><th>質的判断(質問者:「頭の中で重み付け」)</th><th>半定量(MSの例)</th></tr>
+<tr><td>やり方</td><td>アウトカムごとの大きさを見て、全体の利益と害を比べる</td><td>負の効用値×絶対効果を合計し、閾値に当てはめる</td></tr>
+<tr><td>必要なもの</td><td>閾値、パネルの合意</td><td>効用値、全アウトカムの絶対効果</td></tr>
+<tr><td>位置づけ</td><td colspan="2">どちらもパネル判断の出発点。計算結果もパネルが確認・検証する</td></tr></table></div></div>
+
+<div class="qa" id="q4"><p class="q">(コメント)閾値同士を直接トレードオフできないときは効用値が必要になりますが、探すのも批判的吟味も大変です。自動化できるように聞こえますが、多くの仮定が入ります(36:08)</p>
+<p class="a">アウトカムの重要性は、効用値がなければ示せないわけではありません。もっと簡素な方法も使えます。ただし尺度やスコアは必要で、パネルへのアンケートでもかまいません。判断の前に、全員が各アウトカムの意味と患者にとっての重要性を共通理解していることが大切です。効用値には追加のSRが必要ですが、それが最良の方法だと思います。</p>
+<div class="flow"><div><b>簡素</b>パネルへのアンケートで採点</div><i>→</i><div><b>中間</b>健康状態の記述を使った構造化演習</div><i>→</i><div class="g"><b>最良だが負担大</b>効用値のSR(吟味が必要。単位が時点か年かも確認)</div></div></div>
+
+<div class="qa" id="q5"><p class="q">(コメント)NMAはたいてい1〜2個のアウトカムしか扱いません。有害事象は報告されてもNMAにできないことが多く、数学的に正味の利益を出すには全アウトカムのNMAも必要になります(38:17)</p>
+<p class="a">まさにMSの例で起きたことです。NMAを行いましたが、有害事象については市販後調査など追加のエビデンスを取り入れました。ランダム化試験由来ではなくても重要な情報で、EtDに報告しています。手元にあるものを使うしかありませんでした。</p>
+<div class="flow"><div><b>NMA(RCT)</b>有効性アウトカム</div><i>+</i><div class="y"><b>NMA外のエビデンス</b>市販後の安全性情報など</div><i>→</i><div class="g"><b>EtD</b>Research evidence と Additional considerations に出所を明記</div></div></div>
+
+<div class="qa" id="q6"><p class="q">(コメント)このフレームワークは治療の順序(シーケンス)に答えていません。耐性のように、時間的な要素が介入の順番を決めることがあります</p>
+<p class="a">その点は査読でも指摘されました。今のところ対処法は、SoF表で各問いの追跡期間を示し、アウトカムを短期と長期に分けることくらいです。</p>
+<div class="flow"><div><b>現在の枠組み</b>ある時点で「どれが好ましいか」を答える</div><div class="r"><b>未対応</b>「どの順に使うか」(耐性、短期向きか長期向きか)</div><div class="y"><b>当面の工夫</b>アウトカムを短期・長期に分けて提示。別の参加者の案:順序そのものを1つの介入としてネットワークに入れる</div></div></div>
+
+<div class="qa" id="q7"><p class="q">EtDの結果、確実性の異なる3つの介入が支持されました。推奨全体の確実性はどう決めますか。推奨を分けるべきですか(Leis Coral と聞こえる参加者)</p>
+<p class="a">GRADEのやり方は、確実性に応じて推奨を分けることです。確実性が high・moderate なら強い推奨のグループ、low・very low なら条件付き推奨になる可能性が高い。確実性は推奨を少なくとも2つの大きなグループに分けます。</p>
+<p class="mut">他の参加者の補足:効果の大きさも関係し、利益と害が拮抗していれば確実性が高くても推奨したくないことがある。2段階で考えるとよく、まず個別の介入ごとに推奨を作り、方向・強さ・確実性が似たものがあれば、まとめて上位の推奨(「A、B、Cを推奨する」)にする。</p>
+<div class="flow"><div><b>第1段階</b>介入ごとに推奨(方向・強さ・確実性)</div><i>→</i><div><b>似たものを束ねる</b></div><i>→</i><div class="g"><b>グループ1</b>強い推奨(high・moderate)</div><div class="y"><b>グループ2</b>条件付き推奨(low・very low)</div></div></div>
+
+<div class="qa" id="q8"><p class="q">多重比較用のEtDは、もう GRADEpro で使えますか</p>
+<p class="a">はい。ベータ版か正式版かは定かではありませんが、使えます。自分の GRADEpro で見当たらなければ、連絡してモジュールへのアクセスを依頼してください。「multiple comparison module」という名前で、SoF表を作るあたりの左側の青いバーにあります。NMAデータ用の新しいモジュールもあります。</p>
+<div class="flow"><div><b>GRADEpro 左の青いバー</b></div><i>→</i><div><b>multiple comparison module</b>なければ問い合わせ</div><i>→</i><div class="g">複数介入のSoF → 判断グリッド → SoJ自動生成</div></div></div>
+
+<div class="qa" id="q9"><p class="q">最後は比較1つにつき推奨1つ、ということですか。私たちは似たことをしましたが、グループ内で強さが違い、AがBより良く、BがCより良く、CがAより良いという矛盾も出ました。「どの薬が最良か」と聞かれて、どんな推奨文にすればよいのか本当に難しかったです(Lara と呼ばれた参加者)</p>
+<p class="a">いいえ、提案しているのはグループごとの推奨です。賛成の介入を1つのグループとして推奨し、その中で優先順位を付けられるなら、次のレベルの推奨として示します。グループによって、1〜6の番号、星、2a・2b のようなレベルなど、やり方はさまざまです。</p>
+<svg viewBox="0 0 640 170" role="img" aria-label="循環する比較結果">
+<g font-size="15" text-anchor="middle"><circle cx="110" cy="40" r="26" fill="#a9cdee"/><text x="110" y="45">A</text><circle cx="50" cy="130" r="26" fill="#a9cdee"/><text x="50" y="135">C</text><circle cx="170" cy="130" r="26" fill="#a9cdee"/><text x="170" y="135">B</text></g>
+<g stroke="#d64545" stroke-width="3" fill="none"><path d="M128 60 L158 104"/><path d="M144 130 L80 130"/><path d="M60 105 L92 62"/></g>
+<text x="110" y="100" text-anchor="middle" font-size="12" fill="#d64545">A&gt;B&gt;C&gt;A</text>
+<g font-size="13"><rect x="250" y="15" width="370" height="42" rx="8" fill="#e6f6ec" stroke="#2e9e5b"/><text x="262" y="41">束ねられる:方向・強さ・効果の大きさが似ている</text>
+<rect x="250" y="65" width="370" height="42" rx="8" fill="#fff6dd" stroke="#e0a800"/><text x="262" y="91">束ねられない:1対1の推奨のままにする</text>
+<rect x="250" y="115" width="370" height="42" rx="8" fill="#e8f1fb" stroke="#1f5fa8"/><text x="262" y="141">順位の表し方:番号/星/2a・2b</text></g></svg>
+<p class="mut">別の参加者の補足:まず1対1比較ごとに推奨を作り、方向・強さ・効果の大きさが似ていれば束ねる。大きさも方向も確実性もばらばらなら、束ねた第2段階の推奨は作れないこともある。</p></div>
+
+<div class="qa" id="q10"><p class="q">これだけ時間と資源をかけて、最後に「この順で使う」と言い切れないなら、やる価値があったのかと問われます</p>
+<p class="a">(演者)これは発展途上のアプローチで、今回の論文はこれまでの経験の最初の集成です。完成させるうえでの限界や難しさは多くあります。一方で、代わりに問いを1つずつ扱うと、評価したい比較を事前に都合よく選んでしまうリスクがあります。それは政治的・経済的な理由に動かされることもあります。全体像を見て、関連する介入をすべて同時に評価するのが方法論的に望ましい姿です。ただ、最後に「これが最良の薬だ」と言うのがとても難しいことは承知しています。</p>
+<div class="tw"><table><tr><th>多重比較EtDの利点</th><th>難しさ・注意(参加者の指摘)</th></tr>
+<tr><td>全体像を見て、関連する選択肢を同時に評価できる<br>比較の恣意的な選択を避けられる<br>判断が透明で一貫する</td><td>簡単ではなく、確立した方法でもない。実例はまだ少ない<br>「最良の1剤」を言い切れないことがある<br>立場(施設・学会・政府)で視点が変わるので、スコープ設定時に目的を決める<br>ネットワーク内の増分費用効果比だけを見ると、「何もしない」と比べれば費用対効果が悪いことを見落とし、医療制度全体の負担が大きくなりうる</td></tr></table></div></div>
+</section>
+
+<section id="s13">
+<h2>13. 自分で作るときのチェックリスト</h2>
+<p>チェックはこの端末のブラウザに保存されます。</p>
+<h3>Step 0 準備</h3>
+<ul class="chk">
+<li><label><input type="checkbox">シナリオを確認した(NMA/共通対照ありの複数SR/共通対照なし)</label></li>
+<li><label><input type="checkbox">評価する介入・比較を選び、選んだ理由を記録した</label></li>
+<li><label><input type="checkbox">重大・重要アウトカムを優先順位付けし、少数に絞った</label></li>
+<li><label><input type="checkbox">アウトカムの重要性(効用値またはパネルのスコア)を決めた</label></li>
+<li><label><input type="checkbox">各アウトカムの3つの閾値を、結果を見る前に決めた</label></li>
+<li><label><input type="checkbox">WTP閾値と、資源利用の閾値を決めた</label></li>
+<li><label><input type="checkbox">方向と強さに影響しうる基準を事前に決めた</label></li>
+<li><label><input type="checkbox">効果以外の各基準のエビデンスを集めた</label></li>
+</ul>
+<h3>Step 1 Question</h3>
+<ul class="chk">
+<li><label><input type="checkbox">問いを「Which … should be used for …?」の形で書いた</label></li>
+<li><label><input type="checkbox">介入リストと共通対照(または比較リスト)を書いた</label></li>
+<li><label><input type="checkbox">アウトカム・重要性・閾値の表を載せた</label></li>
+<li><label><input type="checkbox">Setting、Perspective、Background、COI を書いた</label></li>
+</ul>
+<h3>Step 2 Assessment</h3>
+<ul class="chk">
+<li><label><input type="checkbox">絶対効果を、適切なベースラインリスクから計算した</label></li>
+<li><label><input type="checkbox">各セルを閾値に当てはめ、効果の方向で望ましい/望ましくないに振り分けた</label></li>
+<li><label><input type="checkbox">全体判断が、重大アウトカムの最大効果より小さくなっていない</label></li>
+<li><label><input type="checkbox">相関するアウトカムを二重計上していない</label></li>
+<li><label><input type="checkbox">NMA外の安全性情報(市販後など)を確認し、出所を記録した</label></li>
+<li><label><input type="checkbox">Net effect を全介入で判断した(報告アウトカム数の偏りを確認)</label></li>
+<li><label><input type="checkbox">正味の害を示す介入を除外するか決め、理由を書いた</label></li>
+<li><label><input type="checkbox">効果の確実性は、重大アウトカムの最低値を基本にした(逸脱は理由を明記)</label></li>
+<li><label><input type="checkbox">価値の不確実性を、Net effect の大きさと合わせて比較ごとに判断した</label></li>
+<li><label><input type="checkbox">Balance で、確実性が低い介入を「probably」にとどめるか検討した</label></li>
+<li><label><input type="checkbox">資源・費用対効果の情報源の比較可能性(設定・通貨・時間軸)を確認した</label></li>
+<li><label><input type="checkbox">公平性・受容性・実行可能性を介入ごとに判断した</label></li>
+</ul>
+<h3>Step 3・4 SoJ と結論</h3>
+<ul class="chk">
+<li><label><input type="checkbox">SoJ表を作り、各介入の方向(for/against/either)を決めた</label></li>
+<li><label><input type="checkbox">確実性と他の基準から、強さ(strong/conditional)を決めた</label></li>
+<li><label><input type="checkbox">介入を推奨カテゴリーのクラスターに分けた</label></li>
+<li><label><input type="checkbox">賛成クラスター内の順位付けができるか検討し、根拠の基準を書いた</label></li>
+<li><label><input type="checkbox">推奨文の形式を選んだ(番号順/条件別/段階別/2a・2b)</label></li>
+<li><label><input type="checkbox">Remark、Justification、サブグループ、実装、モニタリング、研究優先事項を書いた</label></li>
+</ul>
+</section>
+
+<section id="s14">
+<h2>14. 注意点:原資料内の不一致と、枠組みの限界</h2>
+<h3>14-1. 原資料の中で食い違っている箇所</h3>
+<p>Supplement は「著者提供でコピーエディットされていない」と明記されています。読み比べて気づいた食い違いを挙げます。自作の手本にするときは、どちらを採るか意識してください。</p>
+<div class="tw"><table>
+<tr><th>箇所</th><th>食い違い</th></tr>
+<tr><td>Glatiramer acetate の Net effect</td><td>判断欄のリストは Moderate net desirable、グリッドとSoJは Small net desirable。SumValue 0.0459 は閾値上 Moderate に当たる(検算)</td></tr>
+<tr><td>望ましくない効果</td><td>判断欄とSoJは多くの介入を Trivial とするが、Net effect グリッドは glatiramer、immunoglobulins、natalizumab、ocrelizumab、fingolimod を Small とする(市販後情報を反映した版と思われる)</td></tr>
+<tr><td>Balance のグリッド(Table 5)の Net effect 列</td><td>fingolimod を Large、interferon beta 1b と glatiramer を Moderate と表示しており、Table 3・9(いずれも Small)と合わない</td></tr>
+<tr><td>Siponimod の確実性</td><td>本文は「moderate certainty のため favors」と書くが、Supplement は Low</td></tr>
+<tr><td>Siponimod の死亡</td><td>絶対効果4減は閾値16未満だが、脚注は small desirable</td></tr>
+<tr><td>本文の図表番号</td><td>本文は SumValue の計算を「Figure 2 of Supplement 2」、Balance を「Table 4」と参照するが、Supplement では前者は Table 3、後者は Table 5 にある</td></tr>
+<tr><td>仮想SoJの列2と結論欄</td><td>列2(B)は費用対効果が Probably favors the comparison だが、結論欄は「Balanceと費用対効果が主因で Strong for」と例示。列3(C)は Conditional for either だが、結論欄では Conditional for のクラスターに入っている</td></tr>
+</table></div>
+<h3>14-2. 論文が認める限界</h3>
+<p>このフレームワークは、幅広いガイドライン作成の文脈で使いやすさが検証されていません。複数の複雑な判断を必要としますが、論文はそれを枠組みの欠点ではなく、選択肢の中から選ぶこと自体の複雑さだとしています。公平性・受容性・実行可能性・地球の健康といった基準の方法論や、経済エビデンスのモデリング手法は発展途上で、さらなる実務的ガイダンスが必要とされています。</p>
+<h3>14-3. よくある落とし穴(私の整理)</h3>
+<div class="box n">
+・結果を見てから閾値を動かす。<br>
+・相関するアウトカムを足し上げて効果を過大評価する。<br>
+・報告アウトカムが多い介入を、Net effect の合計で有利に扱ってしまう。<br>
+・Net effect の順位をそのまま推奨の順位にする(MSの例では順位が入れ替わった)。<br>
+・確実性が非常に低いのに「favors」と言い切る。<br>
+・全ペアを列にしてEtDを作ろうとする。<br>
+・費用や公平性のエビデンスを、設定の違いを確認せずに並べる。</div>
+</section>
+
+<section id="s15">
+<h2>15. 出典</h2>
+<p>・Beltran J, Etxeandia-Ikobaltzeta I, Piggott T, et al. New GRADE Evidence-to-Decision Framework for Pairwise and Multiple Comparisons (GRADE Guidance 45). Ann Intern Med. 2026;179(4). <a href="https://www.acpjournals.org/doi/full/10.7326/ANNALS-25-04273">doi:10.7326/ANNALS-25-04273</a><br>
+・同 Supplement 1(単一比較と多重比較のEtDフレームワーク)、Supplement 2(補足図表)<br>
+・U.S. GRADE Network. GRADE for Multiple Comparisons(ウェビナー、演者 Jessica Beltran)<a href="https://www.youtube.com/watch?v=mXl-tagtaIo">YouTube</a><br>
+・GRADE Book「From evidence to decision」章 <a href="https://book.gradepro.org/guideline/grade-recommendations">GRADE Recommendations</a><br>
+・MSの例の原典:Saylor D, et al. Recommendations for essential medicines for multiple sclerosis in low-resource settings. Mult Scler J. 2024. doi:10.1177/13524585241308134</p>
+<small>本ページは個人学習用の要約です。本文中の Table・Figure・Appendix Figure は取得できず、本文と Supplement から再構成しました。正確な数値は原著で確認してください。</small>
+</section>
+</main>
+<button id="top" aria-label="上へ">↑</button>
+<script>
+(function(){
+var bar=document.getElementById('bar');
+addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+document.getElementById('top').onclick=function(){scrollTo({top:0,behavior:'smooth'})};
+var K='g45';var S={};try{S=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+if(S.dark)document.body.classList.add('dark');
+document.getElementById('th').onclick=function(){S.dark=document.body.classList.toggle('dark');save()};
+var cs=document.querySelectorAll('ul.chk input');
+for(var i=0;i<cs.length;i++){(function(c,i){c.checked=!!S['c'+i];c.onchange=function(){S['c'+i]=c.checked;save()}})(cs[i],i)}
+})();
+</script>
+</body>
+</html>
