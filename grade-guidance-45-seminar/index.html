@@ -292,6 +292,121 @@
       color: var(--slate);
       font-size: 0.86rem;
     }
+
+    /* Narrow displays keep the seminar's reading order, diagram labels and palette. */
+    .diagram-reading, .case-label { display: none; }
+
+    @media screen and (max-width: 60rem) {
+      .svg-box > svg { display: none; }
+      .diagram-reading {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+        gap: 0.8rem;
+        text-align: start;
+      }
+      .diagram-title {
+        grid-column: 1 / -1;
+        margin: 0;
+        line-height: 1.6;
+        font-weight: 700;
+      }
+      .diagram-panel {
+        min-width: 0;
+        padding: 0.85rem;
+        border: 2px solid var(--diagram-stroke);
+        border-radius: 10px;
+        background: var(--diagram-fill);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+      .diagram-panel h4 { margin: 0 0 0.6rem; color: var(--diagram-heading); }
+      .diagram-panel p { margin: 0.4rem 0 0; }
+      .diagram-panel hr { margin: 0.65rem 0; border: 0; border-top: 1px solid #ddd6fe; }
+      .diagram-band { padding: 0.35rem 0.5rem; border-radius: 4px; }
+    }
+
+    @media screen and (max-width: 48rem) {
+      body { font-size: 1rem; overflow-wrap: anywhere; }
+      header { padding: 2rem 1rem 1.6rem; }
+      header h1 { font-size: clamp(1.35rem, 4.9vw, 1.85rem); line-height: 1.48; }
+      .hero-pill { max-width: 100%; padding-inline: 0.8rem; }
+      .video-btn { max-width: 100%; padding-inline: 0.85rem; }
+      .sticky-nav {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        gap: 0.4rem;
+        padding: 0.75rem;
+      }
+      .sticky-nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        border-radius: 8px;
+        line-height: 1.5;
+      }
+      main { margin: 1rem auto 2rem; padding: 0 clamp(0.45rem, 2vw, 1rem); }
+      main > section {
+        margin-bottom: 1rem;
+        padding: 1.25rem clamp(0.8rem, 3.4vw, 1.5rem);
+        border-radius: 12px;
+        scroll-margin-top: 0.5rem;
+      }
+      h2 { font-size: clamp(1.2rem, 4.3vw, 1.5rem); line-height: 1.55; }
+      h3 { font-size: 1.13rem; line-height: 1.6; padding-left: 0.6rem; margin-top: 1.6rem; }
+      section ul, section ol { padding-inline-start: 1.4em; }
+      .grid-2, .grid-3 { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+      .card, .callout, .qa-answer { padding: 0.85rem; }
+      .card h4:first-child, .qa-answer > :first-child { margin-top: 0; }
+      .card > :last-child, .qa-answer > :last-child { margin-bottom: 0; }
+      .svg-box { padding: 0.65rem; overflow-x: visible; }
+      .svg-caption { text-align: start; }
+      .case-table, .case-table tbody, .case-table tr, .case-table td { display: block; }
+      .case-table { position: relative; font-size: 1rem; }
+      .case-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+      }
+      .case-table tbody tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+      .case-table td { border: 0; padding: 0.75rem; }
+      .case-table td + td { border-top: 1px solid var(--border); }
+      .case-table td:first-child { border-radius: 9px 9px 0 0; }
+      .case-table td:last-child { border-radius: 0 0 9px 9px; }
+      .case-label {
+        display: block;
+        margin: -0.75rem -0.75rem 0.55rem;
+        padding: 0.45rem 0.75rem;
+        background: #e2e8f0;
+        color: var(--navy);
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.55;
+      }
+      td:first-child .case-label { border-radius: 9px 9px 0 0; }
+      .qa-toolbar, .qa-cat-header { padding: 0.8rem; }
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        width: 100%;
+      }
+      .btn-group button { flex: 1 1 9rem; min-height: 44px; margin: 0; }
+      details.qa-card summary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: start;
+        gap: 0.5rem;
+        padding: 0.85rem;
+      }
+      details.qa-card summary::after { justify-self: end; }
+    }
   </style>
 </head>
 <body>
@@ -396,6 +511,33 @@
         <text x="770" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#0284c7">利益 Moderate ＋ 害 Small ＝ Small Net Desirable</text>
         <text x="770" y="215" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#4c1d95">介入間の優劣の粒度（Granularity）が明確化！</text>
       </svg>
+      <div class="diagram-reading">
+        <p class="diagram-title" style="color:#0f766e">NMAの数値SoF表から「Multiple Judgment Grid」および新基準「Net Effect」への集約プロセス（MS治療薬の例）</p>
+        <div class="diagram-panel" style="--diagram-fill:#ffffff; --diagram-stroke:#94a3b8; --diagram-heading:#1e293b">
+          <h4>① NMAの絶対効果データ（例：Azathioprine）</h4>
+          <p style="color:#0f172a">・死亡：1,000人あたり 29人減少</p>
+          <p style="color:#0f172a">・障害進行：大幅な減少</p>
+          <p style="color:#0f172a">・再発抑制：大幅な減少</p>
+          <p style="color:#475569">・有害事象による中止：ごくわずか</p>
+          <p style="color:#2563eb"><strong>事前定義した閾値（Thresholds）を適用</strong></p>
+        </div>
+        <div class="diagram-panel" style="--diagram-fill:#f0fdfa; --diagram-stroke:#0f766e; --diagram-heading:#0f766e">
+          <h4>② Multiple Judgment Grid（半自動生成）</h4>
+          <p class="diagram-band" style="color:#0369a1; background:#bae6fd"><strong>死亡：Small desirable（小の利益）</strong></p>
+          <p class="diagram-band" style="color:#065f46; background:#6ee7b7"><strong>障害予防：Large desirable（大の利益）</strong></p>
+          <p class="diagram-band" style="color:#065f46; background:#6ee7b7"><strong>再発予防：Large desirable（大の利益）</strong></p>
+          <p style="color:#065f46"><strong>→ 総合 Desirable effect ＝「Large」</strong></p>
+        </div>
+        <div class="diagram-panel" style="--diagram-fill:#f5f3ff; --diagram-stroke:#7c3aed; --diagram-heading:#5b21b6">
+          <h4>③ 新基準：Net Effect（純効果）</h4>
+          <p style="color:#1e293b">● Azathioprine：</p>
+          <p style="color:#059669"><strong>利益 Large ＋ 害 Trivial ＝ Large Net Desirable</strong></p>
+          <hr>
+          <p style="color:#1e293b">● Interferon beta-1b：</p>
+          <p style="color:#0284c7"><strong>利益 Moderate ＋ 害 Small ＝ Small Net Desirable</strong></p>
+          <p style="color:#4c1d95"><strong>介入間の優劣の粒度（Granularity）が明確化！</strong></p>
+        </div>
+      </div>
       <div class="svg-caption">図1：GRADE Guidance 45 で導入された Multiple Judgment Grid と新基準「Net Effect」の働き</div>
     </div>
 
@@ -411,51 +553,51 @@
 
     <p>ご指定いただいたタイムスタンプ <strong>16分40秒（`t=1000s`）</strong>からは、全EtDドメインの評価を終えた後に生成される一覧表<strong>「Multiple Comparison Summary of Judgments（多重比較・判定要約表）」</strong>を用いて、6つの比較列それぞれの「①推奨の方向（Direction）」「②エビデンスの確実性による推奨の強さ（Strength）」「③コスト・公平性等の他ドメインを加味した最終決定」を導くステップ・バイ・ステップの実演が行われました。その全6ケースの論理を1つも漏らさず完全再現します。</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>比較列</th>
-          <th>Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</th>
-          <th>Step 2：エビデンスの確実性（Certainty）</th>
-          <th>Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</th>
+    <table class="case-table" role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th scope="col" role="columnheader">比較列</th>
+          <th scope="col" role="columnheader">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</th>
+          <th scope="col" role="columnheader">Step 2：エビデンスの確実性（Certainty）</th>
+          <th scope="col" role="columnheader">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><strong>ケース1<br>（A vs D）</strong></td>
-          <td>Net effect ＝ <strong>Null / Trivial（差なし/些細）</strong><br>Balance ＝ どちらにも有利でない<br>→ 初期方向：<em>どちらでもよい（For either）</em></td>
-          <td><strong>High（高）</strong><br>（「利益が些細であること」に高い確実性がある）</td>
-          <td><strong>【最終決定：介入に対する強い反対推奨（Strong against）】</strong><br><strong>理由：</strong> 臨床的利益が些細であることが「高い確実性」で判明しているにもかかわらず、介入に<strong>無視できないコスト負担（Meaningful cost）</strong>がかかるため、「どちらでもよい」から「強い反対推奨」へ転換された！</td>
+      <tbody role="rowgroup">
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース1<br>（A vs D）</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Null / Trivial（差なし/些細）</strong><br>Balance ＝ どちらにも有利でない<br>→ 初期方向：<em>どちらでもよい（For either）</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span><strong>High（高）</strong><br>（「利益が些細であること」に高い確実性がある）</td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入に対する強い反対推奨（Strong against）】</strong><br><strong>理由：</strong> 臨床的利益が些細であることが「高い確実性」で判明しているにもかかわらず、介入に<strong>無視できないコスト負担（Meaningful cost）</strong>がかかるため、「どちらでもよい」から「強い反対推奨」へ転換された！</td>
         </tr>
-        <tr>
-          <td><strong>ケース2</strong></td>
-          <td>Net effect ＝ <strong>Moderate net desirable（中の純利益）</strong><br>Balance ＝ 明確に介入有利<br>→ 初期方向：<em>介入に賛成（For intervention）</em></td>
-          <td><strong>High（高）</strong></td>
-          <td><strong>【最終決定：介入に対する強い賛成推奨（Strong for）】</strong><br><strong>理由：</strong> 中等度の明確な純利益があり、エビデンスの確実性も高いため、典型的な強い賛成推奨となった。</td>
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース2</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Moderate net desirable（中の純利益）</strong><br>Balance ＝ 明確に介入有利<br>→ 初期方向：<em>介入に賛成（For intervention）</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span><strong>High（高）</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入に対する強い賛成推奨（Strong for）】</strong><br><strong>理由：</strong> 中等度の明確な純利益があり、エビデンスの確実性も高いため、典型的な強い賛成推奨となった。</td>
         </tr>
-        <tr>
-          <td><strong>ケース3</strong></td>
-          <td>Net effect ＝ <strong>Null / Trivial</strong><br>Balance ＝ どちらにも有利でない（中立）<br>→ 初期方向：<em>どちらでもよい（For either）</em></td>
-          <td><strong>Low（低）</strong></td>
-          <td><strong>【最終決定：介入または対照のどちらでもよい条件付き推奨（Conditional for either）】</strong><br><strong>理由：</strong> 確実性が低く臨床バランスも中立であり、さらに経済面や実装面（コスト・実行可能性等）でも両者を差別化する決定打がないため。</td>
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース3</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Null / Trivial</strong><br>Balance ＝ どちらにも有利でない（中立）<br>→ 初期方向：<em>どちらでもよい（For either）</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span><strong>Low（低）</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入または対照のどちらでもよい条件付き推奨（Conditional for either）】</strong><br><strong>理由：</strong> 確実性が低く臨床バランスも中立であり、さらに経済面や実装面（コスト・実行可能性等）でも両者を差別化する決定打がないため。</td>
         </tr>
-        <tr>
-          <td><strong>ケース4</strong></td>
-          <td>Net effect ＝ <strong>Small net desirable（小の純利益）</strong><br>Balance ＝ おそらく介入有利<br>→ 初期方向：<em>介入に賛成（For intervention）</em></td>
-          <td><strong>Very low（極めて低）</strong></td>
-          <td><strong>【最終決定：介入に対する条件付き賛成推奨（Conditional for）】</strong><br><strong>理由：</strong> 臨床バランスの好転に加え、<strong>中等度の費用削減（Moderate savings：経済的優位性）</strong>があるが、効果の確実性が極めて低いため条件付き賛成推奨となった。</td>
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース4</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Small net desirable（小の純利益）</strong><br>Balance ＝ おそらく介入有利<br>→ 初期方向：<em>介入に賛成（For intervention）</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span><strong>Very low（極めて低）</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入に対する条件付き賛成推奨（Conditional for）】</strong><br><strong>理由：</strong> 臨床バランスの好転に加え、<strong>中等度の費用削減（Moderate savings：経済的優位性）</strong>があるが、効果の確実性が極めて低いため条件付き賛成推奨となった。</td>
         </tr>
-        <tr>
-          <td><strong>ケース5</strong></td>
-          <td>Net effect ＝ <strong>Null / Trivial</strong><br>Balance ＝ どちらにも有利でない（臨床的中立）<br>→ 初期方向：<em>中立</em></td>
-          <td>（低〜中程度）</td>
-          <td><strong>【最終決定：介入に対する条件付き賛成推奨（Conditional for）】</strong><br><strong>理由：</strong> 臨床効果自体は差がない（Null）ものの、<strong>大きな費用削減（Large savings：強い経済的優位性）</strong>および公平性・価値観上の意義あるトレードオフがあるため、経済性等が決定打となって介入賛成へ傾いた！</td>
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース5</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Null / Trivial</strong><br>Balance ＝ どちらにも有利でない（臨床的中立）<br>→ 初期方向：<em>中立</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span>（低〜中程度）</td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入に対する条件付き賛成推奨（Conditional for）】</strong><br><strong>理由：</strong> 臨床効果自体は差がない（Null）ものの、<strong>大きな費用削減（Large savings：強い経済的優位性）</strong>および公平性・価値観上の意義あるトレードオフがあるため、経済性等が決定打となって介入賛成へ傾いた！</td>
         </tr>
-        <tr>
-          <td><strong>ケース6</strong></td>
-          <td>Net effect ＝ <strong>Moderate net undesirable（中の純害）</strong><br>Balance ＝ 対照群が有利<br>→ 初期方向：<em>介入に反対（Against intervention）</em></td>
-          <td>（低確実性）</td>
-          <td><strong>【最終決定：介入に対する条件付き反対推奨（Conditional against）】</strong><br><strong>理由：</strong> 害とコストの面で対照群が優れており、さらに介入は受容性（Acceptable）も実行可能性（Feasible）も欠いていたため。</td>
+        <tr role="row">
+          <td role="cell"><span class="case-label" aria-hidden="true">比較列</span><strong>ケース6</strong></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 1：臨床的バランス（Net Effect &amp; Balance）からの初期方向</span>Net effect ＝ <strong>Moderate net undesirable（中の純害）</strong><br>Balance ＝ 対照群が有利<br>→ 初期方向：<em>介入に反対（Against intervention）</em></td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 2：エビデンスの確実性（Certainty）</span>（低確実性）</td>
+          <td role="cell"><span class="case-label" aria-hidden="true">Step 3：経済性・公平性・受容性・実行可能性を加味したパネル最終推奨</span><strong>【最終決定：介入に対する条件付き反対推奨（Conditional against）】</strong><br><strong>理由：</strong> 害とコストの面で対照群が優れており、さらに介入は受容性（Acceptable）も実行可能性（Feasible）も欠いていたため。</td>
         </tr>
       </tbody>
     </table>
@@ -505,6 +647,25 @@
         <text x="757" y="163" text-anchor="middle" font-size="11" fill="#64748b">・No recommendation ／ 反対推奨群</text>
         <text x="757" y="185" text-anchor="middle" font-size="10.5" fill="#475569">条件付き推奨の内部を他要因で2階層に細分化</text>
       </svg>
+      <div class="diagram-reading">
+        <p class="diagram-title" style="color:#065f46">MC-EtD 結論フェーズにおける「グループ化」と「グループ内ランキング（階層化推奨）」の3つの実践モデル</p>
+        <div class="diagram-panel" style="--diagram-fill:#ffffff; --diagram-stroke:#10b981; --diagram-heading:#065f46">
+          <h4>事例①：1位〜6位の明示的順位付け</h4>
+          <p><span style="color:#1e293b">複数の「条件付き賛成推奨」薬に対し、</span><span style="color:#1e293b">最も好ましい選択肢から順に</span><span style="color:#b45309"><strong>Rank 1 → Rank 2 → … → Rank 6</strong></span><span style="color:#1e293b">と番号を振り、その順序通りに</span><span style="color:#1e293b">ガイドライン推奨文を配列する。</span></p>
+        </div>
+        <div class="diagram-panel" style="--diagram-fill:#ffffff; --diagram-stroke:#0284c7; --diagram-heading:#0369a1">
+          <h4>事例②：結核感染対策の換気法（★スコア）</h4>
+          <p><span style="color:#1e293b">機械換気・混合換気・自然換気で健康効果</span><span style="color:#1e293b">バランスは同等だったが、資源節約・</span><span style="color:#1e293b">費用対効果・公平性・受容性・実行可能性</span><span style="color:#0284c7"><strong>のグラフィカル★評価で「自然換気」が</strong></span><span style="color:#0284c7"><strong>最多の星を獲得し最優先にランク！</strong></span></p>
+        </div>
+        <div class="diagram-panel" style="--diagram-fill:#ffffff; --diagram-stroke:#7c3aed; --diagram-heading:#5b21b6">
+          <h4>事例③：米国医師会（ACP）ガイドライン</h4>
+          <p style="color:#059669"><strong>・Type 1：強い賛成推奨（第1選択）</strong></p>
+          <p style="color:#2563eb"><strong>・Type 2a：上位の条件付き賛成推奨</strong></p>
+          <p style="color:#0284c7"><strong>・Type 2b：次点の条件付き賛成推奨</strong></p>
+          <p style="color:#64748b">・No recommendation ／ 反対推奨群</p>
+          <p style="color:#475569">条件付き推奨の内部を他要因で2階層に細分化</p>
+        </div>
+      </div>
       <div class="svg-caption">図2：ウェビナー後半で紹介された MC-EtD による優先順位付け（Prioritization）の3つの実例（詳細は GRADE Book にて公開）</div>
     </div>
   </section>
